@@ -1,0 +1,288 @@
+pimcore_data_hub:
+    configurations:
+        UniProductCategoryImport:
+            general:
+                type: dataImporterDataObject
+                name: UniProductCategoryImport
+                description: ''
+                group: ''
+                active: false
+                path: null
+                modificationDate: 1756886610
+                createDate: 1756777080
+            loaderConfig:
+                type: asset
+                settings:
+                    assetPath: '/ImportSampleFiles/Sample Internal Category Import Data.xlsx'
+            interpreterConfig:
+                type: xlsx
+                settings:
+                    skipFirstRow: true
+                    sheetName: Sheet1
+            resolverConfig:
+                elementType: dataObject
+                dataObjectClassId: UNI_PRCI
+                loadingStrategy:
+                    type: attribute
+                    settings:
+                        dataSourceIndex: '0'
+                        attributeName: ghpCode
+                        language: ''
+                        includeUnpublished: true
+                createLocationStrategy:
+                    type: findOrCreateFolder
+                    settings:
+                        dataSourceIndex: '2'
+                        fallbackPath: /
+                locationUpdateStrategy:
+                    type: findOrCreateFolder
+                    settings:
+                        dataSourceIndex: '2'
+                        fallbackPath: /
+                publishingStrategy:
+                    type: noChangeUnpublishNew
+            processingConfig:
+                executionType: parallel
+                idDataIndex: '0'
+                cleanup:
+                    strategy: unpublish
+            mappingConfig:
+                -
+                    label: ghpCode
+                    dataSourceIndex:
+                        - '0'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: ghpCode
+                            language: ''
+                            writeIfTargetIsNotEmpty: false
+                            writeIfSourceIsEmpty: false
+                    transformationPipeline: {  }
+                -
+                    label: 'Name (Type: Input)'
+                    dataSourceIndex:
+                        - '3'
+                    settings:
+                        original: N/A
+                        converted: ''
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: name
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            settings:
+                                original: N/A
+                                converted: ''
+                            type: conditionalConversion
+                -
+                    label: key
+                    dataSourceIndex:
+                        - '1'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: key
+                            language: ''
+                            writeIfTargetIsNotEmpty: false
+                            writeIfSourceIsEmpty: false
+                    transformationPipeline: {  }
+                -
+                    label: 'Headline (Web) (Lang: English)'
+                    dataSourceIndex:
+                        - '4'
+                    settings:
+                        original: N/A
+                        converted: ''
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: levelSpecificData.UniPrSkFhs.headlineWeb
+                            language: en
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            settings:
+                                original: N/A
+                                converted: ''
+                            type: conditionalConversion
+                -
+                    label: 'Headline (Web) (Lang: German)'
+                    dataSourceIndex:
+                        - '5'
+                    settings:
+                        original: N/A
+                        converted: ''
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: levelSpecificData.UniPrSkFhs.headlineWeb
+                            language: de
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            settings:
+                                original: N/A
+                                converted: ''
+                            type: conditionalConversion
+                -
+                    label: 'Resistance to: Abrasion (Type: Select)'
+                    dataSourceIndex:
+                        - '6'
+                    settings:
+                        original: N/A
+                        converted: ''
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: levelSpecificData.UniPrSkFhs.ratingsResistanceToAbrasion
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            settings:
+                                original: N/A
+                                converted: ''
+                            type: conditionalConversion
+                -
+                    label: 'hoseDashSizeHyd (Type: Number)'
+                    dataSourceIndex:
+                        - '7'
+                    settings:
+                        original: N/A
+                        converted: ''
+                    transformationResultType: numeric
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: levelSpecificData.UniPrSkFhs.hoseDashSizeHyd
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            settings:
+                                original: N/A
+                                converted: ''
+                            type: conditionalConversion
+                        -
+                            type: numeric
+                -
+                    label: 'is just temporarily (Type: Checkbox)'
+                    dataSourceIndex:
+                        - '8'
+                    settings:
+                        original: N/A
+                        converted: ''
+                    transformationResultType: boolean
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: levelSpecificData.UniPrSkFhs.isJustTemporarily
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            settings:
+                                original: N/A
+                                converted: ''
+                            type: conditionalConversion
+                        -
+                            type: boolean
+                -
+                    label: 'Outside Diameter (mm) (Type: Quantity Value)'
+                    dataSourceIndex:
+                        - '9'
+                    settings:
+                        original: N/A
+                        converted: ''
+                        delimiter: '  '
+                        unitSourceSelect: abbr
+                        staticUnitSelect: ''
+                        unitNullIfNoValueCheckbox: 'on'
+                    transformationResultType: quantityValue
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: levelSpecificData.UniPrSkFhs.outsideDiameterMetric
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            settings:
+                                original: N/A
+                                converted: ''
+                            type: conditionalConversion
+                        -
+                            settings:
+                                delimiter: '  '
+                            type: explode
+                        -
+                            settings:
+                                unitSourceSelect: abbr
+                                staticUnitSelect: ''
+                                unitNullIfNoValueCheckbox: 'on'
+                            type: quantityValue
+                -
+                    label: 'Reinforcement (Type: Many-To-Many Object Relation)'
+                    dataSourceIndex:
+                        - '10'
+                    settings:
+                        original: N/A
+                        converted: ''
+                        delimiter: ' ,'
+                        loadStrategy: attribute
+                        attributeDataObjectClassId: UNI_PR_FHS_ML_RFT
+                        attributeName: name
+                        attributeLanguage: en
+                        loadUnpublished: 'on'
+                    transformationResultType: dataObjectArray
+                    dataTarget:
+                        type: manyToManyRelation
+                        settings:
+                            fieldName: levelSpecificData.UniPrBrFhs.reinforcement
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                            overwriteMode: replace
+                    transformationPipeline:
+                        -
+                            settings:
+                                original: N/A
+                                converted: ''
+                            type: conditionalConversion
+                        -
+                            settings:
+                                delimiter: ' ,'
+                            type: explode
+                        -
+                            settings:
+                                loadStrategy: attribute
+                                attributeDataObjectClassId: UNI_PR_FHS_ML_RFT
+                                attributeName: name
+                                attributeLanguage: en
+                                loadUnpublished: 'on'
+                            type: loadDataObject
+            executionConfig:
+                scheduleType: recurring
+                cronDefinition: ''
+                scheduledAt: ''
+            permissions:
+                user: {  }
+                role: {  }
+            workspaces: {  }
