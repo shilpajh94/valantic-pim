@@ -1,0 +1,110 @@
+pimcore_data_hub:
+    configurations:
+        UniProductImport:
+            general:
+                type: dataImporterDataObject
+                name: UniProductImport
+                description: ''
+                group: ''
+                active: false
+                path: null
+                modificationDate: 1756886600
+                createDate: 1756777034
+            loaderConfig:
+                type: asset
+                settings:
+                    assetPath: '/ImportSampleFiles/Sample Product Import Data.xlsx'
+            interpreterConfig:
+                type: xlsx
+                settings:
+                    skipFirstRow: true
+                    sheetName: Sheet1
+            resolverConfig:
+                elementType: dataObject
+                dataObjectClassId: UNI_PR
+                loadingStrategy:
+                    type: attribute
+                    settings:
+                        dataSourceIndex: '0'
+                        attributeName: sapMaterialNumber
+                        language: ''
+                        includeUnpublished: true
+                createLocationStrategy:
+                    type: findOrCreateFolder
+                    settings:
+                        dataSourceIndex: '2'
+                        fallbackPath: /
+                locationUpdateStrategy:
+                    type: findOrCreateFolder
+                    settings:
+                        dataSourceIndex: '2'
+                        fallbackPath: /
+                publishingStrategy:
+                    type: noChangeUnpublishNew
+            processingConfig:
+                executionType: parallel
+                idDataIndex: '0'
+                cleanup:
+                    strategy: unpublish
+            mappingConfig:
+                -
+                    label: 'SAP Material Number'
+                    dataSourceIndex:
+                        - '0'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: sapMaterialNumber
+                            language: ''
+                            writeIfTargetIsNotEmpty: false
+                            writeIfSourceIsEmpty: false
+                    transformationPipeline: {  }
+                -
+                    label: key
+                    dataSourceIndex:
+                        - '1'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: key
+                            language: ''
+                            writeIfTargetIsNotEmpty: false
+                            writeIfSourceIsEmpty: false
+                    transformationPipeline: {  }
+                -
+                    label: 'Fitting 1 Type (Type: Many-To-One Relation)'
+                    dataSourceIndex:
+                        - '3'
+                    settings:
+                        loadStrategy: attribute
+                        attributeDataObjectClassId: UNI_PR_FHS_ML_FT
+                        attributeName: name
+                        attributeLanguage: en
+                        loadUnpublished: 'on'
+                    transformationResultType: dataObject
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: productGroupSpecific.UniPrFgFhs.fitting1Type
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            settings:
+                                loadStrategy: attribute
+                                attributeDataObjectClassId: UNI_PR_FHS_ML_FT
+                                attributeName: name
+                                attributeLanguage: en
+                                loadUnpublished: 'on'
+                            type: loadDataObject
+            executionConfig:
+                scheduleType: recurring
+                cronDefinition: ''
+                scheduledAt: ''
+            permissions:
+                user: {  }
+                role: {  }
+            workspaces: {  }

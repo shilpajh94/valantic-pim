@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6b73e7092790a9da05d71cfc85790ac9",
+    "content-hash": "436ecdd604c72fb655ad75221e4dacef",
     "packages": [
         {
             "name": "amnuts/opcache-gui",
@@ -7554,21 +7554,21 @@
         },
         {
             "name": "pimcore/admin-ui-classic-bundle",
-            "version": "v1.4.2",
+            "version": "v1.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pimcore/admin-ui-classic-bundle.git",
-                "reference": "3d20dc8a93256c48935308f8bdd597d06074252c"
+                "reference": "f80424fd38f3ceafa01a06c4b1be54076602986c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pimcore/admin-ui-classic-bundle/zipball/3d20dc8a93256c48935308f8bdd597d06074252c",
-                "reference": "3d20dc8a93256c48935308f8bdd597d06074252c",
+                "url": "https://api.github.com/repos/pimcore/admin-ui-classic-bundle/zipball/f80424fd38f3ceafa01a06c4b1be54076602986c",
+                "reference": "f80424fd38f3ceafa01a06c4b1be54076602986c",
                 "shasum": ""
             },
             "require": {
                 "cbschuld/browser.php": "^1.9.6",
-                "pimcore/pimcore": "^11.2.0",
+                "pimcore/pimcore": "~11.2.0",
                 "symfony/webpack-encore-bundle": "^1.13.2"
             },
             "require-dev": {
@@ -7599,9 +7599,9 @@
             ],
             "support": {
                 "issues": "https://github.com/pimcore/admin-ui-classic-bundle/issues",
-                "source": "https://github.com/pimcore/admin-ui-classic-bundle/tree/v1.4.2"
+                "source": "https://github.com/pimcore/admin-ui-classic-bundle/tree/v1.4.5"
             },
-            "time": "2024-04-24T12:29:00+00:00"
+            "time": "2024-07-02T10:14:27+00:00"
         },
         {
             "name": "pimcore/bundle-generator",
@@ -7680,16 +7680,16 @@
         },
         {
             "name": "pimcore/data-hub",
-            "version": "v1.9.3",
+            "version": "v1.9.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pimcore/data-hub.git",
-                "reference": "16b1a6e06d601a13f3fcd689436c84c66d3cf337"
+                "reference": "d5619f34c6c1c0dfdc77230b3e77a4e5e75fa96a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pimcore/data-hub/zipball/16b1a6e06d601a13f3fcd689436c84c66d3cf337",
-                "reference": "16b1a6e06d601a13f3fcd689436c84c66d3cf337",
+                "url": "https://api.github.com/repos/pimcore/data-hub/zipball/d5619f34c6c1c0dfdc77230b3e77a4e5e75fa96a",
+                "reference": "d5619f34c6c1c0dfdc77230b3e77a4e5e75fa96a",
                 "shasum": ""
             },
             "require": {
@@ -7731,9 +7731,9 @@
             "description": "Pimcore Datahub",
             "support": {
                 "issues": "https://github.com/pimcore/data-hub/issues",
-                "source": "https://github.com/pimcore/data-hub/tree/v1.9.3"
+                "source": "https://github.com/pimcore/data-hub/tree/v1.9.4"
             },
-            "time": "2025-03-05T09:09:16+00:00"
+            "time": "2025-05-14T12:06:57+00:00"
         },
         {
             "name": "pimcore/data-importer",
