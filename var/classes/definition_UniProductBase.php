@@ -55,6 +55,7 @@
  * - ghpFullCode [input]
  * - skeletonPimInternalHierarchyCode [calculatedValue]
  * - hierarchySearchData [calculatedValue]
+ * - approvalState [input]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -64,7 +65,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1756297767,
+   'modificationDate' => 1757502633,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -3137,7 +3138,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          6 => 
+          5 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'productWorkflow',
              'type' => NULL,

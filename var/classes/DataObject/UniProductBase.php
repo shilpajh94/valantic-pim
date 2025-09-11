@@ -54,6 +54,7 @@
  * - ghpFullCode [input]
  * - skeletonPimInternalHierarchyCode [calculatedValue]
  * - hierarchySearchData [calculatedValue]
+ * - approvalState [input]
  */
 
 namespace Pimcore\Model\DataObject;
@@ -101,6 +102,7 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByRegionalAvailability(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByInternalCategories(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByGhpFullCode(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByApprovalState(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 */
 
 class UniProductBase extends \App\Model\DataObject\AbstractUniProductBase
@@ -153,6 +155,7 @@ public const FIELD_INTERNAL_CATEGORIES = 'internalCategories';
 public const FIELD_GHP_FULL_CODE = 'ghpFullCode';
 public const FIELD_SKELETON_PIM_INTERNAL_HIERARCHY_CODE = 'skeletonPimInternalHierarchyCode';
 public const FIELD_HIERARCHY_SEARCH_DATA = 'hierarchySearchData';
+public const FIELD_APPROVAL_STATE = 'approvalState';
 
 protected $classId = "UNI_PR";
 protected $className = "UniProductBase";
@@ -183,6 +186,7 @@ protected $customerPortalFlag;
 protected $regionalAvailability;
 protected $internalCategories;
 protected $ghpFullCode;
+protected $approvalState;
 
 
 /**
@@ -1870,6 +1874,42 @@ public function getHierarchySearchData(): mixed
 	$data = \Pimcore\Model\DataObject\Service::getCalculatedFieldValue($object, $data);
 
 	return $data;
+}
+
+/**
+* Get approvalState - Approval State
+* @return string|null
+*/
+public function getApprovalState(): ?string
+{
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("approvalState");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	$data = $this->approvalState;
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set approvalState - Approval State
+* @param string|null $approvalState
+* @return $this
+*/
+public function setApprovalState(?string $approvalState): static
+{
+	$this->markFieldDirty("approvalState", true);
+
+	$this->approvalState = $approvalState;
+
+	return $this;
 }
 
 }

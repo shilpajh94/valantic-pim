@@ -40,10 +40,15 @@ services:
         resource: '../src/Command'
         tags: [ 'console.command' ]
 
-    App\EventListener\ProductWorkflowEventListener:
+    App\Service\UniProductVersionService:
+        arguments:
+            $logger: '@logger'
+
+    App\EventListener\UniProductWorkflowEventListener:
         arguments:
             $logger: '@logger'
             $workflowRegistry: '@workflow.registry'
+            $uniProductVersionService: '@App\Service\UniProductVersionService'
         tags:
             - { name: kernel.event_subscriber }
 
