@@ -39,7 +39,7 @@ class UniProductWorkflowEventListener implements EventSubscriberInterface
     }
 
     /**
-     * Handle approved products being edited, set them back to draft
+     * Handle approved products being edited, set them back to draft.
      */
     public function onPreUpdate(DataObjectEvent $event): void
     {
@@ -56,10 +56,10 @@ class UniProductWorkflowEventListener implements EventSubscriberInterface
         }
         self::$processedObjects[$objectKey] = true;
 
-
         try {
             // Get the current state of the object before update
             $oldObject = UniProductBase::getById($object->getId(), ['force' => true]);
+
             if (!$oldObject instanceof UniProductBase) {
                 unset(self::$processedObjects[$objectKey]);
 
@@ -86,9 +86,10 @@ class UniProductWorkflowEventListener implements EventSubscriberInterface
             ]);
             // Only apply draft transition if the object is not a version copy
             $versionBasePath = '/UniProductVersion';
+
             if (
-                strpos($object->getFullPath(), $versionBasePath) === false &&
-                $currentPlace === ProductApprovalWorkflowPlace::APPROVED->value
+                !str_contains($object->getFullPath(), $versionBasePath)
+                && $currentPlace === ProductApprovalWorkflowPlace::APPROVED->value
             ) {
                 if ($this->hasAnyChanges($oldObject, $object)) {
                     $newWorkflow = $this->workflowRegistry->get($object, 'product_approval');
@@ -129,7 +130,7 @@ class UniProductWorkflowEventListener implements EventSubscriberInterface
     }
 
     /**
-     * Handle workflow completion for approval, create copy when approved
+     * Handle workflow completion for approval, create copy when approved.
      */
     public function onApprovalCompleted(CompletedEvent $event): void
     {
@@ -154,7 +155,7 @@ class UniProductWorkflowEventListener implements EventSubscriberInterface
 
             $existingCopy = $this->uniProductVersionService->getVersionCopyForProduct($subject);
 
-            if ($existingCopy) {
+            if ($existingCopy instanceof UniProductBase) {
                 $this->logger->info('Updating existing version copy', [
                     'productId' => $subject->getId(),
                     'existingCopyId' => $existingCopy->getId(),

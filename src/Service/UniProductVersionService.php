@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\AbstractObject;
+use Pimcore\Model\DataObject\Concrete;
+use Pimcore\Model\DataObject\UniProductBase;
 use Psr\Log\LoggerInterface;
 
 class UniProductVersionService
@@ -18,7 +19,7 @@ class UniProductVersionService
     }
 
     /**
-     * Create a new version copy
+     * Create a new version copy.
      */
     public function createVersionCopy(UniProductBase $product): void
     {
@@ -58,7 +59,7 @@ class UniProductVersionService
             $cloned->setProperty('version_created_at', 'date', \Carbon\Carbon::now());
             $cloned->setProperty('version_reason', 'text', 'approved_snapshot');
 
-            $categoryIds = $hierarchy ? array_map(fn($cat) => $cat->getId(), $hierarchy) : [];
+            $categoryIds = $hierarchy !== [] ? array_map(fn ($cat): ?int => $cat->getId(), $hierarchy) : [];
             $cloned->setProperty('original_category_ids', 'text', json_encode($categoryIds));
 
             $cloned->save(['validate' => false]);
@@ -82,7 +83,7 @@ class UniProductVersionService
     }
 
     /**
-     * Update existing version copy with current product data
+     * Update existing version copy with current product data.
      */
     public function updateVersionCopy(UniProductBase $product, UniProductBase $existingCopy): void
     {
@@ -93,7 +94,7 @@ class UniProductVersionService
 
         try {
             $hierarchy = $this->extractCategoryHierarchy($product);
-            $currentCategoryIds = $hierarchy ? array_map(fn($cat) => $cat->getId(), $hierarchy) : [];
+            $currentCategoryIds = $hierarchy !== [] ? array_map(fn ($cat): ?int => $cat->getId(), $hierarchy) : [];
 
             $originalCategoryIds = $existingCopy->getProperty('original_category_ids');
             $originalCategoryIds = $originalCategoryIds ? json_decode($originalCategoryIds, true) : [];
@@ -116,9 +117,11 @@ class UniProductVersionService
                 $existingCopy->setProperty('original_category_ids', 'text', json_encode($currentCategoryIds));
             } else {
                 $clonedHierarchy = $this->extractCategoryHierarchy($existingCopy);
+
                 if (count($clonedHierarchy) === count($hierarchy)) {
                     foreach ($hierarchy as $index => $originalCat) {
                         $clonedCat = $clonedHierarchy[$index];
+
                         if ($this->hasAnyChanges($originalCat, $clonedCat)) {
                             $this->copyObjectData($originalCat, $clonedCat);
                             $this->logger->info('Updated cloned category', [
@@ -132,7 +135,7 @@ class UniProductVersionService
 
             $this->copyObjectData($product, $existingCopy);
 
-            $existingCopy->setProperty('version_updated_at', 'date', new \DateTime());
+            $existingCopy->setProperty('version_updated_at', 'date', \Carbon\Carbon::now());
             $existingCopy->setProperty('version_reason', 'text', 'approved_snapshot_updated');
 
             $existingCopy->save(['validate' => false]);
@@ -147,6 +150,7 @@ class UniProductVersionService
                 'copyId' => $existingCopy->getId(),
                 'error' => $e->getMessage(),
             ]);
+
             throw $e;
         }
     }
@@ -172,6 +176,9 @@ class UniProductVersionService
         return (string) $oldValue === (string) $newValue;
     }
 
+    /**
+     * @return array<AbstractObject>
+     */
     public function extractCategoryHierarchy(AbstractObject $object): array
     {
         $hierarchy = [];
@@ -195,13 +202,15 @@ class UniProductVersionService
             $versionBasePath = $basePath . '/UniProductVersion';
 
             $hierarchy = $this->extractCategoryHierarchy($product);
-            $categoryPath = $hierarchy ? array_map(fn($cat) => $this->sanitizePathSegment($cat->getKey()), $hierarchy) : [];
-            if ($categoryPath) {
+            $categoryPath = $hierarchy !== [] ? array_map(fn ($cat): string => $this->sanitizePathSegment($cat->getKey()), $hierarchy) : [];
+
+            if ($categoryPath !== []) {
                 $categoryBasedPath = $versionBasePath . '/' . implode('/', $categoryPath) . '/' . $product->getKey();
                 $copy = \Pimcore\Model\DataObject::getByPath($categoryBasedPath);
 
                 if ($copy instanceof UniProductBase) {
                     $originalId = $copy->getProperty('original_product_id');
+
                     if ($originalId === (string) $product->getId()) {
                         return $copy;
                     }
@@ -213,15 +222,16 @@ class UniProductVersionService
 
             if ($copy instanceof UniProductBase) {
                 $originalId = $copy->getProperty('original_product_id');
+
                 if ($originalId === (string) $product->getId()) {
                     return $copy;
                 }
             }
 
             $listing = new \Pimcore\Model\DataObject\Listing();
-            $listing->setCondition("o_path LIKE ? AND properties LIKE ?", [
+            $listing->setCondition('o_path LIKE ? AND properties LIKE ?', [
                 $versionBasePath . '%',
-                '%original_product_id%' . $product->getId() . '%'
+                '%original_product_id%' . $product->getId() . '%',
             ]);
             $listing->setLimit(1);
             $results = $listing->load();
@@ -264,6 +274,8 @@ class UniProductVersionService
 
     /**
      * Create cloned category structure in version path.
+     *
+     * @param array<AbstractObject> $hierarchy
      */
     private function createClonedCategoryStructure(array $hierarchy, string $basePath): AbstractObject
     {
@@ -288,6 +300,7 @@ class UniProductVersionService
                 $clonedCat->setParentId($currentTarget->getId());
                 $clonedCat->setProperty('is_version_copy', 'boolean', true);
                 $clonedCat->setProperty('original_id', 'text', (string) $originalCat->getId());
+
                 if (method_exists($clonedCat, 'setChildren')) {
                     $clonedCat->setChildren(null);
                 }
@@ -315,7 +328,7 @@ class UniProductVersionService
         $sanitized = trim($sanitized);
         $sanitized = preg_replace('/\s+/', '_', $sanitized);
 
-        return $sanitized ?: 'Unknown';
+        return $sanitized !== '' && $sanitized !== '0' && $sanitized !== [] ? $sanitized : 'Unknown';
     }
 
     /**
@@ -349,10 +362,15 @@ class UniProductVersionService
     }
 
     /**
-     * Copy data from one object to another
+     * Copy data from one object to another.
      */
     private function copyObjectData(AbstractObject $from, AbstractObject $to): void
     {
+        // Type check to ensure we're working with Concrete objects that have getClassId() and getClass()
+        if (!$from instanceof Concrete || !$to instanceof Concrete) {
+            throw new \Exception('Cannot copy data - objects must be instances of Concrete');
+        }
+
         if ($from->getClassId() !== $to->getClassId()) {
             throw new \Exception('Cannot copy data between objects of different classes');
         }
@@ -360,6 +378,7 @@ class UniProductVersionService
         $to->setProperties($from->getProperties());
 
         $fieldDefinitions = $from->getClass()->getFieldDefinitions();
+
         foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
             try {
                 $getter = 'get' . ucfirst($fieldName);
@@ -367,6 +386,7 @@ class UniProductVersionService
 
                 if (method_exists($from, $getter) && method_exists($to, $setter)) {
                     $value = $from->$getter();
+
                     if (is_object($value)) {
                         $value = clone $value;
                     }
@@ -387,6 +407,11 @@ class UniProductVersionService
     {
         if (serialize($oldObject->getProperties()) !== serialize($newObject->getProperties())) {
             return true;
+        }
+
+        // Type check to ensure we're working with Concrete objects that have getClass()
+        if (!$oldObject instanceof Concrete || !$newObject instanceof Concrete) {
+            return true; // Assume changes if we can't compare properly
         }
 
         $fieldDefinitions = $oldObject->getClass()->getFieldDefinitions();
