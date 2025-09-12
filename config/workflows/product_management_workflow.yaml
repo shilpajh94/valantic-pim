@@ -105,7 +105,7 @@ pimcore:
           options:
             label: 'Approve Product'
             notes:
-              title: 'Approval Notes'
+              title: 'Approval notes'
               commentEnabled: true
               commentRequired: false
             changePublishedState: 'force_published'
@@ -123,7 +123,7 @@ pimcore:
           options:
             label: 'Archive Product'
             notes:
-              title: 'Archive Notes'
+              title: 'Archive notes'
               commentEnabled: true
               commentRequired: false
             changePublishedState: 'no_change'
@@ -134,7 +134,7 @@ pimcore:
           options:
             label: 'Emergency Unpublish'
             notes:
-              title: 'Reason for Emergency Unpublish'
+              title: 'Reason for emergency unpublish'
               commentEnabled: true
               commentRequired: false
             changePublishedState: 'force_unpublished'
