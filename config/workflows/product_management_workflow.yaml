@@ -13,9 +13,9 @@ pimcore:
           label: 'Created'
           color: '#ffcc00'
           permissions:
-            - modify: false
+            - modify: true
               unpublish: false
-              delete: false
+              delete: true
               view: true
               publish: false
               save: true
@@ -33,7 +33,7 @@ pimcore:
           label: 'Approved'
           color: '#00cc00'
           permissions:
-            - modify: false
+            - modify: true
               unpublish: true
               delete: false
               view: true
