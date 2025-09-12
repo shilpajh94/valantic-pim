@@ -11,6 +11,7 @@
  * - categoryLevel [select]
  * - level [calculatedValue]
  * - pimInternalHierarchyCode [calculatedValue]
+ * - assignedUser [user]
  * - levelSpecificData [objectbricks]
  */
 
@@ -21,7 +22,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Internal Category',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1756297765,
+   'modificationDate' => 1757676895,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductCategoryInternal',
@@ -229,7 +230,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'calculatorExpression' => '',
                      'calculatorClass' => 'App\\Model\\CalculatedValue\\UniProductManagement\\UniProductCategoryLevel',
                      'columnLength' => 190,
-                     'width' => '',
+                     'width' => 300,
                   )),
                   1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
@@ -255,7 +256,37 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'calculatorExpression' => '',
                      'calculatorClass' => 'App\\Model\\CalculatedValue\\UniProductManagement\\UniProductCategoryFullCode',
                      'columnLength' => 190,
-                     'width' => '250px',
+                     'width' => 300,
+                  )),
+                  2 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\User::__set_state(array(
+                     'name' => 'assignedUser',
+                     'title' => 'Assigned User',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => 'margin-left:20px;',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'options' => NULL,
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'dynamicOptions' => false,
+                     'defaultValueGenerator' => '',
+                     'width' => NULL,
+                     'optionsProviderType' => NULL,
+                     'optionsProviderClass' => NULL,
+                     'optionsProviderData' => NULL,
+                     'unique' => false,
                   )),
                 ),
                  'locked' => false,
