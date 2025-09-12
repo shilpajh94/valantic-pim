@@ -7,79 +7,37 @@ namespace App\Service;
 use Pimcore\Model\DataObject\AbstractObject;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\UniProductBase;
-use Psr\Log\LoggerInterface;
 
 class UniProductVersionService
 {
-    private LoggerInterface $logger;
-
-    public function __construct(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
-    }
-
     /**
      * Create a new version copy.
      */
     public function createVersionCopy(UniProductBase $product): void
     {
-        $this->logger->info('=== Creating new version copy ===', [
-            'productId' => $product->getId(),
-            'productKey' => $product->getKey(),
-        ]);
+        $hierarchy = $this->extractCategoryHierarchy($product);
+        $basePath = $hierarchy[0]->getPath();
+        $versionBasePath = $basePath . 'UniProductVersion';
+        $originalKey = $product->getKey();
+        $targetFolder = $this->createClonedCategoryStructure($hierarchy, $versionBasePath, $basePath);
+        $existingCopyPath = $targetFolder->getFullPath() . '/' . $originalKey;
+        $existingCopy = \Pimcore\Model\DataObject::getByPath($existingCopyPath);
 
-        try {
-            $basePath = $this->extractCategoryHierarchy($product)[0]->getPath();
-            $versionBasePath = $basePath . '/UniProductVersion';
-            $originalKey = $product->getKey();
-
-            $hierarchy = $this->extractCategoryHierarchy($product);
-
-            $targetFolder = $this->createClonedCategoryStructure($hierarchy, $versionBasePath);
-
-            $existingCopyPath = $targetFolder->getFullPath() . '/' . $originalKey;
-            $existingCopy = \Pimcore\Model\DataObject::getByPath($existingCopyPath);
-
-            if ($existingCopy instanceof \Pimcore\Model\DataObject) {
-                $this->logger->info('Removing existing copy with same key in category path', [
-                    'existingCopyId' => $existingCopy->getId(),
-                    'key' => $originalKey,
-                    'path' => $existingCopyPath,
-                ]);
-                $existingCopy->delete();
-            }
-
-            // Clone the product
-            $cloned = clone $product;
-            $cloned->setId(null);
-            $cloned->setKey($originalKey);
-            $cloned->setParentId($targetFolder->getId());
-            $cloned->setProperty('is_version_copy', 'boolean', true);
-            $cloned->setProperty('original_product_id', 'text', (string) $product->getId());
-            $cloned->setProperty('version_created_at', 'date', \Carbon\Carbon::now());
-            $cloned->setProperty('version_reason', 'text', 'approved_snapshot');
-
-            $categoryIds = $hierarchy !== [] ? array_map(fn ($cat): ?int => $cat->getId(), $hierarchy) : [];
-            $cloned->setProperty('original_category_ids', 'text', json_encode($categoryIds));
-
-            $cloned->save(['validate' => false]);
-
-            $this->logger->info('=== Version copy created successfully ===', [
-                'originalId' => $product->getId(),
-                'clonedId' => $cloned->getId(),
-                'key' => $originalKey,
-                'path' => $cloned->getFullPath(),
-                'categoryIds' => $categoryIds,
-            ]);
-        } catch (\Exception $e) {
-            $this->logger->error('Error creating version copy', [
-                'productId' => $product->getId(),
-                'error' => $e->getMessage(),
-                'stackTrace' => $e->getTraceAsString(),
-            ]);
-
-            throw $e;
+        if ($existingCopy instanceof \Pimcore\Model\DataObject) {
+            $existingCopy->delete();
         }
+        // Clone the product
+        $cloned = clone $product;
+        $cloned->setId(null);
+        $cloned->setKey($originalKey);
+        $cloned->setParentId($targetFolder->getId());
+        $cloned->setProperty('is_version_copy', 'boolean', true);
+        $cloned->setProperty('original_product_id', 'text', (string) $product->getId());
+        $cloned->setProperty('version_created_at', 'date', \Carbon\Carbon::now());
+        $cloned->setProperty('version_reason', 'text', 'approved_snapshot');
+        $categoryIds = $hierarchy !== [] ? array_map(fn ($cat): ?int => $cat->getId(), $hierarchy) : [];
+        $cloned->setProperty('original_category_ids', 'text', json_encode($categoryIds));
+        $cloned->save(['validate' => false]);
     }
 
     /**
@@ -87,72 +45,35 @@ class UniProductVersionService
      */
     public function updateVersionCopy(UniProductBase $product, UniProductBase $existingCopy): void
     {
-        $this->logger->info('=== Updating existing version copy ===', [
-            'productId' => $product->getId(),
-            'existingCopyId' => $existingCopy->getId(),
-        ]);
+        $hierarchy = $this->extractCategoryHierarchy($product);
+        $basePath = $hierarchy[0]->getPath();
+        $versionBasePath = $basePath . 'UniProductVersion';
+        $currentCategoryIds = $hierarchy !== [] ? array_map(fn ($cat): ?int => $cat->getId(), $hierarchy) : [];
+        $originalCategoryIds = $existingCopy->getProperty('original_category_ids');
+        $originalCategoryIds = $originalCategoryIds ? json_decode($originalCategoryIds, true) : [];
+        $hasCategoryChanged = json_encode($originalCategoryIds) !== json_encode($currentCategoryIds);
 
-        try {
-            $hierarchy = $this->extractCategoryHierarchy($product);
-            $currentCategoryIds = $hierarchy !== [] ? array_map(fn ($cat): ?int => $cat->getId(), $hierarchy) : [];
+        if ($hasCategoryChanged) {
+            $newTargetFolder = $this->createClonedCategoryStructure($hierarchy, $versionBasePath, $basePath);
+            $existingCopy->setParentId($newTargetFolder->getId());
+            $existingCopy->setProperty('original_category_ids', 'text', json_encode($currentCategoryIds));
+        } else {
+            $clonedHierarchy = $this->extractCategoryHierarchy($existingCopy);
 
-            $originalCategoryIds = $existingCopy->getProperty('original_category_ids');
-            $originalCategoryIds = $originalCategoryIds ? json_decode($originalCategoryIds, true) : [];
+            if (count($clonedHierarchy) === count($hierarchy)) {
+                foreach ($hierarchy as $index => $originalCat) {
+                    $clonedCat = $clonedHierarchy[$index];
 
-            $basePath = $this->extractCategoryHierarchy($product)[0]->getPath();
-            $versionBasePath = $basePath . '/UniProductVersion';
-
-            $hasCategoryChanged = json_encode($originalCategoryIds) !== json_encode($currentCategoryIds);
-
-            if ($hasCategoryChanged) {
-                $this->logger->info('Category hierarchy changed, moving version copy', [
-                    'productId' => $product->getId(),
-                    'oldIds' => $originalCategoryIds,
-                    'newIds' => $currentCategoryIds,
-                ]);
-
-                $newTargetFolder = $this->createClonedCategoryStructure($hierarchy, $versionBasePath);
-
-                $existingCopy->setParentId($newTargetFolder->getId());
-                $existingCopy->setProperty('original_category_ids', 'text', json_encode($currentCategoryIds));
-            } else {
-                $clonedHierarchy = $this->extractCategoryHierarchy($existingCopy);
-
-                if (count($clonedHierarchy) === count($hierarchy)) {
-                    foreach ($hierarchy as $index => $originalCat) {
-                        $clonedCat = $clonedHierarchy[$index];
-
-                        if ($this->hasAnyChanges($originalCat, $clonedCat)) {
-                            $this->copyObjectData($originalCat, $clonedCat);
-                            $this->logger->info('Updated cloned category', [
-                                'originalCatId' => $originalCat->getId(),
-                                'clonedCatId' => $clonedCat->getId(),
-                            ]);
-                        }
+                    if ($this->hasAnyChanges($originalCat, $clonedCat)) {
+                        $this->copyObjectData($originalCat, $clonedCat);
                     }
                 }
             }
-
-            $this->copyObjectData($product, $existingCopy);
-
-            $existingCopy->setProperty('version_updated_at', 'date', \Carbon\Carbon::now());
-            $existingCopy->setProperty('version_reason', 'text', 'approved_snapshot_updated');
-
-            $existingCopy->save(['validate' => false]);
-
-            $this->logger->info('=== Version copy updated successfully ===', [
-                'productId' => $product->getId(),
-                'copyId' => $existingCopy->getId(),
-            ]);
-        } catch (\Exception $e) {
-            $this->logger->error('Error updating version copy', [
-                'productId' => $product->getId(),
-                'copyId' => $existingCopy->getId(),
-                'error' => $e->getMessage(),
-            ]);
-
-            throw $e;
         }
+        $this->copyObjectData($product, $existingCopy);
+        $existingCopy->setProperty('version_updated_at', 'date', \Carbon\Carbon::now());
+        $existingCopy->setProperty('version_reason', 'text', 'approved_snapshot_updated');
+        $existingCopy->save(['validate' => false]);
     }
 
     public function valuesAreEqual(mixed $oldValue, mixed $newValue): bool
@@ -198,10 +119,9 @@ class UniProductVersionService
     public function getVersionCopyForProduct(UniProductBase $product): ?UniProductBase
     {
         try {
-            $basePath = $this->extractCategoryHierarchy($product)[0]->getPath();
-            $versionBasePath = $basePath . '/UniProductVersion';
-
             $hierarchy = $this->extractCategoryHierarchy($product);
+            $basePath = $hierarchy[0]->getPath();
+            $versionBasePath = $basePath . 'UniProductVersion';
             $categoryPath = $hierarchy !== [] ? array_map(fn ($cat): string => $this->sanitizePathSegment($cat->getKey()), $hierarchy) : [];
 
             if ($categoryPath !== []) {
@@ -242,34 +162,8 @@ class UniProductVersionService
 
             return null;
         } catch (\Exception $e) {
-            $this->logger->error('Error retrieving version copy', [
-                'productId' => $product->getId(),
-                'error' => $e->getMessage(),
-            ]);
-
             return null;
         }
-    }
-
-    public function getLoggableValue(mixed $value): string
-    {
-        if ($value === null) {
-            return 'null';
-        }
-
-        if ($value instanceof \DateTime) {
-            return $value->format('Y-m-d H:i:s');
-        }
-
-        if (is_object($value)) {
-            return $value::class . ' object';
-        }
-
-        if (is_array($value)) {
-            return 'array with ' . count($value) . ' items';
-        }
-
-        return (string) $value;
     }
 
     /**
@@ -277,9 +171,9 @@ class UniProductVersionService
      *
      * @param array<AbstractObject> $hierarchy
      */
-    private function createClonedCategoryStructure(array $hierarchy, string $basePath): AbstractObject
+    private function createClonedCategoryStructure(array $hierarchy, string $versionBasePath, string $basePath): AbstractObject
     {
-        $baseFolder = $this->ensureVersionFolderExists($basePath);
+        $baseFolder = $this->ensureVersionFolderExists($versionBasePath, $basePath);
         $currentTarget = $baseFolder;
 
         foreach ($hierarchy as $originalCat) {
@@ -305,12 +199,6 @@ class UniProductVersionService
                     $clonedCat->setChildren(null);
                 }
                 $clonedCat->save();
-
-                $this->logger->info('Cloned category in version path', [
-                    'originalId' => $originalCat->getId(),
-                    'clonedId' => $clonedCat->getId(),
-                    'path' => $potentialPath,
-                ]);
             }
 
             $currentTarget = $clonedCat;
@@ -334,28 +222,21 @@ class UniProductVersionService
     /**
      * Ensure the version folder exists.
      */
-    private function ensureVersionFolderExists(string $versionBasePath): \Pimcore\Model\DataObject\Folder
+    private function ensureVersionFolderExists(string $versionBasePath, string $basePath): \Pimcore\Model\DataObject\Folder
     {
         $parentFolder = \Pimcore\Model\DataObject::getByPath($versionBasePath);
 
         if (!$parentFolder instanceof \Pimcore\Model\DataObject\Folder) {
-            $this->logger->info('Version folder does not exist, creating it...');
-
-            $productsFolder = \Pimcore\Model\DataObject::getByPath('/Unified PIM/Product Management/Products');
+            $productsFolder = \Pimcore\Model\DataObject::getByPath($basePath);
 
             if (!$productsFolder instanceof \Pimcore\Model\DataObject) {
-                throw new \Exception('Products folder not found at path: /Unified PIM/Product Management/Products');
+                throw new \Exception('Products folder not found at path');
             }
 
             $parentFolder = new \Pimcore\Model\DataObject\Folder();
             $parentFolder->setKey('UniProductVersion');
             $parentFolder->setParentId($productsFolder->getId());
             $parentFolder->save();
-
-            $this->logger->info('Successfully created UniProductVersion folder', [
-                'path' => $versionBasePath,
-                'folderId' => $parentFolder->getId(),
-            ]);
         }
 
         return $parentFolder;
@@ -380,23 +261,16 @@ class UniProductVersionService
         $fieldDefinitions = $from->getClass()->getFieldDefinitions();
 
         foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
-            try {
-                $getter = 'get' . ucfirst($fieldName);
-                $setter = 'set' . ucfirst($fieldName);
+            $getter = 'get' . ucfirst($fieldName);
+            $setter = 'set' . ucfirst($fieldName);
 
-                if (method_exists($from, $getter) && method_exists($to, $setter)) {
-                    $value = $from->$getter();
+            if (method_exists($from, $getter) && method_exists($to, $setter)) {
+                $value = $from->$getter();
 
-                    if (is_object($value)) {
-                        $value = clone $value;
-                    }
-                    $to->$setter($value);
+                if (is_object($value)) {
+                    $value = clone $value;
                 }
-            } catch (\Exception $e) {
-                $this->logger->warning('Failed to copy field during update', [
-                    'field' => $fieldName,
-                    'error' => $e->getMessage(),
-                ]);
+                $to->$setter($value);
             }
         }
 
@@ -420,18 +294,11 @@ class UniProductVersionService
             $getter = 'get' . ucfirst($fieldName);
 
             if (method_exists($oldObject, $getter) && method_exists($newObject, $getter)) {
-                try {
-                    $oldValue = $oldObject->$getter();
-                    $newValue = $newObject->$getter();
+                $oldValue = $oldObject->$getter();
+                $newValue = $newObject->$getter();
 
-                    if (!$this->valuesAreEqual($oldValue, $newValue)) {
-                        return true;
-                    }
-                } catch (\Exception $e) {
-                    $this->logger->warning('Could not compare field values', [
-                        'field' => $fieldName,
-                        'error' => $e->getMessage(),
-                    ]);
+                if (!$this->valuesAreEqual($oldValue, $newValue)) {
+                    return true;
                 }
             }
         }
