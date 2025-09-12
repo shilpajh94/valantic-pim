@@ -247,8 +247,7 @@ class UniProductVersionService
      */
     private function copyObjectData(UniProductBase|UniProductCategoryInternal $from, UniProductBase|UniProductCategoryInternal $to): void
     {
-        // Type check to ensure we're working with Concrete objects that have getClassId() and getClass()
-        if (!$from instanceof Concrete || !$to instanceof Concrete) {
+        if (!$to instanceof Concrete) {
             throw new \Exception('Cannot copy data - objects must be instances of Concrete');
         }
 
@@ -281,11 +280,6 @@ class UniProductVersionService
     {
         if (serialize($oldObject->getProperties()) !== serialize($newObject->getProperties())) {
             return true;
-        }
-
-        // Type check to ensure we're working with Concrete objects that have getClass()
-        if (!$oldObject instanceof Concrete || !$newObject instanceof Concrete) {
-            return true; // Assume changes if we can't compare properly
         }
 
         $fieldDefinitions = $oldObject->getClass()->getFieldDefinitions();
