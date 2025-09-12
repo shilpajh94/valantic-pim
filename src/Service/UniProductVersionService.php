@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use Pimcore\Model\DataObject\AbstractObject;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\UniProductBase;
+use Pimcore\Model\DataObject\UniProductCategoryInternal;
 
 class UniProductVersionService
 {
@@ -98,14 +98,14 @@ class UniProductVersionService
     }
 
     /**
-     * @return array<AbstractObject>
+     * @return array<UniProductCategoryInternal>
      */
-    public function extractCategoryHierarchy(AbstractObject $object): array
+    public function extractCategoryHierarchy(UniProductBase $object): array
     {
         $hierarchy = [];
         $current = $object->getParent();
 
-        while ($current instanceof AbstractObject && $current->getKey() !== 'Products') {
+        while ($current instanceof UniProductCategoryInternal) {
             $hierarchy[] = $current;
             $current = $current->getParent();
         }
@@ -169,15 +169,15 @@ class UniProductVersionService
     /**
      * Create cloned category structure in version path.
      *
-     * @param array<AbstractObject> $hierarchy
+     * @param array<UniProductCategoryInternal> $hierarchy
      */
-    private function createClonedCategoryStructure(array $hierarchy, string $versionBasePath, string $basePath): AbstractObject
+    private function createClonedCategoryStructure(array $hierarchy, string $versionBasePath, string $basePath): UniProductCategoryInternal
     {
         $baseFolder = $this->ensureVersionFolderExists($versionBasePath, $basePath);
         $currentTarget = $baseFolder;
 
         foreach ($hierarchy as $originalCat) {
-            if (!$originalCat instanceof AbstractObject) {
+            if (!$originalCat instanceof UniProductCategoryInternal) {
                 throw new \Exception('Invalid category object in hierarchy');
             }
 
@@ -187,7 +187,7 @@ class UniProductVersionService
             $potentialPath = $currentTarget->getFullPath() . '/' . $catKey;
             $clonedCat = \Pimcore\Model\DataObject::getByPath($potentialPath);
 
-            if (!$clonedCat instanceof AbstractObject) {
+            if (!$clonedCat instanceof UniProductCategoryInternal) {
                 $clonedCat = clone $originalCat;
                 $clonedCat->setId(null);
                 $clonedCat->setKey($catKey);
@@ -245,7 +245,7 @@ class UniProductVersionService
     /**
      * Copy data from one object to another.
      */
-    private function copyObjectData(AbstractObject $from, AbstractObject $to): void
+    private function copyObjectData(UniProductBase|UniProductCategoryInternal $from, UniProductBase|UniProductCategoryInternal $to): void
     {
         // Type check to ensure we're working with Concrete objects that have getClassId() and getClass()
         if (!$from instanceof Concrete || !$to instanceof Concrete) {
@@ -277,7 +277,7 @@ class UniProductVersionService
         $to->save();
     }
 
-    private function hasAnyChanges(AbstractObject $oldObject, AbstractObject $newObject): bool
+    private function hasAnyChanges(UniProductCategoryInternal $oldObject, UniProductCategoryInternal $newObject): bool
     {
         if (serialize($oldObject->getProperties()) !== serialize($newObject->getProperties())) {
             return true;
