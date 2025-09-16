@@ -40,6 +40,9 @@ services:
         resource: '../src/Command'
         tags: [ 'console.command' ]
 
+    App\Util\:
+        resource: '../src/Util'
+
     # Example custom templating helper
     # AppBundle\Templating\Helper\Example:
     #     # templating helpers need to be public as they
@@ -52,4 +55,5 @@ services:
     # AppBundle\EventListener\TestListener:
     #     tags:
     #         - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: onObjectPreUpdate }
+
 
