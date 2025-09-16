@@ -23,6 +23,7 @@ class AdminAssetsListener implements EventSubscriberInterface
             '/admin/js/open.js',
             '/admin/js/perspective.js',
             '/admin/js/CategoryExportPanel.js',
+            '/admin/js/output-configurator.js',
         ]);
     }
 }
