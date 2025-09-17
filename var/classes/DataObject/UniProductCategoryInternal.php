@@ -10,6 +10,7 @@
  * - categoryLevel [select]
  * - level [calculatedValue]
  * - pimInternalHierarchyCode [calculatedValue]
+ * - assignedUser [user]
  * - levelSpecificData [objectbricks]
  */
 
@@ -23,6 +24,7 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 * @method static \Pimcore\Model\DataObject\UniProductCategoryInternal\Listing|\Pimcore\Model\DataObject\UniProductCategoryInternal|null getByName(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductCategoryInternal\Listing|\Pimcore\Model\DataObject\UniProductCategoryInternal|null getByGhpCode(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductCategoryInternal\Listing|\Pimcore\Model\DataObject\UniProductCategoryInternal|null getByCategoryLevel(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductCategoryInternal\Listing|\Pimcore\Model\DataObject\UniProductCategoryInternal|null getByAssignedUser(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 */
 
 class UniProductCategoryInternal extends \App\Model\DataObject\AbstractUniProductCategoryInternal
@@ -32,6 +34,7 @@ public const FIELD_GHP_CODE = 'ghpCode';
 public const FIELD_CATEGORY_LEVEL = 'categoryLevel';
 public const FIELD_LEVEL = 'level';
 public const FIELD_PIM_INTERNAL_HIERARCHY_CODE = 'pimInternalHierarchyCode';
+public const FIELD_ASSIGNED_USER = 'assignedUser';
 public const FIELD_LEVEL_SPECIFIC_DATA = 'levelSpecificData';
 
 protected $classId = "UNI_PRCI";
@@ -39,6 +42,7 @@ protected $className = "UniProductCategoryInternal";
 protected $name;
 protected $ghpCode;
 protected $categoryLevel;
+protected $assignedUser;
 protected $levelSpecificData;
 
 
@@ -187,6 +191,42 @@ public function getPimInternalHierarchyCode(): mixed
 	$data = \Pimcore\Model\DataObject\Service::getCalculatedFieldValue($object, $data);
 
 	return $data;
+}
+
+/**
+* Get assignedUser - Assigned User
+* @return string|null
+*/
+public function getAssignedUser(): ?string
+{
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("assignedUser");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	$data = $this->assignedUser;
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set assignedUser - Assigned User
+* @param string|null $assignedUser
+* @return $this
+*/
+public function setAssignedUser(?string $assignedUser): static
+{
+	$this->markFieldDirty("assignedUser", true);
+
+	$this->assignedUser = $assignedUser;
+
+	return $this;
 }
 
 /**

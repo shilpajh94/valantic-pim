@@ -1,0 +1,107 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Service\UniProductManagement;
+
+use App\Util\Helpers;
+use Pimcore\Model\DataObject\ClassDefinition;
+use Pimcore\Model\DataObject\ClassDefinition\Data;
+use Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields;
+use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOptionsProviderInterface;
+use Pimcore\Model\DataObject\UniProductBase;
+use Pimcore\Model\DataObject\UniProductCategoryInternal;
+
+class OutputConfiguratorDataFieldsProvider implements SelectOptionsProviderInterface
+{
+    /**
+     * Returns the list of all data fields from the target classes for Pimcore multiselect.
+     *
+     * @param array<string, mixed> $context
+     *
+     * @return array<array<string, string>> List of key-value pairs for options.
+     */
+    public function getOptions(array $context, Data $fieldDefinition): array
+    {
+        return $this->getFields();
+    }
+
+    /**
+     * Returns the list of all data fields, including relation fields, localized fields,
+     * object bricks, and their subfields, from the target classes.
+     *
+     * @return array<array<string, string>> List of key-value pairs for fields.
+     */
+    public function getFields(): array
+    {
+        $targetClasses = [
+            UniProductBase::class,
+            UniProductCategoryInternal::class,
+        ];
+
+        $fields = [];
+
+        foreach ($targetClasses as $fullyQualifiedClassName) {
+            $classKey = Helpers::classBasename($fullyQualifiedClassName);
+            $class = ClassDefinition::getByName($classKey);
+
+            if (!$class instanceof ClassDefinition) {
+                continue;
+            }
+
+            foreach ($class->getFieldDefinitions() as $field) {
+                if ($field instanceof Localizedfields) {
+                    foreach ($field->getFieldDefinitions() as $localizedField) {
+                        $fields[] = [
+                            'key' => $localizedField->getName(),
+                            'value' => $localizedField->getName(),
+                            'title' => $this->getFieldTitleOrLabel($localizedField),
+                            'localized' => true,
+                        ];
+                    }
+                } else {
+                    $fields[] = [
+                        'key' => $field->getName(),
+                        'value' => $field->getName(),
+                        'title' => $this->getFieldTitleOrLabel($field),
+                        'localized' => false,
+                    ];
+                }
+            }
+        }
+
+        return $fields;
+    }
+
+    /**
+     * Indicates whether the options are static or dynamic.
+     *
+     * @param array<string, mixed> $context
+     */
+    public function hasStaticOptions(array $context, Data $fieldDefinition): bool
+    {
+        return false;
+    }
+
+    /**
+     * Returns the default value for the field.
+     *
+     * @param array<string, mixed> $context
+     *
+     * @return array<string, mixed>|string|null Default value for the field.
+     */
+    public function getDefaultValue(array $context, Data $fieldDefinition): array|string|null
+    {
+        return null;
+    }
+
+    /**
+     * Returns the title or label of a field, falling back to its name if not available.
+     */
+    private function getFieldTitleOrLabel(Data $field): string
+    {
+        $title = $field->getTitle();
+
+        return $title !== '' ? $title : $field->getName();
+    }
+}

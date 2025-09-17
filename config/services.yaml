@@ -46,6 +46,8 @@ services:
             $uniProductVersionService: '@App\Service\UniProductVersionService'
         tags:
             - { name: kernel.event_subscriber }
+    App\Util\:
+        resource: '../src/Util'
 
     # Example custom templating helper
     # AppBundle\Templating\Helper\Example:
@@ -59,4 +61,5 @@ services:
     # AppBundle\EventListener\TestListener:
     #     tags:
     #         - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: onObjectPreUpdate }
+
 
