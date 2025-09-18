@@ -10,7 +10,7 @@ pimcore:
       initial_markings: [!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CREATED->value]
       places:
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CREATED->value:
-          label: 'Created from SAP'
+          label: 'Created'
           color: '#ffcc00'
           permissions:
             - 
