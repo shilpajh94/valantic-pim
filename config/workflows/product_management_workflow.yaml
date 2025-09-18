@@ -234,4 +234,3 @@ pimcore:
             changePublishedState: 'force_unpublished'
       supports:
         - 'Pimcore\Model\DataObject\UniProductBase'
-
