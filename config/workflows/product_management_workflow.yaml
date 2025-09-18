@@ -10,85 +10,179 @@ pimcore:
       initial_markings: [!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CREATED->value]
       places:
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CREATED->value:
-          label: 'Created'
+          label: 'Created from SAP'
           color: '#ffcc00'
           permissions:
-            - modify: true
-              unpublish: false
+            - 
+              condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
+              modify: true
+              unpublish: true
               delete: true
+              view: true
+              publish: true
+              save: true
+            - 
+              condition: is_fully_authenticated() and 'ROLE_ENRICHMENT' in role_names
+              modify: true
+              unpublish: false
+              delete: false
               view: true
               publish: false
               save: true
+            - 
+              condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_UNIREADONLY' in role_names)
+              modify: false
+              unpublish: false
+              delete: false
+              view: true
+              publish: false
+              save: false
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::PENDING_APPROVAL->value:
           label: 'Pending Approval'
           color: '#ffa500'
           permissions:
-            - modify: false
+            - 
+              condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
+              modify: true
+              unpublish: true
+              delete: true
+              view: true
+              publish: true
+              save: true
+            - 
+              condition: is_fully_authenticated() and ('ROLE_ENRICHMENT' in role_names or 'ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_UNIREADONLY' in role_names)
+              modify: false
               unpublish: false
               delete: false
               view: true
               publish: false
-              save: true
+              save: false
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::APPROVED->value:
           label: 'Approved'
           color: '#00cc00'
           permissions:
-            - modify: true
+            - 
+              condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
+              modify: true
               unpublish: true
-              delete: false
+              delete: true
               view: true
               publish: true
               save: true
+            - 
+              condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_ENRICHMENT' in role_names)
+              modify: true
+              unpublish: false
+              delete: false
+              view: true
+              publish: false
+              save: true
+            - 
+              condition: is_fully_authenticated() and 'ROLE_UNIREADONLY' in role_names
+              modify: false
+              unpublish: false
+              delete: false
+              view: true
+              publish: false
+              save: false
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::REJECTED->value:
           label: 'Rejected'
           color: '#e74c3c'
           permissions:
-            - modify: true
-              unpublish: false
+            - 
+              condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
+              modify: true
+              unpublish: true
               delete: true
               view: true
-              publish: false
+              publish: true
               save: true
+            - 
+              condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_ENRICHMENT' in role_names or 'ROLE_UNIREADONLY' in role_names)
+              modify: false
+              unpublish: false
+              delete: false
+              view: true
+              publish: false
+              save: false
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::DRAFT->value:
           label: 'Draft'
           color: '#ffd700'
           permissions:
-            - modify: true
-              unpublish: false
+            - 
+              condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
+              modify: true
+              unpublish: true
               delete: true
+              view: true
+              publish: true
+              save: true
+            - 
+              condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_ENRICHMENT' in role_names)
+              modify: true
+              unpublish: false
+              delete: false
               view: true
               publish: false
               save: true
+            - 
+              condition: is_fully_authenticated() and 'ROLE_UNIREADONLY' in role_names
+              modify: false
+              unpublish: false
+              delete: false
+              view: true
+              publish: false
+              save: false
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::ARCHIVED->value:
           label: 'Archived'
           color: '#808080'
           permissions:
-            - modify: false
+            - 
+              condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
+              modify: true
+              unpublish: true
+              delete: true
+              view: true
+              publish: true
+              save: true
+            - 
+              condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_ENRICHMENT' in role_names or 'ROLE_UNIREADONLY' in role_names)
+              modify: false
               unpublish: false
               delete: false
-              view: true
+              view: false
               publish: false
               save: false
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::EMERGENCY_UNPUBLISHED->value:
           label: 'Emergency Unpublished'
           color: '#c0392b'
           permissions:
-            - modify: false
-              unpublish: false
-              delete: false
+            - 
+              condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
+              modify: true
+              unpublish: true
+              delete: true
               view: true
-              publish: false
-              save: false
+              publish: true
+              save: true
+            - 
+              condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_ENRICHMENT' in role_names or 'ROLE_UNIREADONLY' in role_names)
+              modify: true
+              unpublish: true
+              delete: true
+              view: false
+              publish: true
+              save: true
       transitions:
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::SUBMIT_FOR_APPROVAL->value:
-          guard: "is_fully_authenticated() and 'ROLE_MARCOM' in role_names"
-          from: [!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CREATED->value,!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::REJECTED->value,!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::DRAFT->value,!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::EMERGENCY_UNPUBLISHED->value]
+          guard: "is_fully_authenticated() and ('ROLE_UNIADMIN' in role_names or 'ROLE_ENRICHMENT' in role_names)"
+          from: [!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CREATED->value,!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::REJECTED->value,!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::DRAFT->value]
           to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::PENDING_APPROVAL->value
           options:
             label: 'Submit for Approval'
             changePublishedState: 'no_change'
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::REJECT_PRODUCT->value:
-          guard: "is_fully_authenticated() and 'ROLE_ADMIN' in role_names"
+          guard: "is_fully_authenticated() and ('ROLE_UNIADMIN' in role_names or 'ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names)"
           from: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::PENDING_APPROVAL->value
           to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::REJECTED->value
           options:
@@ -99,7 +193,7 @@ pimcore:
               commentRequired: true
             changePublishedState: 'no_change'
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::APPROVE_PRODUCT->value:
-          guard: "is_fully_authenticated() and 'ROLE_PRODUCT_MANAGER' in role_names"
+          guard: "is_fully_authenticated() and ('ROLE_UNIADMIN' in role_names or 'ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names)"
           from: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::PENDING_APPROVAL->value
           to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::APPROVED->value
           options:
@@ -110,14 +204,14 @@ pimcore:
               commentRequired: false
             changePublishedState: 'force_published'
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::EDIT_DRAFT->value:
-          guard: "is_fully_authenticated() and 'ROLE_APPLICATION_ENGINEERING' in role_names"
+          guard: "is_fully_authenticated() and ('ROLE_UNIADMIN' in role_names or 'ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_ENRICHMENT' in role_names)"
           from: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::APPROVED->value
           to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::DRAFT->value
           options:
             label: 'Edit Draft'
             changePublishedState: 'no_change'
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::ARCHIVE_PRODUCT->value:
-          guard: "is_fully_authenticated() and 'ROLE_ADMIN' in role_names"
+          guard: "is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names"
           from: [!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::PENDING_APPROVAL->value,!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::REJECTED->value,!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::APPROVED->value,!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::DRAFT->value]
           to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::ARCHIVED->value
           options:
@@ -128,7 +222,7 @@ pimcore:
               commentRequired: false
             changePublishedState: 'no_change'
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::EMERGENCY_UNPUBLISH->value:
-          guard: "is_fully_authenticated() and 'ROLE_ADMIN' in role_names"
+          guard: "is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names"
           from: [!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::APPROVED->value,!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::DRAFT->value]
           to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::EMERGENCY_UNPUBLISHED->value
           options:
