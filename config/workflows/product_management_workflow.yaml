@@ -10,10 +10,10 @@ pimcore:
       initial_markings: [!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CREATED->value]
       places:
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CREATED->value:
-          label: 'Created'
+          label: 'Created from SAP'
           color: '#ffcc00'
           permissions:
-            - 
+            -
               condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
               modify: true
               unpublish: true
@@ -21,7 +21,7 @@ pimcore:
               view: true
               publish: true
               save: true
-            - 
+            -
               condition: is_fully_authenticated() and 'ROLE_ENRICHMENT' in role_names
               modify: true
               unpublish: false
@@ -29,7 +29,7 @@ pimcore:
               view: true
               publish: false
               save: true
-            - 
+            -
               condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_UNIREADONLY' in role_names)
               modify: false
               unpublish: false
@@ -41,7 +41,7 @@ pimcore:
           label: 'Pending Approval'
           color: '#ffa500'
           permissions:
-            - 
+            -
               condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
               modify: true
               unpublish: true
@@ -49,7 +49,7 @@ pimcore:
               view: true
               publish: true
               save: true
-            - 
+            -
               condition: is_fully_authenticated() and ('ROLE_ENRICHMENT' in role_names or 'ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_UNIREADONLY' in role_names)
               modify: false
               unpublish: false
@@ -61,7 +61,7 @@ pimcore:
           label: 'Approved'
           color: '#00cc00'
           permissions:
-            - 
+            -
               condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
               modify: true
               unpublish: true
@@ -69,7 +69,7 @@ pimcore:
               view: true
               publish: true
               save: true
-            - 
+            -
               condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_ENRICHMENT' in role_names)
               modify: true
               unpublish: false
@@ -77,7 +77,7 @@ pimcore:
               view: true
               publish: false
               save: true
-            - 
+            -
               condition: is_fully_authenticated() and 'ROLE_UNIREADONLY' in role_names
               modify: false
               unpublish: false
@@ -89,7 +89,7 @@ pimcore:
           label: 'Rejected'
           color: '#e74c3c'
           permissions:
-            - 
+            -
               condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
               modify: true
               unpublish: true
@@ -97,7 +97,7 @@ pimcore:
               view: true
               publish: true
               save: true
-            - 
+            -
               condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_ENRICHMENT' in role_names or 'ROLE_UNIREADONLY' in role_names)
               modify: false
               unpublish: false
@@ -109,7 +109,7 @@ pimcore:
           label: 'Draft'
           color: '#ffd700'
           permissions:
-            - 
+            -
               condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
               modify: true
               unpublish: true
@@ -117,7 +117,7 @@ pimcore:
               view: true
               publish: true
               save: true
-            - 
+            -
               condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_ENRICHMENT' in role_names)
               modify: true
               unpublish: false
@@ -125,7 +125,7 @@ pimcore:
               view: true
               publish: false
               save: true
-            - 
+            -
               condition: is_fully_authenticated() and 'ROLE_UNIREADONLY' in role_names
               modify: false
               unpublish: false
@@ -137,7 +137,7 @@ pimcore:
           label: 'Archived'
           color: '#808080'
           permissions:
-            - 
+            -
               condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
               modify: true
               unpublish: true
@@ -145,7 +145,7 @@ pimcore:
               view: true
               publish: true
               save: true
-            - 
+            -
               condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_ENRICHMENT' in role_names or 'ROLE_UNIREADONLY' in role_names)
               modify: false
               unpublish: false
@@ -157,7 +157,7 @@ pimcore:
           label: 'Emergency Unpublished'
           color: '#c0392b'
           permissions:
-            - 
+            -
               condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
               modify: true
               unpublish: true
@@ -165,7 +165,7 @@ pimcore:
               view: true
               publish: true
               save: true
-            - 
+            -
               condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_ENRICHMENT' in role_names or 'ROLE_UNIREADONLY' in role_names)
               modify: true
               unpublish: true
