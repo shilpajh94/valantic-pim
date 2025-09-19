@@ -98,7 +98,15 @@ pimcore:
               publish: true
               save: true
             -
-              condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_UNIENRICHMENT' in role_names or 'ROLE_UNIREADONLY' in role_names)
+              condition: is_fully_authenticated() and 'ROLE_UNIENRICHMENT' in role_names
+              modify: true
+              unpublish: false
+              delete: false
+              view: true
+              publish: false
+              save: true
+            -
+              condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_UNIREADONLY' in role_names)
               modify: false
               unpublish: false
               delete: false
@@ -118,7 +126,7 @@ pimcore:
               publish: true
               save: true
             -
-              condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_UNIENRICHMENT' in role_names)
+              condition: is_fully_authenticated() and 'ROLE_UNIENRICHMENT' in role_names
               modify: true
               unpublish: false
               delete: false
@@ -126,7 +134,7 @@ pimcore:
               publish: false
               save: true
             -
-              condition: is_fully_authenticated() and 'ROLE_UNIREADONLY' in role_names
+              condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_UNIREADONLY' in role_names)
               modify: false
               unpublish: false
               delete: false
