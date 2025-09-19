@@ -43,9 +43,9 @@ services:
     App\EventListener\UniProductWorkflowEventListener:
         arguments:
             $workflowRegistry: '@workflow.registry'
-            $uniProductVersionService: '@App\Service\UniProductVersionService'
         tags:
             - { name: kernel.event_subscriber }
+    
     App\Util\:
         resource: '../src/Util'
 
