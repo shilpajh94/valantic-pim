@@ -104,3 +104,6 @@ framework:
 #    session:
 #        handler_id: null
 
+pimcore_custom_reports:
+    adapters:
+        contextAwareSql: app.custom_report.adapter.factory.context_aware_sql

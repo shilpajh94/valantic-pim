@@ -1,0 +1,79 @@
+pimcore_custom_reports:
+    definitions:
+        UniFinishedGoodsToEnrich:
+            name: UniFinishedGoodsToEnrich
+            sql: ''
+            dataSourceConfig:
+                -
+                    sql: "SELECT \nq.oo_id, \nq.sapMaterialNumber, \nld.sapDescription, \nu.approvalState, \nFROM_UNIXTIME(u.modificationDate) as modificationDate"
+                    from: "FROM object_query_UNI_PR q JOIN object_UNI_PR u ON q.oo_id = u.oo_id \nLEFT JOIN object_localized_data_UNI_PR ld ON q.oo_id = ld.ooo_id AND ld.language = 'en' \nLEFT JOIN object_relations_UNI_PR rel ON q.oo_id = rel.src_id AND rel.fieldname = 'internalCategories' \nLEFT JOIN object_query_UNI_PRCI cat ON rel.dest_id = cat.oo_id"
+                    where: "WHERE q.approvalState IN ('draft', 'created') \nAND cat.level = 2 \nAND cat.assignedUser = :currentUserId"
+                    groupby: ''
+                    orderby: 'ORDER BY u.modificationDate'
+                    orderbydir: DESC
+                    type: contextAwareSql
+            columnConfiguration:
+                -
+                    name: oo_id
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ID
+                    id: extModel316-1
+                    columnAction: openObject
+                -
+                    name: sapMaterialNumber
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'SAP Material Number'
+                    id: extModel316-2
+                -
+                    name: sapDescription
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'SAP Description'
+                    id: extModel316-3
+                -
+                    name: approvalState
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Approval State'
+                    id: extModel316-4
+                -
+                    name: modificationDate
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Modified At'
+                    id: extModel316-5
+            niceName: 'Uni: Finished good data to be enriched'
+            group: UniProductWorkflow
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1758112568
+            creationDate: 1758112253
+            shareGlobally: false
+            sharedUserNames: {  }
+            sharedRoleNames:
+                - UniAdmin
+                - UniApprovalPts
+                - UniApprovalDss
+                - UniApprovalFhs
+                - UniEnrichment
+                - UniReadOnly
+

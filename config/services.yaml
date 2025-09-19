@@ -49,6 +49,11 @@ services:
     App\Util\:
         resource: '../src/Util'
 
+    app.custom_report.adapter.factory.context_aware_sql:
+        class: Pimcore\Bundle\CustomReportsBundle\Tool\Adapter\DefaultCustomReportAdapterFactory
+        arguments:
+            - 'App\CustomReport\Adapter\ContextAwareSql'
+
     # Example custom templating helper
     # AppBundle\Templating\Helper\Example:
     #     # templating helpers need to be public as they
