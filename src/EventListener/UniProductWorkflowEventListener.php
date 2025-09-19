@@ -17,7 +17,7 @@ use Symfony\Component\Workflow\Registry;
 class UniProductWorkflowEventListener implements EventSubscriberInterface
 {
     /** @var array<string, true> */
-    private static array $processedObjects = [];
+    private array $processedObjects = [];
     private Registry $workflowRegistry;
     private UniProductVersionService $uniProductVersionService;
 
@@ -48,58 +48,38 @@ class UniProductWorkflowEventListener implements EventSubscriberInterface
 
         $objectKey = $object->getId() . '_preupdate';
 
-        if (isset(self::$processedObjects[$objectKey])) {
+        if (isset($this->processedObjects[$objectKey])) {
             return;
         }
-        self::$processedObjects[$objectKey] = true;
+        // Get the current state of the object before update
+        $oldObject = UniProductBase::getById($object->getId(), ['force' => true]);
 
-        try {
-            // Get the current state of the object before update
-            $oldObject = UniProductBase::getById($object->getId(), ['force' => true]);
+        if (!$oldObject instanceof UniProductBase) {
+            return;
+        }
+        $workflow = $this->workflowRegistry->get($oldObject, 'product_approval');
+        $currentPlaces = array_keys($workflow->getMarking($oldObject)->getPlaces());
 
-            if (!$oldObject instanceof UniProductBase) {
-                unset(self::$processedObjects[$objectKey]);
+        if ($currentPlaces === []) {
+            return;
+        }
+        /** @var string $currentPlace */
+        $currentPlace = $currentPlaces[0];
 
-                return;
+        // Only apply draft transition if the object is not a version copy
+        if (
+            !$this->uniProductVersionService->isShadowCopy($object)
+            && $currentPlace === ProductApprovalWorkflowPlace::APPROVED->value
+            && $this->hasAnyChanges($oldObject, $object)
+        ) {
+            $newWorkflow = $this->workflowRegistry->get($object, 'product_approval');
+            $transitionName = ProductApprovalWorkflowTransition::EDIT_DRAFT->value;
+
+            if ($newWorkflow->can($object, $transitionName)) {
+                $newWorkflow->apply($object, $transitionName);
             }
 
-            $workflow = $this->workflowRegistry->get($oldObject, 'product_approval');
-
-            $currentPlaces = array_keys($workflow->getMarking($oldObject)->getPlaces());
-
-            if ($currentPlaces === []) {
-                unset(self::$processedObjects[$objectKey]);
-
-                return;
-            }
-
-            /** @var string $currentPlace */
-            $currentPlace = $currentPlaces[0];
-
-            // Only apply draft transition if the object is not a version copy
-            $versionBasePath = '/UniProductVersion';
-
-            if (
-                !str_contains($object->getFullPath(), $versionBasePath)
-                && $currentPlace === ProductApprovalWorkflowPlace::APPROVED->value
-            ) {
-                if ($this->hasAnyChanges($oldObject, $object)) {
-                    $newWorkflow = $this->workflowRegistry->get($object, 'product_approval');
-                    $transitionName = ProductApprovalWorkflowTransition::EDIT_DRAFT->value;
-
-                    if ($newWorkflow->can($object, $transitionName)) {
-                        $newWorkflow->apply($object, $transitionName);
-                    } else {
-                        return;
-                    }
-                }
-            } else {
-                return;
-            }
-        } catch (\Exception $e) {
-            throw $e;
-        } finally {
-            unset(self::$processedObjects[$objectKey]);
+            return;
         }
     }
 
@@ -116,24 +96,12 @@ class UniProductWorkflowEventListener implements EventSubscriberInterface
 
         $objectKey = $subject->getId() . '_approval_completed';
 
-        if (isset(self::$processedObjects[$objectKey])) {
+        if (isset($this->processedObjects[$objectKey])) {
             return;
         }
-        self::$processedObjects[$objectKey] = true;
-
-        try {
-            $existingCopy = $this->uniProductVersionService->getVersionCopyForProduct($subject);
-
-            if ($existingCopy instanceof UniProductBase) {
-                $this->uniProductVersionService->updateVersionCopy($subject, $existingCopy);
-            } else {
-                $this->uniProductVersionService->createVersionCopy($subject);
-            }
-        } catch (\Exception $e) {
-            throw $e;
-        } finally {
-            unset(self::$processedObjects[$objectKey]);
-        }
+        $this->uniProductVersionService->createOrUpdateVersionCopy($subject);
+        // Mark as processed only after successful completion
+        $this->processedObjects[$objectKey] = true;
     }
 
     private function hasAnyChanges(UniProductBase $oldObject, UniProductBase $newObject): bool
@@ -143,13 +111,15 @@ class UniProductWorkflowEventListener implements EventSubscriberInterface
         foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
             $getter = 'get' . ucfirst($fieldName);
 
-            if (method_exists($oldObject, $getter) && method_exists($newObject, $getter)) {
-                $oldValue = $oldObject->$getter();
-                $newValue = $newObject->$getter();
+            if (!method_exists($oldObject, $getter) || !method_exists($newObject, $getter)) {
+                continue;
+            }
 
-                if (!$this->uniProductVersionService->valuesAreEqual($oldValue, $newValue)) {
-                    return true;
-                }
+            $oldValue = $oldObject->$getter();
+            $newValue = $newObject->$getter();
+
+            if (!$this->uniProductVersionService->valuesAreEqual($oldValue, $newValue)) {
+                return true;
             }
         }
 

@@ -10,16 +10,41 @@ use Pimcore\Model\DataObject\UniProductCategoryInternal;
 
 class UniProductVersionService
 {
+    public const UNI_BASE_PATH = '/Unified PIM/Product Management/';
+    public const APPROVED_PRODUCTS_FOLDER_NAME = 'Approved Products';
+
+    /**
+     * Check if an object is a shadow copy (version copy).
+     */
+    public function isShadowCopy(UniProductBase $object): bool
+    {
+        return str_contains($object->getFullPath(), self::UNI_BASE_PATH . self::APPROVED_PRODUCTS_FOLDER_NAME);
+    }
+
+    /**
+     * Create or update version copy for a product.
+     */
+    public function createOrUpdateVersionCopy(UniProductBase $product): void
+    {
+        $existingCopy = $this->getVersionCopyForProduct($product);
+
+        if ($existingCopy instanceof UniProductBase) {
+            $this->updateVersionCopy($product, $existingCopy);
+        } else {
+            $this->createVersionCopy($product);
+        }
+    }
+
     /**
      * Create a new version copy.
      */
     public function createVersionCopy(UniProductBase $product): void
     {
         $hierarchy = $this->extractCategoryHierarchy($product);
-        $basePath = $hierarchy[0]->getPath();
-        $versionBasePath = $basePath . 'UniProductVersion';
+        // $basePath = $hierarchy[0]->getPath();
+        $versionBasePath = self::UNI_BASE_PATH . self::APPROVED_PRODUCTS_FOLDER_NAME;
         $originalKey = $product->getKey();
-        $targetFolder = $this->createClonedCategoryStructure($hierarchy, $versionBasePath, $basePath);
+        $targetFolder = $this->createClonedCategoryStructure($hierarchy, $versionBasePath, self::UNI_BASE_PATH);
         $existingCopyPath = $targetFolder->getFullPath() . '/' . $originalKey;
         $existingCopy = \Pimcore\Model\DataObject::getByPath($existingCopyPath);
 
@@ -35,7 +60,7 @@ class UniProductVersionService
         $cloned->setProperty('original_product_id', 'text', (string) $product->getId());
         $cloned->setProperty('version_created_at', 'date', \Carbon\Carbon::now());
         $cloned->setProperty('version_reason', 'text', 'approved_snapshot');
-        $categoryIds = $hierarchy !== [] ? array_map(fn ($cat): ?int => $cat->getId(), $hierarchy) : [];
+        $categoryIds = $hierarchy !== [] ? array_map(fn($cat): ?int => $cat->getId(), $hierarchy) : [];
         $cloned->setProperty('original_category_ids', 'text', json_encode($categoryIds));
         $cloned->save(['validate' => false]);
     }
@@ -46,15 +71,15 @@ class UniProductVersionService
     public function updateVersionCopy(UniProductBase $product, UniProductBase $existingCopy): void
     {
         $hierarchy = $this->extractCategoryHierarchy($product);
-        $basePath = $hierarchy[0]->getPath();
-        $versionBasePath = $basePath . 'UniProductVersion';
-        $currentCategoryIds = $hierarchy !== [] ? array_map(fn ($cat): ?int => $cat->getId(), $hierarchy) : [];
+        // $basePath = $hierarchy[0]->getPath();
+        $versionBasePath = self::UNI_BASE_PATH . self::APPROVED_PRODUCTS_FOLDER_NAME;
+        $currentCategoryIds = $hierarchy !== [] ? array_map(fn($cat): ?int => $cat->getId(), $hierarchy) : [];
         $originalCategoryIds = $existingCopy->getProperty('original_category_ids');
         $originalCategoryIds = $originalCategoryIds ? json_decode($originalCategoryIds, true) : [];
         $hasCategoryChanged = json_encode($originalCategoryIds) !== json_encode($currentCategoryIds);
 
         if ($hasCategoryChanged) {
-            $newTargetFolder = $this->createClonedCategoryStructure($hierarchy, $versionBasePath, $basePath);
+            $newTargetFolder = $this->createClonedCategoryStructure($hierarchy, $versionBasePath, self::UNI_BASE_PATH);
             $existingCopy->setParentId($newTargetFolder->getId());
             $existingCopy->setProperty('original_category_ids', 'text', json_encode($currentCategoryIds));
         } else {
@@ -120,9 +145,9 @@ class UniProductVersionService
     {
         try {
             $hierarchy = $this->extractCategoryHierarchy($product);
-            $basePath = $hierarchy[0]->getPath();
-            $versionBasePath = $basePath . 'UniProductVersion';
-            $categoryPath = $hierarchy !== [] ? array_map(fn ($cat): string => $this->sanitizePathSegment($cat->getKey()), $hierarchy) : [];
+            // $basePath = $hierarchy[0]->getPath();
+            $versionBasePath = self::UNI_BASE_PATH . self::APPROVED_PRODUCTS_FOLDER_NAME;
+            $categoryPath = $hierarchy !== [] ? array_map(fn($cat): string => $this->sanitizePathSegment($cat->getKey()), $hierarchy) : [];
 
             if ($categoryPath !== []) {
                 $categoryBasedPath = $versionBasePath . '/' . implode('/', $categoryPath) . '/' . $product->getKey();
@@ -234,7 +259,7 @@ class UniProductVersionService
             }
 
             $parentFolder = new \Pimcore\Model\DataObject\Folder();
-            $parentFolder->setKey('UniProductVersion');
+            $parentFolder->setKey(self::APPROVED_PRODUCTS_FOLDER_NAME);
             $parentFolder->setParentId($productsFolder->getId());
             $parentFolder->save();
         }
