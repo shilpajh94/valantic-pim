@@ -45,7 +45,6 @@ services:
             $workflowRegistry: '@workflow.registry'
         tags:
             - { name: kernel.event_subscriber }
-    
     App\Util\:
         resource: '../src/Util'
 
