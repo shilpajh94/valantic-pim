@@ -1266,7 +1266,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'isJustTemporarily',
                      'title' => 'just "temporarily"',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -1656,7 +1656,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'isOnlyOpenSystem',
                      'title' => 'Only Open System',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -1670,7 +1670,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'defaultValue' => NULL,
+                     'defaultValue' => 0,
                      'defaultValueGenerator' => '',
                   )),
                 ),
