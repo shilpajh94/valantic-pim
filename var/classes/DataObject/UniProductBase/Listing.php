@@ -247,6 +247,42 @@ public function filterByGprs ($data, $operator = '='): static
 }
 
 /**
+* Filter by prop65Certificates (Prop65 Certificates)
+* @param mixed $data
+* @param string $operator SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByProp65Certificates ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("prop65Certificates")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by roHSCertificates (RoHS Certificates)
+* @param mixed $data
+* @param string $operator SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByRoHSCertificates ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("roHSCertificates")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by gprsCertificates (GPRS Certificates)
+* @param mixed $data
+* @param string $operator SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByGprsCertificates ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("gprsCertificates")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
 * Filter by completenessPercentage (Completeness Percentage)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"

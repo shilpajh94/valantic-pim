@@ -1032,7 +1032,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'name' => 'heatOilResistant',
                  'title' => 'Heat & Oil Resistant',
                  'tooltip' => '',
-                 'mandatory' => true,
+                 'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,

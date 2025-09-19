@@ -27,6 +27,9 @@
  * -- prop65 [select]
  * -- roHS [select]
  * -- gprs [select]
+ * -- prop65Certificates [manyToOneRelation]
+ * -- roHSCertificates [manyToOneRelation]
+ * -- gprsCertificates [manyToOneRelation]
  * -- completenessPercentage [input]
  * -- emptyFieldsBrand [textarea]
  * -- emptyFieldsSkeleton [textarea]
@@ -84,6 +87,9 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProp65(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByRoHS(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByGprs(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProp65Certificates(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByRoHSCertificates(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByGprsCertificates(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByCompletenessPercentage(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByEmptyFieldsBrand(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByEmptyFieldsSkeleton(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
@@ -128,6 +134,9 @@ public const FIELD_PRODUCT_DESCRIPTION_EXTENDED = 'productDescriptionExtended';
 public const FIELD_PROP65 = 'prop65';
 public const FIELD_RO_HS = 'roHS';
 public const FIELD_GPRS = 'gprs';
+public const FIELD_PROP65_CERTIFICATES = 'prop65Certificates';
+public const FIELD_RO_HSCERTIFICATES = 'roHSCertificates';
+public const FIELD_GPRS_CERTIFICATES = 'gprsCertificates';
 public const FIELD_COMPLETENESS_PERCENTAGE = 'completenessPercentage';
 public const FIELD_EMPTY_FIELDS_BRAND = 'emptyFieldsBrand';
 public const FIELD_EMPTY_FIELDS_SKELETON = 'emptyFieldsSkeleton';
@@ -756,6 +765,69 @@ public function getGprs(?string $language = null): ?string
 }
 
 /**
+* Get prop65Certificates - Prop65 Certificates
+* @return \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null
+*/
+public function getProp65Certificates(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("prop65Certificates", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("prop65Certificates");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get roHSCertificates - RoHS Certificates
+* @return \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null
+*/
+public function getRoHSCertificates(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("roHSCertificates", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("roHSCertificates");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get gprsCertificates - GPRS Certificates
+* @return \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null
+*/
+public function getGprsCertificates(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("gprsCertificates", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("gprsCertificates");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
 * Get completenessPercentage - Completeness Percentage
 * @return string|null
 */
@@ -1065,6 +1137,69 @@ public function setGprs (?string $gprs, ?string $language = null): static
 {
 	$isEqual = false;
 	$this->getLocalizedfields()->setLocalizedValue("gprs", $gprs, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set prop65Certificates - Prop65 Certificates
+* @param \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null $prop65Certificates
+* @return $this
+*/
+public function setProp65Certificates (?\Pimcore\Model\Element\AbstractElement $prop65Certificates, ?string $language = null): static
+{
+	$fd = $this->getClass()->getFieldDefinition("localizedfields")->getFieldDefinition("prop65Certificates");
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getProp65Certificates($language);
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $prop65Certificates);
+	if (!$isEqual) {
+		$this->markFieldDirty("prop65Certificates", true);
+	}
+	$this->getLocalizedfields()->setLocalizedValue("prop65Certificates", $prop65Certificates, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set roHSCertificates - RoHS Certificates
+* @param \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null $roHSCertificates
+* @return $this
+*/
+public function setRoHSCertificates (?\Pimcore\Model\Element\AbstractElement $roHSCertificates, ?string $language = null): static
+{
+	$fd = $this->getClass()->getFieldDefinition("localizedfields")->getFieldDefinition("roHSCertificates");
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getRoHSCertificates($language);
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $roHSCertificates);
+	if (!$isEqual) {
+		$this->markFieldDirty("roHSCertificates", true);
+	}
+	$this->getLocalizedfields()->setLocalizedValue("roHSCertificates", $roHSCertificates, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set gprsCertificates - GPRS Certificates
+* @param \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null $gprsCertificates
+* @return $this
+*/
+public function setGprsCertificates (?\Pimcore\Model\Element\AbstractElement $gprsCertificates, ?string $language = null): static
+{
+	$fd = $this->getClass()->getFieldDefinition("localizedfields")->getFieldDefinition("gprsCertificates");
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getGprsCertificates($language);
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $gprsCertificates);
+	if (!$isEqual) {
+		$this->markFieldDirty("gprsCertificates", true);
+	}
+	$this->getLocalizedfields()->setLocalizedValue("gprsCertificates", $gprsCertificates, $language, !$isEqual);
 
 	return $this;
 }

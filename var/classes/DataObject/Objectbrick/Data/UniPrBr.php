@@ -6,9 +6,10 @@
  * - agencyCompliance [multiselect]
  * - b2bSubCategory [manyToManyObjectRelation]
  * - localizedfields [localizedfields]
+ * -- reach [select]
  * -- hazardousSubstanceClassification [multiselect]
  * -- featuresAndBenefits [multiselect]
- * -- reach [select]
+ * -- reachCertificates [manyToOneRelation]
  * -- legalText [textarea]
  * -- disclaimer [textarea]
  * -- marketingDescriptionShort [wysiwyg]
@@ -27,9 +28,10 @@ class UniPrBr extends \App\Model\DataObject\UniProductManagement\Objectbrick\Abs
 public const FIELD_INDUSTRIAL_STANDARDS = 'industrialStandards';
 public const FIELD_AGENCY_COMPLIANCE = 'agencyCompliance';
 public const FIELD_B2B_SUB_CATEGORY = 'b2bSubCategory';
+public const FIELD_REACH = 'reach';
 public const FIELD_HAZARDOUS_SUBSTANCE_CLASSIFICATION = 'hazardousSubstanceClassification';
 public const FIELD_FEATURES_AND_BENEFITS = 'featuresAndBenefits';
-public const FIELD_REACH = 'reach';
+public const FIELD_REACH_CERTIFICATES = 'reachCertificates';
 public const FIELD_LEGAL_TEXT = 'legalText';
 public const FIELD_DISCLAIMER = 'disclaimer';
 public const FIELD_MARKETING_DESCRIPTION_SHORT = 'marketingDescriptionShort';
@@ -191,6 +193,20 @@ public function getLocalizedfields(): ?\Pimcore\Model\DataObject\Localizedfield
 }
 
 /**
+* Get reach - REACH  
+* @return string|null
+*/
+public function getReach(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("reach", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
 * Get hazardousSubstanceClassification - Hazardous Substance Classification
 * @return string[]|null
 */
@@ -219,12 +235,12 @@ public function getFeaturesAndBenefits(?string $language = null): ?array
 }
 
 /**
-* Get reach - REACH  
-* @return string|null
+* Get reachCertificates - REACH Certificates
+* @return \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null
 */
-public function getReach(?string $language = null): ?string
+public function getReachCertificates(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
 {
-	$data = $this->getLocalizedfields()->getLocalizedValue("reach", $language);
+	$data = $this->getLocalizedfields()->getLocalizedValue("reachCertificates", $language);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
 	}
@@ -314,6 +330,19 @@ public function setLocalizedfields (?\Pimcore\Model\DataObject\Localizedfield $l
 }
 
 /**
+* Set reach - REACH  
+* @param string|null $reach
+* @return $this
+*/
+public function setReach (?string $reach, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("reach", $reach, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
 * Set hazardousSubstanceClassification - Hazardous Substance Classification
 * @param string[]|null $hazardousSubstanceClassification
 * @return $this
@@ -340,14 +369,22 @@ public function setFeaturesAndBenefits (?array $featuresAndBenefits, ?string $la
 }
 
 /**
-* Set reach - REACH  
-* @param string|null $reach
+* Set reachCertificates - REACH Certificates
+* @param \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null $reachCertificates
 * @return $this
 */
-public function setReach (?string $reach, ?string $language = null): static
+public function setReachCertificates (?\Pimcore\Model\Element\AbstractElement $reachCertificates, ?string $language = null): static
 {
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("reach", $reach, $language, !$isEqual);
+	$fd = $this->getDefinition()->getFieldDefinition("localizedfields")->getFieldDefinition("reachCertificates");
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getReachCertificates($language);
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $reachCertificates);
+	if (!$isEqual) {
+		$this->markFieldDirty("reachCertificates", true);
+	}
+	$this->getLocalizedfields()->setLocalizedValue("reachCertificates", $reachCertificates, $language, !$isEqual);
 
 	return $this;
 }

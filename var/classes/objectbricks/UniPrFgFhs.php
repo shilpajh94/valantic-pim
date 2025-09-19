@@ -487,7 +487,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'name' => 'isBendRestrictor',
                          'title' => 'Bend Restrictor Y/N',
                          'tooltip' => '',
-                         'mandatory' => true,
+                         'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
@@ -501,7 +501,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => NULL,
+                         'defaultValue' => 0,
                          'defaultValueGenerator' => '',
                       )),
                       1 => 
@@ -509,7 +509,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'name' => 'isAssembly',
                          'title' => 'Assembly / Not Assembly',
                          'tooltip' => '',
-                         'mandatory' => true,
+                         'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
@@ -523,7 +523,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => NULL,
+                         'defaultValue' => 0,
                          'defaultValueGenerator' => '',
                       )),
                     ),

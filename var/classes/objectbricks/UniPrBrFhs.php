@@ -111,7 +111,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'name' => 'hasStaticWire',
                          'title' => 'Static Wire (Y/N)',
                          'tooltip' => '',
-                         'mandatory' => true,
+                         'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
@@ -125,7 +125,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => NULL,
+                         'defaultValue' => 0,
                          'defaultValueGenerator' => '',
                       )),
                       1 => 
@@ -133,7 +133,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'name' => 'hasHelicalWire',
                          'title' => 'Helical Wire Y/N',
                          'tooltip' => '',
-                         'mandatory' => true,
+                         'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
@@ -147,7 +147,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => NULL,
+                         'defaultValue' => 0,
                          'defaultValueGenerator' => '',
                       )),
                       2 => 
@@ -155,7 +155,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'name' => 'isLayFlat',
                          'title' => 'Lay Flat Y/N',
                          'tooltip' => '',
-                         'mandatory' => true,
+                         'mandatory' => false,
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
@@ -169,7 +169,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'defaultValue' => NULL,
+                         'defaultValue' => 0,
                          'defaultValueGenerator' => '',
                       )),
                     ),
