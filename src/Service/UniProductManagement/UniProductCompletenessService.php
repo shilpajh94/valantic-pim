@@ -34,6 +34,9 @@ class UniProductCompletenessService
     /** @var array<string, array<string>> */
     private array $emptyFields;
 
+    /**
+     * Calculate a product completeness percentage and generate a list of empty fields for each locale.
+     */
     public function updateCompleteness(UniProductBase $finishedGood): void
     {
         foreach (Tool::getValidLanguages() as $locale) {

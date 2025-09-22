@@ -1,0 +1,20 @@
+.build:
+  stage: build
+  interruptible: true
+  script: $PROJECT_SCRIPTS_DIR/$CI_JOB_STAGE/$CI_JOB_NAME/script.sh
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - when: on_success
+
+build_composer:
+  extends: .build
+  image: git.cec.valantic.com:5050/contitech/docker-images/php:$PHP_VERSION-alpine
+  cache:
+    - key:
+        files:
+          - composer.lock
+      paths:
+        - vendor/
+        - vendor-bin/**/vendor
+      policy: pull-push

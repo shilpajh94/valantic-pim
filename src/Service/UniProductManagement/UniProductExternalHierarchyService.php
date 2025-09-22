@@ -19,6 +19,9 @@ use Pimcore\Model\DataObject\UniProductCategoryExternal;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Valantic\ElasticaBridgeBundle\Document\DocumentInterface;
 
+/**
+ * This service offers multiple helper functionality to resolve product objects for the unified PIM external category tree.
+ */
 class UniProductExternalHierarchyService
 {
     public function __construct(private readonly UniBaseProductIndex $productIndex)
@@ -26,6 +29,8 @@ class UniProductExternalHierarchyService
     }
 
     /**
+     * Return a list of products matching the external category's product filter definitions.
+     *
      * @return array<array<string, mixed>>
      *
      * @throws ClientResponseException
@@ -37,6 +42,8 @@ class UniProductExternalHierarchyService
     }
 
     /**
+     * Query the Elasticsearch index for products by IDs.
+     *
      * @param int[] $ids
      *
      * @return array<array<string, mixed>>
@@ -50,6 +57,8 @@ class UniProductExternalHierarchyService
     }
 
     /**
+     * Returns an array of IDs for products matching the defined external category product filters.
+     *
      * @return array<int>
      *
      * @throws ClientResponseException
@@ -150,6 +159,8 @@ class UniProductExternalHierarchyService
     }
 
     /**
+     * Return all products contained in any children of a given category of any level.
+     *
      * @return UniProductBase[]
      */
     private function resolveCategoryInternalProducts(?UniProductCategoryInternal $category): array

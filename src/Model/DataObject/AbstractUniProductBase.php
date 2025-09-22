@@ -12,6 +12,8 @@ abstract class AbstractUniProductBase extends Concrete
     use SuperfastSaveTrait;
 
     /**
+     * Resolve Objectbrick instances of a given type in any point of the Pimcore object parent hierarchy.
+     *
      * @template TObjectbrickClassname
      *
      * @param class-string<TObjectbrickClassname> $objectbrickClass
@@ -23,11 +25,20 @@ abstract class AbstractUniProductBase extends Concrete
         return $this->resolveObjectbricks($this, $objectbrickClass);
     }
 
+    /**
+     * Identify the relevant parent category object by looking for an instance of a given Objectbrick class.
+     * Returns the first category with an attached instance of the given Objectbrick class.
+     */
     public function resolveAncestorCategoryByObjectBrick(string $objectbrickClass): ?UniProductCategoryInternal
     {
         return $this->resolveAncestorCategory($this, $objectbrickClass);
     }
 
+    /**
+     * Identify the relevant parent category object by looking for an instance of a given Objectbrick class.
+     * Returns the first category with an attached instance of the given Objectbrick class.
+     * Functionality extracted to separate private method for recursion.
+     */
     private function resolveAncestorCategory(AbstractUniProductBase|UniProductCategoryInternal $object, string $objectbrickClass): ?UniProductCategoryInternal
     {
         $parent = $object->getParent();
@@ -46,6 +57,9 @@ abstract class AbstractUniProductBase extends Concrete
     }
 
     /**
+     * Resolve Objectbrick instances of a given type in any point of the Pimcore object parent hierarchy.
+     * Functionality extracted to separate private method for recursion.
+     *
      * @template TObjectbrickClassname
      *
      * @param class-string<TObjectbrickClassname> $objectbrickClass

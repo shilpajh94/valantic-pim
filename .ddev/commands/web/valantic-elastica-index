@@ -1,0 +1,15 @@
+#!/bin/bash
+
+## Create an populate all ValanticElasticaBridgeBundle index
+## Usage: valantic-elastica-index
+## Example: "ddev valantic-elastica-index"
+
+if console pimcore:bundle:list --json | grep  "ValanticElasticaBridgeBundle"
+then
+    console valantic:elastica-bridge:index --delete --populate
+    console valantic:elastica-bridge:status
+fi
+
+echo "******************************************************"
+echo "* ✓ Populate ValanticElasticaBridgeBundle index done *"
+echo "******************************************************"

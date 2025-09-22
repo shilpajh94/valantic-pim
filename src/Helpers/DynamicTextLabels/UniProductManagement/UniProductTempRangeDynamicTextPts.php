@@ -12,6 +12,13 @@ use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Pimcore\Model\DataObject\UniProductCategoryInternal\LevelSpecificData;
 
+/**
+ * Render a product temperature range, based on a combination of finished good values.
+ *
+ * Refer to the Pimcore documentation for more information:
+ * https://docs.pimcore.com/platform/Pimcore/Objects/Object_Classes/Layout_Elements/Dynamic_Text_Labels/
+ */
+
 class UniProductTempRangeDynamicTextPts extends UniProductDynamicText implements DynamicTextLabelInterface
 {
     public function renderLayoutText(string $data, ?Concrete $object, array $params): string

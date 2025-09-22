@@ -15,7 +15,10 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand(name: 'app:uni:product:dummy-data:delete', description: 'Deletes previously generated dummy data.')]
+#[AsCommand(
+    name: 'app:uni:product:dummy-data:delete',
+    description: 'Unified PIM: Delete previously generated dummy products.',
+)]
 class DeleteCommand extends AbstractDummyDataCommand
 {
     protected function execute(InputInterface $input, OutputInterface $output): int

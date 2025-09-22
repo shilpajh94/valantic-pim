@@ -6,6 +6,9 @@ namespace App\Command\UniProductManagement\DummyData;
 
 use Symfony\Component\Console\Command\Command;
 
+/**
+ * Abstract base class for dummy data management commands.
+ */
 abstract class AbstractDummyDataCommand extends Command
 {
     protected const OBJECT_KEY_PREFIX = 'DUMMY ';
@@ -17,7 +20,7 @@ abstract class AbstractDummyDataCommand extends Command
     protected array $timer = [];
     protected float $timeStart;
 
-    // Sorry Linus ;-)
+
     protected static function nf(int $number): string
     {
         return number_format($number, 0, '.', '\'');

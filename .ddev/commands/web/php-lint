@@ -1,0 +1,17 @@
+#!/bin/bash
+
+## Description: Run all the PHP code quality tools
+## Usage: php-lint
+## Example: ddev php-lint\nddev php-lint --dry-run
+## Flags: [{"Name":"dry-run","Usage":"Only runs checks without changing code"}]
+
+if [[ $* == *--dry-run* ]]
+then
+    composer run rector -- --dry-run
+    composer run php-cs-fixer-check
+    composer run phpstan
+else
+    composer run rector
+    composer run php-cs-fixer
+    composer run phpstan
+fi

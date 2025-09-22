@@ -28,6 +28,9 @@
 /var/classes/DataObject/**/*.php
 !/var/classes/DataObject/Uni*/*.php
 !/var/classes/DataObject/Uni*.php
+!/var/classes/DataObject/Fieldcollection/Data/Uni*.php
+!/var/classes/DataObject/Objectbrick/Data/Uni*.php
+!/var/classes/DataObject/SelectOptions/Uni*.php
 !/var/config
 /var/config/system.yml
 /var/config/debug-mode.php
@@ -72,6 +75,7 @@ siop-import-error-log
 
 # cache.sh command
 *.sh
+!.ci/scripts/**/*.sh
 
 # Ignore gitignore
 *.gitignore
@@ -87,5 +91,9 @@ var/config/extensions.php
 /config/packages/*
 /config/pimcore/*
 /config/bundles.php
-/composer.json
+!/config/packages/doctrine_migrations.yaml
 /.env
+
+# valantic added
+.php-cs-fixer.cache
+.DS_Store

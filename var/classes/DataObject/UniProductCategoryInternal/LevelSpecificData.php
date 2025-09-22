@@ -6,8 +6,7 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 
 class LevelSpecificData extends \Pimcore\Model\DataObject\Objectbrick {
 
-protected $brickGetters = ['UniPrBr','UniPrBrFhs','UniPrBrPts','UniPrSk','UniPrSkFhs','UniPrSkPts'];
-
+protected $brickGetters = ['UniPrBr','UniPrBrFhs','UniPrBrPts','UniPrSkFhs','UniPrSkPts'];
 
 protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBr|null $UniPrBr = null;
 
@@ -84,31 +83,6 @@ public function setUniPrBrPts(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrB
 	return $this;
 }
 
-protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk|null $UniPrSk = null;
-
-/**
-* @return \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk|null
-*/
-public function getUniPrSk(bool $includeDeletedBricks = false)
-{
-	if(!$includeDeletedBricks &&
-		isset($this->UniPrSk) &&
-		$this->UniPrSk->getDoDelete()) {
-			return null;
-	}
-	return $this->UniPrSk;
-}
-
-/**
-* @param \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk|null $UniPrSk
-* @return $this
-*/
-public function setUniPrSk(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSk $UniPrSk): static
-{
-	$this->UniPrSk = $UniPrSk;
-	return $this;
-}
-
 protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkFhs|null $UniPrSkFhs = null;
 
 /**
@@ -155,6 +129,7 @@ public function getUniPrSkPts(bool $includeDeletedBricks = false)
 */
 public function setUniPrSkPts(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkPts $UniPrSkPts): static
 {
+
 	$this->UniPrSkPts = $UniPrSkPts;
 	return $this;
 }

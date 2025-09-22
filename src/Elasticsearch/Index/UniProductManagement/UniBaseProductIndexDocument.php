@@ -17,6 +17,11 @@ use Valantic\ElasticaBridgeBundle\Document\DocumentInterface;
 use Valantic\ElasticaBridgeBundle\Enum\DocumentType;
 
 /**
+ * Elasticsearch index document definition for UniProductBase.
+ *
+ * Please refer to https://github.com/valantic/pimcore-elastica-bridge
+ * for a detailed documentation of the Elastica Bridge bundle.
+ *
  * @extends AbstractDocument<UniProductBase>
  */
 class UniBaseProductIndexDocument extends AbstractDocument
@@ -26,7 +31,7 @@ class UniBaseProductIndexDocument extends AbstractDocument
 
     private const SKELETON_PREFIX = 'skeleton_';
     private const BRAND_PREFIX = 'brand_';
-    private const PRODUCT_GROUP_SPECIFIC_TECHNICAL_PREFIX = 'tpgs_';
+    private const FINISHED_GOOD_PRODUCT_GROUP_SPECIFIC_PREFIX = 'fg_pgs_';
 
     public function getType(): DocumentType
     {
@@ -80,6 +85,7 @@ class UniBaseProductIndexDocument extends AbstractDocument
         ]];
 
         foreach ($element->getProductGroupSpecific()?->getItems() ?? [] as $objectBrick) {
+
             $result[] = $this->getNormalizedObjectbrick($objectBrick, self::PRODUCT_GROUP_SPECIFIC_TECHNICAL_PREFIX);
         }
 
@@ -181,6 +187,7 @@ class UniBaseProductIndexDocument extends AbstractDocument
         return $result;
     }
 
+    /** Transforms any string into a string suited for use as key. */
     private function getKey(string $name): string
     {
         // Inspired by https://stackoverflow.com/a/19533226

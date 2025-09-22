@@ -1,0 +1,36 @@
+.lint:
+  stage: lint
+  image: git.cec.valantic.com:5050/contitech/docker-images/alpine
+  needs: []
+  interruptible: true
+  script: $PROJECT_SCRIPTS_DIR/$CI_JOB_STAGE/$CI_JOB_NAME/script.sh
+
+lint_bash:
+  extends: .lint
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - changes:
+        - "**/*.sh"
+      when: on_success
+
+lint_php:
+  extends: .lint
+  image: git.cec.valantic.com:5050/contitech/docker-images/php:$PHP_VERSION-alpine
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - changes:
+        - "**/*.php"
+      when: on_success
+
+lint_yaml:
+  extends: .lint
+  image: git.cec.valantic.com:5050/contitech/docker-images/python:3-alpine
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - changes:
+        - "**/*.yml"
+        - "**/*.yaml"
+      when: on_success

@@ -14,6 +14,10 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ExternalCategoryExportController extends FrontendController
 {
+    /**
+     * Export the product list preview of an external category as XLSX or CSV file.
+     */
+
     #[Route('/admin/export/preview', name: 'admin_export_preview', options: ['expose' => true])]
     public function preview(Request $request, ExternalCategoryExportService $exportService, LoggerInterface $logger): Response
     {
