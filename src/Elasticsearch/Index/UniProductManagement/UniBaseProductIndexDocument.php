@@ -85,7 +85,8 @@ class UniBaseProductIndexDocument extends AbstractDocument
         ]];
 
         foreach ($element->getProductGroupSpecific()?->getItems() ?? [] as $objectBrick) {
-            $result[] = $this->getNormalizedObjectbrick($objectBrick, self::FINISHED_GOOD_PRODUCT_GROUP_SPECIFIC_PREFIX);
+
+            $result[] = $this->getNormalizedObjectbrick($objectBrick, self::PRODUCT_GROUP_SPECIFIC_TECHNICAL_PREFIX);
         }
 
         return array_merge(...$result);

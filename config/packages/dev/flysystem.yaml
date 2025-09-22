@@ -1,16 +1,16 @@
 parameters:
-    s3.bucket: 'megha-pim'
+    s3.bucket: 'pimcore11-contitech-assets-qa'
 
 services:
     assets_s3:
         class: 'Aws\S3\S3Client'
         arguments:
-            -  endpoint: 'https://s3.us-east-1.amazonaws.com'
-               region: 'us-east-1'
+            -  endpoint: 'https://s3.eu-central-1.amazonaws.com'
+               region: 'eu-central-1'
                version: 'latest'
-               credentials:
-                   key: 'AKIAZI2LIJSNHSLUSOAZ'
-                   secret: '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'
+               #credentials:
+                  # key: 'AKIAZI2LIJSNHSLUSOAZ'
+                  # secret: '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'
 flysystem:
     storages:
         pimcore.asset.storage:
@@ -18,4 +18,6 @@ flysystem:
             visibility: private
             directory_visibility: public
             options:
-                directory: '%kernel.project_dir%/public/var/assets'
+                client: 'assets_s3'
+                bucket: 'pimcore11-contitech-assets-qa'
+                prefix: assets

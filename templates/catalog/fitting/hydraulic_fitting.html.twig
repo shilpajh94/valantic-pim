@@ -348,7 +348,7 @@
 																			{% set columnWidth = "width="~firstArray['columnWidth'] %}
 																		{% endif %}
 
-																		<td colspan="{{g1count}}" {{columnWidth}} class="centerAlign">
+																		<td colspan="{{g1count}}" {{columnWidth}}>
 																			{% if ( firstArray['columnIcon'] is defined and firstArray['columnIcon']) %}
 																				<img src="{{firstArray['columnIcon']}}" width="45" height="45"/>
 																			{% endif %}
@@ -357,6 +357,7 @@
 																</tr>
 															{% endif %}
 															<tr class="head">
+
 																{# initialize descriptivePosition outside the loop #}
 																{% set descriptivePosition = null %}
 																{% set count = 0 %}
@@ -375,6 +376,7 @@
 																	{% if first2Array['columnWidth'] %}
 																		{% set columnWidth = "width=" ~ first2Array['columnWidth'] %}
 																	{% endif %}
+
 
 																	{% if count > 0 %}
 																		{% set firstTDClass = 'centerAlign' %}
@@ -397,6 +399,7 @@
 																		{% endif %}
 																		{% for c3key, c3value in c3data %}
 																			{% set columnList = columnList|merge([c3key]) %}
+
 																			<td class="centerAlign">{{ c3value['unitName'] ?? '' }}</td>
 																			{% set index = index + 1 %}
 																		{% endfor %}
@@ -432,6 +435,7 @@
 																		{% if singleHex == 1 %}
 																			{% set singleHexSuperText = '1' %}
 																		{% endif %}
+
 																		{% set partNumberSuperText = nutTypeSuperText ~ '' ~ singleHexSuperText %}
 																		{% if 'DescriptivePartNumber' in columnList %}
 																			{% set columnKey = null %}
@@ -476,7 +480,7 @@
 																				<td>{{ value }}<sup>{{ partNumberSuperText }}</sup>
 																				</td>
 																			{% else %}
-																				<td class="centerAlign">{{ value | raw}}</td>
+																				<td>{{ value | raw}}</td>
 																			{% endif %}
 																		{% endfor %}
 																	</tr>

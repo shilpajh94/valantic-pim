@@ -18,6 +18,7 @@ use Pimcore\Model\DataObject\UniProductCategoryInternal\LevelSpecificData;
  * Refer to the Pimcore documentation for more information:
  * https://docs.pimcore.com/platform/Pimcore/Objects/Object_Classes/Layout_Elements/Dynamic_Text_Labels/
  */
+
 class UniProductTempRangeDynamicTextPts extends UniProductDynamicText implements DynamicTextLabelInterface
 {
     public function renderLayoutText(string $data, ?Concrete $object, array $params): string

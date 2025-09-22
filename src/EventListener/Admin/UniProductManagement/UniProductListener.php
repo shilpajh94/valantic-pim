@@ -99,7 +99,8 @@ class UniProductListener implements EventSubscriberInterface
         );
     }
 
-    /** @return array<mixed>|null */
+
+    /** @return array<mixed> */
     private function getCategoryBrickData(?UniProductCategoryInternal $category): ?array
     {
         $fields = $category?->getClass()?->getFieldDefinitions()[UniProductCategoryInternal::FIELD_LEVEL_SPECIFIC_DATA] ?? null;

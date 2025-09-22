@@ -44,11 +44,8 @@ class SSOIntegrationExtension extends Extension implements PrependExtensionInter
                 case 'prod':
                     $loader->load('saml-sp_prod.yml');
                     break;
-                case 'stage':
-                    $loader->load('saml-sp_stage.yml');
-                    break;
                 default:
-                    $loader->load('saml-sp_qc.yml');
+                    $loader->load('saml-sp_stage.yml');
                     break;
             }
         }
@@ -108,11 +105,8 @@ class SSOIntegrationExtension extends Extension implements PrependExtensionInter
                 case 'prod':
                     $idpFile=XmlUtils::loadFile(__DIR__ . '/../Resources/config/saml-idp-prod.xml');
                     break;
-                case 'stage':
-                    $idpFile=XmlUtils::loadFile(__DIR__ . '/../Resources/config/saml-idp-stage.xml');
-                    break;
                 default:
-                    $idpFile=XmlUtils::loadFile(__DIR__ . '/../Resources/config/saml-idp-qc.xml');
+                $idpFile=XmlUtils::loadFile(__DIR__ . '/../Resources/config/saml-idp-stage.xml');
                     break;
             }
         }

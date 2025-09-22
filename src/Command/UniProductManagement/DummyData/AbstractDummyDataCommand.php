@@ -20,6 +20,7 @@ abstract class AbstractDummyDataCommand extends Command
     protected array $timer = [];
     protected float $timeStart;
 
+
     protected static function nf(int $number): string
     {
         return number_format($number, 0, '.', '\'');

@@ -15,12 +15,13 @@ use Pimcore\Model\DataObject\UniProductBase\ProductGroupSpecific;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Pimcore\Model\DataObject\UniProductCategoryInternal\LevelSpecificData;
 
-/**
+
  * Render a calculated nomial length, based on a combination of skeleton and finished good values.
  *
  * Refer to the Pimcore documentation for more information:
  * https://docs.pimcore.com/platform/Pimcore/Objects/Object_Classes/Layout_Elements/Dynamic_Text_Labels/
  */
+
 class UniProductNominalLengthDynamicTextPts extends UniProductDynamicText implements DynamicTextLabelInterface
 {
     public function renderLayoutText(string $data, ?Concrete $object, array $params): string

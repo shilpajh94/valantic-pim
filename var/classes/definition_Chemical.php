@@ -19,14 +19,14 @@
  * - RatingScale [select]
  */
 
-return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
+return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
    'id' => '15',
    'name' => 'Chemical',
    'title' => '',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1745818321,
+   'modificationDate' => 1706469126,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -42,7 +42,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'allowVariants' => false,
    'showVariants' => false,
    'layoutDefinitions' => 
-  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => 'pimcore_root',
      'type' => NULL,
      'region' => NULL,
@@ -56,7 +56,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'children' => 
     array (
       0 => 
-      \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+      Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -70,7 +70,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
              'name' => 'Field Container',
              'type' => NULL,
              'region' => NULL,
@@ -84,7 +84,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -98,7 +98,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                      'name' => 'Brand',
                      'title' => 'Brand',
                      'tooltip' => '
@@ -117,17 +117,18 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
+                     'options' => NULL,
                      'defaultValue' => '1',
                      'columnLength' => 190,
                      'dynamicOptions' => false,
                      'defaultValueGenerator' => '',
                      'width' => 350,
-                     'optionsProviderType' => 'class',
+                     'optionsProviderType' => NULL,
                      'optionsProviderClass' => 'AppBundle\\OptionProvider\\GenericOptionsProvider',
                      'optionsProviderData' => 'Brand|Name',
                   )),
                   1 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'Name',
                      'title' => 'Chemical Name',
                      'tooltip' => '',
@@ -157,7 +158,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   2 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'TemperatureRating',
                      'title' => 'Temperature Rating ',
                      'tooltip' => '',
@@ -187,7 +188,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValueGenerator' => '',
                   )),
                   3 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                      'name' => 'gasketMaterial',
                      'title' => 'Gasket Material',
                      'tooltip' => '',
@@ -236,16 +237,14 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'maxItems' => NULL,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
-                     'defaultValue' => NULL,
                      'height' => '',
                      'width' => 350,
-                     'defaultValueGenerator' => '',
                      'optionsProviderType' => NULL,
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
                   )),
                   4 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                      'name' => 'printedCatalog',
                      'title' => 'Printed Catalog',
                      'tooltip' => '',
@@ -278,7 +277,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -292,7 +291,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
                      'name' => 'Description',
                      'type' => NULL,
                      'region' => NULL,
@@ -339,7 +338,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelAlign' => 'left',
           )),
           1 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
              'name' => 'tubeMaterial',
              'title' => 'Tube Material ',
              'tooltip' => '',
@@ -367,7 +366,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'tubeMaterial',
                  'title' => 'Tube Material',
                  'tooltip' => '',
@@ -385,17 +384,18 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'defaultValue' => '',
+                 'options' => NULL,
+                 'defaultValue' => NULL,
                  'columnLength' => 190,
                  'dynamicOptions' => false,
                  'defaultValueGenerator' => '',
                  'width' => '',
-                 'optionsProviderType' => 'class',
+                 'optionsProviderType' => NULL,
                  'optionsProviderClass' => 'ImportBundle\\OptionProvider\\TubeMaterialOptionsProvider',
                  'optionsProviderData' => '',
               )),
               1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'rating',
                  'title' => 'Rating',
                  'tooltip' => '',
@@ -441,7 +441,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'dynamicOptions' => false,
                  'defaultValueGenerator' => '',
                  'width' => '',
-                 'optionsProviderType' => 'configure',
+                 'optionsProviderType' => NULL,
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
               )),
@@ -453,7 +453,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'fieldDefinitionsCache' => NULL,
           )),
           2 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Data\Block::__set_state(array(
              'name' => 'fittingMaterial',
              'title' => 'Fitting Material ',
              'tooltip' => '',
@@ -481,7 +481,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'fittingMaterial',
                  'title' => 'Fitting Material',
                  'tooltip' => '',
@@ -499,17 +499,18 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'defaultValue' => '',
+                 'options' => NULL,
+                 'defaultValue' => NULL,
                  'columnLength' => 190,
                  'dynamicOptions' => false,
                  'defaultValueGenerator' => '',
                  'width' => '',
-                 'optionsProviderType' => 'class',
+                 'optionsProviderType' => NULL,
                  'optionsProviderClass' => 'ImportBundle\\OptionProvider\\FittingMaterialOptionsProvider',
                  'optionsProviderData' => '',
               )),
               1 => 
-              \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'rating',
                  'title' => 'Rating',
                  'tooltip' => '',
@@ -533,21 +534,25 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   array (
                     'key' => 'A',
                     'value' => 'A',
+                    'id' => 'extModel16656-1',
                   ),
                   1 => 
                   array (
                     'key' => 'B',
                     'value' => 'B',
+                    'id' => 'extModel16656-2',
                   ),
                   2 => 
                   array (
                     'key' => 'X',
                     'value' => 'X',
+                    'id' => 'extModel16656-3',
                   ),
                   3 => 
                   array (
                     'key' => 'I',
                     'value' => 'I',
+                    'id' => 'extModel16656-4',
                   ),
                 ),
                  'defaultValue' => '',
@@ -555,7 +560,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'dynamicOptions' => false,
                  'defaultValueGenerator' => '',
                  'width' => '',
-                 'optionsProviderType' => 'configure',
+                 'optionsProviderType' => NULL,
                  'optionsProviderClass' => '',
                  'optionsProviderData' => '',
               )),
@@ -567,7 +572,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'fieldDefinitionsCache' => NULL,
           )),
           3 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
              'name' => 'RatingScale',
              'title' => 'Rating Scale',
              'tooltip' => '',
@@ -613,7 +618,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'dynamicOptions' => false,
              'defaultValueGenerator' => '',
              'width' => 350,
-             'optionsProviderType' => 'configure',
+             'optionsProviderType' => NULL,
              'optionsProviderClass' => '',
              'optionsProviderData' => '',
           )),

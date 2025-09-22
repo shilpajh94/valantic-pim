@@ -514,7 +514,7 @@ class DataObjectController extends ElementControllerBase implements KernelContro
             if ($child['datatype'] === 'layout') {
                 $this->injectValuesForCustomLayout($child);
             } else {
-                foreach ($this->classFieldDefinitions[$child['name']] ?? [] as $key => $value) {
+                foreach ($this->classFieldDefinitions[$child['name']] as $key => $value) {
                     if (array_key_exists($key, $child) && ($child[$key] === null || $child[$key] === '' || (is_array($child[$key]) && empty($child[$key])))) {
                         $child[$key] = $value;
                     }
