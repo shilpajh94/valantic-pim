@@ -15,15 +15,13 @@ pimcore:
           permissions:
             -
               condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
-              modify: true
-              unpublish: true
+              unpublish: false
               delete: true
               view: true
-              publish: true
+              publish: false
               save: true
             -
               condition: is_fully_authenticated() and 'ROLE_UNIENRICHMENT' in role_names
-              modify: true
               unpublish: false
               delete: false
               view: true
@@ -31,7 +29,6 @@ pimcore:
               save: true
             -
               condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_UNIREADONLY' in role_names)
-              modify: false
               unpublish: false
               delete: false
               view: true
@@ -43,15 +40,13 @@ pimcore:
           permissions:
             -
               condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
-              modify: true
-              unpublish: true
+              unpublish: false
               delete: true
               view: true
-              publish: true
+              publish: false
               save: true
             -
               condition: is_fully_authenticated() and ('ROLE_UNIENRICHMENT' in role_names or 'ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_UNIREADONLY' in role_names)
-              modify: false
               unpublish: false
               delete: false
               view: true
@@ -63,23 +58,20 @@ pimcore:
           permissions:
             -
               condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
-              modify: true
-              unpublish: true
+              unpublish: false
               delete: true
               view: true
-              publish: true
+              publish: false
               save: true
             -
-              condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_UNIENRICHMENT' in role_names)
-              modify: true
+              condition: is_fully_authenticated() and 'ROLE_UNIENRICHMENT' in role_names
               unpublish: false
               delete: false
               view: true
               publish: false
               save: true
             -
-              condition: is_fully_authenticated() and 'ROLE_UNIREADONLY' in role_names
-              modify: false
+              condition: is_fully_authenticated() and ('ROLE_UNIREADONLY' in role_names or 'ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names)
               unpublish: false
               delete: false
               view: true
@@ -91,15 +83,13 @@ pimcore:
           permissions:
             -
               condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
-              modify: true
-              unpublish: true
+              unpublish: false
               delete: true
               view: true
-              publish: true
+              publish: false
               save: true
             -
               condition: is_fully_authenticated() and 'ROLE_UNIENRICHMENT' in role_names
-              modify: true
               unpublish: false
               delete: false
               view: true
@@ -107,7 +97,6 @@ pimcore:
               save: true
             -
               condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_UNIREADONLY' in role_names)
-              modify: false
               unpublish: false
               delete: false
               view: true
@@ -119,15 +108,13 @@ pimcore:
           permissions:
             -
               condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
-              modify: true
-              unpublish: true
+              unpublish: false
               delete: true
               view: true
-              publish: true
+              publish: false
               save: true
             -
               condition: is_fully_authenticated() and 'ROLE_UNIENRICHMENT' in role_names
-              modify: true
               unpublish: false
               delete: false
               view: true
@@ -135,7 +122,6 @@ pimcore:
               save: true
             -
               condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_UNIREADONLY' in role_names)
-              modify: false
               unpublish: false
               delete: false
               view: true
@@ -147,18 +133,16 @@ pimcore:
           permissions:
             -
               condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
-              modify: true
-              unpublish: true
+              unpublish: false
               delete: true
               view: true
-              publish: true
-              save: true
+              publish: false
+              save: false
             -
               condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_UNIENRICHMENT' in role_names or 'ROLE_UNIREADONLY' in role_names)
-              modify: false
               unpublish: false
               delete: false
-              view: false
+              view: true
               publish: false
               save: false
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::EMERGENCY_UNPUBLISHED->value:
@@ -167,20 +151,25 @@ pimcore:
           permissions:
             -
               condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
-              modify: true
-              unpublish: true
+              unpublish: false
               delete: true
               view: true
-              publish: true
+              publish: false
               save: true
             -
-              condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_UNIENRICHMENT' in role_names or 'ROLE_UNIREADONLY' in role_names)
-              modify: true
-              unpublish: true
-              delete: true
-              view: false
-              publish: true
+              condition: is_fully_authenticated() and 'ROLE_UNIENRICHMENT' in role_names
+              unpublish: false
+              delete: false
+              view: true
+              publish: false
               save: true
+            -
+              condition: is_fully_authenticated() and ('ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_UNIREADONLY' in role_names)
+              unpublish: false
+              delete: false
+              view: true
+              publish: false
+              save: false
       transitions:
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::SUBMIT_FOR_APPROVAL->value:
           guard: "is_fully_authenticated() and ('ROLE_UNIADMIN' in role_names or 'ROLE_UNIENRICHMENT' in role_names)"
@@ -212,7 +201,7 @@ pimcore:
               commentRequired: false
             changePublishedState: 'force_published'
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::EDIT_DRAFT->value:
-          guard: "is_fully_authenticated() and ('ROLE_UNIADMIN' in role_names or 'ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names or 'ROLE_UNIENRICHMENT' in role_names)"
+          guard: "is_fully_authenticated() and ('ROLE_UNIADMIN' in role_names or 'ROLE_UNIENRICHMENT' in role_names)"
           from: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::APPROVED->value
           to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::DRAFT->value
           options:
