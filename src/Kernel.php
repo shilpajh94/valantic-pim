@@ -40,11 +40,13 @@ class Kernel extends PimcoreKernel
             $collection->addBundle(new \Pimcore\Bundle\LegacyBundle\PimcoreLegacyBundle());
         }
 
+
+  //      $secretManager = new SecretManager();
+//        $secretManager->retrieveSecret();
+
         // if (class_exists('\\IFSEU\\ImportBundle\\IFSEUImportBundle')) {
         //     $collection->addBundle(new IFSEU\ImportBundle\IFSEUImportBundle());
         // }
-       // $secretManager = new SecretManager();
-       // $secretManager->retrieveSecret();
 
     }
 }
