@@ -40,6 +40,11 @@ services:
         resource: '../src/Command'
         tags: [ 'console.command' ]
 
+    App\EventListener\UniProductWorkflowEventListener:
+        arguments:
+            $workflowRegistry: '@workflow.registry'
+        tags:
+            - { name: kernel.event_subscriber }
     App\Util\:
         resource: '../src/Util'
 
