@@ -11,5 +11,6 @@ enum ProductApprovalWorkflowTransition: string
     case REJECT_PRODUCT = 'reject_product';
     case EDIT_DRAFT = 'edit_draft';
     case ARCHIVE_PRODUCT = 'archive_product';
+    case UNARCHIVE_PRODUCT = 'unarchive_product';
     case EMERGENCY_UNPUBLISH = 'emergency_unpublish';
 }
