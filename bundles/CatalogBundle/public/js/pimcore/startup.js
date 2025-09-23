@@ -14,7 +14,7 @@ pimcore.plugin.CatalogBundle = Class.create({
 
     postOpenObject: function (e) {
         let objectClassName = e.detail.object.data.general.className;
-
+		let objId = e.detail.object.data.general.id;
         if (objectClassName == 'Catalog') {
             var SalesOrganisationCompObj = e.detail.object.edit.dataFields.SalesOrganisation.component;
             var DistributionChannelCompObj = e.detail.object.edit.dataFields.DistributionChannel.component;
@@ -52,45 +52,34 @@ pimcore.plugin.CatalogBundle = Class.create({
             });
         }
 
-        if (objectClassName == 'CatalogCategory') {
-
-            var categoryOptionsStore = Ext.create('Ext.data.Store', {
-                fields: ['id', 'text'],
-                proxy: {
-                    type: 'ajax',
-                    url: '/catalog/get-category',
-                    //  method:'POST',
-                    extraParams: {
-                        catId: e.detail.object.data.general.parentId,
-
-                    },
-                    reader: {
-                        type: 'json',
-                        rootProperty: 'data'
-                    }
-                },
-
-            });
-
-            categoryOptionsStore.load();
-
-            e.detail.object.edit.dataFields.Category.component.setStore(categoryOptionsStore);
-            if (e.detail.object.data.data.Category !== null)
-            {
-                console.log(e.detail.object.data.data.Category);
-                e.detail.object.edit.dataFields.Category.component.setValue(e.detail.object.data.data.Category);
-            }
-            categoryOptionsStore.load();
+        if (objectClassName == 'CatalogCategory' || objectClassName == 'SpecSheetCatalog') {
+			var catalogId = "";
+			if(objectClassName == 'SpecSheetCatalog') {
+				catalogId = e.detail.object.data.data.CatalogType;
+				
+			} else {
+				catalogId = e.detail.object.data.general.parentId;
+			}
+			if(catalogId){
+				var categoryOptionsStore = this.loadCategories(catalogId, objectClassName, e);
+			}
         }
-        //let helper = new pimcore.plugin.lpeHelper();
 
-        if (objectClassName == 'CatalogPTS') {
+       if (objectClassName == 'CatalogPTS') {
+
+            var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
+            colComp.hide();
+
+            if((e.detail.object.data.data.AttributeTable !== null && trim(e.detail.object.data.data.AttributeTable) !== "")){
+                var ptsCatalogHeaderSelection = new pimcore.plugin.ptsCatalogHeaderSelection();
+                ptsCatalogHeaderSelection.attachPtsCatlogHeader(e);
+            }
+
             var baseOptionsStore = Ext.create('Ext.data.Store', {
                 fields: ['key', 'value'],
                 proxy: {
                     type: 'ajax',
                     url: '/catalog/get-base-products',
-                    //  method:'POST',
                     extraParams: {
                         catId: e.detail.object.data.general.parentId,
                         objId: e.detail.object.data.general.id,
@@ -157,7 +146,6 @@ pimcore.plugin.CatalogBundle = Class.create({
                     proxy: {
                         type: "ajax",
                         url: "/catalog/get-skeleton-products",
-                        //  method:'POST',
                         extraParams: {
                             products: baseProductId,
                             needKey: true,
@@ -176,79 +164,83 @@ pimcore.plugin.CatalogBundle = Class.create({
                 );
 
                 SkeletonProductStore.load();
+    
             };
-            // e.detail.object.edit.dataFields.BaseProduct.component.on('blur', function (e) {
-
-            //     var skeletonOptionsStore = Ext.create('Ext.data.Store', {
-            //         fields: ['id', 'text'],
-            //         proxy: {
-            //             type: 'ajax',
-            //             url: '/catalog/get-skeleton-products',
-            //             //  method:'POST',
-            //             extraParams: {
-            //                 products: Ext.JSON.encode(e.value),
-
-            //             },
-            //             reader: {
-            //                 type: 'json',
-            //                 rootProperty: 'data'
-            //             }
-            //         },
-
-            //     });
-
-            //     skeletonOptionsStore.load();
-            //     e.detail.object.edit.dataFields.SkeletonProduct.component.setStore(skeletonOptionsStore);
-                
-            //      if (e.detail.object.data.data.SkeletonProduct !== null)
-            // {
-            //     console.log(e.detail.object.data.data.SkeletonProduct);
-            //     e.detail.object.edit.dataFields.SkeletonProduct.component.setValue(e.detail.object.data.data.SkeletonProduct);
-            // }
-            // skeletonOptionsStore.load();
-            // });
         } // end CatalogPTS
+		
 
-        if (objectClassName == 'CatalogTables') {
 
-            var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
-            colComp.hide();
-            
-            var store;
-            var columns;
-            var data;
+        if (objectClassName == 'CatalogVBelts') {
 
-            var tableOptionsStore = Ext.create('Ext.data.Store', {
-                fields: ['key', 'value'],
+            var productsOptionStore = Ext.create('Ext.data.Store', {
+                fields: ["text", "id"],
                 proxy: {
                     type: 'ajax',
-                    url: '/catalog/get-tables',
-                    // autoLoad: true,
-                    //  method:'POST',
+                    url: '/catalog/get-base-products',
+                    method:'POST',
                     extraParams: {
                         catId: e.detail.object.data.general.parentId,
-
+                        objId: e.detail.object.data.general.id,
                     },
                     reader: {
-                        type: 'json',
-                        rootProperty: 'data'
+                        type: "json",
+                        rootProperty: "data"
                     }
                 },
 
             });
 
-
-            tableOptionsStore.load();
-
-            e.detail.object.edit.dataFields.AttributeTable.component.setStore(tableOptionsStore);
-            if (e.detail.object.data.data.AttributeTable !== null)
+            productsOptionStore.load();
+            e.detail.object.edit.dataFields.BaseProduct.component.setStore(productsOptionStore);
+            if (e.detail.object.data.data.BaseProduct !== null)
             {
-                tableOptionsStore.on('load', function(store, records, successful){
-                    e.detail.object.edit.dataFields.AttributeTable.component.setValue(e.detail.object.data.data.AttributeTable);
-                 });
-                // object.edit.dataFields.AttributeTable.component.setValue(object.data.data.AttributeTable);
+                e.detail.object.edit.dataFields.BaseProduct.component.setValue(e.detail.object.data.data.BaseProduct);
             }
-            // tableOptionsStore.load();
+            productsOptionStore.load();
+        }
+
+
+        if (objectClassName == 'CatalogTables'  || objectClassName == 'SpecSheetCatalog') {
+
+            var colComp = Ext.getCmp(e.detail.object.edit.dataFields.Columns.component.id);
+            colComp.hide();
+            var store;
+            var columns;
+            var data;
+			
+			var tableOptionsStore;
+			if(objectClassName == 'SpecSheetCatalog'){
+				var catalogTypevalue = e.detail.object.data.data.CatalogType;
+				var CatalogType = e.detail.object.edit.dataFields.CatalogType.component;
+				 CatalogType.addListener('change', function (prVal, chVal) {
+					
+					this.loadCategories(chVal, objectClassName, e);
+					tableOptionsStore = this.loadAttributeTables(chVal, objectClassName, e);
+					
+
+				}.bind(this));
+				
+				if(catalogTypevalue){
+					catvalue = e.detail.object.data.data.CatalogType;
+				   tableOptionsStore = this.loadAttributeTables(catalogTypevalue, objectClassName, e);
+				}
+			} else {
+				tableOptionsStore = this.loadAttributeTables(e.detail.object.data.general.parentId, objectClassName, e);
+                var tabs = Ext.getCmp(e.detail.object.edit.layout.items.items[0].id);
+                tabs.on('tabChange', function (obj, newTab, oldTab) {
+                    if (newTab.name == 'Sorting')
+                    {
+                        var sortingColumns = Ext.getCmp(e.detail.object.edit.dataFields.SortingColumns.component.id);
+                        sortingColumns.hide();
+                        if((e.detail.object.data.data.AttributeTable !== null && trim(e.detail.object.data.data.AttributeTable) !== "")){
+                            var brandsortingOrder = new pimcore.plugin.brandsortingOrder();
+                            brandsortingOrder.attachbrandSortingHeader(e);
+                        }
+                    }
+                });
+			}
+
+          
             let template = null;
              e.detail.object.edit.dataFields.Template.component.on('change', function(eve){
                 
@@ -261,15 +253,13 @@ pimcore.plugin.CatalogBundle = Class.create({
             }
 
              e.detail.object.edit.dataFields.AttributeTable.component.on('select', function(event){
-                 //console.log(e.detail.object.data.data.AttributeTable);
-              //   if(e.detail.object.data.data.AttributeTable != event.value)
                 {
                     var headerSelection = new pimcore.plugin.headerSelection();
                     headerSelection.attachHeader(e.detail.object, event,template);
                 }
              });
              
-
+		if (objectClassName == 'CatalogTables'){
             var baseOptionsStore = Ext.create('Ext.data.Store', {
                 fields: ['id', 'text'],
                 proxy: {
@@ -295,7 +285,6 @@ pimcore.plugin.CatalogBundle = Class.create({
 
             if (e.detail.object.data.data.BaseProduct !== null)
             {
-               // console.log(e.detail.object.data.data.BaseProduct);
                 e.detail.object.edit.dataFields.BaseProduct.component.setValue(e.detail.object.data.data.BaseProduct);
             }
             baseOptionsStore.load();
@@ -325,7 +314,6 @@ pimcore.plugin.CatalogBundle = Class.create({
                 
                  if (e.detail.object.data.data.SkeletonProduct !== null)
             {
-                console.log(e.detail.object.data.data.SkeletonProduct);
                 e.detail.object.edit.dataFields.SkeletonProduct.component.setValue(e.detail.object.data.data.SkeletonProduct);
             }
             skeletonOptionsStore.load();
@@ -354,33 +342,33 @@ pimcore.plugin.CatalogBundle = Class.create({
             siopStore.load();
             e.detail.object.edit.dataFields.SIOPLevel4.component.setStore(siopStore);
              
-           siopStore.on('load', function(store, records, successful){
-   if(store.getCount() == 0)
+            siopStore.on('load', function(store, records, successful){
+            if(store.getCount() == 0)
             {
                 e.detail.object.edit.dataFields.SIOPLevel4.component.setDisabled(true);
             }
-});
+        });
            
             if (e.detail.object.data.data.SIOPLevel4 !== null)
             {
-               // console.log(e.detail.object.data.data.BaseProduct);
                 e.detail.object.edit.dataFields.SIOPLevel4.component.setValue(e.detail.object.data.data.SIOPLevel4);
             }
+		}
             
             var tabs = Ext.getCmp(e.detail.object.edit.layout.items.items[0].id);
 
             tabs.on('tabChange', function (obj, newTab, oldTab) {
-
-
                 if (newTab.name == 'Data')
                 {
+					
+					
                     var headComp = Ext.getCmp(e.detail.object.edit.dataFields.headerData.component.id);
                     headComp.hide();
                     Ext.Ajax.request({
                         url: "/catalog/get-initial-data",
                         method: 'GET',
                         async: false,
-                        params: {'objId': e.detail.object.id},
+                        params: {'objId': e.detail.object.id, 'className': objectClassName},
                         success: function (response) {
                             response = Ext.decode(response.responseText);
 
@@ -400,15 +388,25 @@ pimcore.plugin.CatalogBundle = Class.create({
                                 header: true
                             });
                             columns = response.columnData;
-                            data = response.data;
+                            data = response.data; 
 
 
 
                             var table = new Catalog.pimcore.object.tags.table([], e.detail.object.edit.dataFields.ProductsData.fieldConfig);
                             var comp = Ext.getCmp(e.detail.object.edit.dataFields.ProductsData.component.id);
 
-                            table.initStore(data, comp, e.detail.object.edit.dataFields.ProductsData, columns);
-                        }
+                            table.initStore(data, comp, e.detail.object.edit.dataFields.ProductsData, columns, objectClassName, e);
+						
+						 if(objectClassName == 'SpecSheetCatalog'){
+							 let SAPRange = e.detail.object.edit.dataFields.SAPRange.data; 
+							 if(SAPRange == "Custom Selection"){
+							 response.customRecords.forEach(function (item) {
+								 Ext.getCmp('CatalogDataGrid_'+objId).getSelectionModel().select(item,true,false);
+
+							});
+							}
+						 }
+						}
                     });
                 }
             });
@@ -448,12 +446,76 @@ pimcore.plugin.CatalogBundle = Class.create({
         }
     },
 
+	loadCategories: function (catalogId, className, e) {
+	  var categoryOptionsStore = Ext.create('Ext.data.Store', {
+                fields: ['id', 'text'],
+                proxy: {
+                    type: 'ajax',
+                    url: '/catalog/get-category',
+                    //  method:'POST',
+                    extraParams: {
+                        catId: catalogId,
+						className: className
+
+                    },
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                },
+
+            });
+			categoryOptionsStore;
+			
+			 categoryOptionsStore.load();
+
+            e.detail.object.edit.dataFields.Category.component.setStore(categoryOptionsStore);
+            if (e.detail.object.data.data.Category !== null)
+            {
+                e.detail.object.edit.dataFields.Category.component.setValue(e.detail.object.data.data.Category);
+            }
+           // categoryOptionsStore.load();
+	},
+	
+	loadAttributeTables: function (value, className, e) {
+	 var tableOptionsStore = Ext.create('Ext.data.Store', {
+                fields: ['key', 'value'],
+                proxy: {
+                    type: 'ajax',
+                    url: '/catalog/get-tables',
+                    // autoLoad: true,
+                    //  method:'POST',
+                    extraParams: {
+                        catId: value,
+						className: className
+
+                    },
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                },
+
+            });
+			
+			tableOptionsStore.load();
+            e.detail.object.edit.dataFields.AttributeTable.component.setStore(tableOptionsStore);
+            if (e.detail.object.data.data.AttributeTable !== null)
+            {
+                tableOptionsStore.on('load', function(store, records, successful){
+                    e.detail.object.edit.dataFields.AttributeTable.component.setValue(e.detail.object.data.data.AttributeTable);
+                 });
+                // object.edit.dataFields.AttributeTable.component.setValue(object.data.data.AttributeTable);
+            }
+	}
+
 });
 
 var CatalogBundlePlugin = new pimcore.plugin.CatalogBundle();
 Ext.define('Catalog.pimcore.object.tags.table', {
     extend: 'pimcore.object.tags.table',
-    initStore: function (data, comp, field, columnArr) {
+    initStore: function (data, comp, field, columnArr, objectClassName, e) {
+		
         if(data !== null)
         {
         this.component = comp;
@@ -471,15 +533,16 @@ Ext.define('Catalog.pimcore.object.tags.table', {
         });
 
         this.store.loadData(data);
-
         field.data = data;
         field.dirty = true;
         field.store = this.store;
-        this.initGrid(comp, columnArr);
+        this.initGrid(comp, columnArr, objectClassName, e);
     }
     },
+	
 
-    initGrid: function (comp, columnArr) {
+    initGrid: function (comp, columnArr, objectClassName, e) {
+		let objId = e.detail.object.id;
         this.component = comp;
         this.component.removeAll();
 
@@ -508,7 +571,6 @@ Ext.define('Catalog.pimcore.object.tags.table', {
         this.cellEditing = Ext.create('Ext.grid.plugin.CellEditing', {});
 
         var tbar = [];
-
         /* if (!this.fieldConfig.colsFixed || columns.length < this.fieldConfig.cols) {
          tbar.push({
          iconCls: "pimcore_icon_table_col pimcore_icon_overlay_add",
@@ -545,20 +607,52 @@ Ext.define('Catalog.pimcore.object.tags.table', {
          });
          */
         // customization -- starts
+		var selType = "";
+		var selModel = Ext.create('Ext.selection.CellModel');
+		var plugins = '';
+		var gridId = 'CatalogDataGrid_'+objId;
+		if(objectClassName == "SpecSheetCatalog"){
+			var SAPRange = "";
+			Ext.Ajax.request({
+                url : '/specsheet/getSAPRange',
+				async:false, 
+                params : {
+                        objectId: e.detail.object.id
+                },
+                success : function(r){
+                    SAPRange = Ext.decode(r.responseText);            
+
+			}
+			});
+			
+			if(SAPRange == "Custom Selection"){
+				selType = 'checkboxmodel';
+				plugins = 'gridfilters';
+				selModel =  {
+                checkOnly: false,
+                mode: 'SIMPLE',
+				name:'checkit'
+                }
+				Ext.getCmp('customButton_'+e.detail.object.id).show();
+			} else {
+				Ext.getCmp('customButton_'+e.detail.object.id).hide();
+			}
+		} 
+
         if (this.fieldConfig.name == "ProductsData") {
             this.grid = Ext.create('Ext.grid.Panel', {
                 store: this.store,
+				id:gridId,
                 columns: columns,
                 stripeRows: true,
                 columnLines: true,
+				selType: selType,
+				selModel: selModel,
                 bodyCls: "pimcore_editable_grid",
                 autoHeight: true,
-                selModel: Ext.create('Ext.selection.CellModel'),
                 hideHeaders: false,
                 enableColumnHide: false,
-                //  plugins: [
-                //     this.cellEditing
-                // ],
+                plugins: plugins,
                 tbar: tbar,
                 viewConfig: {
                     forceFit: true
@@ -576,9 +670,10 @@ Ext.define('Catalog.pimcore.object.tags.table', {
                 columns: columns,
                 stripeRows: true,
                 columnLines: true,
+			    selType: "",
+				selModel: Ext.create('Ext.selection.CellModel'),
                 bodyCls: "pimcore_editable_grid",
                 autoHeight: true,
-                selModel: Ext.create('Ext.selection.CellModel'),
                 hideHeaders: false,
                 enableColumnHide: false,
                 plugins: [
@@ -611,6 +706,9 @@ Ext.define('Catalog.pimcore.object.tags.table', {
         //     }
         // });
         // default pimcore implementation -- ends
+
+		
+				
 
         this.component.add(this.grid);
         this.component.updateLayout();

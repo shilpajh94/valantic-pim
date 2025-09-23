@@ -69,8 +69,9 @@
 					{% set uniqueId = md5Twig(brandKey) %}
 					{% set categoryForCatalog = brand['brandData']['SIOP3Description']~": "~brand['brandData']['SIOP4Description'] %}
 
-					<div class="template">
-						<div class="segregate inh  inhSettingProductPage">
+					{#<div class="template">#}
+					
+						<div class="segregate inh {% if info['className'] != 'SpecSheetCatalog' %} inhSettingProductPage {% endif %}">
 
 							<div id="pageHeader"></div>
 							<span class="pageName">
@@ -204,7 +205,8 @@
 										</div>
 									</div>
 									<div class="inhRight">
-										<header class=" white">
+									    <div class="page-break-inside-avoid">
+									        <header class=" white">
 											<h1>
 												{% if editmode %}
 													{% if pimcore_input("INH_PRODUCT_BRANDNAME_"~uniqueId).isEmpty() %}
@@ -218,12 +220,12 @@
 											</h1>
 											<aside>
 												<div>
-													{% if editmode %}
-														{% if pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId).isEmpty() %}
-															{{ pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId, {"placeholder" : "eg: Enter Brand Description"}).setDataFromResource(brand['brandData']['longDescription']) | raw }}
-														{% else %}
-															{{ pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId, {"placeholder" : "eg: Enter Brand Description"}) }}
-														{% endif %}
+
+													<p>{{brand['brandData']['longDescription'] | striptags | raw}}</p>
+												</div>
+												{% if editmode %}
+													{% if not pimcore_image('INH_LEFT_IMAGE_'~uniqueId).isEmpty() %}
+														{% set imgSrcObj = pimcore_image('INH_LEFT_IMAGE_'~uniqueId) %}
 													{% else %}
 														{{ pimcore_wysiwyg("INH_LONG_DESCRIPTION_"~uniqueId, {"placeholder" : "eg: Enter Brand Description"}) }}
 													{% endif %}
@@ -254,9 +256,9 @@
 													{% endif %}
 												{% endif %}
 											</aside>
-										</header>
-										<section class="content">
-											{% if brand['brandData']['safetyFeatures'] or brand['brandData']['designFactor']|trim or brand['brandData']['tubeMaterial']|trim or brand['brandData']['coverMaterial']|trim or brand['brandData']['reinforcement']|trim or brand['brandData']['temperatureRangeFAndC']|trim or brand['brandData']['Coupling']|trim or brand['brandData']['Packaging']|trim %}
+										    </header>    
+										    
+										    {% if brand['brandData']['safetyFeatures'] or brand['brandData']['designFactor']|trim or brand['brandData']['tubeMaterial']|trim or brand['brandData']['coverMaterial']|trim or brand['brandData']['reinforcement']|trim or brand['brandData']['temperatureRangeFAndC']|trim or brand['brandData']['Coupling']|trim or brand['brandData']['Packaging']|trim %}
 												<menu class="flex">
 													{% if brand['brandData']['designFactor']|trim or brand['brandData']['tubeMaterial']|trim or brand['brandData']['coverMaterial']|trim or brand['brandData']['reinforcement']|trim or brand['brandData']['temperatureRangeFAndC']|trim or brand['brandData']['Coupling']|trim or brand['brandData']['Packaging']|trim %}
 														<div class="specs">
@@ -350,6 +352,10 @@
 													{% endif %}
 												</menu>
 											{% endif %}
+									    </div>
+										
+										<section class="content">
+											
 
 											<menu>
 												<h6>{{ 'branding'|trans }}</h6>
@@ -396,10 +402,10 @@
 																	</div>
 																{% endif %}
 															</aside>
-<style>
-	.continueRow{padding: 0 !important; margin: 0 !important;}
-</style>
-															<table class="grid special inh  continueLable cellAttributes {{table_class}}" aria-hidden="true">
+															<style>
+																.continueRow{padding: 0 !important; margin: 15px !important;}
+															</style>
+															<table class="grid special inh continueRow continueLable cellAttributes {{table_class}}" aria-hidden="true">
 																<thead>
 																	{% if info['iconRequired'] == 'YES' %}
 																		<tr class="sub-head">
@@ -479,7 +485,7 @@
 								</div>
 							</article>
 						</div>
-					</div>
+					{#</div>#}
 					{% set pg = pg +1 %}
 				{% endif %}
 			{% endfor %}

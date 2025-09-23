@@ -141,6 +141,10 @@ services:
         tags:
             - { name: 'console.command', command: 'ptgeu-VBeltsFertBrickMapping-and-dataImport' }
 
+    PTGEU\ImportBundle\Command\PimcoreSaveRecordsCommand:
+        tags:
+            - { name: 'console.command', command: 'conti:pimcore_save_records' }
+
     # Services
     import.sap_file_feeder_service:
         class: PTGEU\ImportBundle\Services\SAPFileFeederService

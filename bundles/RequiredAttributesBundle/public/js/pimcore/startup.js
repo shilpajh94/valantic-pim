@@ -115,7 +115,7 @@ pimcore.plugin.RequiredAttributesBundle = Class.create({
                     xtype: "tbtext",
                     text: t(this.fieldConfig.title)
                 });
-                if (e.detail.object.data.general.className == "Product" || e.detail.object.data.general.className == "CSProducts" || e.detail.object.data.general.className == "PTGEUProduct") {
+                if (e.detail.object.data.general.className == "Product" ||  e.detail.object.data.general.className == "CSProducts" || e.detail.object.data.general.className == "PTGEUProduct") {
                     var toolbar = new Ext.Toolbar({
                 //    items: items
                     });
@@ -166,7 +166,7 @@ pimcore.plugin.RequiredAttributesBundle = Class.create({
 
                 var childConfig = this.layoutDefinitions[type];
                 var closable = !this.fieldConfig.noteditable;
-                if (e.detail.object.data.general.className == "Product" || e.detail.object.data.general.className == "CSProducts" || e.detail.object.data.general.className == "PTGEUProduct") {
+                if (e.detail.object.data.general.className == "Product" ||  e.detail.object.data.general.className == "CSProducts" || e.detail.object.data.general.className == "PTGEUProduct") {
                     closable = false;
                 }
 
@@ -260,7 +260,7 @@ pimcore.plugin.RequiredAttributesBundle = Class.create({
                 if (this.data.length > 0) {
                     for (var i = 0; i < this.data.length; i++) {
                         if (this.data[i] != null) {
-                            if (e.detail.object.data.general.className == "Product" || e.detail.object.data.general.className == "CSProducts" || e.detail.object.data.general.className == "PTGEUProduct") {//class name Needs to be changed for different system
+                            if (e.detail.object.data.general.className == "Product" ||  e.detail.object.data.general.className == "CSProducts" || e.detail.object.data.general.className == "PTGEUProduct") {//class name Needs to be changed for different system
                                 this.preventDelete[this.data[i].type] = true;
                             } else {
                                 this.preventDelete[this.data[i].type] = this.data[i].inherited;

@@ -113,24 +113,27 @@
 											<span class="img-placeholder">
 												{% if pimcore_input('productImage' ~ k).isEmpty() and row['mainImage'] is not empty %}
 													{{ pimcore_image('productImage' ~ k, {
-                                                'width': row['mainImage'].getWidth(),
-                                                'height': row['mainImage'].getHeight(),
-                                                'aspectratio': true,
+
+                                                'width': 43,
+                                                'max-height': 115,
+                                                'aspectratio': false,
                                                 'interlace': true,
                                                 'quality': 95,
                                                 'format': 'PNG'
                                             }).setImage(row['mainImage']) | raw }}
 												{% else %}
 													{% set imgSrcObj1 = pimcore_image('productImage' ~ k, {
-                                                'width': 92,
-                                                'height': 240,
+
+                                                'width': 43,
+                                                'height': 115,
                                                 'aspectratio': true,
                                                 'interlace': true,
                                                 'quality': 95,
                                                 'format': 'PNG'
                                             }) %}
 													{% if imgSrcObj1 %}
-														<img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" width="92" height="240"/>
+
+														<img src="{{ getImageThumbnail(imgSrcObj1, imageWidth) }}" width="43" height="115"/>
 													{% endif %}
 												{% endif %}
 											</span>
@@ -211,7 +214,8 @@
 																	{% if iccnt <= 3 %}
 																		{% set imgSrcObj2 = pimcore_image("productLogo" ~ key ~ iccnt) %}
 																		{% if imgSrcObj2 %}
-																			<img src="{{ getImageThumbnail(imgSrcObj2, imageWidth) }}" width="91" height="53"/>
+
+																			<img src="{{ feature['iconSrc']}}" width="91" height="53" style="margin: 0 2px; 0 0"/>
 																		{% endif %}
 																		{% set iccnt = iccnt + 1 %}
 																	{% endif %}

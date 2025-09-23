@@ -89,37 +89,75 @@ class HydraulicFittingController extends FrontendController
             $productsData = $obj->getProductsData();
             $nomenClatureList = $this->getNomenClatureList();
             $brandsList = $this->getBrandsList();
+			
+			$className = $obj->getClassName();
+			$SAPRange = "";
+			$firstElementkey = 0;
+			if($className == "SpecSheetCatalog") {
+				$SAPRange = $obj->getSAPRange();
+				if($SAPRange == "Custom Selection") {
+					$query = "Select * from specsheet_custom_selection where object_id=$id";
+					$row = $this->db->fetchAllAssociative($query);
+					if(isset($row[0])){
+					$exCludes = $row[0]['data'];
+					if(!empty($exCludes)){
+					$includeArticles = explode(",",$exCludes);
+
+					foreach ($productsData as $key => $productItem) {
+						if(!in_array($productItem[$headerKeysIndex['articleNumber']], $includeArticles)){
+							unset($productsData[$key]);
+							continue;
+						}
+						$firstElementkey = $key;
+					}
+				  }
+				}
+			  }
+			}
 
             $brandsDataList = array();
             $sortedBrandsData = [];
             if ($productsData) {
-                // HoseID1InFract field value to decimal and add a new field in product data
                 foreach ($productsData as $key => $productItem) {
-                    $hoseID1InFract = $productItem[$headerKeysIndex['HoseID1InFract']];
+                    $hoseID1InFract = isset($headerKeysIndex['HoseID1InFract'], $productItem[$headerKeysIndex['HoseID1InFract']])
+                                        ? $productItem[$headerKeysIndex['HoseID1InFract']]
+                                        : null;
+
                     $hoseID1InDecimal = '';
                     if ($hoseID1InFract) {
                         $hoseID1InDecimal = $this->convertFranctionToDecimal($hoseID1InFract);
                     }
-                    $productsData[$key][$headerKeysIndex['HoseID1InFract']] = trim($hoseID1InFract, ' ');
-                    $productsData[$key][] = $hoseID1InDecimal;
-                }
+                    if (isset($headerKeysIndex['HoseID1InFract'])) {
+                        $productsData[$key][$headerKeysIndex['HoseID1InFract']] = trim((string)($hoseID1InFract ?? ''), ' ');
+                    }
 
-                $hoseID1InFractSortKey = array_key_last($productsData[0]);
+                    $productsData[$key][] = $hoseID1InDecimal;
+					
+                }
+                $hoseID1InFractSortKey = array_key_last($productsData[$firstElementkey]);
                 $hoseID1InDecimalCustom = array_column($productsData, $hoseID1InFractSortKey);
 
                 array_multisort($hoseID1InDecimalCustom, SORT_ASC, $productsData);
 
                 foreach ($productsData as $key => $item) {
-                    $brandName = ((is_array($item[$headerKeysIndex['brandName']]))?$item[$headerKeysIndex['brandName']][0]:$item[$headerKeysIndex['brandName']]) ;
-                    $shortDescription = strip_tags($item[$headerKeysIndex['shortDescription']]);
-                    $shortDescription = str_replace(array(" ", "-", "°", "/", PHP_EOL), "", $shortDescription);
-                    $fittingTableName = $item[$headerKeysIndex['FittingTableName']];
-
+                    $brandName = '';
+                    $shortDescription = '';
+                    $fittingTableName = '';
+                    if (isset($headerKeysIndex['brandName'], $item[$headerKeysIndex['brandName']])) {
+                        $value = $item[$headerKeysIndex['brandName']];
+                        $brandName = is_array($value) ? ($value[0] ?? '') : $value;
+                    }
+                    if (isset($headerKeysIndex['shortDescription'], $item[$headerKeysIndex['shortDescription']])) {
+                        $shortDescription = strip_tags($item[$headerKeysIndex['shortDescription']]);
+                        $shortDescription = str_replace([" ", "-", "°", "/", PHP_EOL], "", $shortDescription);
+                    }
+                    if (isset($headerKeysIndex['FittingTableName'], $item[$headerKeysIndex['FittingTableName']])) {
+                        $fittingTableName = $item[$headerKeysIndex['FittingTableName']];
+                    }
                     if (!empty($brandName) && !empty($fittingTableName)) {
                         $brandsDataList[$brandName][$shortDescription][$fittingTableName][] = $item;
                     }
                 }
-
                 # Sort talbes using short table description
                 if ($brandsDataList) {
                     foreach ($brandsDataList as $brandNameKey => $brandInfo) {
@@ -144,10 +182,10 @@ class HydraulicFittingController extends FrontendController
 
                 unset($brandsDataList);
             }
-
             $newBrandArray = array();
             $hydFittingFamilyArr = array();
             if ($sortedBrandsData) {
+                $count = 0;
                 foreach ($sortedBrandsData as $brandKey => $sortDescriptionTables) {
                     foreach ($sortDescriptionTables as $sortDescriptionTableslist => $fittingTables) {
                         foreach ($fittingTables as $fittingTableName => $articlesGroups) {
@@ -200,7 +238,7 @@ class HydraulicFittingController extends FrontendController
 
                                     foreach ($columnsDataWithImages as $svalue) {
                                         foreach ($svalue as $vvalue) {
-                                            if(isset($vvalue['columnName'])){
+                                           if(isset($vvalue['columnName']) && isset($headerKeysIndex[$vvalue['columnName']])){
                                                 $orderKeys[$vvalue['columnName']] = $headerKeysIndex[$vvalue['columnName']];
                                             }
                                         }
@@ -243,7 +281,7 @@ class HydraulicFittingController extends FrontendController
                                         }
                                     }
 
-                                    if ($orderKeys['HoseID1InFract']) {
+                                    if (isset($orderKeys['HoseID1InFract'])) {
                                         $originalHoseID1InFractIndex = array_search("HoseID1InFract", array_keys($orderKeys));
                                     }
 
@@ -254,7 +292,8 @@ class HydraulicFittingController extends FrontendController
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$fittingTableName][$skiveType]['articleData']['articles'][] = $articlesData;
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$fittingTableName][$skiveType]['articleData']['NutType'][] = $nutType;
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$fittingTableName][$skiveType]['articleData']['SingleHexYN'][] = $singleHex;
-                                    $newBrandArray[$brandKey][$sortDescriptionTableslist][$fittingTableName][$skiveType]['articleData']['HoseID1InFractIndex'] = $originalHoseID1InFractIndex;
+                                   $originalHoseID1InFractIndex = $orderKeys['HoseID1InFract'] ?? null;
+                                        $newBrandArray[$brandKey][$sortDescriptionTableslist][$fittingTableName][$skiveType]['articleData']['HoseID1InFractIndex'] = $originalHoseID1InFractIndex;
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$fittingTableName][$skiveType]['articleData']['subHeaderRequired'] = $this->subHeaderRequired;
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$fittingTableName][$skiveType]['articleData']['columnsDataWithImages'] = $columnsDataWithImages;
                                     $newBrandArray[$brandKey][$sortDescriptionTableslist][$fittingTableName][$skiveType]['brandData']['brandName'] = $brandKey;
@@ -266,18 +305,20 @@ class HydraulicFittingController extends FrontendController
                         }
                     }
 
-                    if(isset($brandsList[$brandKey])){
+                    
+                    if(array_key_exists($brandKey, $brandsList)){
                         $newBrandArray[$brandKey]['SortOrder'] = $brandsList[$brandKey];
-                    }else{
+                    } else {
                         $newBrandArray[$brandKey]['SortOrder'] = null;
                     }
-
                     unset($sortedBrandsData[$brandKey]);
+                    $count++;
                 }
                 if ($newBrandArray) {
                     array_multisort(array_column($newBrandArray, 'SortOrder'), SORT_ASC, $newBrandArray);
                 }
             }
+            
             unset($objColumnsData);
 
             $footer_logo_src = (strtolower($footerBgColor) == 'orange') ? $catalogImagesHYDFooter['Black'] : $catalogImagesHYDFooter['Orange'];
@@ -322,7 +363,20 @@ class HydraulicFittingController extends FrontendController
     public function getBrandsList(): mixed
     {
         $query = "select name, SortOrder from object_query_3";
-        return $this->db->fetchAllAssociative($query);
+        $brandData = $this->db->fetchAllAssociative($query);
+        foreach($brandData as $data){
+            
+            $brandNameArray[] = $data['name'];
+            $brandSortOrderArray[] = $data['SortOrder'];
+            $brandNameSortOrderArray = array_combine($brandNameArray, $brandSortOrderArray);
+        }
+        return $brandNameSortOrderArray;
+
+
+
+        // $query = "select name, SortOrder from object_query_3";
+        // return $this->db->fetchAllAssociative($query);
+
     }
 
     public function getColumnHeadersForCatalog($fittingTableColWidths, $isTableNameColumnRequired = false, $tableNameColumns = []): array
