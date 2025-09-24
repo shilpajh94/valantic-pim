@@ -2,27 +2,27 @@
 
 /**
  * Fields Summary:
- * - outsideDiameterMetric [quantityValue]
- * - insideDiameterMetric [quantityValue]
- * - vacuumMetric [quantityValue]
- * - tubeGaugeMetric [quantityValue]
- * - bendRadiusMetric [quantityValue]
- * - outsideDiameterInnerHoseMetric [quantityValue]
- * - insideDiameterInnerHoseMetric [quantityValue]
- * - insideDiameterFractionInnerHoseImperial [quantityValue]
- * - outsideDiameterImperial [quantityValue]
- * - insideDiameterImperial [quantityValue]
- * - vacuumImperial [quantityValue]
- * - tubeGaugeImperial [quantityValue]
- * - bendRadiusImperial [quantityValue]
- * - outsideDiameterInnerHoseImperial [quantityValue]
- * - insideDiameterInnerHoseImperial [quantityValue]
- * - insideDiameterFractionImperial [quantityValue]
- * - minimumBurstPressurePsi [quantityValue]
- * - minimumBurstPressureMpa [quantityValue]
- * - workingPressureMpa [quantityValue]
- * - workingPressureBar [quantityValue]
- * - workingPressurePsi [quantityValue]
+ * - outsideDiameterMetric [numeric]
+ * - insideDiameterMetric [numeric]
+ * - vacuumMetric [numeric]
+ * - tubeGaugeMetric [numeric]
+ * - bendRadiusMetric [numeric]
+ * - outsideDiameterInnerHoseMetric [numeric]
+ * - insideDiameterInnerHoseMetric [numeric]
+ * - insideDiameterFractionInnerHoseImperial [numeric]
+ * - outsideDiameterImperial [numeric]
+ * - insideDiameterImperial [numeric]
+ * - vacuumImperial [numeric]
+ * - tubeGaugeImperial [numeric]
+ * - bendRadiusImperial [numeric]
+ * - outsideDiameterInnerHoseImperial [numeric]
+ * - insideDiameterInnerHoseImperial [numeric]
+ * - insideDiameterFractionImperial [numeric]
+ * - minimumBurstPressureMpa [numeric]
+ * - workingPressureMpa [numeric]
+ * - workingPressureBar [numeric]
+ * - minimumBurstPressurePsi [numeric]
+ * - workingPressurePsi [numeric]
  * - hoseDashSizeHyd [numeric]
  * - negativePositiveTolerance [select]
  * - ratingsFlexibility [select]
@@ -30,14 +30,14 @@
  * - notesTemperature [input]
  * - isJustTemporarily [checkbox]
  * - temperatureMax [quantityValueRange]
- * - temperatureMin [quantityValueRange]
- * - temporaryUntilC [quantityValue]
- * - temporaryUntilT [quantityValue]
- * - dampableUntil2C [quantityValue]
- * - dampableUntil2T [quantityValue]
- * - dampableUntil1C [quantityValue]
- * - dampableUntil1T [quantityValue]
+ * - temporaryUntilC [numeric]
+ * - dampableUntil1C [numeric]
+ * - dampableUntil2C [numeric]
  * - pressureUntil [quantityValue]
+ * - temperatureMin [quantityValueRange]
+ * - temporaryUntilT [numeric]
+ * - dampableUntil1T [numeric]
+ * - dampableUntil2T [numeric]
  * - isOnlyOpenSystem [checkbox]
  * - localizedfields [localizedfields]
  * -- headlineWeb [input]
@@ -155,7 +155,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'type' => NULL,
                      'region' => NULL,
                      'title' => NULL,
-                     'width' => '',
+                     'width' => 525,
                      'height' => '',
                      'collapsible' => false,
                      'collapsed' => false,
@@ -164,7 +164,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'outsideDiameterMetric',
                          'title' => 'Outside Diameter (mm)',
                          'tooltip' => '',
@@ -182,26 +182,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '',
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => 'length_mm',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => 250,
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => false,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'insideDiameterMetric',
                          'title' => 'Inside Diameter (mm)',
                          'tooltip' => '',
@@ -219,26 +212,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '',
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => 'length_mm',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => 250,
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => false,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
                       )),
                       2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'vacuumMetric',
                          'title' => 'Vacuum (mm)',
                          'tooltip' => '',
@@ -256,26 +242,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '',
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => 'length_mm',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => 250,
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => false,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
                       )),
                       3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'tubeGaugeMetric',
                          'title' => 'Tube Gauge (mm) / Wall Thickness',
                          'tooltip' => '',
@@ -293,26 +272,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '',
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => 'length_mm',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => 250,
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => false,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
                       )),
                       4 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'bendRadiusMetric',
                          'title' => 'Bend Radius (mm)',
                          'tooltip' => '',
@@ -330,26 +302,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '',
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => 'length_mm',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => 250,
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => false,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
                       )),
                       5 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'outsideDiameterInnerHoseMetric',
                          'title' => 'Outside Diameter (mm) - (Inner Hose)',
                          'tooltip' => '',
@@ -367,26 +332,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '',
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => 'length_mm',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => 250,
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => false,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
                       )),
                       6 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'insideDiameterInnerHoseMetric',
                          'title' => 'Inside Diameter (mm ) - (Inner Hose)',
                          'tooltip' => '',
@@ -404,26 +362,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '',
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => 'length_mm',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => 250,
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => false,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
                       )),
                       7 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'insideDiameterFractionInnerHoseImperial',
                          'title' => 'Inside Diameter (Fraction) - (Inner Hose)',
                          'tooltip' => '',
@@ -431,7 +382,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'margin-left:20px;',
+                         'style' => '',
                          'permissions' => NULL,
                          'fieldtype' => '',
                          'relationType' => false,
@@ -441,23 +392,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '',
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => 'length_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => 250,
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => false,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
                       )),
                     ),
                      'locked' => false,
@@ -467,7 +411,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'fieldcontainer',
                      'layout' => 'vbox',
                      'fieldLabel' => '',
-                     'labelWidth' => 280,
+                     'labelWidth' => 250,
                      'labelAlign' => 'left',
                   )),
                   1 => 
@@ -476,7 +420,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'type' => NULL,
                      'region' => NULL,
                      'title' => NULL,
-                     'width' => '',
+                     'width' => 0,
                      'height' => '',
                      'collapsible' => false,
                      'collapsed' => false,
@@ -485,7 +429,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'outsideDiameterImperial',
                          'title' => 'Outside Diameter (in)',
                          'tooltip' => '',
@@ -493,7 +437,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'margin-left:10px;',
+                         'style' => '',
                          'permissions' => NULL,
                          'fieldtype' => '',
                          'relationType' => false,
@@ -503,26 +447,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '',
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => 'length_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '',
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => false,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'insideDiameterImperial',
                          'title' => 'Inside Diameter (in)',
                          'tooltip' => '',
@@ -530,7 +467,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'noteditable' => false,
                          'index' => false,
                          'locked' => false,
-                         'style' => 'margin-left:100px;',
+                         'style' => '',
                          'permissions' => NULL,
                          'fieldtype' => '',
                          'relationType' => false,
@@ -540,26 +477,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '',
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => 'length_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => 250,
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => false,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
                       )),
                       2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'vacuumImperial',
                          'title' => 'Vacuum (in)',
                          'tooltip' => '',
@@ -577,26 +507,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '',
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => 'length_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => 250,
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => false,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
                       )),
                       3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'tubeGaugeImperial',
                          'title' => 'Tube Gauge (in)  / Wall Thickness',
                          'tooltip' => '',
@@ -614,26 +537,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '',
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => 'length_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => 250,
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => false,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
                       )),
                       4 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'bendRadiusImperial',
                          'title' => 'Bend Radius (in)',
                          'tooltip' => '',
@@ -651,26 +567,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '',
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => 'length_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => 250,
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => false,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
                       )),
                       5 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'outsideDiameterInnerHoseImperial',
                          'title' => 'Outside Diameter (in) - (Inner Hose)',
                          'tooltip' => '',
@@ -688,26 +597,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '',
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => 'length_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => 250,
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => false,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
                       )),
                       6 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'insideDiameterInnerHoseImperial',
                          'title' => 'Inside Diameter (in) - (Inner Hose)',
                          'tooltip' => '',
@@ -725,26 +627,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '',
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => 'length_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => 250,
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => false,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
                       )),
                       7 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'insideDiameterFractionImperial',
                          'title' => 'Inside Diameter (Fraction)',
                          'tooltip' => '',
@@ -762,23 +657,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '',
-                         'defaultUnit' => NULL,
-                         'validUnits' => 
-                        array (
-                          0 => 'length_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => 250,
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => false,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
                       )),
                     ),
                      'locked' => false,
@@ -788,7 +676,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'fieldcontainer',
                      'layout' => 'vbox',
                      'fieldLabel' => '',
-                     'labelWidth' => 280,
+                     'labelWidth' => 250,
                      'labelAlign' => 'left',
                   )),
                 ),
@@ -817,189 +705,204 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'name' => 'minimumBurstPressurePsi',
-                     'title' => 'Minimum Burst Pressure (PSI)',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'name' => 'Metric Values',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => NULL,
+                     'width' => 525,
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'minimumBurstPressureMpa',
+                         'title' => 'Minimum Burst Pressure (MPa)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'workingPressureMpa',
+                         'title' => 'Working Pressure (MPa)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'workingPressureBar',
+                         'title' => 'Working Pressure (bar)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
+                      )),
+                    ),
                      'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'unitWidth' => '',
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => 'pressure_psi',
-                    ),
-                     'unique' => false,
-                     'autoConvert' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => 250,
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'fieldtype' => 'fieldcontainer',
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'labelWidth' => 250,
+                     'labelAlign' => 'left',
                   )),
                   1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'name' => 'minimumBurstPressureMpa',
-                     'title' => 'Minimum Burst Pressure (MPa)',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'name' => 'Imperial Values',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => NULL,
+                     'width' => '',
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'minimumBurstPressurePsi',
+                         'title' => 'Minimum Burst Pressure (PSI)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'workingPressurePsi',
+                         'title' => 'Working Pressure (PSI)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
+                      )),
+                    ),
                      'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'unitWidth' => '',
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => 'pressure_Mpa',
-                    ),
-                     'unique' => false,
-                     'autoConvert' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => 250,
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                  )),
-                  2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'name' => 'workingPressureMpa',
-                     'title' => 'Working Pressure (MPa)',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '',
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => 'pressure_Mpa',
-                    ),
-                     'unique' => false,
-                     'autoConvert' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => 250,
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                  )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'name' => 'workingPressureBar',
-                     'title' => 'Working Pressure (bar)',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '',
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => 'pressure_bar',
-                    ),
-                     'unique' => false,
-                     'autoConvert' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => 250,
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                  )),
-                  4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'name' => 'workingPressurePsi',
-                     'title' => 'Working Pressure (PSI)',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '',
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => 'pressure_psi',
-                    ),
-                     'unique' => false,
-                     'autoConvert' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => 250,
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
+                     'fieldtype' => 'fieldcontainer',
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'labelWidth' => 250,
+                     'labelAlign' => 'left',
                   )),
                 ),
                  'locked' => false,
@@ -1007,9 +910,9 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                 array (
                 ),
                  'fieldtype' => 'fieldcontainer',
-                 'layout' => 'vbox',
+                 'layout' => 'hbox',
                  'fieldLabel' => '',
-                 'labelWidth' => 280,
+                 'labelWidth' => 250,
                  'labelAlign' => 'left',
               )),
               2 => 
@@ -1147,7 +1050,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'fieldtype' => 'fieldcontainer',
                      'layout' => 'hbox',
                      'fieldLabel' => '',
-                     'labelWidth' => 280,
+                     'labelWidth' => 250,
                      'labelAlign' => 'left',
                   )),
                 ),
@@ -1158,7 +1061,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'fieldtype' => 'fieldcontainer',
                  'layout' => 'vbox',
                  'fieldLabel' => '',
-                 'labelWidth' => 280,
+                 'labelWidth' => 250,
                  'labelAlign' => 'left',
               )),
             ),
@@ -1283,323 +1186,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'defaultValue' => NULL,
                      'defaultValueGenerator' => '',
                   )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValueRange::__set_state(array(
-                     'name' => 'temperatureMax',
-                     'title' => 'Temperature (max)',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '',
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => 'temperature_C',
-                    ),
-                     'decimalPrecision' => NULL,
-                     'autoConvert' => false,
-                     'width' => 250,
-                  )),
-                  4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValueRange::__set_state(array(
-                     'name' => 'temperatureMin',
-                     'title' => 'Temperature (min)',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '',
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => 'temperature_C',
-                    ),
-                     'decimalPrecision' => NULL,
-                     'autoConvert' => false,
-                     'width' => 250,
-                  )),
-                  5 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'name' => 'temporaryUntilC',
-                     'title' => 'Temporary until (°C)',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '',
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => 'time_s',
-                    ),
-                     'unique' => false,
-                     'autoConvert' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => 250,
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                  )),
-                  6 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'name' => 'temporaryUntilT',
-                     'title' => 'Temporary until (t)',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '',
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => 'time_s',
-                    ),
-                     'unique' => false,
-                     'autoConvert' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => 250,
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                  )),
-                  7 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'name' => 'dampableUntil2C',
-                     'title' => 'Dampable until 2 (°C)',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '',
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => 'temperature_C',
-                    ),
-                     'unique' => false,
-                     'autoConvert' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => 250,
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                  )),
-                  8 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'name' => 'dampableUntil2T',
-                     'title' => 'Dampable until 2 (°C)',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '',
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => 'time_s',
-                    ),
-                     'unique' => false,
-                     'autoConvert' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => 250,
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                  )),
-                  9 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'name' => 'dampableUntil1C',
-                     'title' => 'Dampable until 1 (°C)',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '',
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => 'temperature_C',
-                    ),
-                     'unique' => false,
-                     'autoConvert' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => 250,
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                  )),
-                  10 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'name' => 'dampableUntil1T',
-                     'title' => 'Dampable until 1 (t)',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '',
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => 'time_s',
-                    ),
-                     'unique' => false,
-                     'autoConvert' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => 250,
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                  )),
-                  11 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                     'name' => 'pressureUntil',
-                     'title' => 'Pressure Until',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '',
-                     'defaultUnit' => NULL,
-                     'validUnits' => 
-                    array (
-                      0 => 'pressure_Pa',
-                    ),
-                     'unique' => false,
-                     'autoConvert' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => 250,
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => false,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => NULL,
-                  )),
                 ),
                  'locked' => false,
                  'blockedVarsForExport' => 
@@ -1609,6 +1195,356 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'layout' => 'vbox',
                  'fieldLabel' => '',
                  'labelWidth' => 250,
+                 'labelAlign' => 'left',
+              )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                 'name' => 'Field Container',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => NULL,
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'name' => 'Field Container',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => NULL,
+                     'width' => 700,
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValueRange::__set_state(array(
+                         'name' => 'temperatureMax',
+                         'title' => 'Temperature (max)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'unitWidth' => '',
+                         'defaultUnit' => NULL,
+                         'validUnits' => 
+                        array (
+                          0 => 'temperature_C',
+                        ),
+                         'decimalPrecision' => NULL,
+                         'autoConvert' => false,
+                         'width' => 250,
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'temporaryUntilC',
+                         'title' => 'Temporary until (°C)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'dampableUntil1C',
+                         'title' => 'Dampable until 1 (°C)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
+                      )),
+                      3 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'dampableUntil2C',
+                         'title' => 'Dampable until 2 (°C)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
+                      )),
+                      4 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                         'name' => 'pressureUntil',
+                         'title' => 'Pressure Until',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'unitWidth' => '',
+                         'defaultUnit' => NULL,
+                         'validUnits' => 
+                        array (
+                          0 => 'pressure_Pa',
+                        ),
+                         'unique' => false,
+                         'autoConvert' => false,
+                         'defaultValueGenerator' => '',
+                         'width' => 250,
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'fieldcontainer',
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'labelWidth' => 250,
+                     'labelAlign' => 'left',
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'name' => 'Field Container',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => NULL,
+                     'width' => '',
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValueRange::__set_state(array(
+                         'name' => 'temperatureMin',
+                         'title' => 'Temperature (min)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'unitWidth' => '',
+                         'defaultUnit' => NULL,
+                         'validUnits' => 
+                        array (
+                          0 => 'temperature_C',
+                        ),
+                         'decimalPrecision' => NULL,
+                         'autoConvert' => false,
+                         'width' => 250,
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'temporaryUntilT',
+                         'title' => 'Temporary until (t)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'dampableUntil1T',
+                         'title' => 'Dampable until 1 (t)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
+                      )),
+                      3 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'dampableUntil2T',
+                         'title' => 'Dampable until 2 (°C)',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'fieldcontainer',
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'labelWidth' => 250,
+                     'labelAlign' => 'left',
+                  )),
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'fieldcontainer',
+                 'layout' => 'hbox',
+                 'fieldLabel' => '',
+                 'labelWidth' => 100,
                  'labelAlign' => 'left',
               )),
             ),

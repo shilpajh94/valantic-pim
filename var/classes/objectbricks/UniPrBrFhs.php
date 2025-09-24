@@ -283,7 +283,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                             'classes' => 'UniPrFhsStaticWireType',
                           ),
                         ),
-                         'displayMode' => 'grid',
+                         'displayMode' => 'combo',
                          'pathFormatterClass' => '',
                          'assetInlineDownloadAllowed' => false,
                          'assetUploadPath' => '',
@@ -594,256 +594,281 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                     'name' => 'reinforcement',
-                     'title' => 'Reinforcement',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'name' => 'Field Container',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => NULL,
+                     'width' => 500,
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'name' => 'reinforcement',
+                         'title' => 'Reinforcement',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'UniPrFhsReinforcement',
+                          ),
+                        ),
+                         'displayMode' => 'combo',
+                         'pathFormatterClass' => '',
+                         'maxItems' => NULL,
+                         'visibleFields' => 
+                        array (
+                        ),
+                         'allowToCreateNewObject' => false,
+                         'allowToClearRelation' => true,
+                         'optimizedAdminLoading' => false,
+                         'enableTextSelection' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'width' => '',
+                         'height' => '',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'name' => 'coverColor',
+                         'title' => 'Cover Color / Color- Outer   Layer',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'UniPrFhsColor',
+                          ),
+                        ),
+                         'displayMode' => 'combo',
+                         'pathFormatterClass' => '',
+                         'maxItems' => NULL,
+                         'visibleFields' => 
+                        array (
+                        ),
+                         'allowToCreateNewObject' => false,
+                         'allowToClearRelation' => true,
+                         'optimizedAdminLoading' => false,
+                         'enableTextSelection' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'width' => '',
+                         'height' => '',
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'name' => 'coverMaterial',
+                         'title' => 'Cover Material ',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'UniPrFhsMaterial',
+                          ),
+                        ),
+                         'displayMode' => 'combo',
+                         'pathFormatterClass' => '',
+                         'maxItems' => NULL,
+                         'visibleFields' => 
+                        array (
+                        ),
+                         'allowToCreateNewObject' => false,
+                         'allowToClearRelation' => true,
+                         'optimizedAdminLoading' => false,
+                         'enableTextSelection' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'width' => '',
+                         'height' => '',
+                      )),
+                      3 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'name' => 'coverCharacteristicHaptic',
+                         'title' => 'Cover Characteristic / Haptic',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'UniPrFhsCoverCharacteristic',
+                          ),
+                        ),
+                         'displayMode' => 'combo',
+                         'pathFormatterClass' => '',
+                         'maxItems' => NULL,
+                         'visibleFields' => 
+                        array (
+                        ),
+                         'allowToCreateNewObject' => false,
+                         'allowToClearRelation' => true,
+                         'optimizedAdminLoading' => false,
+                         'enableTextSelection' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'width' => '',
+                         'height' => '',
+                      )),
+                      4 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'name' => 'tubeMaterial',
+                         'title' => 'Tube Material  ',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'UniPrFhsMaterial',
+                          ),
+                        ),
+                         'displayMode' => 'combo',
+                         'pathFormatterClass' => '',
+                         'maxItems' => NULL,
+                         'visibleFields' => 
+                        array (
+                        ),
+                         'allowToCreateNewObject' => false,
+                         'allowToClearRelation' => true,
+                         'optimizedAdminLoading' => false,
+                         'enableTextSelection' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'width' => '',
+                         'height' => '',
+                      )),
+                      5 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'name' => 'tubeCharacteristic',
+                         'title' => 'Tube Characteristic',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'UniPrFhsTubeCharacteristic',
+                          ),
+                        ),
+                         'displayMode' => 'combo',
+                         'pathFormatterClass' => '',
+                         'maxItems' => NULL,
+                         'visibleFields' => 
+                        array (
+                        ),
+                         'allowToCreateNewObject' => false,
+                         'allowToClearRelation' => true,
+                         'optimizedAdminLoading' => false,
+                         'enableTextSelection' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'width' => '',
+                         'height' => '',
+                      )),
+                    ),
                      'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'classes' => 
-                    array (
-                      0 => 
-                      array (
-                        'classes' => 'UniPrFhsReinforcement',
-                      ),
-                    ),
-                     'displayMode' => 'grid',
-                     'pathFormatterClass' => '',
-                     'maxItems' => NULL,
-                     'visibleFields' => 
-                    array (
-                    ),
-                     'allowToCreateNewObject' => false,
-                     'allowToClearRelation' => true,
-                     'optimizedAdminLoading' => false,
-                     'enableTextSelection' => false,
-                     'visibleFieldDefinitions' => 
-                    array (
-                    ),
-                     'width' => '',
-                     'height' => '',
-                  )),
-                  1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                     'name' => 'coverColor',
-                     'title' => 'Cover Color / Color- Outer   Layer',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'classes' => 
-                    array (
-                      0 => 
-                      array (
-                        'classes' => 'UniPrFhsColor',
-                      ),
-                    ),
-                     'displayMode' => 'grid',
-                     'pathFormatterClass' => '',
-                     'maxItems' => NULL,
-                     'visibleFields' => 
-                    array (
-                    ),
-                     'allowToCreateNewObject' => false,
-                     'allowToClearRelation' => true,
-                     'optimizedAdminLoading' => false,
-                     'enableTextSelection' => false,
-                     'visibleFieldDefinitions' => 
-                    array (
-                    ),
-                     'width' => '',
-                     'height' => '',
-                  )),
-                  2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                     'name' => 'coverMaterial',
-                     'title' => 'Cover Material ',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'classes' => 
-                    array (
-                      0 => 
-                      array (
-                        'classes' => 'UniPrFhsMaterial',
-                      ),
-                    ),
-                     'displayMode' => 'grid',
-                     'pathFormatterClass' => '',
-                     'maxItems' => NULL,
-                     'visibleFields' => 
-                    array (
-                    ),
-                     'allowToCreateNewObject' => false,
-                     'allowToClearRelation' => true,
-                     'optimizedAdminLoading' => false,
-                     'enableTextSelection' => false,
-                     'visibleFieldDefinitions' => 
-                    array (
-                    ),
-                     'width' => '',
-                     'height' => '',
-                  )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                     'name' => 'coverCharacteristicHaptic',
-                     'title' => 'Cover Characteristic / Haptic',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'classes' => 
-                    array (
-                      0 => 
-                      array (
-                        'classes' => 'UniPrFhsCoverCharacteristic',
-                      ),
-                    ),
-                     'displayMode' => 'grid',
-                     'pathFormatterClass' => '',
-                     'maxItems' => NULL,
-                     'visibleFields' => 
-                    array (
-                    ),
-                     'allowToCreateNewObject' => false,
-                     'allowToClearRelation' => true,
-                     'optimizedAdminLoading' => false,
-                     'enableTextSelection' => false,
-                     'visibleFieldDefinitions' => 
-                    array (
-                    ),
-                     'width' => '',
-                     'height' => '',
-                  )),
-                  4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                     'name' => 'tubeMaterial',
-                     'title' => 'Tube Material  ',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'classes' => 
-                    array (
-                      0 => 
-                      array (
-                        'classes' => 'UniPrFhsMaterial',
-                      ),
-                    ),
-                     'displayMode' => 'grid',
-                     'pathFormatterClass' => '',
-                     'maxItems' => NULL,
-                     'visibleFields' => 
-                    array (
-                    ),
-                     'allowToCreateNewObject' => false,
-                     'allowToClearRelation' => true,
-                     'optimizedAdminLoading' => false,
-                     'enableTextSelection' => false,
-                     'visibleFieldDefinitions' => 
-                    array (
-                    ),
-                     'width' => '',
-                     'height' => '',
-                  )),
-                  5 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                     'name' => 'tubeCharacteristic',
-                     'title' => 'Tube Characteristic',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'classes' => 
-                    array (
-                      0 => 
-                      array (
-                        'classes' => 'UniPrFhsTubeCharacteristic',
-                      ),
-                    ),
-                     'displayMode' => 'grid',
-                     'pathFormatterClass' => '',
-                     'maxItems' => NULL,
-                     'visibleFields' => 
-                    array (
-                    ),
-                     'allowToCreateNewObject' => false,
-                     'allowToClearRelation' => true,
-                     'optimizedAdminLoading' => false,
-                     'enableTextSelection' => false,
-                     'visibleFieldDefinitions' => 
-                    array (
-                    ),
-                     'width' => '',
-                     'height' => '',
+                     'fieldtype' => 'fieldcontainer',
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'labelWidth' => 250,
+                     'labelAlign' => 'left',
                   )),
                 ),
                  'locked' => false,
@@ -1139,7 +1164,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               2 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
                  'name' => 'Layout',
                  'type' => NULL,
                  'region' => NULL,
@@ -1153,57 +1178,79 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                     'name' => 'acceptableHoseMedia',
-                     'title' => 'Acceptable Hose Media / Flow Medium',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'name' => 'Field Container',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => NULL,
+                     'width' => 500,
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'name' => 'acceptableHoseMedia',
+                         'title' => 'Acceptable Hose Media / Flow Medium',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'UniPrFhsFlowMedium',
+                          ),
+                        ),
+                         'displayMode' => 'combo',
+                         'pathFormatterClass' => '',
+                         'maxItems' => NULL,
+                         'visibleFields' => 
+                        array (
+                        ),
+                         'allowToCreateNewObject' => false,
+                         'allowToClearRelation' => true,
+                         'optimizedAdminLoading' => false,
+                         'enableTextSelection' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'width' => '',
+                         'height' => '',
+                      )),
+                    ),
                      'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'classes' => 
-                    array (
-                      0 => 
-                      array (
-                        'classes' => 'UniPrFhsFlowMedium',
-                      ),
-                    ),
-                     'displayMode' => 'grid',
-                     'pathFormatterClass' => '',
-                     'maxItems' => NULL,
-                     'visibleFields' => 
-                    array (
-                    ),
-                     'allowToCreateNewObject' => false,
-                     'allowToClearRelation' => true,
-                     'optimizedAdminLoading' => false,
-                     'enableTextSelection' => false,
-                     'visibleFieldDefinitions' => 
-                    array (
-                    ),
-                     'width' => 250,
-                     'height' => '',
+                     'fieldtype' => 'fieldcontainer',
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'labelWidth' => 250,
+                     'labelAlign' => 'left',
                   )),
                 ),
                  'locked' => false,
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'fieldtype' => 'panel',
-                 'layout' => 'fit',
-                 'border' => true,
-                 'icon' => '',
-                 'labelWidth' => 250,
+                 'fieldtype' => 'fieldset',
+                 'labelWidth' => 100,
                  'labelAlign' => 'left',
               )),
             ),
@@ -1233,76 +1280,124 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'children' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                 'name' => 'designFactor',
-                 'title' => 'Design Factor',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => false,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => true,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'defaultValue' => NULL,
-                 'columnLength' => 190,
-                 'regex' => '^\\n+:\\n+$',
-                 'regexFlags' => 
-                array (
-                ),
-                 'unique' => false,
-                 'showCharCount' => false,
-                 'width' => '',
-                 'defaultValueGenerator' => '',
-              )),
-              1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                 'name' => 'tubeColor',
-                 'title' => 'Tube Color  ',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => true,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => true,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'UniPrFhsColor',
-                  ),
-                ),
-                 'displayMode' => 'grid',
-                 'pathFormatterClass' => '',
-                 'maxItems' => NULL,
-                 'visibleFields' => 
-                array (
-                ),
-                 'allowToCreateNewObject' => false,
-                 'allowToClearRelation' => true,
-                 'optimizedAdminLoading' => false,
-                 'enableTextSelection' => false,
-                 'visibleFieldDefinitions' => 
-                array (
-                ),
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                 'name' => 'Layout',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
                  'width' => '',
                  'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'name' => 'Field Container',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => NULL,
+                     'width' => 500,
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'name' => 'designFactor',
+                         'title' => 'Design Factor',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'columnLength' => 190,
+                         'regex' => '^\\n+:\\n+$',
+                         'regexFlags' => 
+                        array (
+                        ),
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'width' => '',
+                         'defaultValueGenerator' => '',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'name' => 'tubeColor',
+                         'title' => 'Tube Color  ',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'UniPrFhsColor',
+                          ),
+                        ),
+                         'displayMode' => 'combo',
+                         'pathFormatterClass' => '',
+                         'maxItems' => NULL,
+                         'visibleFields' => 
+                        array (
+                        ),
+                         'allowToCreateNewObject' => false,
+                         'allowToClearRelation' => true,
+                         'optimizedAdminLoading' => false,
+                         'enableTextSelection' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'width' => '',
+                         'height' => '',
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'fieldcontainer',
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'labelWidth' => 250,
+                     'labelAlign' => 'left',
+                  )),
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'fieldset',
+                 'labelWidth' => 100,
+                 'labelAlign' => 'left',
               )),
             ),
              'locked' => false,

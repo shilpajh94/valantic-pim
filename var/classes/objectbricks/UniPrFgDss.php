@@ -2,21 +2,21 @@
 
 /**
  * Fields Summary:
- * - localizedfields [localizedfields]
- * -- modelType [manyToOneRelation]
- * -- bellowCompoundMaterial [manyToOneRelation]
- * -- hasInternalBumper [checkbox]
- * -- basePlateMaterial [input]
- * -- airInletLocation [manyToOneRelation]
+ * - modelType [manyToOneRelation]
  * - isBellowOnlyPart [checkbox]
  * - height [quantityValueRange]
  * - maximumBellowDiameter [quantityValue]
- * - airInletInsideThread [manyToOneRelation]
- * - rollingLobePistonMaterial [manyToOneRelation]
  * - maximumStroke [quantityValue]
  * - workingPressure [quantityValue]
- * - airInletThread [input]
  * - numberOfConvolutions [numeric]
+ * - airInletThread [input]
+ * - bellowCompoundMaterial [manyToOneRelation]
+ * - airInletInsideThread [manyToOneRelation]
+ * - airInletLocation [manyToOneRelation]
+ * - rollingLobePistonMaterial [manyToOneRelation]
+ * - localizedfields [localizedfields]
+ * -- hasInternalBumper [checkbox]
+ * -- basePlateMaterial [input]
  * - permissibleInstallationSpace [image]
  */
 
@@ -84,262 +84,46 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-                     'name' => 'localizedfields',
-                     'title' => '',
-                     'tooltip' => NULL,
+                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                     'name' => 'modelType',
+                     'title' => 'Model Type',
+                     'tooltip' => '',
                      'mandatory' => false,
-                     'noteditable' => false,
+                     'noteditable' => true,
                      'index' => false,
                      'locked' => false,
-                     'style' => NULL,
+                     'style' => '',
                      'permissions' => NULL,
                      'fieldtype' => '',
-                     'relationType' => false,
+                     'relationType' => true,
                      'invisible' => false,
-                     'visibleGridView' => true,
+                     'visibleGridView' => false,
                      'visibleSearch' => true,
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'children' => 
+                     'classes' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                         'name' => 'modelType',
-                         'title' => 'Model Type',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => true,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => true,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'classes' => 
-                        array (
-                          0 => 
-                          array (
-                            'classes' => 'UniPrDssModelType',
-                          ),
-                        ),
-                         'displayMode' => 'grid',
-                         'pathFormatterClass' => '',
-                         'assetInlineDownloadAllowed' => false,
-                         'assetUploadPath' => '',
-                         'allowToClearRelation' => true,
-                         'objectsAllowed' => true,
-                         'assetsAllowed' => false,
-                         'assetTypes' => 
-                        array (
-                        ),
-                         'documentsAllowed' => false,
-                         'documentTypes' => 
-                        array (
-                        ),
-                         'width' => 250,
-                      )),
+                      array (
+                        'classes' => 'UniPrDssModelType',
+                      ),
                     ),
-                     'region' => NULL,
-                     'layout' => NULL,
-                     'maxTabs' => 35,
-                     'border' => false,
-                     'provideSplitView' => false,
-                     'tabPosition' => 'top',
-                     'hideLabelsWhenTabsReached' => NULL,
-                     'referencedFields' => 
+                     'displayMode' => 'combo',
+                     'pathFormatterClass' => '',
+                     'assetInlineDownloadAllowed' => false,
+                     'assetUploadPath' => '',
+                     'allowToClearRelation' => true,
+                     'objectsAllowed' => true,
+                     'assetsAllowed' => false,
+                     'assetTypes' => 
                     array (
-                      0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-                         'name' => 'localizedfields',
-                         'title' => '',
-                         'tooltip' => NULL,
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => NULL,
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => true,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'children' => 
-                        array (
-                          0 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                             'name' => 'bellowCompoundMaterial',
-                             'title' => 'Bellow Compound Material',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'fieldtype' => '',
-                             'relationType' => true,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => true,
-                             'blockedVarsForExport' => 
-                            array (
-                            ),
-                             'classes' => 
-                            array (
-                              0 => 
-                              array (
-                                'classes' => 'UniPrDssBellowCompoundMaterial',
-                              ),
-                            ),
-                             'displayMode' => 'grid',
-                             'pathFormatterClass' => '',
-                             'assetInlineDownloadAllowed' => false,
-                             'assetUploadPath' => '',
-                             'allowToClearRelation' => true,
-                             'objectsAllowed' => true,
-                             'assetsAllowed' => false,
-                             'assetTypes' => 
-                            array (
-                            ),
-                             'documentsAllowed' => false,
-                             'documentTypes' => 
-                            array (
-                            ),
-                             'width' => 250,
-                          )),
-                          1 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-                             'name' => 'hasInternalBumper',
-                             'title' => 'Internal Bumper (Y/N)',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'fieldtype' => '',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => true,
-                             'blockedVarsForExport' => 
-                            array (
-                            ),
-                             'defaultValue' => 0,
-                             'defaultValueGenerator' => '',
-                          )),
-                          2 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                             'name' => 'basePlateMaterial',
-                             'title' => 'Base Plate Material',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'fieldtype' => '',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => true,
-                             'blockedVarsForExport' => 
-                            array (
-                            ),
-                             'defaultValue' => NULL,
-                             'columnLength' => 190,
-                             'regex' => '',
-                             'regexFlags' => 
-                            array (
-                            ),
-                             'unique' => false,
-                             'showCharCount' => false,
-                             'width' => 256,
-                             'defaultValueGenerator' => '',
-                          )),
-                          3 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                             'name' => 'airInletLocation',
-                             'title' => 'Air Inlet Location',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'fieldtype' => '',
-                             'relationType' => true,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => true,
-                             'blockedVarsForExport' => 
-                            array (
-                            ),
-                             'classes' => 
-                            array (
-                              0 => 
-                              array (
-                                'classes' => 'UniPrDssAirInletLocation',
-                              ),
-                            ),
-                             'displayMode' => 'grid',
-                             'pathFormatterClass' => '',
-                             'assetInlineDownloadAllowed' => false,
-                             'assetUploadPath' => '',
-                             'allowToClearRelation' => true,
-                             'objectsAllowed' => true,
-                             'assetsAllowed' => false,
-                             'assetTypes' => 
-                            array (
-                            ),
-                             'documentsAllowed' => false,
-                             'documentTypes' => 
-                            array (
-                            ),
-                             'width' => 250,
-                          )),
-                        ),
-                         'region' => NULL,
-                         'layout' => NULL,
-                         'maxTabs' => 35,
-                         'border' => false,
-                         'provideSplitView' => false,
-                         'tabPosition' => 'top',
-                         'hideLabelsWhenTabsReached' => NULL,
-                         'referencedFields' => 
-                        array (
-                        ),
-                         'permissionView' => NULL,
-                         'permissionEdit' => NULL,
-                         'labelWidth' => 200,
-                         'labelAlign' => 'left',
-                         'width' => 0,
-                         'height' => 0,
-                         'fieldDefinitionsCache' => NULL,
-                      )),
                     ),
-                     'permissionView' => NULL,
-                     'permissionEdit' => NULL,
-                     'labelWidth' => 200,
-                     'labelAlign' => 'left',
-                     'width' => '',
-                     'height' => '',
-                     'fieldDefinitionsCache' => NULL,
+                     'documentsAllowed' => false,
+                     'documentTypes' => 
+                    array (
+                    ),
+                     'width' => 250,
                   )),
                 ),
                  'locked' => false,
@@ -512,115 +296,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'decimalPrecision' => NULL,
                           )),
                           2 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                             'name' => 'airInletInsideThread',
-                             'title' => 'Air Inlet - Inside Thread / Stud Bolt',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'fieldtype' => '',
-                             'relationType' => true,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => true,
-                             'blockedVarsForExport' => 
-                            array (
-                            ),
-                             'classes' => 
-                            array (
-                              0 => 
-                              array (
-                                'classes' => 'UniPrDssAirInletInsideThread',
-                              ),
-                            ),
-                             'displayMode' => 'grid',
-                             'pathFormatterClass' => '',
-                             'assetInlineDownloadAllowed' => false,
-                             'assetUploadPath' => '',
-                             'allowToClearRelation' => true,
-                             'objectsAllowed' => true,
-                             'assetsAllowed' => false,
-                             'assetTypes' => 
-                            array (
-                            ),
-                             'documentsAllowed' => false,
-                             'documentTypes' => 
-                            array (
-                            ),
-                             'width' => 250,
-                          )),
-                          3 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                             'name' => 'rollingLobePistonMaterial',
-                             'title' => 'Rolling Lobe - Piston Material',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'fieldtype' => '',
-                             'relationType' => true,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => true,
-                             'blockedVarsForExport' => 
-                            array (
-                            ),
-                             'classes' => 
-                            array (
-                              0 => 
-                              array (
-                                'classes' => 'UniPrDssRollingLobePistonMaterial',
-                              ),
-                            ),
-                             'displayMode' => 'grid',
-                             'pathFormatterClass' => '',
-                             'assetInlineDownloadAllowed' => false,
-                             'assetUploadPath' => '',
-                             'allowToClearRelation' => true,
-                             'objectsAllowed' => true,
-                             'assetsAllowed' => false,
-                             'assetTypes' => 
-                            array (
-                            ),
-                             'documentsAllowed' => false,
-                             'documentTypes' => 
-                            array (
-                            ),
-                             'width' => 250,
-                          )),
-                        ),
-                         'locked' => false,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'fieldtype' => 'fieldcontainer',
-                         'layout' => 'vbox',
-                         'fieldLabel' => '',
-                         'labelWidth' => 200,
-                         'labelAlign' => 'left',
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                         'name' => 'Field Container',
-                         'type' => NULL,
-                         'region' => NULL,
-                         'title' => NULL,
-                         'width' => 0,
-                         'height' => 0,
-                         'collapsible' => false,
-                         'collapsed' => false,
-                         'bodyStyle' => 'padding-left: 75px;',
-                         'datatype' => 'layout',
-                         'children' => 
-                        array (
-                          0 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                              'name' => 'maximumStroke',
                              'title' => 'Maximum Stroke',
@@ -658,7 +333,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
                           )),
-                          1 => 
+                          3 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
                              'name' => 'workingPressure',
                              'title' => 'Working Pressure',
@@ -697,7 +372,62 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'decimalSize' => NULL,
                              'decimalPrecision' => NULL,
                           )),
-                          2 => 
+                          4 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                             'name' => 'numberOfConvolutions',
+                             'title' => 'Number of Convolutions',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => false,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => true,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'defaultValue' => NULL,
+                             'integer' => true,
+                             'unsigned' => true,
+                             'minValue' => NULL,
+                             'maxValue' => NULL,
+                             'unique' => false,
+                             'decimalSize' => NULL,
+                             'decimalPrecision' => NULL,
+                             'width' => 256,
+                             'defaultValueGenerator' => '',
+                          )),
+                        ),
+                         'locked' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'fieldtype' => 'fieldcontainer',
+                         'layout' => 'vbox',
+                         'fieldLabel' => '',
+                         'labelWidth' => 200,
+                         'labelAlign' => 'left',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                         'name' => 'Field Container',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => NULL,
+                         'width' => 0,
+                         'height' => 0,
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => 'padding-left: 75px;',
+                         'datatype' => 'layout',
+                         'children' => 
+                        array (
+                          0 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                              'name' => 'airInletThread',
                              'title' => 'Air Inlet Thread',
@@ -727,10 +457,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'width' => 256,
                              'defaultValueGenerator' => '',
                           )),
-                          3 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                             'name' => 'numberOfConvolutions',
-                             'title' => 'Number of Convolutions',
+                          1 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                             'name' => 'bellowCompoundMaterial',
+                             'title' => 'Bellow Compound Material',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
@@ -739,23 +469,161 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                              'style' => '',
                              'permissions' => NULL,
                              'fieldtype' => '',
-                             'relationType' => false,
+                             'relationType' => true,
                              'invisible' => false,
                              'visibleGridView' => false,
                              'visibleSearch' => true,
                              'blockedVarsForExport' => 
                             array (
                             ),
-                             'defaultValue' => NULL,
-                             'integer' => true,
-                             'unsigned' => true,
-                             'minValue' => NULL,
-                             'maxValue' => NULL,
-                             'unique' => false,
-                             'decimalSize' => NULL,
-                             'decimalPrecision' => NULL,
-                             'width' => 256,
-                             'defaultValueGenerator' => '',
+                             'classes' => 
+                            array (
+                              0 => 
+                              array (
+                                'classes' => 'UniPrDssBellowCompoundMaterial',
+                              ),
+                            ),
+                             'displayMode' => 'combo',
+                             'pathFormatterClass' => '',
+                             'assetInlineDownloadAllowed' => false,
+                             'assetUploadPath' => '',
+                             'allowToClearRelation' => true,
+                             'objectsAllowed' => true,
+                             'assetsAllowed' => false,
+                             'assetTypes' => 
+                            array (
+                            ),
+                             'documentsAllowed' => false,
+                             'documentTypes' => 
+                            array (
+                            ),
+                             'width' => 250,
+                          )),
+                          2 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                             'name' => 'airInletInsideThread',
+                             'title' => 'Air Inlet - Inside Thread / Stud Bolt',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => true,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => true,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'classes' => 
+                            array (
+                              0 => 
+                              array (
+                                'classes' => 'UniPrDssAirInletInsideThread',
+                              ),
+                            ),
+                             'displayMode' => 'combo',
+                             'pathFormatterClass' => '',
+                             'assetInlineDownloadAllowed' => false,
+                             'assetUploadPath' => '',
+                             'allowToClearRelation' => true,
+                             'objectsAllowed' => true,
+                             'assetsAllowed' => false,
+                             'assetTypes' => 
+                            array (
+                            ),
+                             'documentsAllowed' => false,
+                             'documentTypes' => 
+                            array (
+                            ),
+                             'width' => 250,
+                          )),
+                          3 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                             'name' => 'airInletLocation',
+                             'title' => 'Air Inlet Location',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => true,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => true,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'classes' => 
+                            array (
+                              0 => 
+                              array (
+                                'classes' => 'UniPrDssAirInletLocation',
+                              ),
+                            ),
+                             'displayMode' => 'combo',
+                             'pathFormatterClass' => '',
+                             'assetInlineDownloadAllowed' => false,
+                             'assetUploadPath' => '',
+                             'allowToClearRelation' => true,
+                             'objectsAllowed' => true,
+                             'assetsAllowed' => false,
+                             'assetTypes' => 
+                            array (
+                            ),
+                             'documentsAllowed' => false,
+                             'documentTypes' => 
+                            array (
+                            ),
+                             'width' => 250,
+                          )),
+                          4 => 
+                          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                             'name' => 'rollingLobePistonMaterial',
+                             'title' => 'Rolling Lobe - Piston Material',
+                             'tooltip' => '',
+                             'mandatory' => false,
+                             'noteditable' => false,
+                             'index' => false,
+                             'locked' => false,
+                             'style' => '',
+                             'permissions' => NULL,
+                             'fieldtype' => '',
+                             'relationType' => true,
+                             'invisible' => false,
+                             'visibleGridView' => false,
+                             'visibleSearch' => true,
+                             'blockedVarsForExport' => 
+                            array (
+                            ),
+                             'classes' => 
+                            array (
+                              0 => 
+                              array (
+                                'classes' => 'UniPrDssRollingLobePistonMaterial',
+                              ),
+                            ),
+                             'displayMode' => 'combo',
+                             'pathFormatterClass' => '',
+                             'assetInlineDownloadAllowed' => false,
+                             'assetUploadPath' => '',
+                             'allowToClearRelation' => true,
+                             'objectsAllowed' => true,
+                             'assetsAllowed' => false,
+                             'assetTypes' => 
+                            array (
+                            ),
+                             'documentsAllowed' => false,
+                             'documentTypes' => 
+                            array (
+                            ),
+                             'width' => 250,
                           )),
                         ),
                          'locked' => false,
@@ -801,48 +669,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                         'name' => 'bellowCompoundMaterial',
-                         'title' => 'Bellow Compound Material',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => true,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'classes' => 
-                        array (
-                          0 => 
-                          array (
-                            'classes' => 'UniPrDssBellowCompoundMaterial',
-                          ),
-                        ),
-                         'displayMode' => 'grid',
-                         'pathFormatterClass' => '',
-                         'assetInlineDownloadAllowed' => false,
-                         'assetUploadPath' => '',
-                         'allowToClearRelation' => true,
-                         'objectsAllowed' => true,
-                         'assetsAllowed' => false,
-                         'assetTypes' => 
-                        array (
-                        ),
-                         'documentsAllowed' => false,
-                         'documentTypes' => 
-                        array (
-                        ),
-                         'width' => 250,
-                      )),
-                      1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                          'name' => 'hasInternalBumper',
                          'title' => 'Internal Bumper (Y/N)',
@@ -864,7 +690,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultValue' => 0,
                          'defaultValueGenerator' => '',
                       )),
-                      2 => 
+                      1 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'basePlateMaterial',
                          'title' => 'Base Plate Material',
@@ -893,48 +719,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'showCharCount' => false,
                          'width' => 256,
                          'defaultValueGenerator' => '',
-                      )),
-                      3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                         'name' => 'airInletLocation',
-                         'title' => 'Air Inlet Location',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => true,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'classes' => 
-                        array (
-                          0 => 
-                          array (
-                            'classes' => 'UniPrDssAirInletLocation',
-                          ),
-                        ),
-                         'displayMode' => 'grid',
-                         'pathFormatterClass' => '',
-                         'assetInlineDownloadAllowed' => false,
-                         'assetUploadPath' => '',
-                         'allowToClearRelation' => true,
-                         'objectsAllowed' => true,
-                         'assetsAllowed' => false,
-                         'assetTypes' => 
-                        array (
-                        ),
-                         'documentsAllowed' => false,
-                         'documentTypes' => 
-                        array (
-                        ),
-                         'width' => 250,
                       )),
                     ),
                      'region' => NULL,

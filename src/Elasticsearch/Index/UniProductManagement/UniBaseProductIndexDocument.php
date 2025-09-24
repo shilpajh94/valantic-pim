@@ -70,12 +70,8 @@ class UniBaseProductIndexDocument extends AbstractDocument
     {
         $result = [[
             ...$this->plainAttributes($element, [
-                UniBaseProductIndex::ATTRIBUTE_PRODUCT_BRAND_NAME => UniProductBase::FIELD_PRODUCT_BRAND_NAME,
                 UniBaseProductIndex::ATTRIBUTE_GHP_FULL_CODE => UniProductBase::FIELD_GHP_FULL_CODE,
                 UniBaseProductIndex::ATTRIBUTE_SAP_MATERIAL_NUMBER => UniProductBase::FIELD_SAP_MATERIAL_NUMBER,
-                UniBaseProductIndex::ATTRIBUTE_MASTER_BRAND => UniProductBase::FIELD_MASTER_BRAND,
-                UniBaseProductIndex::ATTRIBUTE_PRODUCT_FAMILY => UniProductBase::FIELD_PRODUCT_FAMILY,
-                UniBaseProductIndex::ATTRIBUTE_PRODUCT_DESIGN => UniProductBase::FIELD_PRODUCT_DESIGN,
                 UniBaseProductIndex::ATTRIBUTE_PART_NUMBER => UniProductBase::FIELD_PART_NUMBER,
                 UniBaseProductIndex::ATTRIBUTE_OLD_MATERIAL_NUMBER => UniProductBase::FIELD_OLD_MATERIAL_NUMBER,
                 UniBaseProductIndex::ATTRIBUTE_TARIFF_CODES => UniProductBase::FIELD_TARIFF_CODES,
@@ -94,11 +90,8 @@ class UniBaseProductIndexDocument extends AbstractDocument
             ]),
             ...$this->localizedAttributes($element, [
                 UniBaseProductIndex::ATTRIBUTE_SAP_DESCRIPTION => UniProductBase::FIELD_SAP_DESCRIPTION,
-                UniBaseProductIndex::ATTRIBUTE_PRODUCT_SUB_CATEGORY => UniProductBase::FIELD_PRODUCT_SUB_CATEGORY,
-                UniBaseProductIndex::ATTRIBUTE_PRODUCT_CATEGORY => UniProductBase::FIELD_PRODUCT_CATEGORY,
                 UniBaseProductIndex::ATTRIBUTE_SAP_DESCRIPTION_LANGUAGE => UniProductBase::FIELD_SAP_DESCRIPTION_LANGUAGE,
                 UniBaseProductIndex::ATTRIBUTE_PLANT_PRODUCED => UniProductBase::FIELD_PLANT_PRODUCED,
-                UniBaseProductIndex::ATTRIBUTE_UNIT_OF_MEASURE => UniProductBase::FIELD_UNIT_OF_MEASURE,
                 UniBaseProductIndex::ATTRIBUTE_PRODUCT_DESCRIPTION_SHORT => UniProductBase::FIELD_PRODUCT_DESCRIPTION_SHORT,
                 UniBaseProductIndex::ATTRIBUTE_PRODUCT_DESCRIPTION_LONG => UniProductBase::FIELD_PRODUCT_DESCRIPTION_LONG,
                 UniBaseProductIndex::ATTRIBUTE_PRODUCT_MARKING1 => UniProductBase::FIELD_PRODUCT_MARKING1,

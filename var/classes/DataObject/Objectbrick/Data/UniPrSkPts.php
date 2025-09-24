@@ -2,19 +2,18 @@
 
 /**
  * Fields Summary:
- * - beltThicknessMetric [quantityValue]
- * - beltThicknessImperial [quantityValue]
- * - toothHeightMetric [quantityValue]
- * - toothHeightImperial [quantityValue]
- * - pitchHeightMetric [quantityValue]
- * - pitchHeightImperial [quantityValue]
- * - pitchUOM [select]
+ * - beltThicknessMetric [numeric]
+ * - toothHeightMetric [numeric]
+ * - pitchHeightMetric [numeric]
  * - profile [input]
- * - nominalLength [select]
  * - beltAngle [input]
  * - maxSpeed [input]
- * - minPulleyDiameter [quantityValue]
- * - minOutsidePulleyDiameter [quantityValue]
+ * - beltThicknessImperial [numeric]
+ * - toothHeightImperial [numeric]
+ * - pitchHeightImperial [numeric]
+ * - nominalLength [select]
+ * - minPulleyDiameter [numeric]
+ * - minOutsidePulleyDiameter [numeric]
  */
 
 namespace Pimcore\Model\DataObject\Objectbrick\Data;
@@ -27,31 +26,29 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 class UniPrSkPts extends \App\Model\DataObject\UniProductManagement\Objectbrick\AbstractUniPrSkeleton
 {
 public const FIELD_BELT_THICKNESS_METRIC = 'beltThicknessMetric';
-public const FIELD_BELT_THICKNESS_IMPERIAL = 'beltThicknessImperial';
 public const FIELD_TOOTH_HEIGHT_METRIC = 'toothHeightMetric';
-public const FIELD_TOOTH_HEIGHT_IMPERIAL = 'toothHeightImperial';
 public const FIELD_PITCH_HEIGHT_METRIC = 'pitchHeightMetric';
-public const FIELD_PITCH_HEIGHT_IMPERIAL = 'pitchHeightImperial';
-public const FIELD_PITCH_UOM = 'pitchUOM';
 public const FIELD_PROFILE = 'profile';
-public const FIELD_NOMINAL_LENGTH = 'nominalLength';
 public const FIELD_BELT_ANGLE = 'beltAngle';
 public const FIELD_MAX_SPEED = 'maxSpeed';
+public const FIELD_BELT_THICKNESS_IMPERIAL = 'beltThicknessImperial';
+public const FIELD_TOOTH_HEIGHT_IMPERIAL = 'toothHeightImperial';
+public const FIELD_PITCH_HEIGHT_IMPERIAL = 'pitchHeightImperial';
+public const FIELD_NOMINAL_LENGTH = 'nominalLength';
 public const FIELD_MIN_PULLEY_DIAMETER = 'minPulleyDiameter';
 public const FIELD_MIN_OUTSIDE_PULLEY_DIAMETER = 'minOutsidePulleyDiameter';
 
 protected string $type = "UniPrSkPts";
 protected $beltThicknessMetric;
-protected $beltThicknessImperial;
 protected $toothHeightMetric;
-protected $toothHeightImperial;
 protected $pitchHeightMetric;
-protected $pitchHeightImperial;
-protected $pitchUOM;
 protected $profile;
-protected $nominalLength;
 protected $beltAngle;
 protected $maxSpeed;
+protected $beltThicknessImperial;
+protected $toothHeightImperial;
+protected $pitchHeightImperial;
+protected $nominalLength;
 protected $minPulleyDiameter;
 protected $minOutsidePulleyDiameter;
 
@@ -69,9 +66,9 @@ public function __construct(DataObject\Concrete $object)
 
 /**
 * Get beltThicknessMetric - Belt Thickness (hs) (mm)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getBeltThicknessMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getBeltThicknessMetric(): ?float
 {
 	$data = $this->beltThicknessMetric;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("beltThicknessMetric")->isEmpty($data)) {
@@ -90,54 +87,22 @@ public function getBeltThicknessMetric(): ?\Pimcore\Model\DataObject\Data\Quanti
 
 /**
 * Set beltThicknessMetric - Belt Thickness (hs) (mm)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $beltThicknessMetric
+* @param float|null $beltThicknessMetric
 * @return $this
 */
-public function setBeltThicknessMetric (?\Pimcore\Model\DataObject\Data\QuantityValue $beltThicknessMetric): static
+public function setBeltThicknessMetric (?float $beltThicknessMetric): static
 {
-	$this->beltThicknessMetric = $beltThicknessMetric;
-
-	return $this;
-}
-
-/**
-* Get beltThicknessImperial - Belt Thickness (hs) (in)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getBeltThicknessImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->beltThicknessImperial;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("beltThicknessImperial")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("beltThicknessImperial");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set beltThicknessImperial - Belt Thickness (hs) (in)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $beltThicknessImperial
-* @return $this
-*/
-public function setBeltThicknessImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $beltThicknessImperial): static
-{
-	$this->beltThicknessImperial = $beltThicknessImperial;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("beltThicknessMetric");
+	$this->beltThicknessMetric = $fd->preSetData($this, $beltThicknessMetric);
 	return $this;
 }
 
 /**
 * Get toothHeightMetric - Tooth Height (ht) (mm)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getToothHeightMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getToothHeightMetric(): ?float
 {
 	$data = $this->toothHeightMetric;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("toothHeightMetric")->isEmpty($data)) {
@@ -156,54 +121,22 @@ public function getToothHeightMetric(): ?\Pimcore\Model\DataObject\Data\Quantity
 
 /**
 * Set toothHeightMetric - Tooth Height (ht) (mm)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $toothHeightMetric
+* @param float|null $toothHeightMetric
 * @return $this
 */
-public function setToothHeightMetric (?\Pimcore\Model\DataObject\Data\QuantityValue $toothHeightMetric): static
+public function setToothHeightMetric (?float $toothHeightMetric): static
 {
-	$this->toothHeightMetric = $toothHeightMetric;
-
-	return $this;
-}
-
-/**
-* Get toothHeightImperial - Tooth Height (ht) (in)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getToothHeightImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->toothHeightImperial;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("toothHeightImperial")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("toothHeightImperial");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set toothHeightImperial - Tooth Height (ht) (in)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $toothHeightImperial
-* @return $this
-*/
-public function setToothHeightImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $toothHeightImperial): static
-{
-	$this->toothHeightImperial = $toothHeightImperial;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("toothHeightMetric");
+	$this->toothHeightMetric = $fd->preSetData($this, $toothHeightMetric);
 	return $this;
 }
 
 /**
 * Get pitchHeightMetric - Pitch height (hd/u) (mm)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getPitchHeightMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getPitchHeightMetric(): ?float
 {
 	$data = $this->pitchHeightMetric;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("pitchHeightMetric")->isEmpty($data)) {
@@ -222,79 +155,14 @@ public function getPitchHeightMetric(): ?\Pimcore\Model\DataObject\Data\Quantity
 
 /**
 * Set pitchHeightMetric - Pitch height (hd/u) (mm)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $pitchHeightMetric
+* @param float|null $pitchHeightMetric
 * @return $this
 */
-public function setPitchHeightMetric (?\Pimcore\Model\DataObject\Data\QuantityValue $pitchHeightMetric): static
+public function setPitchHeightMetric (?float $pitchHeightMetric): static
 {
-	$this->pitchHeightMetric = $pitchHeightMetric;
-
-	return $this;
-}
-
-/**
-* Get pitchHeightImperial - Pitch height (hd/u) (in)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getPitchHeightImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->pitchHeightImperial;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("pitchHeightImperial")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("pitchHeightImperial");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set pitchHeightImperial - Pitch height (hd/u) (in)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $pitchHeightImperial
-* @return $this
-*/
-public function setPitchHeightImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $pitchHeightImperial): static
-{
-	$this->pitchHeightImperial = $pitchHeightImperial;
-
-	return $this;
-}
-
-/**
-* Get pitchUOM - Pitch Unit of Measure
-* @return string|null
-*/
-public function getPitchUOM(): ?string
-{
-	$data = $this->pitchUOM;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("pitchUOM")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("pitchUOM");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set pitchUOM - Pitch Unit of Measure
-* @param string|null $pitchUOM
-* @return $this
-*/
-public function setPitchUOM (?string $pitchUOM): static
-{
-	$this->pitchUOM = $pitchUOM;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("pitchHeightMetric");
+	$this->pitchHeightMetric = $fd->preSetData($this, $pitchHeightMetric);
 	return $this;
 }
 
@@ -327,39 +195,6 @@ public function getProfile(): ?string
 public function setProfile (?string $profile): static
 {
 	$this->profile = $profile;
-
-	return $this;
-}
-
-/**
-* Get nominalLength - Nominal Length
-* @return string|null
-*/
-public function getNominalLength(): ?string
-{
-	$data = $this->nominalLength;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("nominalLength")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("nominalLength");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set nominalLength - Nominal Length
-* @param string|null $nominalLength
-* @return $this
-*/
-public function setNominalLength (?string $nominalLength): static
-{
-	$this->nominalLength = $nominalLength;
 
 	return $this;
 }
@@ -431,10 +266,145 @@ public function setMaxSpeed (?string $maxSpeed): static
 }
 
 /**
-* Get minPulleyDiameter - Minimum Pulley Diameter (mm)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* Get beltThicknessImperial - Belt Thickness (hs) (in)
+* @return float|null
 */
-public function getMinPulleyDiameter(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getBeltThicknessImperial(): ?float
+{
+	$data = $this->beltThicknessImperial;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("beltThicknessImperial")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("beltThicknessImperial");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set beltThicknessImperial - Belt Thickness (hs) (in)
+* @param float|null $beltThicknessImperial
+* @return $this
+*/
+public function setBeltThicknessImperial (?float $beltThicknessImperial): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("beltThicknessImperial");
+	$this->beltThicknessImperial = $fd->preSetData($this, $beltThicknessImperial);
+	return $this;
+}
+
+/**
+* Get toothHeightImperial - Tooth Height (ht) (in)
+* @return float|null
+*/
+public function getToothHeightImperial(): ?float
+{
+	$data = $this->toothHeightImperial;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("toothHeightImperial")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("toothHeightImperial");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set toothHeightImperial - Tooth Height (ht) (in)
+* @param float|null $toothHeightImperial
+* @return $this
+*/
+public function setToothHeightImperial (?float $toothHeightImperial): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("toothHeightImperial");
+	$this->toothHeightImperial = $fd->preSetData($this, $toothHeightImperial);
+	return $this;
+}
+
+/**
+* Get pitchHeightImperial - Pitch height (hd/u) (in)
+* @return float|null
+*/
+public function getPitchHeightImperial(): ?float
+{
+	$data = $this->pitchHeightImperial;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("pitchHeightImperial")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("pitchHeightImperial");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set pitchHeightImperial - Pitch height (hd/u) (in)
+* @param float|null $pitchHeightImperial
+* @return $this
+*/
+public function setPitchHeightImperial (?float $pitchHeightImperial): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("pitchHeightImperial");
+	$this->pitchHeightImperial = $fd->preSetData($this, $pitchHeightImperial);
+	return $this;
+}
+
+/**
+* Get nominalLength - Nominal Length
+* @return string|null
+*/
+public function getNominalLength(): ?string
+{
+	$data = $this->nominalLength;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("nominalLength")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("nominalLength");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set nominalLength - Nominal Length
+* @param string|null $nominalLength
+* @return $this
+*/
+public function setNominalLength (?string $nominalLength): static
+{
+	$this->nominalLength = $nominalLength;
+
+	return $this;
+}
+
+/**
+* Get minPulleyDiameter - Minimum Pulley Diameter (mm)
+* @return float|null
+*/
+public function getMinPulleyDiameter(): ?float
 {
 	$data = $this->minPulleyDiameter;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("minPulleyDiameter")->isEmpty($data)) {
@@ -453,21 +423,22 @@ public function getMinPulleyDiameter(): ?\Pimcore\Model\DataObject\Data\Quantity
 
 /**
 * Set minPulleyDiameter - Minimum Pulley Diameter (mm)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $minPulleyDiameter
+* @param float|null $minPulleyDiameter
 * @return $this
 */
-public function setMinPulleyDiameter (?\Pimcore\Model\DataObject\Data\QuantityValue $minPulleyDiameter): static
+public function setMinPulleyDiameter (?float $minPulleyDiameter): static
 {
-	$this->minPulleyDiameter = $minPulleyDiameter;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("minPulleyDiameter");
+	$this->minPulleyDiameter = $fd->preSetData($this, $minPulleyDiameter);
 	return $this;
 }
 
 /**
 * Get minOutsidePulleyDiameter - Minimum Outside Pulley Diameter
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getMinOutsidePulleyDiameter(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getMinOutsidePulleyDiameter(): ?float
 {
 	$data = $this->minOutsidePulleyDiameter;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("minOutsidePulleyDiameter")->isEmpty($data)) {
@@ -486,13 +457,14 @@ public function getMinOutsidePulleyDiameter(): ?\Pimcore\Model\DataObject\Data\Q
 
 /**
 * Set minOutsidePulleyDiameter - Minimum Outside Pulley Diameter
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $minOutsidePulleyDiameter
+* @param float|null $minOutsidePulleyDiameter
 * @return $this
 */
-public function setMinOutsidePulleyDiameter (?\Pimcore\Model\DataObject\Data\QuantityValue $minOutsidePulleyDiameter): static
+public function setMinOutsidePulleyDiameter (?float $minOutsidePulleyDiameter): static
 {
-	$this->minOutsidePulleyDiameter = $minOutsidePulleyDiameter;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("minOutsidePulleyDiameter");
+	$this->minOutsidePulleyDiameter = $fd->preSetData($this, $minOutsidePulleyDiameter);
 	return $this;
 }
 

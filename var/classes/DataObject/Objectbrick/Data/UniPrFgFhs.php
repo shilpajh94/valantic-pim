@@ -5,8 +5,8 @@
  * - fitting1Type [manyToOneRelation]
  * - fitting2Type [manyToOneRelation]
  * - bendRestrictorType [manyToOneRelation]
- * - fitting1SizeImperial [quantityValue]
- * - fitting2SizeImperial [quantityValue]
+ * - fitting1SizeImperial [numeric]
+ * - fitting2SizeImperial [numeric]
  * - fitting1Material [manyToOneRelation]
  * - fitting2Material [manyToOneRelation]
  * - isBendRestrictor [checkbox]
@@ -17,8 +17,8 @@
  * -- note1 [textarea]
  * -- note2 [textarea]
  * - applications [manyToManyObjectRelation]
- * - hoseLengthImperial [quantityValue]
- * - hoseLengthMetric [quantityValue]
+ * - hoseLengthImperial [numeric]
+ * - hoseLengthMetric [numeric]
  */
 
 namespace Pimcore\Model\DataObject\Objectbrick\Data;
@@ -226,9 +226,9 @@ public function setBendRestrictorType (?\Pimcore\Model\Element\AbstractElement $
 
 /**
 * Get fitting1SizeImperial - Fitting 1 Size (in)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getFitting1SizeImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getFitting1SizeImperial(): ?float
 {
 	$data = $this->fitting1SizeImperial;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("fitting1SizeImperial")->isEmpty($data)) {
@@ -247,21 +247,22 @@ public function getFitting1SizeImperial(): ?\Pimcore\Model\DataObject\Data\Quant
 
 /**
 * Set fitting1SizeImperial - Fitting 1 Size (in)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $fitting1SizeImperial
+* @param float|null $fitting1SizeImperial
 * @return $this
 */
-public function setFitting1SizeImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $fitting1SizeImperial): static
+public function setFitting1SizeImperial (?float $fitting1SizeImperial): static
 {
-	$this->fitting1SizeImperial = $fitting1SizeImperial;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("fitting1SizeImperial");
+	$this->fitting1SizeImperial = $fd->preSetData($this, $fitting1SizeImperial);
 	return $this;
 }
 
 /**
 * Get fitting2SizeImperial - Fitting 2 Size (in)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getFitting2SizeImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getFitting2SizeImperial(): ?float
 {
 	$data = $this->fitting2SizeImperial;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("fitting2SizeImperial")->isEmpty($data)) {
@@ -280,13 +281,14 @@ public function getFitting2SizeImperial(): ?\Pimcore\Model\DataObject\Data\Quant
 
 /**
 * Set fitting2SizeImperial - Fitting 2 Size (in)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $fitting2SizeImperial
+* @param float|null $fitting2SizeImperial
 * @return $this
 */
-public function setFitting2SizeImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $fitting2SizeImperial): static
+public function setFitting2SizeImperial (?float $fitting2SizeImperial): static
 {
-	$this->fitting2SizeImperial = $fitting2SizeImperial;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("fitting2SizeImperial");
+	$this->fitting2SizeImperial = $fd->preSetData($this, $fitting2SizeImperial);
 	return $this;
 }
 
@@ -662,9 +664,9 @@ public function setApplications (?array $applications): static
 
 /**
 * Get hoseLengthImperial - Hose Length (Ft)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getHoseLengthImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getHoseLengthImperial(): ?float
 {
 	$data = $this->hoseLengthImperial;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("hoseLengthImperial")->isEmpty($data)) {
@@ -683,21 +685,22 @@ public function getHoseLengthImperial(): ?\Pimcore\Model\DataObject\Data\Quantit
 
 /**
 * Set hoseLengthImperial - Hose Length (Ft)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $hoseLengthImperial
+* @param float|null $hoseLengthImperial
 * @return $this
 */
-public function setHoseLengthImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $hoseLengthImperial): static
+public function setHoseLengthImperial (?float $hoseLengthImperial): static
 {
-	$this->hoseLengthImperial = $hoseLengthImperial;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("hoseLengthImperial");
+	$this->hoseLengthImperial = $fd->preSetData($this, $hoseLengthImperial);
 	return $this;
 }
 
 /**
 * Get hoseLengthMetric - Hose Length (M)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getHoseLengthMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getHoseLengthMetric(): ?float
 {
 	$data = $this->hoseLengthMetric;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("hoseLengthMetric")->isEmpty($data)) {
@@ -716,13 +719,14 @@ public function getHoseLengthMetric(): ?\Pimcore\Model\DataObject\Data\QuantityV
 
 /**
 * Set hoseLengthMetric - Hose Length (M)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $hoseLengthMetric
+* @param float|null $hoseLengthMetric
 * @return $this
 */
-public function setHoseLengthMetric (?\Pimcore\Model\DataObject\Data\QuantityValue $hoseLengthMetric): static
+public function setHoseLengthMetric (?float $hoseLengthMetric): static
 {
-	$this->hoseLengthMetric = $hoseLengthMetric;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("hoseLengthMetric");
+	$this->hoseLengthMetric = $fd->preSetData($this, $hoseLengthMetric);
 	return $this;
 }
 

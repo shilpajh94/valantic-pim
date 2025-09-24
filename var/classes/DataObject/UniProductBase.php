@@ -7,18 +7,21 @@
  * Fields Summary:
  * - brandData [objectbricks]
  * - skeletonData [objectbricks]
- * - productBrandName [input]
- * - masterBrand [select]
- * - productFamily [input]
- * - productDesign [input]
+ * - fullProductName [input]
+ * - sapMaterialNumber [input]
+ * - partNumber [input]
+ * - oldMaterialNumber [input]
+ * - weightMetric [quantityValue]
+ * - weightImperial [quantityValue]
+ * - tariffCodes [numeric]
+ * - countryOfOrigin [manyToOneRelation]
+ * - eanCode [input]
+ * - externalId [input]
+ * - stccCode [input]
  * - localizedfields [localizedfields]
- * -- productSubCategory [manyToOneRelation]
- * -- productCategory [manyToOneRelation]
  * -- sapDescription [input]
  * -- sapDescriptionLanguage [select]
  * -- plantProduced [select]
- * -- unitOfMeasure [select]
- * -- weight [numeric]
  * -- productDescriptionShort [textarea]
  * -- productDescriptionLong [textarea]
  * -- productMarking1 [textarea]
@@ -34,25 +37,17 @@
  * -- emptyFieldsBrand [textarea]
  * -- emptyFieldsSkeleton [textarea]
  * -- emptyFieldsFinishedGood [textarea]
- * - sapMaterialNumber [input]
- * - partNumber [input]
- * - oldMaterialNumber [input]
- * - weightMetric [quantityValue]
- * - weightImperial [quantityValue]
- * - tariffCodes [numeric]
- * - countryOfOrigin [country]
- * - eanCode [input]
  * - productGroupSpecific [objectbricks]
- * - competitorCrossReference [fieldcollections]
- * - customerReference [fieldcollections]
- * - oemCrossReference [fieldcollections]
+ * - competitorCrossReference [manyToManyObjectRelation]
+ * - customerReference [manyToManyObjectRelation]
+ * - oemCrossReference [manyToManyObjectRelation]
  * - b2bFlag [checkbox]
  * - b2cFlag [checkbox]
  * - printedCatalogueFlag [checkbox]
  * - virtualCatalogueFlag [checkbox]
  * - customerPortalFlag [checkbox]
- * - regionalAvailability [manyToManyObjectRelation]
  * - regions [calculatedValue]
+ * - regionalAvailability [manyToManyObjectRelation]
  * - internalCategories [manyToManyObjectRelation]
  * - ghpFullCode [input]
  * - skeletonPimInternalHierarchyCode [calculatedValue]
@@ -67,18 +62,19 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 
 /**
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing getList(array $config = [])
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductBrandName(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByMasterBrand(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductFamily(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductDesign(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByFullProductName(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getBySapMaterialNumber(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByPartNumber(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByOldMaterialNumber(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByTariffCodes(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByCountryOfOrigin(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByEanCode(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByExternalId(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByStccCode(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByLocalizedfields(string $field, mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductSubCategory(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductCategory(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getBySapDescription(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getBySapDescriptionLanguage(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByPlantProduced(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByUnitOfMeasure(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByWeight(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductDescriptionShort(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductDescriptionLong(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProductMarking1(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
@@ -94,12 +90,9 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByEmptyFieldsBrand(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByEmptyFieldsSkeleton(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByEmptyFieldsFinishedGood(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getBySapMaterialNumber(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByPartNumber(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByOldMaterialNumber(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByTariffCodes(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByCountryOfOrigin(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByEanCode(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByCompetitorCrossReference(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByCustomerReference(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByOemCrossReference(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByB2bFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByB2cFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByPrintedCatalogueFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
@@ -115,17 +108,20 @@ class UniProductBase extends \App\Model\DataObject\AbstractUniProductBase
 {
 public const FIELD_BRAND_DATA = 'brandData';
 public const FIELD_SKELETON_DATA = 'skeletonData';
-public const FIELD_PRODUCT_BRAND_NAME = 'productBrandName';
-public const FIELD_MASTER_BRAND = 'masterBrand';
-public const FIELD_PRODUCT_FAMILY = 'productFamily';
-public const FIELD_PRODUCT_DESIGN = 'productDesign';
-public const FIELD_PRODUCT_SUB_CATEGORY = 'productSubCategory';
-public const FIELD_PRODUCT_CATEGORY = 'productCategory';
+public const FIELD_FULL_PRODUCT_NAME = 'fullProductName';
+public const FIELD_SAP_MATERIAL_NUMBER = 'sapMaterialNumber';
+public const FIELD_PART_NUMBER = 'partNumber';
+public const FIELD_OLD_MATERIAL_NUMBER = 'oldMaterialNumber';
+public const FIELD_WEIGHT_METRIC = 'weightMetric';
+public const FIELD_WEIGHT_IMPERIAL = 'weightImperial';
+public const FIELD_TARIFF_CODES = 'tariffCodes';
+public const FIELD_COUNTRY_OF_ORIGIN = 'countryOfOrigin';
+public const FIELD_EAN_CODE = 'eanCode';
+public const FIELD_EXTERNAL_ID = 'externalId';
+public const FIELD_STCC_CODE = 'stccCode';
 public const FIELD_SAP_DESCRIPTION = 'sapDescription';
 public const FIELD_SAP_DESCRIPTION_LANGUAGE = 'sapDescriptionLanguage';
 public const FIELD_PLANT_PRODUCED = 'plantProduced';
-public const FIELD_UNIT_OF_MEASURE = 'unitOfMeasure';
-public const FIELD_WEIGHT = 'weight';
 public const FIELD_PRODUCT_DESCRIPTION_SHORT = 'productDescriptionShort';
 public const FIELD_PRODUCT_DESCRIPTION_LONG = 'productDescriptionLong';
 public const FIELD_PRODUCT_MARKING1 = 'productMarking1';
@@ -141,14 +137,6 @@ public const FIELD_COMPLETENESS_PERCENTAGE = 'completenessPercentage';
 public const FIELD_EMPTY_FIELDS_BRAND = 'emptyFieldsBrand';
 public const FIELD_EMPTY_FIELDS_SKELETON = 'emptyFieldsSkeleton';
 public const FIELD_EMPTY_FIELDS_FINISHED_GOOD = 'emptyFieldsFinishedGood';
-public const FIELD_SAP_MATERIAL_NUMBER = 'sapMaterialNumber';
-public const FIELD_PART_NUMBER = 'partNumber';
-public const FIELD_OLD_MATERIAL_NUMBER = 'oldMaterialNumber';
-public const FIELD_WEIGHT_METRIC = 'weightMetric';
-public const FIELD_WEIGHT_IMPERIAL = 'weightImperial';
-public const FIELD_TARIFF_CODES = 'tariffCodes';
-public const FIELD_COUNTRY_OF_ORIGIN = 'countryOfOrigin';
-public const FIELD_EAN_CODE = 'eanCode';
 public const FIELD_PRODUCT_GROUP_SPECIFIC = 'productGroupSpecific';
 public const FIELD_COMPETITOR_CROSS_REFERENCE = 'competitorCrossReference';
 public const FIELD_CUSTOMER_REFERENCE = 'customerReference';
@@ -158,8 +146,8 @@ public const FIELD_B2C_FLAG = 'b2cFlag';
 public const FIELD_PRINTED_CATALOGUE_FLAG = 'printedCatalogueFlag';
 public const FIELD_VIRTUAL_CATALOGUE_FLAG = 'virtualCatalogueFlag';
 public const FIELD_CUSTOMER_PORTAL_FLAG = 'customerPortalFlag';
-public const FIELD_REGIONAL_AVAILABILITY = 'regionalAvailability';
 public const FIELD_REGIONS = 'regions';
+public const FIELD_REGIONAL_AVAILABILITY = 'regionalAvailability';
 public const FIELD_INTERNAL_CATEGORIES = 'internalCategories';
 public const FIELD_GHP_FULL_CODE = 'ghpFullCode';
 public const FIELD_SKELETON_PIM_INTERNAL_HIERARCHY_CODE = 'skeletonPimInternalHierarchyCode';
@@ -170,11 +158,7 @@ protected $classId = "UNI_PR";
 protected $className = "UniProductBase";
 protected $brandData;
 protected $skeletonData;
-protected $productBrandName;
-protected $masterBrand;
-protected $productFamily;
-protected $productDesign;
-protected $localizedfields;
+protected $fullProductName;
 protected $sapMaterialNumber;
 protected $partNumber;
 protected $oldMaterialNumber;
@@ -183,6 +167,9 @@ protected $weightImperial;
 protected $tariffCodes;
 protected $countryOfOrigin;
 protected $eanCode;
+protected $externalId;
+protected $stccCode;
+protected $localizedfields;
 protected $productGroupSpecific;
 protected $competitorCrossReference;
 protected $customerReference;
@@ -284,19 +271,19 @@ public function setSkeletonData(?\Pimcore\Model\DataObject\Objectbrick $skeleton
 }
 
 /**
-* Get productBrandName - Product Brand Name
+* Get fullProductName - Full Product Name
 * @return string|null
 */
-public function getProductBrandName(): ?string
+public function getFullProductName(): ?string
 {
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("productBrandName");
+		$preValue = $this->preGetValue("fullProductName");
 		if ($preValue !== null) {
 			return $preValue;
 		}
 	}
 
-	$data = $this->productBrandName;
+	$data = $this->fullProductName;
 
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
@@ -306,952 +293,15 @@ public function getProductBrandName(): ?string
 }
 
 /**
-* Set productBrandName - Product Brand Name
-* @param string|null $productBrandName
+* Set fullProductName - Full Product Name
+* @param string|null $fullProductName
 * @return $this
 */
-public function setProductBrandName(?string $productBrandName): static
+public function setFullProductName(?string $fullProductName): static
 {
-	$this->markFieldDirty("productBrandName", true);
+	$this->markFieldDirty("fullProductName", true);
 
-	$this->productBrandName = $productBrandName;
-
-	return $this;
-}
-
-/**
-* Get masterBrand - Master Brand
-* @return string|null
-*/
-public function getMasterBrand(): ?string
-{
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("masterBrand");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	$data = $this->masterBrand;
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set masterBrand - Master Brand
-* @param string|null $masterBrand
-* @return $this
-*/
-public function setMasterBrand(?string $masterBrand): static
-{
-	$this->markFieldDirty("masterBrand", true);
-
-	$this->masterBrand = $masterBrand;
-
-	return $this;
-}
-
-/**
-* Get productFamily - Product Family
-* @return string|null
-*/
-public function getProductFamily(): ?string
-{
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("productFamily");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	$data = $this->productFamily;
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set productFamily - Product Family
-* @param string|null $productFamily
-* @return $this
-*/
-public function setProductFamily(?string $productFamily): static
-{
-	$this->markFieldDirty("productFamily", true);
-
-	$this->productFamily = $productFamily;
-
-	return $this;
-}
-
-/**
-* Get productDesign - Product Design Name
-* @return string|null
-*/
-public function getProductDesign(): ?string
-{
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("productDesign");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	$data = $this->productDesign;
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set productDesign - Product Design Name
-* @param string|null $productDesign
-* @return $this
-*/
-public function setProductDesign(?string $productDesign): static
-{
-	$this->markFieldDirty("productDesign", true);
-
-	$this->productDesign = $productDesign;
-
-	return $this;
-}
-
-/**
-* Get localizedfields - 
-* @return \Pimcore\Model\DataObject\Localizedfield|null
-*/
-public function getLocalizedfields(): ?\Pimcore\Model\DataObject\Localizedfield
-{
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("localizedfields");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	$data = $this->getClass()->getFieldDefinition("localizedfields")->preGetData($this);
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get productSubCategory - Product Sub Category
-* @return 
-*/
-public function getProductSubCategory(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("productSubCategory", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("productSubCategory");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get productCategory - Product Category  
-* @return 
-*/
-public function getProductCategory(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("productCategory", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("productCategory");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get sapDescription - SAP Description
-* @return string|null
-*/
-public function getSapDescription(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("sapDescription", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("sapDescription");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get sapDescriptionLanguage - SAP  Description Language
-* @return string|null
-*/
-public function getSapDescriptionLanguage(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("sapDescriptionLanguage", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("sapDescriptionLanguage");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get plantProduced - Plant Produced
-* @return string|null
-*/
-public function getPlantProduced(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("plantProduced", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("plantProduced");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get unitOfMeasure - Unit of Measure (UOM)
-* @return string|null
-*/
-public function getUnitOfMeasure(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("unitOfMeasure", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("unitOfMeasure");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get weight - Weight (metric / imperial)
-* @return float|null
-*/
-public function getWeight(?string $language = null): ?float
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("weight", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("weight");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get productDescriptionShort - Product Description  - Short
-* @return string|null
-*/
-public function getProductDescriptionShort(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("productDescriptionShort", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("productDescriptionShort");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get productDescriptionLong - Product Description - Long
-* @return string|null
-*/
-public function getProductDescriptionLong(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("productDescriptionLong", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("productDescriptionLong");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get productMarking1 - Product Marking - 1
-* @return string|null
-*/
-public function getProductMarking1(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("productMarking1", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("productMarking1");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get productMarking2 - Product Marking - 2
-* @return string|null
-*/
-public function getProductMarking2(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("productMarking2", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("productMarking2");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get productDescriptionExtended - Product Description - Extended
-* @return string|null
-*/
-public function getProductDescriptionExtended(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("productDescriptionExtended", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("productDescriptionExtended");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get prop65 - Prop65
-* @return string|null
-*/
-public function getProp65(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("prop65", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("prop65");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get roHS - RoHS
-* @return string|null
-*/
-public function getRoHS(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("roHS", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("roHS");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get gprs - GPRS
-* @return string|null
-*/
-public function getGprs(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("gprs", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("gprs");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get prop65Certificates - Prop65 Certificates
-* @return \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null
-*/
-public function getProp65Certificates(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("prop65Certificates", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("prop65Certificates");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get roHSCertificates - RoHS Certificates
-* @return \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null
-*/
-public function getRoHSCertificates(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("roHSCertificates", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("roHSCertificates");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get gprsCertificates - GPRS Certificates
-* @return \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null
-*/
-public function getGprsCertificates(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("gprsCertificates", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("gprsCertificates");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get completenessPercentage - Completeness Percentage
-* @return string|null
-*/
-public function getCompletenessPercentage(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("completenessPercentage", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("completenessPercentage");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get emptyFieldsBrand - Empty Fields Brand
-* @return string|null
-*/
-public function getEmptyFieldsBrand(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("emptyFieldsBrand", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("emptyFieldsBrand");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get emptyFieldsSkeleton - Empty Fields Skeleton
-* @return string|null
-*/
-public function getEmptyFieldsSkeleton(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("emptyFieldsSkeleton", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("emptyFieldsSkeleton");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get emptyFieldsFinishedGood - Empty Fields Finished Good
-* @return string|null
-*/
-public function getEmptyFieldsFinishedGood(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("emptyFieldsFinishedGood", $language);
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("emptyFieldsFinishedGood");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set localizedfields - 
-* @param \Pimcore\Model\DataObject\Localizedfield|null $localizedfields
-* @return $this
-*/
-public function setLocalizedfields(?\Pimcore\Model\DataObject\Localizedfield $localizedfields): static
-{
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	$currentData = $this->getLocalizedfields();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$this->markFieldDirty("localizedfields", true);
-	$this->markFieldDirty("localizedfields", true);
-
-	$this->localizedfields = $localizedfields;
-
-	return $this;
-}
-
-/**
-* Set productSubCategory - Product Sub Category
-* @param  $productSubCategory
-* @return $this
-*/
-public function setProductSubCategory (?\Pimcore\Model\Element\AbstractElement $productSubCategory, ?string $language = null): static
-{
-	$fd = $this->getClass()->getFieldDefinition("localizedfields")->getFieldDefinition("productSubCategory");
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	$currentData = $this->getProductSubCategory($language);
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $productSubCategory);
-	if (!$isEqual) {
-		$this->markFieldDirty("productSubCategory", true);
-	}
-	$this->getLocalizedfields()->setLocalizedValue("productSubCategory", $productSubCategory, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set productCategory - Product Category  
-* @param  $productCategory
-* @return $this
-*/
-public function setProductCategory (?\Pimcore\Model\Element\AbstractElement $productCategory, ?string $language = null): static
-{
-	$fd = $this->getClass()->getFieldDefinition("localizedfields")->getFieldDefinition("productCategory");
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	$currentData = $this->getProductCategory($language);
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $productCategory);
-	if (!$isEqual) {
-		$this->markFieldDirty("productCategory", true);
-	}
-	$this->getLocalizedfields()->setLocalizedValue("productCategory", $productCategory, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set sapDescription - SAP Description
-* @param string|null $sapDescription
-* @return $this
-*/
-public function setSapDescription (?string $sapDescription, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("sapDescription", $sapDescription, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set sapDescriptionLanguage - SAP  Description Language
-* @param string|null $sapDescriptionLanguage
-* @return $this
-*/
-public function setSapDescriptionLanguage (?string $sapDescriptionLanguage, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("sapDescriptionLanguage", $sapDescriptionLanguage, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set plantProduced - Plant Produced
-* @param string|null $plantProduced
-* @return $this
-*/
-public function setPlantProduced (?string $plantProduced, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("plantProduced", $plantProduced, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set unitOfMeasure - Unit of Measure (UOM)
-* @param string|null $unitOfMeasure
-* @return $this
-*/
-public function setUnitOfMeasure (?string $unitOfMeasure, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("unitOfMeasure", $unitOfMeasure, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set weight - Weight (metric / imperial)
-* @param float|null $weight
-* @return $this
-*/
-public function setWeight (?float $weight, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("weight", $weight, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set productDescriptionShort - Product Description  - Short
-* @param string|null $productDescriptionShort
-* @return $this
-*/
-public function setProductDescriptionShort (?string $productDescriptionShort, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("productDescriptionShort", $productDescriptionShort, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set productDescriptionLong - Product Description - Long
-* @param string|null $productDescriptionLong
-* @return $this
-*/
-public function setProductDescriptionLong (?string $productDescriptionLong, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("productDescriptionLong", $productDescriptionLong, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set productMarking1 - Product Marking - 1
-* @param string|null $productMarking1
-* @return $this
-*/
-public function setProductMarking1 (?string $productMarking1, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("productMarking1", $productMarking1, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set productMarking2 - Product Marking - 2
-* @param string|null $productMarking2
-* @return $this
-*/
-public function setProductMarking2 (?string $productMarking2, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("productMarking2", $productMarking2, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set productDescriptionExtended - Product Description - Extended
-* @param string|null $productDescriptionExtended
-* @return $this
-*/
-public function setProductDescriptionExtended (?string $productDescriptionExtended, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("productDescriptionExtended", $productDescriptionExtended, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set prop65 - Prop65
-* @param string|null $prop65
-* @return $this
-*/
-public function setProp65 (?string $prop65, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("prop65", $prop65, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set roHS - RoHS
-* @param string|null $roHS
-* @return $this
-*/
-public function setRoHS (?string $roHS, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("roHS", $roHS, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set gprs - GPRS
-* @param string|null $gprs
-* @return $this
-*/
-public function setGprs (?string $gprs, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("gprs", $gprs, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set prop65Certificates - Prop65 Certificates
-* @param \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null $prop65Certificates
-* @return $this
-*/
-public function setProp65Certificates (?\Pimcore\Model\Element\AbstractElement $prop65Certificates, ?string $language = null): static
-{
-	$fd = $this->getClass()->getFieldDefinition("localizedfields")->getFieldDefinition("prop65Certificates");
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	$currentData = $this->getProp65Certificates($language);
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $prop65Certificates);
-	if (!$isEqual) {
-		$this->markFieldDirty("prop65Certificates", true);
-	}
-	$this->getLocalizedfields()->setLocalizedValue("prop65Certificates", $prop65Certificates, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set roHSCertificates - RoHS Certificates
-* @param \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null $roHSCertificates
-* @return $this
-*/
-public function setRoHSCertificates (?\Pimcore\Model\Element\AbstractElement $roHSCertificates, ?string $language = null): static
-{
-	$fd = $this->getClass()->getFieldDefinition("localizedfields")->getFieldDefinition("roHSCertificates");
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	$currentData = $this->getRoHSCertificates($language);
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $roHSCertificates);
-	if (!$isEqual) {
-		$this->markFieldDirty("roHSCertificates", true);
-	}
-	$this->getLocalizedfields()->setLocalizedValue("roHSCertificates", $roHSCertificates, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set gprsCertificates - GPRS Certificates
-* @param \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null $gprsCertificates
-* @return $this
-*/
-public function setGprsCertificates (?\Pimcore\Model\Element\AbstractElement $gprsCertificates, ?string $language = null): static
-{
-	$fd = $this->getClass()->getFieldDefinition("localizedfields")->getFieldDefinition("gprsCertificates");
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	$currentData = $this->getGprsCertificates($language);
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $gprsCertificates);
-	if (!$isEqual) {
-		$this->markFieldDirty("gprsCertificates", true);
-	}
-	$this->getLocalizedfields()->setLocalizedValue("gprsCertificates", $gprsCertificates, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set completenessPercentage - Completeness Percentage
-* @param string|null $completenessPercentage
-* @return $this
-*/
-public function setCompletenessPercentage (?string $completenessPercentage, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("completenessPercentage", $completenessPercentage, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set emptyFieldsBrand - Empty Fields Brand
-* @param string|null $emptyFieldsBrand
-* @return $this
-*/
-public function setEmptyFieldsBrand (?string $emptyFieldsBrand, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("emptyFieldsBrand", $emptyFieldsBrand, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set emptyFieldsSkeleton - Empty Fields Skeleton
-* @param string|null $emptyFieldsSkeleton
-* @return $this
-*/
-public function setEmptyFieldsSkeleton (?string $emptyFieldsSkeleton, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("emptyFieldsSkeleton", $emptyFieldsSkeleton, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set emptyFieldsFinishedGood - Empty Fields Finished Good
-* @param string|null $emptyFieldsFinishedGood
-* @return $this
-*/
-public function setEmptyFieldsFinishedGood (?string $emptyFieldsFinishedGood, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("emptyFieldsFinishedGood", $emptyFieldsFinishedGood, $language, !$isEqual);
+	$this->fullProductName = $fullProductName;
 
 	return $this;
 }
@@ -1473,9 +523,9 @@ public function setTariffCodes(?float $tariffCodes): static
 
 /**
 * Get countryOfOrigin - Country Of Origin
-* @return string|null
+* @return \Pimcore\Model\DataObject\UniPrCountryOfOrigin|null
 */
-public function getCountryOfOrigin(): ?string
+public function getCountryOfOrigin(): ?\Pimcore\Model\Element\AbstractElement
 {
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
 		$preValue = $this->preGetValue("countryOfOrigin");
@@ -1484,7 +534,7 @@ public function getCountryOfOrigin(): ?string
 		}
 	}
 
-	$data = $this->countryOfOrigin;
+	$data = $this->getClass()->getFieldDefinition("countryOfOrigin")->preGetData($this);
 
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
@@ -1495,15 +545,22 @@ public function getCountryOfOrigin(): ?string
 
 /**
 * Set countryOfOrigin - Country Of Origin
-* @param string|null $countryOfOrigin
+* @param \Pimcore\Model\DataObject\UniPrCountryOfOrigin|null $countryOfOrigin
 * @return $this
 */
-public function setCountryOfOrigin(?string $countryOfOrigin): static
+public function setCountryOfOrigin(?\Pimcore\Model\Element\AbstractElement $countryOfOrigin): static
 {
-	$this->markFieldDirty("countryOfOrigin", true);
-
-	$this->countryOfOrigin = $countryOfOrigin;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getClass()->getFieldDefinition("countryOfOrigin");
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getCountryOfOrigin();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $countryOfOrigin);
+	if (!$isEqual) {
+		$this->markFieldDirty("countryOfOrigin", true);
+	}
+	$this->countryOfOrigin = $fd->preSetData($this, $countryOfOrigin);
 	return $this;
 }
 
@@ -1539,6 +596,755 @@ public function setEanCode(?string $eanCode): static
 	$this->markFieldDirty("eanCode", true);
 
 	$this->eanCode = $eanCode;
+
+	return $this;
+}
+
+/**
+* Get externalId - External ID
+* @return string|null
+*/
+public function getExternalId(): ?string
+{
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("externalId");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	$data = $this->externalId;
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set externalId - External ID
+* @param string|null $externalId
+* @return $this
+*/
+public function setExternalId(?string $externalId): static
+{
+	$this->markFieldDirty("externalId", true);
+
+	$this->externalId = $externalId;
+
+	return $this;
+}
+
+/**
+* Get stccCode - Standard Transportation Commodity Code (STCC)
+* @return string|null
+*/
+public function getStccCode(): ?string
+{
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("stccCode");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	$data = $this->stccCode;
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set stccCode - Standard Transportation Commodity Code (STCC)
+* @param string|null $stccCode
+* @return $this
+*/
+public function setStccCode(?string $stccCode): static
+{
+	$this->markFieldDirty("stccCode", true);
+
+	$this->stccCode = $stccCode;
+
+	return $this;
+}
+
+/**
+* Get localizedfields - 
+* @return \Pimcore\Model\DataObject\Localizedfield|null
+*/
+public function getLocalizedfields(): ?\Pimcore\Model\DataObject\Localizedfield
+{
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("localizedfields");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	$data = $this->getClass()->getFieldDefinition("localizedfields")->preGetData($this);
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get sapDescription - SAP Description
+* @return string|null
+*/
+public function getSapDescription(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("sapDescription", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("sapDescription");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get sapDescriptionLanguage - SAP  Description Language
+* @return string|null
+*/
+public function getSapDescriptionLanguage(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("sapDescriptionLanguage", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("sapDescriptionLanguage");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get plantProduced - Plant Produced
+* @return string|null
+*/
+public function getPlantProduced(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("plantProduced", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("plantProduced");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get productDescriptionShort - Product Description  - Short
+* @return string|null
+*/
+public function getProductDescriptionShort(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("productDescriptionShort", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("productDescriptionShort");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get productDescriptionLong - Product Description - Long
+* @return string|null
+*/
+public function getProductDescriptionLong(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("productDescriptionLong", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("productDescriptionLong");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get productMarking1 - Product Marking - 1
+* @return string|null
+*/
+public function getProductMarking1(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("productMarking1", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("productMarking1");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get productMarking2 - Product Marking - 2
+* @return string|null
+*/
+public function getProductMarking2(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("productMarking2", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("productMarking2");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get productDescriptionExtended - Product Description - Extended
+* @return string|null
+*/
+public function getProductDescriptionExtended(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("productDescriptionExtended", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("productDescriptionExtended");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get prop65 - Prop65
+* @return string|null
+*/
+public function getProp65(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("prop65", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("prop65");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get roHS - RoHS
+* @return string|null
+*/
+public function getRoHS(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("roHS", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("roHS");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get gprs - GPRS
+* @return string|null
+*/
+public function getGprs(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("gprs", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("gprs");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get prop65Certificates - Prop65 Certificates
+* @return \Pimcore\Model\Asset\Document|null
+*/
+public function getProp65Certificates(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("prop65Certificates", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("prop65Certificates");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get roHSCertificates - RoHS Certificates
+* @return \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null
+*/
+public function getRoHSCertificates(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("roHSCertificates", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("roHSCertificates");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get gprsCertificates - GPRS Certificates
+* @return \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null
+*/
+public function getGprsCertificates(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("gprsCertificates", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("gprsCertificates");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get completenessPercentage - Completeness Percentage
+* @return string|null
+*/
+public function getCompletenessPercentage(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("completenessPercentage", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("completenessPercentage");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get emptyFieldsBrand - Empty Fields Brand
+* @return string|null
+*/
+public function getEmptyFieldsBrand(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("emptyFieldsBrand", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("emptyFieldsBrand");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get emptyFieldsSkeleton - Empty Fields Skeleton
+* @return string|null
+*/
+public function getEmptyFieldsSkeleton(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("emptyFieldsSkeleton", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("emptyFieldsSkeleton");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get emptyFieldsFinishedGood - Empty Fields Finished Good
+* @return string|null
+*/
+public function getEmptyFieldsFinishedGood(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("emptyFieldsFinishedGood", $language);
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("emptyFieldsFinishedGood");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set localizedfields - 
+* @param \Pimcore\Model\DataObject\Localizedfield|null $localizedfields
+* @return $this
+*/
+public function setLocalizedfields(?\Pimcore\Model\DataObject\Localizedfield $localizedfields): static
+{
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getLocalizedfields();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$this->markFieldDirty("localizedfields", true);
+	$this->markFieldDirty("localizedfields", true);
+
+	$this->localizedfields = $localizedfields;
+
+	return $this;
+}
+
+/**
+* Set sapDescription - SAP Description
+* @param string|null $sapDescription
+* @return $this
+*/
+public function setSapDescription (?string $sapDescription, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("sapDescription", $sapDescription, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set sapDescriptionLanguage - SAP  Description Language
+* @param string|null $sapDescriptionLanguage
+* @return $this
+*/
+public function setSapDescriptionLanguage (?string $sapDescriptionLanguage, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("sapDescriptionLanguage", $sapDescriptionLanguage, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set plantProduced - Plant Produced
+* @param string|null $plantProduced
+* @return $this
+*/
+public function setPlantProduced (?string $plantProduced, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("plantProduced", $plantProduced, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set productDescriptionShort - Product Description  - Short
+* @param string|null $productDescriptionShort
+* @return $this
+*/
+public function setProductDescriptionShort (?string $productDescriptionShort, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("productDescriptionShort", $productDescriptionShort, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set productDescriptionLong - Product Description - Long
+* @param string|null $productDescriptionLong
+* @return $this
+*/
+public function setProductDescriptionLong (?string $productDescriptionLong, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("productDescriptionLong", $productDescriptionLong, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set productMarking1 - Product Marking - 1
+* @param string|null $productMarking1
+* @return $this
+*/
+public function setProductMarking1 (?string $productMarking1, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("productMarking1", $productMarking1, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set productMarking2 - Product Marking - 2
+* @param string|null $productMarking2
+* @return $this
+*/
+public function setProductMarking2 (?string $productMarking2, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("productMarking2", $productMarking2, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set productDescriptionExtended - Product Description - Extended
+* @param string|null $productDescriptionExtended
+* @return $this
+*/
+public function setProductDescriptionExtended (?string $productDescriptionExtended, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("productDescriptionExtended", $productDescriptionExtended, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set prop65 - Prop65
+* @param string|null $prop65
+* @return $this
+*/
+public function setProp65 (?string $prop65, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("prop65", $prop65, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set roHS - RoHS
+* @param string|null $roHS
+* @return $this
+*/
+public function setRoHS (?string $roHS, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("roHS", $roHS, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set gprs - GPRS
+* @param string|null $gprs
+* @return $this
+*/
+public function setGprs (?string $gprs, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("gprs", $gprs, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set prop65Certificates - Prop65 Certificates
+* @param \Pimcore\Model\Asset\Document|null $prop65Certificates
+* @return $this
+*/
+public function setProp65Certificates (?\Pimcore\Model\Element\AbstractElement $prop65Certificates, ?string $language = null): static
+{
+	$fd = $this->getClass()->getFieldDefinition("localizedfields")->getFieldDefinition("prop65Certificates");
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getProp65Certificates($language);
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $prop65Certificates);
+	if (!$isEqual) {
+		$this->markFieldDirty("prop65Certificates", true);
+	}
+	$this->getLocalizedfields()->setLocalizedValue("prop65Certificates", $prop65Certificates, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set roHSCertificates - RoHS Certificates
+* @param \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null $roHSCertificates
+* @return $this
+*/
+public function setRoHSCertificates (?\Pimcore\Model\Element\AbstractElement $roHSCertificates, ?string $language = null): static
+{
+	$fd = $this->getClass()->getFieldDefinition("localizedfields")->getFieldDefinition("roHSCertificates");
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getRoHSCertificates($language);
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $roHSCertificates);
+	if (!$isEqual) {
+		$this->markFieldDirty("roHSCertificates", true);
+	}
+	$this->getLocalizedfields()->setLocalizedValue("roHSCertificates", $roHSCertificates, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set gprsCertificates - GPRS Certificates
+* @param \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null $gprsCertificates
+* @return $this
+*/
+public function setGprsCertificates (?\Pimcore\Model\Element\AbstractElement $gprsCertificates, ?string $language = null): static
+{
+	$fd = $this->getClass()->getFieldDefinition("localizedfields")->getFieldDefinition("gprsCertificates");
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getGprsCertificates($language);
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $gprsCertificates);
+	if (!$isEqual) {
+		$this->markFieldDirty("gprsCertificates", true);
+	}
+	$this->getLocalizedfields()->setLocalizedValue("gprsCertificates", $gprsCertificates, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set completenessPercentage - Completeness Percentage
+* @param string|null $completenessPercentage
+* @return $this
+*/
+public function setCompletenessPercentage (?string $completenessPercentage, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("completenessPercentage", $completenessPercentage, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set emptyFieldsBrand - Empty Fields Brand
+* @param string|null $emptyFieldsBrand
+* @return $this
+*/
+public function setEmptyFieldsBrand (?string $emptyFieldsBrand, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("emptyFieldsBrand", $emptyFieldsBrand, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set emptyFieldsSkeleton - Empty Fields Skeleton
+* @param string|null $emptyFieldsSkeleton
+* @return $this
+*/
+public function setEmptyFieldsSkeleton (?string $emptyFieldsSkeleton, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("emptyFieldsSkeleton", $emptyFieldsSkeleton, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set emptyFieldsFinishedGood - Empty Fields Finished Good
+* @param string|null $emptyFieldsFinishedGood
+* @return $this
+*/
+public function setEmptyFieldsFinishedGood (?string $emptyFieldsFinishedGood, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("emptyFieldsFinishedGood", $emptyFieldsFinishedGood, $language, !$isEqual);
 
 	return $this;
 }
@@ -1581,9 +1387,10 @@ public function setProductGroupSpecific(?\Pimcore\Model\DataObject\Objectbrick $
 }
 
 /**
-* @return \Pimcore\Model\DataObject\Fieldcollection|null
+* Get competitorCrossReference - Competitor Cross Reference
+* @return \Pimcore\Model\DataObject\UniPrCompetitorCrossReference[]
 */
-public function getCompetitorCrossReference(): ?\Pimcore\Model\DataObject\Fieldcollection
+public function getCompetitorCrossReference(): array
 {
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
 		$preValue = $this->preGetValue("competitorCrossReference");
@@ -1593,26 +1400,40 @@ public function getCompetitorCrossReference(): ?\Pimcore\Model\DataObject\Fieldc
 	}
 
 	$data = $this->getClass()->getFieldDefinition("competitorCrossReference")->preGetData($this);
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
 	return $data;
 }
 
 /**
 * Set competitorCrossReference - Competitor Cross Reference
-* @param \Pimcore\Model\DataObject\Fieldcollection|null $competitorCrossReference
+* @param \Pimcore\Model\DataObject\UniPrCompetitorCrossReference[] $competitorCrossReference
 * @return $this
 */
-public function setCompetitorCrossReference(?\Pimcore\Model\DataObject\Fieldcollection $competitorCrossReference): static
+public function setCompetitorCrossReference(?array $competitorCrossReference): static
 {
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections $fd */
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
 	$fd = $this->getClass()->getFieldDefinition("competitorCrossReference");
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getCompetitorCrossReference();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $competitorCrossReference);
+	if (!$isEqual) {
+		$this->markFieldDirty("competitorCrossReference", true);
+	}
 	$this->competitorCrossReference = $fd->preSetData($this, $competitorCrossReference);
 	return $this;
 }
 
 /**
-* @return \Pimcore\Model\DataObject\Fieldcollection|null
+* Get customerReference - Customer Reference
+* @return \Pimcore\Model\DataObject\UniPrCustomerReference[]
 */
-public function getCustomerReference(): ?\Pimcore\Model\DataObject\Fieldcollection
+public function getCustomerReference(): array
 {
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
 		$preValue = $this->preGetValue("customerReference");
@@ -1622,26 +1443,40 @@ public function getCustomerReference(): ?\Pimcore\Model\DataObject\Fieldcollecti
 	}
 
 	$data = $this->getClass()->getFieldDefinition("customerReference")->preGetData($this);
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
 	return $data;
 }
 
 /**
 * Set customerReference - Customer Reference
-* @param \Pimcore\Model\DataObject\Fieldcollection|null $customerReference
+* @param \Pimcore\Model\DataObject\UniPrCustomerReference[] $customerReference
 * @return $this
 */
-public function setCustomerReference(?\Pimcore\Model\DataObject\Fieldcollection $customerReference): static
+public function setCustomerReference(?array $customerReference): static
 {
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections $fd */
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
 	$fd = $this->getClass()->getFieldDefinition("customerReference");
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getCustomerReference();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $customerReference);
+	if (!$isEqual) {
+		$this->markFieldDirty("customerReference", true);
+	}
 	$this->customerReference = $fd->preSetData($this, $customerReference);
 	return $this;
 }
 
 /**
-* @return \Pimcore\Model\DataObject\Fieldcollection|null
+* Get oemCrossReference - OE / OEM Cross Reference
+* @return \Pimcore\Model\DataObject\UniPrOemCrossReference[]
 */
-public function getOemCrossReference(): ?\Pimcore\Model\DataObject\Fieldcollection
+public function getOemCrossReference(): array
 {
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
 		$preValue = $this->preGetValue("oemCrossReference");
@@ -1651,18 +1486,31 @@ public function getOemCrossReference(): ?\Pimcore\Model\DataObject\Fieldcollecti
 	}
 
 	$data = $this->getClass()->getFieldDefinition("oemCrossReference")->preGetData($this);
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
 	return $data;
 }
 
 /**
 * Set oemCrossReference - OE / OEM Cross Reference
-* @param \Pimcore\Model\DataObject\Fieldcollection|null $oemCrossReference
+* @param \Pimcore\Model\DataObject\UniPrOemCrossReference[] $oemCrossReference
 * @return $this
 */
-public function setOemCrossReference(?\Pimcore\Model\DataObject\Fieldcollection $oemCrossReference): static
+public function setOemCrossReference(?array $oemCrossReference): static
 {
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections $fd */
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
 	$fd = $this->getClass()->getFieldDefinition("oemCrossReference");
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getOemCrossReference();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $oemCrossReference);
+	if (!$isEqual) {
+		$this->markFieldDirty("oemCrossReference", true);
+	}
 	$this->oemCrossReference = $fd->preSetData($this, $oemCrossReference);
 	return $this;
 }
@@ -1848,6 +1696,20 @@ public function setCustomerPortalFlag(?bool $customerPortalFlag): static
 }
 
 /**
+* Get regions - Regions
+* @return mixed
+*/
+public function getRegions(): mixed
+{
+	$data = new \Pimcore\Model\DataObject\Data\CalculatedValue('regions');
+	$data->setContextualData("object", null, null, null);
+	$object = $this;
+	$data = \Pimcore\Model\DataObject\Service::getCalculatedFieldValue($object, $data);
+
+	return $data;
+}
+
+/**
 * Get regionalAvailability - Available in
 * @return \Pimcore\Model\DataObject\UniRegion[]
 */
@@ -1888,20 +1750,6 @@ public function setRegionalAvailability(?array $regionalAvailability): static
 	}
 	$this->regionalAvailability = $fd->preSetData($this, $regionalAvailability);
 	return $this;
-}
-
-/**
-* Get regions - Regions
-* @return mixed
-*/
-public function getRegions(): mixed
-{
-	$data = new \Pimcore\Model\DataObject\Data\CalculatedValue('regions');
-	$data->setContextualData("object", null, null, null);
-	$object = $this;
-	$data = \Pimcore\Model\DataObject\Service::getCalculatedFieldValue($object, $data);
-
-	return $data;
 }
 
 /**
