@@ -1,26 +1,28 @@
 document.addEventListener(pimcore.events.postOpenObject, (e) => {
     const object = e.detail.object;
-    
-    if (object?.data?.general?.className === 'UniProductCategoryInternal') {
-        const interval = setInterval(() => {
-            if (object.tabbar && typeof object.tabbar.add === 'function') {
-                try {
-                    // Create instance of your history class
-                    const historyInstance = new pimcore.element.history(object, 'object');
-                    const historyLayout = historyInstance.getLayout();
-                    
-                    object.tabbar.add(historyLayout);
-                    console.log('History Tab Added Successfully with Class');
-                } catch (error) {
-                    console.error('Error while adding History tab:', error);
-                }
-                clearInterval(interval);
-            }
-        }, 100);
+
+    if (!['UniProductCategoryInternal', 'UniProductBase'].includes(object?.data?.general?.className)) {
+        return;
     }
+
+    const interval = setInterval(() => {
+        if (!object.tabbar || typeof object.tabbar.add !== 'function') {
+            return;
+        }
+
+        clearInterval(interval);
+        try {
+            const historyInstance = new pimcore.element.history(object, 'object');
+            const historyLayout = historyInstance.getLayout();
+
+            object.tabbar.add(historyLayout);
+          
+        } catch (error) {
+           
+        }
+    }, 100);
 });
 
-// Register namespace following Pimcore convention
 pimcore.registerNS("pimcore.element.history");
 
 pimcore.element.history = Class.create({
@@ -28,261 +30,177 @@ pimcore.element.history = Class.create({
         this.element = element;
         this.elementType = elementType;
         this.layout = null;
+        this.objectId = element.id;
+        this.objectClassName = element.data.general.className;
+
+        this.showDetailModal = this.showDetailModal.bind(this);
     },
-    
-    activate: function () {
-        const tabPanel = Ext.getCmp("pimcore_panel_tabs");
-        if (tabPanel) {
-            try {
-                const layout = this.getLayout();
-                tabPanel.add(layout);
-                tabPanel.setActiveTab(layout);
-                pimcore.layout.refresh();
-            } catch (error) {
-                console.error('Error Adding Tab to Panel:', error);
-            }
-        } else {
-            console.error("Tab Panel not found");
-        }
-    },
-    
+
     getLayout: function () {
-        if (this.layout === null) {
-            try {
-                // Create the main panel following Pimcore's pattern
-                this.layout = new Ext.Panel({
-                    title: 'History', // Using plain text for now
-                    iconCls: 'pimcore_icon_time',
-                    border: false,
-                    layout: 'fit',
-                   
-                    items: [this.getGrid()],
-                    listeners: {
-                        activate: function() {
-                            console.log('History tab activated!');
-                            // This fires when tab becomes active
-                            alert('History Tab Clicked!');
-                        }.bind(this)
-                    }
-                });
-                
-                console.log('History Layout Initialized');
-            } catch (err) {
-                console.error("Failed to initialize History layout:", err);
-                // Fallback simple panel that will definitely work
-                this.layout = new Ext.Panel({
-                    title: 'History',
-                    border: false,
-                    html: '<div style="padding: 20px;">' +
-                          '<h2>History for: ' + (this.element.data.general.o_key || 'Object') + '</h2>' +
-                          '<p><strong>Object ID:</strong> ' + this.element.data.general.id + '</p>' +
-                          '<p><strong>Class:</strong> ' + this.element.data.general.className + '</p>' +
-                          '<p><strong>Path:</strong> ' + this.element.data.general.fullpath + '</p>' +
-                          '<hr>' +
-                          '<p>History functionality loaded successfully!</p>' +
-                          '<button onclick="alert(\'History action performed!\')" style="padding: 10px; background: #337ab7; color: white; border: none; border-radius: 3px; cursor: pointer;">Test Action</button>' +
-                          '</div>',
-                    closable: true,
-                    listeners: {
-                        activate: function() {
-                            console.log('History tab activated for:', this.element.data.general.o_key);
-                            alert('History Tab Clicked for: ' + (this.element.data.general.o_key || 'Object'));
-                        }.bind(this),
-                        render: function() {
-                            console.log('History tab rendered');
-                        }
-                    }
-                });
-            }
+        if (this.layout !== null) {
+            return this.layout;
         }
+
+        this.layout = new Ext.Panel({
+            title: 'Change History',
+            iconCls: 'pimcore_icon_time',
+            layout: 'fit',
+            items: [this.getGrid()],
+        });
+
         return this.layout;
     },
-    
-    getGrid: function() {
-        // Try to use existing Pimcore routes for history/versions
-        let historyUrl;
-        try {
-            // Try different possible routes
-            if (typeof Routing !== 'undefined') {
-                // Try common Pimcore history routes
-                const possibleRoutes = [
-                    'pimcore_admin_dataobject_dataobject_getversions',
-                    'pimcore_admin_element_get_versions',
-                    'pimcore_admin_dataobject_getversions',
-                    'pimcore_admin_element_getversions'
-                ];
-                
-                for (let route of possibleRoutes) {
-                    try {
-                        historyUrl = Routing.generate(route);
-                        console.log('Using route:', route);
-                        break;
-                    } catch (e) {
-                        // Route doesn't exist, try next
-                        continue;
-                    }
-                }
-            }
-            
-            // Fallback URL if no route works
-            if (!historyUrl) {
-                historyUrl = '/admin/dataobject/dataobject/get-versions';
-                console.log('Using fallback URL:', historyUrl);
-            }
-            
-        } catch (e) {
-            console.warn('Error generating history URL:', e);
-            historyUrl = '/admin/dataobject/dataobject/get-versions';
-        }
 
-        // Create store for history data
-        this.store = new Ext.data.JsonStore({
-            url: historyUrl,
-            baseParams: {
-                id: this.element.data.general.id,
-                type: this.elementType || 'object'
-            },
-            fields: [
-                'id',
-                'date',
-                'user',
-                'action',
-                'description',
-                'revision'
-            ],
-            autoLoad: false, // Don't auto load to prevent errors
-            listeners: {
-                load: function(store, records, successful) {
-                    if (!successful) {
-                        console.error("Failed to load history data");
-                        // Show a message in the grid
-                        this.showMessage('Failed to load history data');
-                    }
-                }.bind(this),
-                loadexception: function(proxy, type, action, options, response, arg) {
-                    console.warn('History data load failed:', response);
-                    this.showMessage('History data unavailable - ' + (response.statusText || 'Unknown error'));
-                }.bind(this)
-            }
-        });
-
-        // Create grid panel following Pimcore's structure
-        const grid = new Ext.grid.GridPanel({
-            store: this.store,
-            border: false,
-            columns: [
-                {
-                    header: t('date'),
-                    dataIndex: 'date',
-                    width: 130,
-                    renderer: function(d) {
-                        if (d !== undefined) {
-                            var date = new Date(d * 1000);
-                            return Ext.util.Format.date(date, "Y-m-d H:i:s");
-                        }
-                        return "";
-                    }
-                },
-                {
-                    header: t('user'),
-                    dataIndex: 'user',
-                    width: 100
-                },
-                {
-                    header: t('action'),
-                    dataIndex: 'action',
-                    width: 100
-                },
-                {
-                    header: t('description'),
-                    dataIndex: 'description',
-                    flex: 1
-                },
-                {
-                    header: t('revision'),
-                    dataIndex: 'revision',
-                    width: 80
-                }
-            ],
-            stripeRows: true,
-            autoExpandColumn: 'description',
-            viewConfig: {
-                forceFit: true
-            },
-            listeners: {
-                rowclick: function(grid, rowIndex, e) {
-                    // Handle row click
-                    const record = grid.getStore().getAt(rowIndex);
-                    console.log('History row clicked:', record.data);
-                    alert('History row clicked: ' + record.data.action);
-                }
-            }
-        });
-
-        // Try to load data after grid is rendered
-        grid.on('render', function() {
-            try {
-                this.store.load();
-            } catch (e) {
-                console.warn('Could not load store data:', e);
-                this.showMessage('Unable to load history data');
-            }
-        }.bind(this));
-
-        return grid;
-    },
-    
-    showMessage: function(message) {
-        // Update grid with message if store fails
-        if (this.layout && this.layout.items && this.layout.items.items[0]) {
-            const grid = this.layout.items.items[0];
-            if (grid.getView()) {
-                grid.getView().emptyText = message;
-                grid.getView().refresh();
-            }
-        }
-    },
-    
-    reload: function() {
-        if (this.store) {
-            this.store.reload();
-        }
-    }
-});
-
-// Alternative simpler version if the grid approach doesn't work
-// Uncomment this and comment the above if you want a simpler approach
-/*
-pimcore.element.history = Class.create({
-    initialize: function (element, elementType) {
-        this.element = element;
-        this.elementType = elementType;
-        this.layout = null;
-    },
-    
-    getLayout: function () {
-        if (this.layout === null) {
-            this.layout = new Ext.Panel({
-                title: 'History',
-                iconCls: 'pimcore_icon_tab_history',
-                html: '<div style="padding: 20px;">' +
-                      '<h2>History for: ' + this.element.data.general.o_key + '</h2>' +
-                      '<p>Object ID: ' + this.element.data.general.id + '</p>' +
-                      '<button onclick="alert(\'History action performed!\')">Perform Action</button>' +
-                      '</div>',
-                closable: true,
-                listeners: {
-                    activate: function() {
-                        console.log('History tab activated for:', this.element.data.general.o_key);
-                        alert('History Tab Clicked for: ' + this.element.data.general.o_key);
-                    }.bind(this),
-                    render: function() {
-                        console.log('History tab rendered');
-                    }
-                }
+    getGrid: function () {
+        if (!this.objectId || !this.objectClassName) {
+            return new Ext.Panel({
+                html: '<p>No history data available for this object.</p>',
             });
         }
-        return this.layout;
-    }
+
+        this.store = new Ext.data.JsonStore({
+            proxy: {
+                type: 'ajax',
+                url: '/admin/change-history',
+                extraParams: {
+                    objectId: this.objectId,
+                    className: this.objectClassName,
+                },
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data',
+                },
+            },
+            fields: ['id', 'timestamp', 'user', 'changeFields'],
+            autoLoad: true,
+            listeners: {
+                load: function (store, records) {
+                    
+                },
+                exception: function (proxy, response, options) {
+                    if (response.status === 404) {
+                        
+                    } else {
+                       
+                    }
+                },
+            },
+        });
+
+        return new Ext.grid.GridPanel({
+            store: this.store,
+            columns: [
+                { header: 'Timestamp', dataIndex: 'timestamp', width: 150, sortable: true },
+                { header: 'User', dataIndex: 'user', width: 100, sortable: true },
+                {
+                    header: 'Changed Fields',
+                    dataIndex: 'changeFields',
+                    flex: 1,
+                    renderer: function (value) {
+                        if (Array.isArray(value)) {
+                            const list = value.join(', ');
+                            return `<div title="${list}">${list}</div>`;
+                        }
+                        return 'No fields changed';
+                    },
+                },
+            ],
+            listeners: {
+                rowclick: (grid, record) => this.onRowClick(grid, record),
+            },
+        });
+    },
+
+    onRowClick: function (grid, rowIndex) {
+        const id = rowIndex.id;
+
+        if (!id) {
+         
+            return;
+        }
+
+        this.loadDetailView(id);
+    },
+
+    loadDetailView: function (id) {
+        const endpoint = `/admin/change-history/${id}`;
+
+        Ext.MessageBox.show({
+            msg: 'Loading details...',
+            progressText: 'Fetching data...',
+            width: 300,
+            wait: true,
+            waitConfig: { interval: 200 },
+        });
+
+        Ext.Ajax.request({
+            url: endpoint,
+            success: (response) => {
+                Ext.MessageBox.hide();
+                const data = Ext.decode(response.responseText).data;
+
+                this.showDetailModal(data);
+            },
+            failure: (response) => {
+                Ext.MessageBox.hide();
+                if (response.status === 404) {
+                  
+                } else {
+                   
+                }
+            },
+        });
+    },
+
+    showDetailModal: function (data) {
+        const rows = Object.keys(data.previousValues).map((key) => {
+            const oldValue = data.previousValues[key] || 'null';
+            const newValue = data.newValues[key] || 'null';
+            const isChanged = JSON.stringify(oldValue) !== JSON.stringify(newValue);
+            const rowStyle = isChanged ? 'background-color: #ffefef;' : '';
+
+            return `
+                <tr style="${rowStyle}">
+                    <td style="padding: 10px; border: 1px solid #ccc;">${key}</td>
+                    <td style="padding: 10px; border: 1px solid #ccc;">${this.formatValue(oldValue)}</td>
+                    <td style="padding: 10px; border: 1px solid #ccc;">${this.formatValue(newValue)}</td>
+                </tr>
+            `;
+        });
+
+        const modal = new Ext.Window({
+            title: 'Change History Details',
+            width: 800,
+            height: 600,
+            layout: 'fit',
+            modal: true,
+            html: `
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="padding: 10px; border: 1px solid #ccc; text-align: left;">Field</th>
+                            <th style="padding: 10px; border: 1px solid #ccc; text-align: left;">Old Value</th>
+                            <th style="padding: 10px; border: 1px solid #ccc; text-align: left;">New Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>${rows.join('')}</tbody>
+                </table>
+            `,
+            buttons: [{
+                text: 'Close',
+                handler: function () {
+                    modal.close();
+                },
+            }],
+        });
+
+        modal.show();
+    },
+
+    formatValue: function (value) {
+        if (value === null || value === undefined) return 'null';
+        if (Array.isArray(value)) return JSON.stringify(value, null, 2);
+        if (typeof value === 'object') return JSON.stringify(value, null, 2);
+        return value;
+    },
 });
-*/
