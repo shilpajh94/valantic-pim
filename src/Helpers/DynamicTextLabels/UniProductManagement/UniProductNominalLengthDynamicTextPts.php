@@ -7,7 +7,6 @@ namespace App\Helpers\DynamicTextLabels\UniProductManagement;
 use App\Service\VersionService;
 use Pimcore\Model\DataObject\ClassDefinition\Layout\DynamicTextLabelInterface;
 use Pimcore\Model\DataObject\Concrete;
-use Pimcore\Model\DataObject\Data\QuantityValue;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgPts;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkPts;
 use Pimcore\Model\DataObject\UniProductBase;
@@ -67,7 +66,6 @@ class UniProductNominalLengthDynamicTextPts extends UniProductDynamicText implem
         }
 
         $nominalLength = $skeletonBrickData->get(UniPrSkPts::FIELD_NOMINAL_LENGTH);
-
         // Define a mapping of nominalLength values to their corresponding methods for both metric and imperial fields
         $lengthMapping = [
             'Ld' => ['metric' => UniPrFgPts::FIELD_DATUM_LENGTH_METRIC, 'imperial' => UniPrFgPts::FIELD_DATUM_LENGTH_IMPERIAL],
@@ -82,10 +80,10 @@ class UniProductNominalLengthDynamicTextPts extends UniProductDynamicText implem
 
         // Check if the nominalLength value exists in the mapping
         if (isset($lengthMapping[$nominalLength])) {
-            $method = $childBrickData->get($lengthMapping[$nominalLength][$fieldType]);
+            $fieldValue = $childBrickData->get($lengthMapping[$nominalLength][$fieldType]);
 
-            if ($method instanceof QuantityValue && $method->getValue() !== '' && $method->getValue() !== null) {
-                return $this->renderText($data, sprintf('%s %s', $method->getValue(), $method->getUnit()->getAbbreviation()));
+            if ($fieldValue !== '' && $fieldValue !== null) {
+                return $this->renderText($data, sprintf('%s', $fieldValue));
             }
         }
 

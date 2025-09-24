@@ -2,19 +2,18 @@
 
 /**
  * Fields Summary:
- * - beltThicknessMetric [quantityValue]
- * - beltThicknessImperial [quantityValue]
- * - toothHeightMetric [quantityValue]
- * - toothHeightImperial [quantityValue]
- * - pitchHeightMetric [quantityValue]
- * - pitchHeightImperial [quantityValue]
- * - pitchUOM [select]
+ * - beltThicknessMetric [numeric]
+ * - toothHeightMetric [numeric]
+ * - pitchHeightMetric [numeric]
  * - profile [input]
- * - nominalLength [select]
  * - beltAngle [input]
  * - maxSpeed [input]
- * - minPulleyDiameter [quantityValue]
- * - minOutsidePulleyDiameter [quantityValue]
+ * - beltThicknessImperial [numeric]
+ * - toothHeightImperial [numeric]
+ * - pitchHeightImperial [numeric]
+ * - nominalLength [select]
+ * - minPulleyDiameter [numeric]
+ * - minOutsidePulleyDiameter [numeric]
  */
 
 return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
@@ -95,7 +94,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'beltThicknessMetric',
                          'title' => 'Belt Thickness (hs) (mm)',
                          'tooltip' => '',
@@ -113,65 +112,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_mm',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_in',
-                          1 => 'distance_mm',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => '250px',
+                         'defaultValueGenerator' => '',
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'beltThicknessImperial',
-                         'title' => 'Belt Thickness (hs) (in)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_in',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
-                      )),
-                      2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'toothHeightMetric',
                          'title' => 'Tooth Height (ht) (mm)',
                          'tooltip' => '',
@@ -189,65 +142,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_mm',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => NULL,
                          'maxValue' => NULL,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
-                      )),
-                      3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'toothHeightImperial',
-                         'title' => 'Tooth Height (ht) (in)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_in',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
                          'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => '250px',
+                         'defaultValueGenerator' => '',
                       )),
-                      4 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'pitchHeightMetric',
                          'title' => 'Pitch height (hd/u) (mm)',
                          'tooltip' => '',
@@ -265,130 +172,18 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_mm',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => NULL,
                          'maxValue' => NULL,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
-                      )),
-                      5 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'pitchHeightImperial',
-                         'title' => 'Pitch height (hd/u) (in)',
-                         'tooltip' => '',
-                         'mandatory' => false,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_in',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_in',
-                          1 => 'distance_mm',
-                        ),
                          'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
-                      )),
-                      6 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                         'name' => 'pitchUOM',
-                         'title' => 'Pitch Unit of Measure',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'options' => 
-                        array (
-                          0 => 
-                          array (
-                            'key' => 'mm',
-                            'value' => 'mm',
-                          ),
-                          1 => 
-                          array (
-                            'key' => 'in',
-                            'value' => 'in',
-                          ),
-                        ),
-                         'defaultValue' => '',
-                         'columnLength' => 190,
-                         'dynamicOptions' => false,
+                         'width' => '250px',
                          'defaultValueGenerator' => '',
-                         'width' => 250,
-                         'optionsProviderType' => 'configure',
-                         'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-                         'optionsProviderData' => 'UniBasePrFeaturesAndBenefits',
                       )),
-                    ),
-                     'locked' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'fieldtype' => 'fieldcontainer',
-                     'layout' => 'vbox',
-                     'fieldLabel' => '',
-                     'labelWidth' => 250,
-                     'labelAlign' => 'left',
-                  )),
-                  1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                     'name' => 'Column 2',
-                     'type' => NULL,
-                     'region' => NULL,
-                     'title' => NULL,
-                     'width' => 550,
-                     'height' => '',
-                     'collapsible' => false,
-                     'collapsed' => false,
-                     'bodyStyle' => 'padding-left: 75px;',
-                     'datatype' => 'layout',
-                     'children' => 
-                    array (
-                      0 => 
+                      3 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'profile',
                          'title' => 'Profile',
@@ -418,35 +213,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'width' => '250px',
                          'defaultValueGenerator' => '',
                       )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                         'name' => 'nominalLength',
-                         'title' => 'Nominal Length',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => '',
-                         'columnLength' => 190,
-                         'dynamicOptions' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => 250,
-                         'optionsProviderType' => 'select_options',
-                         'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-                         'optionsProviderData' => 'UniPrNominalLengthPts',
-                      )),
-                      2 => 
+                      4 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'beltAngle',
                          'title' => 'Belt Angle',
@@ -476,7 +243,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'width' => 250,
                          'defaultValueGenerator' => '',
                       )),
-                      3 => 
+                      5 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                          'name' => 'maxSpeed',
                          'title' => 'Max Speed',
@@ -506,8 +273,151 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'width' => 250,
                          'defaultValueGenerator' => '',
                       )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'fieldcontainer',
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'labelWidth' => 250,
+                     'labelAlign' => 'left',
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'name' => 'Column 2',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => NULL,
+                     'width' => 550,
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => 'padding-left: 75px;',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'beltThicknessImperial',
+                         'title' => 'Belt Thickness (hs) (in)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => '250px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'toothHeightImperial',
+                         'title' => 'Tooth Height (ht) (in)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => '250px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'pitchHeightImperial',
+                         'title' => 'Pitch height (hd/u) (in)',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => '250px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      3 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                         'name' => 'nominalLength',
+                         'title' => 'Nominal Length',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => '',
+                         'columnLength' => 190,
+                         'dynamicOptions' => false,
+                         'defaultValueGenerator' => '',
+                         'width' => 250,
+                         'optionsProviderType' => 'select_options',
+                         'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
+                         'optionsProviderData' => 'UniPrNominalLengthPts',
+                      )),
                       4 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'minPulleyDiameter',
                          'title' => 'Minimum Pulley Diameter (mm)',
                          'tooltip' => '',
@@ -525,26 +435,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_mm',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => '250px',
+                         'defaultValueGenerator' => '',
                       )),
                       5 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'minOutsidePulleyDiameter',
                          'title' => 'Minimum Outside Pulley Diameter',
                          'tooltip' => '',
@@ -562,23 +465,16 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_mm',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
+                         'width' => '250px',
+                         'defaultValueGenerator' => '',
                       )),
                     ),
                      'locked' => false,

@@ -17,29 +17,22 @@ class UniBaseProductIndex extends AbstractIndex
 {
     use SiteAwareTenantTrait;
 
-    final public const ATTRIBUTE_PRODUCT_BRAND_NAME = 'product_brand_name';
     final public const ATTRIBUTE_GHP_FULL_CODE = 'ghp_full_code';
     final public const ATTRIBUTE_SAP_MATERIAL_NUMBER = 'sap_material_number';
     final public const ATTRIBUTE_SAP_DESCRIPTION = 'sap_description';
-    final public const ATTRIBUTE_PRODUCT_SUB_CATEGORY = 'product_sub_category';
     final public const ATTRIBUTE_INTERNAL_HIERARCHY = 'internal_hierarchy';
     final public const ATTRIBUTE_EXTERNAL_HIERARCHY = 'external_hierarchy';
     final public const ATTRIBUTE_EXTERNAL_HIERARCHY_FULL = 'external_hierarchy_full';
     final public const ATTRIBUTE_REGIONAL_AVAILABILITY = 'regional_availability';
-    final public const ATTRIBUTE_MASTER_BRAND = 'master_brand';
-    final public const ATTRIBUTE_PRODUCT_FAMILY = 'product_family';
-    final public const ATTRIBUTE_PRODUCT_CATEGORY = 'product_category';
     final public const ATTRIBUTE_PART_NUMBER = 'part_number';
     final public const ATTRIBUTE_OLD_MATERIAL_NUMBER = 'old_material_number';
     final public const ATTRIBUTE_TARIFF_CODES = 'tariff_codes';
     final public const ATTRIBUTE_EAN_CODE = 'ean_code';
-    final public const ATTRIBUTE_PRODUCT_DESIGN = 'product_design';
     final public const ATTRIBUTE_WEIGHT_METRIC = 'weight_metric';
     final public const ATTRIBUTE_WEIGHT_IMPERIAL = 'weight_imperial';
     final public const ATTRIBUTE_COUNTRY_OF_ORIGIN = 'country_of_origin';
     final public const ATTRIBUTE_SAP_DESCRIPTION_LANGUAGE = 'sap_description_language';
     final public const ATTRIBUTE_PLANT_PRODUCED = 'plant_produced';
-    final public const ATTRIBUTE_UNIT_OF_MEASURE = 'unit_of_measure';
     final public const ATTRIBUTE_PRODUCT_DESCRIPTION_SHORT = 'product_description_short';
     final public const ATTRIBUTE_PRODUCT_DESCRIPTION_LONG = 'product_description_long';
     final public const ATTRIBUTE_PRODUCT_MARKING1 = 'product_marking1';

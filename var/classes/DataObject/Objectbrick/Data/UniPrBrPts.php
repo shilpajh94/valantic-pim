@@ -2,20 +2,20 @@
 
 /**
  * Fields Summary:
+ * - material [manyToOneRelation]
+ * - reinforcement [manyToOneRelation]
+ * - color [manyToOneRelation]
+ * - fabricType [manyToOneRelation]
+ * - fabricColor [manyToOneRelation]
+ * - beltHardness [numeric]
+ * - beltTeethType [manyToOneRelation]
+ * - beltType [manyToOneRelation]
  * - localizedfields [localizedfields]
- * -- material [manyToOneRelation]
- * -- reinforcement [manyToOneRelation]
- * -- color [manyToOneRelation]
- * -- fabricType [manyToOneRelation]
- * -- fabricColor [manyToOneRelation]
- * -- beltType [manyToOneRelation]
  * -- quality [input]
  * -- performance [input]
  * -- staticConductive [input]
- * - beltHardness [numeric]
- * - beltTeethType [manyToOneRelation]
- * - temperatureC [quantityValueRange]
- * - temperatureF [quantityValueRange]
+ * - temperatureC [numericRange]
+ * - temperatureF [numericRange]
  * - heatOilResistant [checkbox]
  */
 
@@ -33,20 +33,26 @@ public const FIELD_REINFORCEMENT = 'reinforcement';
 public const FIELD_COLOR = 'color';
 public const FIELD_FABRIC_TYPE = 'fabricType';
 public const FIELD_FABRIC_COLOR = 'fabricColor';
+public const FIELD_BELT_HARDNESS = 'beltHardness';
+public const FIELD_BELT_TEETH_TYPE = 'beltTeethType';
 public const FIELD_BELT_TYPE = 'beltType';
 public const FIELD_QUALITY = 'quality';
 public const FIELD_PERFORMANCE = 'performance';
 public const FIELD_STATIC_CONDUCTIVE = 'staticConductive';
-public const FIELD_BELT_HARDNESS = 'beltHardness';
-public const FIELD_BELT_TEETH_TYPE = 'beltTeethType';
 public const FIELD_TEMPERATURE_C = 'temperatureC';
 public const FIELD_TEMPERATURE_F = 'temperatureF';
 public const FIELD_HEAT_OIL_RESISTANT = 'heatOilResistant';
 
 protected string $type = "UniPrBrPts";
-protected $localizedfields;
+protected $material;
+protected $reinforcement;
+protected $color;
+protected $fabricType;
+protected $fabricColor;
 protected $beltHardness;
 protected $beltTeethType;
+protected $beltType;
+protected $localizedfields;
 protected $temperatureC;
 protected $temperatureF;
 protected $heatOilResistant;
@@ -64,15 +70,15 @@ public function __construct(DataObject\Concrete $object)
 
 
 /**
-* Get localizedfields - 
-* @return \Pimcore\Model\DataObject\Localizedfield|null
+* Get material - Material
+* @return \Pimcore\Model\DataObject\UniPrPtsMaterial|null
 */
-public function getLocalizedfields(): ?\Pimcore\Model\DataObject\Localizedfield
+public function getMaterial(): ?\Pimcore\Model\Element\AbstractElement
 {
-	$data = $this->getDefinition()->getFieldDefinition("localizedfields")->preGetData($this);
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("localizedfields")->isEmpty($data)) {
+	$data = $this->getDefinition()->getFieldDefinition("material")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("material")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("localizedfields");
+			return $this->getValueFromParent("material");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -85,175 +91,53 @@ public function getLocalizedfields(): ?\Pimcore\Model\DataObject\Localizedfield
 }
 
 /**
-* Get material - Material
-* @return \Pimcore\Model\DataObject\UniPrPtsMaterial|null
+* Set material - Material
+* @param \Pimcore\Model\DataObject\UniPrPtsMaterial|null $material
+* @return $this
 */
-public function getMaterial(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
+public function setMaterial (?\Pimcore\Model\Element\AbstractElement $material): static
 {
-	$data = $this->getLocalizedfields()->getLocalizedValue("material", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("material");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getMaterial();
+		});
 	}
-
-	return $data;
+	else {
+		$currentData = $this->getMaterial();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $material);
+	if (!$isEqual) {
+		$this->markFieldDirty("material", true);
+	}
+	$this->material = $fd->preSetData($this, $material);
+	return $this;
 }
 
 /**
 * Get reinforcement - Reinforcement
 * @return \Pimcore\Model\DataObject\UniPrPtsReinforcement|null
 */
-public function getReinforcement(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
+public function getReinforcement(): ?\Pimcore\Model\Element\AbstractElement
 {
-	$data = $this->getLocalizedfields()->getLocalizedValue("reinforcement", $language);
+	$data = $this->getDefinition()->getFieldDefinition("reinforcement")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("reinforcement")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("reinforcement");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
 	}
 
 	return $data;
-}
-
-/**
-* Get color - Color
-* @return \Pimcore\Model\DataObject\UniPrPtsColor|null
-*/
-public function getColor(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("color", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get fabricType - Fabric Type
-* @return \Pimcore\Model\DataObject\UniPrPtsFabricType|null
-*/
-public function getFabricType(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("fabricType", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get fabricColor - Fabric Color
-* @return \Pimcore\Model\DataObject\UniPrPtsFabricColor|null
-*/
-public function getFabricColor(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("fabricColor", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get beltType - Belt Type
-* @return \Pimcore\Model\DataObject\UniPrPtsBeltType|null
-*/
-public function getBeltType(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("beltType", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get quality - Quality
-* @return string|null
-*/
-public function getQuality(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("quality", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get performance - Performance
-* @return string|null
-*/
-public function getPerformance(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("performance", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get staticConductive - Static Conductive
-* @return string|null
-*/
-public function getStaticConductive(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("staticConductive", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set localizedfields - 
-* @param \Pimcore\Model\DataObject\Localizedfield|null $localizedfields
-* @return $this
-*/
-public function setLocalizedfields (?\Pimcore\Model\DataObject\Localizedfield $localizedfields): static
-{
-	$class = $this->getObject() ? $this->getObject()->getClass() : null;
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	if ($class && $class->getAllowInherit()) {
-		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
-			return $this->getLocalizedfields();
-		});
-	}
-	else {
-		$currentData = $this->getLocalizedfields();
-	}	
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$this->markFieldDirty("localizedfields", true);
-	$this->localizedfields = $localizedfields;
-
-	return $this;
-}
-
-/**
-* Set material - Material
-* @param \Pimcore\Model\DataObject\UniPrPtsMaterial|null $material
-* @return $this
-*/
-public function setMaterial (?\Pimcore\Model\Element\AbstractElement $material, ?string $language = null): static
-{
-	$fd = $this->getDefinition()->getFieldDefinition("localizedfields")->getFieldDefinition("material");
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	$currentData = $this->getMaterial($language);
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $material);
-	if (!$isEqual) {
-		$this->markFieldDirty("material", true);
-	}
-	$this->getLocalizedfields()->setLocalizedValue("material", $material, $language, !$isEqual);
-
-	return $this;
 }
 
 /**
@@ -261,20 +145,49 @@ public function setMaterial (?\Pimcore\Model\Element\AbstractElement $material, 
 * @param \Pimcore\Model\DataObject\UniPrPtsReinforcement|null $reinforcement
 * @return $this
 */
-public function setReinforcement (?\Pimcore\Model\Element\AbstractElement $reinforcement, ?string $language = null): static
+public function setReinforcement (?\Pimcore\Model\Element\AbstractElement $reinforcement): static
 {
-	$fd = $this->getDefinition()->getFieldDefinition("localizedfields")->getFieldDefinition("reinforcement");
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("reinforcement");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
 	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
 	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	$currentData = $this->getReinforcement($language);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getReinforcement();
+		});
+	}
+	else {
+		$currentData = $this->getReinforcement();
+	}	
 	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
 	$isEqual = $fd->isEqual($currentData, $reinforcement);
 	if (!$isEqual) {
 		$this->markFieldDirty("reinforcement", true);
 	}
-	$this->getLocalizedfields()->setLocalizedValue("reinforcement", $reinforcement, $language, !$isEqual);
-
+	$this->reinforcement = $fd->preSetData($this, $reinforcement);
 	return $this;
+}
+
+/**
+* Get color - Color
+* @return \Pimcore\Model\DataObject\UniPrPtsColor|null
+*/
+public function getColor(): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getDefinition()->getFieldDefinition("color")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("color")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("color");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
 }
 
 /**
@@ -282,20 +195,49 @@ public function setReinforcement (?\Pimcore\Model\Element\AbstractElement $reinf
 * @param \Pimcore\Model\DataObject\UniPrPtsColor|null $color
 * @return $this
 */
-public function setColor (?\Pimcore\Model\Element\AbstractElement $color, ?string $language = null): static
+public function setColor (?\Pimcore\Model\Element\AbstractElement $color): static
 {
-	$fd = $this->getDefinition()->getFieldDefinition("localizedfields")->getFieldDefinition("color");
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("color");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
 	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
 	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	$currentData = $this->getColor($language);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getColor();
+		});
+	}
+	else {
+		$currentData = $this->getColor();
+	}	
 	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
 	$isEqual = $fd->isEqual($currentData, $color);
 	if (!$isEqual) {
 		$this->markFieldDirty("color", true);
 	}
-	$this->getLocalizedfields()->setLocalizedValue("color", $color, $language, !$isEqual);
-
+	$this->color = $fd->preSetData($this, $color);
 	return $this;
+}
+
+/**
+* Get fabricType - Fabric Type
+* @return \Pimcore\Model\DataObject\UniPrPtsFabricType|null
+*/
+public function getFabricType(): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getDefinition()->getFieldDefinition("fabricType")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("fabricType")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("fabricType");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
 }
 
 /**
@@ -303,20 +245,49 @@ public function setColor (?\Pimcore\Model\Element\AbstractElement $color, ?strin
 * @param \Pimcore\Model\DataObject\UniPrPtsFabricType|null $fabricType
 * @return $this
 */
-public function setFabricType (?\Pimcore\Model\Element\AbstractElement $fabricType, ?string $language = null): static
+public function setFabricType (?\Pimcore\Model\Element\AbstractElement $fabricType): static
 {
-	$fd = $this->getDefinition()->getFieldDefinition("localizedfields")->getFieldDefinition("fabricType");
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("fabricType");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
 	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
 	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	$currentData = $this->getFabricType($language);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getFabricType();
+		});
+	}
+	else {
+		$currentData = $this->getFabricType();
+	}	
 	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
 	$isEqual = $fd->isEqual($currentData, $fabricType);
 	if (!$isEqual) {
 		$this->markFieldDirty("fabricType", true);
 	}
-	$this->getLocalizedfields()->setLocalizedValue("fabricType", $fabricType, $language, !$isEqual);
-
+	$this->fabricType = $fd->preSetData($this, $fabricType);
 	return $this;
+}
+
+/**
+* Get fabricColor - Fabric Color
+* @return \Pimcore\Model\DataObject\UniPrPtsFabricColor|null
+*/
+public function getFabricColor(): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getDefinition()->getFieldDefinition("fabricColor")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("fabricColor")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("fabricColor");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
 }
 
 /**
@@ -324,79 +295,27 @@ public function setFabricType (?\Pimcore\Model\Element\AbstractElement $fabricTy
 * @param \Pimcore\Model\DataObject\UniPrPtsFabricColor|null $fabricColor
 * @return $this
 */
-public function setFabricColor (?\Pimcore\Model\Element\AbstractElement $fabricColor, ?string $language = null): static
+public function setFabricColor (?\Pimcore\Model\Element\AbstractElement $fabricColor): static
 {
-	$fd = $this->getDefinition()->getFieldDefinition("localizedfields")->getFieldDefinition("fabricColor");
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("fabricColor");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
 	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
 	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	$currentData = $this->getFabricColor($language);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getFabricColor();
+		});
+	}
+	else {
+		$currentData = $this->getFabricColor();
+	}	
 	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
 	$isEqual = $fd->isEqual($currentData, $fabricColor);
 	if (!$isEqual) {
 		$this->markFieldDirty("fabricColor", true);
 	}
-	$this->getLocalizedfields()->setLocalizedValue("fabricColor", $fabricColor, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set beltType - Belt Type
-* @param \Pimcore\Model\DataObject\UniPrPtsBeltType|null $beltType
-* @return $this
-*/
-public function setBeltType (?\Pimcore\Model\Element\AbstractElement $beltType, ?string $language = null): static
-{
-	$fd = $this->getDefinition()->getFieldDefinition("localizedfields")->getFieldDefinition("beltType");
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	$currentData = $this->getBeltType($language);
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $beltType);
-	if (!$isEqual) {
-		$this->markFieldDirty("beltType", true);
-	}
-	$this->getLocalizedfields()->setLocalizedValue("beltType", $beltType, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set quality - Quality
-* @param string|null $quality
-* @return $this
-*/
-public function setQuality (?string $quality, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("quality", $quality, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set performance - Performance
-* @param string|null $performance
-* @return $this
-*/
-public function setPerformance (?string $performance, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("performance", $performance, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set staticConductive - Static Conductive
-* @param string|null $staticConductive
-* @return $this
-*/
-public function setStaticConductive (?string $staticConductive, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("staticConductive", $staticConductive, $language, !$isEqual);
-
+	$this->fabricColor = $fd->preSetData($this, $fabricColor);
 	return $this;
 }
 
@@ -485,10 +404,187 @@ public function setBeltTeethType (?\Pimcore\Model\Element\AbstractElement $beltT
 }
 
 /**
-* Get temperatureC - Temperature (°C)
-* @return \Pimcore\Model\DataObject\Data\QuantityValueRange|null
+* Get beltType - Belt Type
+* @return \Pimcore\Model\DataObject\UniPrPtsBeltType|null
 */
-public function getTemperatureC(): ?\Pimcore\Model\DataObject\Data\QuantityValueRange
+public function getBeltType(): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getDefinition()->getFieldDefinition("beltType")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("beltType")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("beltType");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set beltType - Belt Type
+* @param \Pimcore\Model\DataObject\UniPrPtsBeltType|null $beltType
+* @return $this
+*/
+public function setBeltType (?\Pimcore\Model\Element\AbstractElement $beltType): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("beltType");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getBeltType();
+		});
+	}
+	else {
+		$currentData = $this->getBeltType();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $beltType);
+	if (!$isEqual) {
+		$this->markFieldDirty("beltType", true);
+	}
+	$this->beltType = $fd->preSetData($this, $beltType);
+	return $this;
+}
+
+/**
+* Get localizedfields - 
+* @return \Pimcore\Model\DataObject\Localizedfield|null
+*/
+public function getLocalizedfields(): ?\Pimcore\Model\DataObject\Localizedfield
+{
+	$data = $this->getDefinition()->getFieldDefinition("localizedfields")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("localizedfields")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("localizedfields");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get quality - Quality
+* @return string|null
+*/
+public function getQuality(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("quality", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get performance - Performance
+* @return string|null
+*/
+public function getPerformance(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("performance", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Get staticConductive - Static Conductive
+* @return string|null
+*/
+public function getStaticConductive(?string $language = null): ?string
+{
+	$data = $this->getLocalizedfields()->getLocalizedValue("staticConductive", $language);
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set localizedfields - 
+* @param \Pimcore\Model\DataObject\Localizedfield|null $localizedfields
+* @return $this
+*/
+public function setLocalizedfields (?\Pimcore\Model\DataObject\Localizedfield $localizedfields): static
+{
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getLocalizedfields();
+		});
+	}
+	else {
+		$currentData = $this->getLocalizedfields();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$this->markFieldDirty("localizedfields", true);
+	$this->localizedfields = $localizedfields;
+
+	return $this;
+}
+
+/**
+* Set quality - Quality
+* @param string|null $quality
+* @return $this
+*/
+public function setQuality (?string $quality, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("quality", $quality, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set performance - Performance
+* @param string|null $performance
+* @return $this
+*/
+public function setPerformance (?string $performance, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("performance", $performance, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Set staticConductive - Static Conductive
+* @param string|null $staticConductive
+* @return $this
+*/
+public function setStaticConductive (?string $staticConductive, ?string $language = null): static
+{
+	$isEqual = false;
+	$this->getLocalizedfields()->setLocalizedValue("staticConductive", $staticConductive, $language, !$isEqual);
+
+	return $this;
+}
+
+/**
+* Get temperatureC - Temperature (°C)
+* @return \Pimcore\Model\DataObject\Data\NumericRange|null
+*/
+public function getTemperatureC(): ?\Pimcore\Model\DataObject\Data\NumericRange
 {
 	$data = $this->temperatureC;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureC")->isEmpty($data)) {
@@ -507,10 +603,10 @@ public function getTemperatureC(): ?\Pimcore\Model\DataObject\Data\QuantityValue
 
 /**
 * Set temperatureC - Temperature (°C)
-* @param \Pimcore\Model\DataObject\Data\QuantityValueRange|null $temperatureC
+* @param \Pimcore\Model\DataObject\Data\NumericRange|null $temperatureC
 * @return $this
 */
-public function setTemperatureC (?\Pimcore\Model\DataObject\Data\QuantityValueRange $temperatureC): static
+public function setTemperatureC (?\Pimcore\Model\DataObject\Data\NumericRange $temperatureC): static
 {
 	$this->temperatureC = $temperatureC;
 
@@ -519,9 +615,9 @@ public function setTemperatureC (?\Pimcore\Model\DataObject\Data\QuantityValueRa
 
 /**
 * Get temperatureF - Temperature (°F)
-* @return \Pimcore\Model\DataObject\Data\QuantityValueRange|null
+* @return \Pimcore\Model\DataObject\Data\NumericRange|null
 */
-public function getTemperatureF(): ?\Pimcore\Model\DataObject\Data\QuantityValueRange
+public function getTemperatureF(): ?\Pimcore\Model\DataObject\Data\NumericRange
 {
 	$data = $this->temperatureF;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureF")->isEmpty($data)) {
@@ -540,10 +636,10 @@ public function getTemperatureF(): ?\Pimcore\Model\DataObject\Data\QuantityValue
 
 /**
 * Set temperatureF - Temperature (°F)
-* @param \Pimcore\Model\DataObject\Data\QuantityValueRange|null $temperatureF
+* @param \Pimcore\Model\DataObject\Data\NumericRange|null $temperatureF
 * @return $this
 */
-public function setTemperatureF (?\Pimcore\Model\DataObject\Data\QuantityValueRange $temperatureF): static
+public function setTemperatureF (?\Pimcore\Model\DataObject\Data\NumericRange $temperatureF): static
 {
 	$this->temperatureF = $temperatureF;
 

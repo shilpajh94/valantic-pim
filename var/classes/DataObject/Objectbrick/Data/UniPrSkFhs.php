@@ -2,27 +2,27 @@
 
 /**
  * Fields Summary:
- * - outsideDiameterMetric [quantityValue]
- * - insideDiameterMetric [quantityValue]
- * - vacuumMetric [quantityValue]
- * - tubeGaugeMetric [quantityValue]
- * - bendRadiusMetric [quantityValue]
- * - outsideDiameterInnerHoseMetric [quantityValue]
- * - insideDiameterInnerHoseMetric [quantityValue]
- * - insideDiameterFractionInnerHoseImperial [quantityValue]
- * - outsideDiameterImperial [quantityValue]
- * - insideDiameterImperial [quantityValue]
- * - vacuumImperial [quantityValue]
- * - tubeGaugeImperial [quantityValue]
- * - bendRadiusImperial [quantityValue]
- * - outsideDiameterInnerHoseImperial [quantityValue]
- * - insideDiameterInnerHoseImperial [quantityValue]
- * - insideDiameterFractionImperial [quantityValue]
- * - minimumBurstPressurePsi [quantityValue]
- * - minimumBurstPressureMpa [quantityValue]
- * - workingPressureMpa [quantityValue]
- * - workingPressureBar [quantityValue]
- * - workingPressurePsi [quantityValue]
+ * - outsideDiameterMetric [numeric]
+ * - insideDiameterMetric [numeric]
+ * - vacuumMetric [numeric]
+ * - tubeGaugeMetric [numeric]
+ * - bendRadiusMetric [numeric]
+ * - outsideDiameterInnerHoseMetric [numeric]
+ * - insideDiameterInnerHoseMetric [numeric]
+ * - insideDiameterFractionInnerHoseImperial [numeric]
+ * - outsideDiameterImperial [numeric]
+ * - insideDiameterImperial [numeric]
+ * - vacuumImperial [numeric]
+ * - tubeGaugeImperial [numeric]
+ * - bendRadiusImperial [numeric]
+ * - outsideDiameterInnerHoseImperial [numeric]
+ * - insideDiameterInnerHoseImperial [numeric]
+ * - insideDiameterFractionImperial [numeric]
+ * - minimumBurstPressureMpa [numeric]
+ * - workingPressureMpa [numeric]
+ * - workingPressureBar [numeric]
+ * - minimumBurstPressurePsi [numeric]
+ * - workingPressurePsi [numeric]
  * - hoseDashSizeHyd [numeric]
  * - negativePositiveTolerance [select]
  * - ratingsFlexibility [select]
@@ -30,14 +30,14 @@
  * - notesTemperature [input]
  * - isJustTemporarily [checkbox]
  * - temperatureMax [quantityValueRange]
- * - temperatureMin [quantityValueRange]
- * - temporaryUntilC [quantityValue]
- * - temporaryUntilT [quantityValue]
- * - dampableUntil2C [quantityValue]
- * - dampableUntil2T [quantityValue]
- * - dampableUntil1C [quantityValue]
- * - dampableUntil1T [quantityValue]
+ * - temporaryUntilC [numeric]
+ * - dampableUntil1C [numeric]
+ * - dampableUntil2C [numeric]
  * - pressureUntil [quantityValue]
+ * - temperatureMin [quantityValueRange]
+ * - temporaryUntilT [numeric]
+ * - dampableUntil1T [numeric]
+ * - dampableUntil2T [numeric]
  * - isOnlyOpenSystem [checkbox]
  * - localizedfields [localizedfields]
  * -- headlineWeb [input]
@@ -111,10 +111,10 @@ public const FIELD_BEND_RADIUS_IMPERIAL = 'bendRadiusImperial';
 public const FIELD_OUTSIDE_DIAMETER_INNER_HOSE_IMPERIAL = 'outsideDiameterInnerHoseImperial';
 public const FIELD_INSIDE_DIAMETER_INNER_HOSE_IMPERIAL = 'insideDiameterInnerHoseImperial';
 public const FIELD_INSIDE_DIAMETER_FRACTION_IMPERIAL = 'insideDiameterFractionImperial';
-public const FIELD_MINIMUM_BURST_PRESSURE_PSI = 'minimumBurstPressurePsi';
 public const FIELD_MINIMUM_BURST_PRESSURE_MPA = 'minimumBurstPressureMpa';
 public const FIELD_WORKING_PRESSURE_MPA = 'workingPressureMpa';
 public const FIELD_WORKING_PRESSURE_BAR = 'workingPressureBar';
+public const FIELD_MINIMUM_BURST_PRESSURE_PSI = 'minimumBurstPressurePsi';
 public const FIELD_WORKING_PRESSURE_PSI = 'workingPressurePsi';
 public const FIELD_HOSE_DASH_SIZE_HYD = 'hoseDashSizeHyd';
 public const FIELD_NEGATIVE_POSITIVE_TOLERANCE = 'negativePositiveTolerance';
@@ -123,14 +123,14 @@ public const FIELD_TEMPERATURE_RATINGS = 'temperatureRatings';
 public const FIELD_NOTES_TEMPERATURE = 'notesTemperature';
 public const FIELD_IS_JUST_TEMPORARILY = 'isJustTemporarily';
 public const FIELD_TEMPERATURE_MAX = 'temperatureMax';
-public const FIELD_TEMPERATURE_MIN = 'temperatureMin';
 public const FIELD_TEMPORARY_UNTIL_C = 'temporaryUntilC';
-public const FIELD_TEMPORARY_UNTIL_T = 'temporaryUntilT';
-public const FIELD_DAMPABLE_UNTIL2_C = 'dampableUntil2C';
-public const FIELD_DAMPABLE_UNTIL2_T = 'dampableUntil2T';
 public const FIELD_DAMPABLE_UNTIL1_C = 'dampableUntil1C';
-public const FIELD_DAMPABLE_UNTIL1_T = 'dampableUntil1T';
+public const FIELD_DAMPABLE_UNTIL2_C = 'dampableUntil2C';
 public const FIELD_PRESSURE_UNTIL = 'pressureUntil';
+public const FIELD_TEMPERATURE_MIN = 'temperatureMin';
+public const FIELD_TEMPORARY_UNTIL_T = 'temporaryUntilT';
+public const FIELD_DAMPABLE_UNTIL1_T = 'dampableUntil1T';
+public const FIELD_DAMPABLE_UNTIL2_T = 'dampableUntil2T';
 public const FIELD_IS_ONLY_OPEN_SYSTEM = 'isOnlyOpenSystem';
 public const FIELD_HEADLINE_WEB = 'headlineWeb';
 public const FIELD_FLOW_MEDIUM_STABILITY_FLAG = 'flowMediumStabilityFlag';
@@ -194,10 +194,10 @@ protected $bendRadiusImperial;
 protected $outsideDiameterInnerHoseImperial;
 protected $insideDiameterInnerHoseImperial;
 protected $insideDiameterFractionImperial;
-protected $minimumBurstPressurePsi;
 protected $minimumBurstPressureMpa;
 protected $workingPressureMpa;
 protected $workingPressureBar;
+protected $minimumBurstPressurePsi;
 protected $workingPressurePsi;
 protected $hoseDashSizeHyd;
 protected $negativePositiveTolerance;
@@ -206,14 +206,14 @@ protected $temperatureRatings;
 protected $notesTemperature;
 protected $isJustTemporarily;
 protected $temperatureMax;
-protected $temperatureMin;
 protected $temporaryUntilC;
-protected $temporaryUntilT;
-protected $dampableUntil2C;
-protected $dampableUntil2T;
 protected $dampableUntil1C;
-protected $dampableUntil1T;
+protected $dampableUntil2C;
 protected $pressureUntil;
+protected $temperatureMin;
+protected $temporaryUntilT;
+protected $dampableUntil1T;
+protected $dampableUntil2T;
 protected $isOnlyOpenSystem;
 protected $localizedfields;
 protected $ratingsResistanceToAbrasion;
@@ -240,9 +240,9 @@ public function __construct(DataObject\Concrete $object)
 
 /**
 * Get outsideDiameterMetric - Outside Diameter (mm)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getOutsideDiameterMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getOutsideDiameterMetric(): ?float
 {
 	$data = $this->outsideDiameterMetric;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("outsideDiameterMetric")->isEmpty($data)) {
@@ -261,21 +261,22 @@ public function getOutsideDiameterMetric(): ?\Pimcore\Model\DataObject\Data\Quan
 
 /**
 * Set outsideDiameterMetric - Outside Diameter (mm)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $outsideDiameterMetric
+* @param float|null $outsideDiameterMetric
 * @return $this
 */
-public function setOutsideDiameterMetric (?\Pimcore\Model\DataObject\Data\QuantityValue $outsideDiameterMetric): static
+public function setOutsideDiameterMetric (?float $outsideDiameterMetric): static
 {
-	$this->outsideDiameterMetric = $outsideDiameterMetric;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("outsideDiameterMetric");
+	$this->outsideDiameterMetric = $fd->preSetData($this, $outsideDiameterMetric);
 	return $this;
 }
 
 /**
 * Get insideDiameterMetric - Inside Diameter (mm)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getInsideDiameterMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getInsideDiameterMetric(): ?float
 {
 	$data = $this->insideDiameterMetric;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("insideDiameterMetric")->isEmpty($data)) {
@@ -294,21 +295,22 @@ public function getInsideDiameterMetric(): ?\Pimcore\Model\DataObject\Data\Quant
 
 /**
 * Set insideDiameterMetric - Inside Diameter (mm)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $insideDiameterMetric
+* @param float|null $insideDiameterMetric
 * @return $this
 */
-public function setInsideDiameterMetric (?\Pimcore\Model\DataObject\Data\QuantityValue $insideDiameterMetric): static
+public function setInsideDiameterMetric (?float $insideDiameterMetric): static
 {
-	$this->insideDiameterMetric = $insideDiameterMetric;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("insideDiameterMetric");
+	$this->insideDiameterMetric = $fd->preSetData($this, $insideDiameterMetric);
 	return $this;
 }
 
 /**
 * Get vacuumMetric - Vacuum (mm)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getVacuumMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getVacuumMetric(): ?float
 {
 	$data = $this->vacuumMetric;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("vacuumMetric")->isEmpty($data)) {
@@ -327,21 +329,22 @@ public function getVacuumMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
 
 /**
 * Set vacuumMetric - Vacuum (mm)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $vacuumMetric
+* @param float|null $vacuumMetric
 * @return $this
 */
-public function setVacuumMetric (?\Pimcore\Model\DataObject\Data\QuantityValue $vacuumMetric): static
+public function setVacuumMetric (?float $vacuumMetric): static
 {
-	$this->vacuumMetric = $vacuumMetric;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("vacuumMetric");
+	$this->vacuumMetric = $fd->preSetData($this, $vacuumMetric);
 	return $this;
 }
 
 /**
 * Get tubeGaugeMetric - Tube Gauge (mm) / Wall Thickness
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getTubeGaugeMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getTubeGaugeMetric(): ?float
 {
 	$data = $this->tubeGaugeMetric;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("tubeGaugeMetric")->isEmpty($data)) {
@@ -360,21 +363,22 @@ public function getTubeGaugeMetric(): ?\Pimcore\Model\DataObject\Data\QuantityVa
 
 /**
 * Set tubeGaugeMetric - Tube Gauge (mm) / Wall Thickness
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $tubeGaugeMetric
+* @param float|null $tubeGaugeMetric
 * @return $this
 */
-public function setTubeGaugeMetric (?\Pimcore\Model\DataObject\Data\QuantityValue $tubeGaugeMetric): static
+public function setTubeGaugeMetric (?float $tubeGaugeMetric): static
 {
-	$this->tubeGaugeMetric = $tubeGaugeMetric;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("tubeGaugeMetric");
+	$this->tubeGaugeMetric = $fd->preSetData($this, $tubeGaugeMetric);
 	return $this;
 }
 
 /**
 * Get bendRadiusMetric - Bend Radius (mm)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getBendRadiusMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getBendRadiusMetric(): ?float
 {
 	$data = $this->bendRadiusMetric;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("bendRadiusMetric")->isEmpty($data)) {
@@ -393,21 +397,22 @@ public function getBendRadiusMetric(): ?\Pimcore\Model\DataObject\Data\QuantityV
 
 /**
 * Set bendRadiusMetric - Bend Radius (mm)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $bendRadiusMetric
+* @param float|null $bendRadiusMetric
 * @return $this
 */
-public function setBendRadiusMetric (?\Pimcore\Model\DataObject\Data\QuantityValue $bendRadiusMetric): static
+public function setBendRadiusMetric (?float $bendRadiusMetric): static
 {
-	$this->bendRadiusMetric = $bendRadiusMetric;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("bendRadiusMetric");
+	$this->bendRadiusMetric = $fd->preSetData($this, $bendRadiusMetric);
 	return $this;
 }
 
 /**
 * Get outsideDiameterInnerHoseMetric - Outside Diameter (mm) - (Inner Hose)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getOutsideDiameterInnerHoseMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getOutsideDiameterInnerHoseMetric(): ?float
 {
 	$data = $this->outsideDiameterInnerHoseMetric;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("outsideDiameterInnerHoseMetric")->isEmpty($data)) {
@@ -426,21 +431,22 @@ public function getOutsideDiameterInnerHoseMetric(): ?\Pimcore\Model\DataObject\
 
 /**
 * Set outsideDiameterInnerHoseMetric - Outside Diameter (mm) - (Inner Hose)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $outsideDiameterInnerHoseMetric
+* @param float|null $outsideDiameterInnerHoseMetric
 * @return $this
 */
-public function setOutsideDiameterInnerHoseMetric (?\Pimcore\Model\DataObject\Data\QuantityValue $outsideDiameterInnerHoseMetric): static
+public function setOutsideDiameterInnerHoseMetric (?float $outsideDiameterInnerHoseMetric): static
 {
-	$this->outsideDiameterInnerHoseMetric = $outsideDiameterInnerHoseMetric;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("outsideDiameterInnerHoseMetric");
+	$this->outsideDiameterInnerHoseMetric = $fd->preSetData($this, $outsideDiameterInnerHoseMetric);
 	return $this;
 }
 
 /**
 * Get insideDiameterInnerHoseMetric - Inside Diameter (mm ) - (Inner Hose)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getInsideDiameterInnerHoseMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getInsideDiameterInnerHoseMetric(): ?float
 {
 	$data = $this->insideDiameterInnerHoseMetric;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("insideDiameterInnerHoseMetric")->isEmpty($data)) {
@@ -459,21 +465,22 @@ public function getInsideDiameterInnerHoseMetric(): ?\Pimcore\Model\DataObject\D
 
 /**
 * Set insideDiameterInnerHoseMetric - Inside Diameter (mm ) - (Inner Hose)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $insideDiameterInnerHoseMetric
+* @param float|null $insideDiameterInnerHoseMetric
 * @return $this
 */
-public function setInsideDiameterInnerHoseMetric (?\Pimcore\Model\DataObject\Data\QuantityValue $insideDiameterInnerHoseMetric): static
+public function setInsideDiameterInnerHoseMetric (?float $insideDiameterInnerHoseMetric): static
 {
-	$this->insideDiameterInnerHoseMetric = $insideDiameterInnerHoseMetric;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("insideDiameterInnerHoseMetric");
+	$this->insideDiameterInnerHoseMetric = $fd->preSetData($this, $insideDiameterInnerHoseMetric);
 	return $this;
 }
 
 /**
 * Get insideDiameterFractionInnerHoseImperial - Inside Diameter (Fraction) - (Inner Hose)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getInsideDiameterFractionInnerHoseImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getInsideDiameterFractionInnerHoseImperial(): ?float
 {
 	$data = $this->insideDiameterFractionInnerHoseImperial;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("insideDiameterFractionInnerHoseImperial")->isEmpty($data)) {
@@ -492,21 +499,22 @@ public function getInsideDiameterFractionInnerHoseImperial(): ?\Pimcore\Model\Da
 
 /**
 * Set insideDiameterFractionInnerHoseImperial - Inside Diameter (Fraction) - (Inner Hose)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $insideDiameterFractionInnerHoseImperial
+* @param float|null $insideDiameterFractionInnerHoseImperial
 * @return $this
 */
-public function setInsideDiameterFractionInnerHoseImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $insideDiameterFractionInnerHoseImperial): static
+public function setInsideDiameterFractionInnerHoseImperial (?float $insideDiameterFractionInnerHoseImperial): static
 {
-	$this->insideDiameterFractionInnerHoseImperial = $insideDiameterFractionInnerHoseImperial;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("insideDiameterFractionInnerHoseImperial");
+	$this->insideDiameterFractionInnerHoseImperial = $fd->preSetData($this, $insideDiameterFractionInnerHoseImperial);
 	return $this;
 }
 
 /**
 * Get outsideDiameterImperial - Outside Diameter (in)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getOutsideDiameterImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getOutsideDiameterImperial(): ?float
 {
 	$data = $this->outsideDiameterImperial;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("outsideDiameterImperial")->isEmpty($data)) {
@@ -525,21 +533,22 @@ public function getOutsideDiameterImperial(): ?\Pimcore\Model\DataObject\Data\Qu
 
 /**
 * Set outsideDiameterImperial - Outside Diameter (in)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $outsideDiameterImperial
+* @param float|null $outsideDiameterImperial
 * @return $this
 */
-public function setOutsideDiameterImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $outsideDiameterImperial): static
+public function setOutsideDiameterImperial (?float $outsideDiameterImperial): static
 {
-	$this->outsideDiameterImperial = $outsideDiameterImperial;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("outsideDiameterImperial");
+	$this->outsideDiameterImperial = $fd->preSetData($this, $outsideDiameterImperial);
 	return $this;
 }
 
 /**
 * Get insideDiameterImperial - Inside Diameter (in)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getInsideDiameterImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getInsideDiameterImperial(): ?float
 {
 	$data = $this->insideDiameterImperial;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("insideDiameterImperial")->isEmpty($data)) {
@@ -558,21 +567,22 @@ public function getInsideDiameterImperial(): ?\Pimcore\Model\DataObject\Data\Qua
 
 /**
 * Set insideDiameterImperial - Inside Diameter (in)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $insideDiameterImperial
+* @param float|null $insideDiameterImperial
 * @return $this
 */
-public function setInsideDiameterImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $insideDiameterImperial): static
+public function setInsideDiameterImperial (?float $insideDiameterImperial): static
 {
-	$this->insideDiameterImperial = $insideDiameterImperial;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("insideDiameterImperial");
+	$this->insideDiameterImperial = $fd->preSetData($this, $insideDiameterImperial);
 	return $this;
 }
 
 /**
 * Get vacuumImperial - Vacuum (in)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getVacuumImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getVacuumImperial(): ?float
 {
 	$data = $this->vacuumImperial;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("vacuumImperial")->isEmpty($data)) {
@@ -591,21 +601,22 @@ public function getVacuumImperial(): ?\Pimcore\Model\DataObject\Data\QuantityVal
 
 /**
 * Set vacuumImperial - Vacuum (in)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $vacuumImperial
+* @param float|null $vacuumImperial
 * @return $this
 */
-public function setVacuumImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $vacuumImperial): static
+public function setVacuumImperial (?float $vacuumImperial): static
 {
-	$this->vacuumImperial = $vacuumImperial;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("vacuumImperial");
+	$this->vacuumImperial = $fd->preSetData($this, $vacuumImperial);
 	return $this;
 }
 
 /**
 * Get tubeGaugeImperial - Tube Gauge (in)  / Wall Thickness
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getTubeGaugeImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getTubeGaugeImperial(): ?float
 {
 	$data = $this->tubeGaugeImperial;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("tubeGaugeImperial")->isEmpty($data)) {
@@ -624,21 +635,22 @@ public function getTubeGaugeImperial(): ?\Pimcore\Model\DataObject\Data\Quantity
 
 /**
 * Set tubeGaugeImperial - Tube Gauge (in)  / Wall Thickness
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $tubeGaugeImperial
+* @param float|null $tubeGaugeImperial
 * @return $this
 */
-public function setTubeGaugeImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $tubeGaugeImperial): static
+public function setTubeGaugeImperial (?float $tubeGaugeImperial): static
 {
-	$this->tubeGaugeImperial = $tubeGaugeImperial;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("tubeGaugeImperial");
+	$this->tubeGaugeImperial = $fd->preSetData($this, $tubeGaugeImperial);
 	return $this;
 }
 
 /**
 * Get bendRadiusImperial - Bend Radius (in)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getBendRadiusImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getBendRadiusImperial(): ?float
 {
 	$data = $this->bendRadiusImperial;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("bendRadiusImperial")->isEmpty($data)) {
@@ -657,21 +669,22 @@ public function getBendRadiusImperial(): ?\Pimcore\Model\DataObject\Data\Quantit
 
 /**
 * Set bendRadiusImperial - Bend Radius (in)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $bendRadiusImperial
+* @param float|null $bendRadiusImperial
 * @return $this
 */
-public function setBendRadiusImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $bendRadiusImperial): static
+public function setBendRadiusImperial (?float $bendRadiusImperial): static
 {
-	$this->bendRadiusImperial = $bendRadiusImperial;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("bendRadiusImperial");
+	$this->bendRadiusImperial = $fd->preSetData($this, $bendRadiusImperial);
 	return $this;
 }
 
 /**
 * Get outsideDiameterInnerHoseImperial - Outside Diameter (in) - (Inner Hose)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getOutsideDiameterInnerHoseImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getOutsideDiameterInnerHoseImperial(): ?float
 {
 	$data = $this->outsideDiameterInnerHoseImperial;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("outsideDiameterInnerHoseImperial")->isEmpty($data)) {
@@ -690,21 +703,22 @@ public function getOutsideDiameterInnerHoseImperial(): ?\Pimcore\Model\DataObjec
 
 /**
 * Set outsideDiameterInnerHoseImperial - Outside Diameter (in) - (Inner Hose)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $outsideDiameterInnerHoseImperial
+* @param float|null $outsideDiameterInnerHoseImperial
 * @return $this
 */
-public function setOutsideDiameterInnerHoseImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $outsideDiameterInnerHoseImperial): static
+public function setOutsideDiameterInnerHoseImperial (?float $outsideDiameterInnerHoseImperial): static
 {
-	$this->outsideDiameterInnerHoseImperial = $outsideDiameterInnerHoseImperial;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("outsideDiameterInnerHoseImperial");
+	$this->outsideDiameterInnerHoseImperial = $fd->preSetData($this, $outsideDiameterInnerHoseImperial);
 	return $this;
 }
 
 /**
 * Get insideDiameterInnerHoseImperial - Inside Diameter (in) - (Inner Hose)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getInsideDiameterInnerHoseImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getInsideDiameterInnerHoseImperial(): ?float
 {
 	$data = $this->insideDiameterInnerHoseImperial;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("insideDiameterInnerHoseImperial")->isEmpty($data)) {
@@ -723,21 +737,22 @@ public function getInsideDiameterInnerHoseImperial(): ?\Pimcore\Model\DataObject
 
 /**
 * Set insideDiameterInnerHoseImperial - Inside Diameter (in) - (Inner Hose)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $insideDiameterInnerHoseImperial
+* @param float|null $insideDiameterInnerHoseImperial
 * @return $this
 */
-public function setInsideDiameterInnerHoseImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $insideDiameterInnerHoseImperial): static
+public function setInsideDiameterInnerHoseImperial (?float $insideDiameterInnerHoseImperial): static
 {
-	$this->insideDiameterInnerHoseImperial = $insideDiameterInnerHoseImperial;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("insideDiameterInnerHoseImperial");
+	$this->insideDiameterInnerHoseImperial = $fd->preSetData($this, $insideDiameterInnerHoseImperial);
 	return $this;
 }
 
 /**
 * Get insideDiameterFractionImperial - Inside Diameter (Fraction)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getInsideDiameterFractionImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getInsideDiameterFractionImperial(): ?float
 {
 	$data = $this->insideDiameterFractionImperial;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("insideDiameterFractionImperial")->isEmpty($data)) {
@@ -756,54 +771,22 @@ public function getInsideDiameterFractionImperial(): ?\Pimcore\Model\DataObject\
 
 /**
 * Set insideDiameterFractionImperial - Inside Diameter (Fraction)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $insideDiameterFractionImperial
+* @param float|null $insideDiameterFractionImperial
 * @return $this
 */
-public function setInsideDiameterFractionImperial (?\Pimcore\Model\DataObject\Data\QuantityValue $insideDiameterFractionImperial): static
+public function setInsideDiameterFractionImperial (?float $insideDiameterFractionImperial): static
 {
-	$this->insideDiameterFractionImperial = $insideDiameterFractionImperial;
-
-	return $this;
-}
-
-/**
-* Get minimumBurstPressurePsi - Minimum Burst Pressure (PSI)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getMinimumBurstPressurePsi(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->minimumBurstPressurePsi;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("minimumBurstPressurePsi")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("minimumBurstPressurePsi");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set minimumBurstPressurePsi - Minimum Burst Pressure (PSI)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $minimumBurstPressurePsi
-* @return $this
-*/
-public function setMinimumBurstPressurePsi (?\Pimcore\Model\DataObject\Data\QuantityValue $minimumBurstPressurePsi): static
-{
-	$this->minimumBurstPressurePsi = $minimumBurstPressurePsi;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("insideDiameterFractionImperial");
+	$this->insideDiameterFractionImperial = $fd->preSetData($this, $insideDiameterFractionImperial);
 	return $this;
 }
 
 /**
 * Get minimumBurstPressureMpa - Minimum Burst Pressure (MPa)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getMinimumBurstPressureMpa(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getMinimumBurstPressureMpa(): ?float
 {
 	$data = $this->minimumBurstPressureMpa;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("minimumBurstPressureMpa")->isEmpty($data)) {
@@ -822,21 +805,22 @@ public function getMinimumBurstPressureMpa(): ?\Pimcore\Model\DataObject\Data\Qu
 
 /**
 * Set minimumBurstPressureMpa - Minimum Burst Pressure (MPa)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $minimumBurstPressureMpa
+* @param float|null $minimumBurstPressureMpa
 * @return $this
 */
-public function setMinimumBurstPressureMpa (?\Pimcore\Model\DataObject\Data\QuantityValue $minimumBurstPressureMpa): static
+public function setMinimumBurstPressureMpa (?float $minimumBurstPressureMpa): static
 {
-	$this->minimumBurstPressureMpa = $minimumBurstPressureMpa;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("minimumBurstPressureMpa");
+	$this->minimumBurstPressureMpa = $fd->preSetData($this, $minimumBurstPressureMpa);
 	return $this;
 }
 
 /**
 * Get workingPressureMpa - Working Pressure (MPa)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getWorkingPressureMpa(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getWorkingPressureMpa(): ?float
 {
 	$data = $this->workingPressureMpa;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("workingPressureMpa")->isEmpty($data)) {
@@ -855,21 +839,22 @@ public function getWorkingPressureMpa(): ?\Pimcore\Model\DataObject\Data\Quantit
 
 /**
 * Set workingPressureMpa - Working Pressure (MPa)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $workingPressureMpa
+* @param float|null $workingPressureMpa
 * @return $this
 */
-public function setWorkingPressureMpa (?\Pimcore\Model\DataObject\Data\QuantityValue $workingPressureMpa): static
+public function setWorkingPressureMpa (?float $workingPressureMpa): static
 {
-	$this->workingPressureMpa = $workingPressureMpa;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("workingPressureMpa");
+	$this->workingPressureMpa = $fd->preSetData($this, $workingPressureMpa);
 	return $this;
 }
 
 /**
 * Get workingPressureBar - Working Pressure (bar)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getWorkingPressureBar(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getWorkingPressureBar(): ?float
 {
 	$data = $this->workingPressureBar;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("workingPressureBar")->isEmpty($data)) {
@@ -888,21 +873,56 @@ public function getWorkingPressureBar(): ?\Pimcore\Model\DataObject\Data\Quantit
 
 /**
 * Set workingPressureBar - Working Pressure (bar)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $workingPressureBar
+* @param float|null $workingPressureBar
 * @return $this
 */
-public function setWorkingPressureBar (?\Pimcore\Model\DataObject\Data\QuantityValue $workingPressureBar): static
+public function setWorkingPressureBar (?float $workingPressureBar): static
 {
-	$this->workingPressureBar = $workingPressureBar;
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("workingPressureBar");
+	$this->workingPressureBar = $fd->preSetData($this, $workingPressureBar);
+	return $this;
+}
 
+/**
+* Get minimumBurstPressurePsi - Minimum Burst Pressure (PSI)
+* @return float|null
+*/
+public function getMinimumBurstPressurePsi(): ?float
+{
+	$data = $this->minimumBurstPressurePsi;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("minimumBurstPressurePsi")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("minimumBurstPressurePsi");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set minimumBurstPressurePsi - Minimum Burst Pressure (PSI)
+* @param float|null $minimumBurstPressurePsi
+* @return $this
+*/
+public function setMinimumBurstPressurePsi (?float $minimumBurstPressurePsi): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("minimumBurstPressurePsi");
+	$this->minimumBurstPressurePsi = $fd->preSetData($this, $minimumBurstPressurePsi);
 	return $this;
 }
 
 /**
 * Get workingPressurePsi - Working Pressure (PSI)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getWorkingPressurePsi(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getWorkingPressurePsi(): ?float
 {
 	$data = $this->workingPressurePsi;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("workingPressurePsi")->isEmpty($data)) {
@@ -921,13 +941,14 @@ public function getWorkingPressurePsi(): ?\Pimcore\Model\DataObject\Data\Quantit
 
 /**
 * Set workingPressurePsi - Working Pressure (PSI)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $workingPressurePsi
+* @param float|null $workingPressurePsi
 * @return $this
 */
-public function setWorkingPressurePsi (?\Pimcore\Model\DataObject\Data\QuantityValue $workingPressurePsi): static
+public function setWorkingPressurePsi (?float $workingPressurePsi): static
 {
-	$this->workingPressurePsi = $workingPressurePsi;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("workingPressurePsi");
+	$this->workingPressurePsi = $fd->preSetData($this, $workingPressurePsi);
 	return $this;
 }
 
@@ -1164,43 +1185,10 @@ public function setTemperatureMax (?\Pimcore\Model\DataObject\Data\QuantityValue
 }
 
 /**
-* Get temperatureMin - Temperature (min)
-* @return \Pimcore\Model\DataObject\Data\QuantityValueRange|null
-*/
-public function getTemperatureMin(): ?\Pimcore\Model\DataObject\Data\QuantityValueRange
-{
-	$data = $this->temperatureMin;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureMin")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("temperatureMin");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set temperatureMin - Temperature (min)
-* @param \Pimcore\Model\DataObject\Data\QuantityValueRange|null $temperatureMin
-* @return $this
-*/
-public function setTemperatureMin (?\Pimcore\Model\DataObject\Data\QuantityValueRange $temperatureMin): static
-{
-	$this->temperatureMin = $temperatureMin;
-
-	return $this;
-}
-
-/**
 * Get temporaryUntilC - Temporary until (°C)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getTemporaryUntilC(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getTemporaryUntilC(): ?float
 {
 	$data = $this->temporaryUntilC;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temporaryUntilC")->isEmpty($data)) {
@@ -1219,120 +1207,22 @@ public function getTemporaryUntilC(): ?\Pimcore\Model\DataObject\Data\QuantityVa
 
 /**
 * Set temporaryUntilC - Temporary until (°C)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $temporaryUntilC
+* @param float|null $temporaryUntilC
 * @return $this
 */
-public function setTemporaryUntilC (?\Pimcore\Model\DataObject\Data\QuantityValue $temporaryUntilC): static
+public function setTemporaryUntilC (?float $temporaryUntilC): static
 {
-	$this->temporaryUntilC = $temporaryUntilC;
-
-	return $this;
-}
-
-/**
-* Get temporaryUntilT - Temporary until (t)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getTemporaryUntilT(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->temporaryUntilT;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temporaryUntilT")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("temporaryUntilT");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set temporaryUntilT - Temporary until (t)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $temporaryUntilT
-* @return $this
-*/
-public function setTemporaryUntilT (?\Pimcore\Model\DataObject\Data\QuantityValue $temporaryUntilT): static
-{
-	$this->temporaryUntilT = $temporaryUntilT;
-
-	return $this;
-}
-
-/**
-* Get dampableUntil2C - Dampable until 2 (°C)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getDampableUntil2C(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->dampableUntil2C;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil2C")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("dampableUntil2C");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set dampableUntil2C - Dampable until 2 (°C)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil2C
-* @return $this
-*/
-public function setDampableUntil2C (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil2C): static
-{
-	$this->dampableUntil2C = $dampableUntil2C;
-
-	return $this;
-}
-
-/**
-* Get dampableUntil2T - Dampable until 2 (°C)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
-*/
-public function getDampableUntil2T(): ?\Pimcore\Model\DataObject\Data\QuantityValue
-{
-	$data = $this->dampableUntil2T;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil2T")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("dampableUntil2T");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set dampableUntil2T - Dampable until 2 (°C)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil2T
-* @return $this
-*/
-public function setDampableUntil2T (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil2T): static
-{
-	$this->dampableUntil2T = $dampableUntil2T;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("temporaryUntilC");
+	$this->temporaryUntilC = $fd->preSetData($this, $temporaryUntilC);
 	return $this;
 }
 
 /**
 * Get dampableUntil1C - Dampable until 1 (°C)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* @return float|null
 */
-public function getDampableUntil1C(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getDampableUntil1C(): ?float
 {
 	$data = $this->dampableUntil1C;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil1C")->isEmpty($data)) {
@@ -1351,26 +1241,27 @@ public function getDampableUntil1C(): ?\Pimcore\Model\DataObject\Data\QuantityVa
 
 /**
 * Set dampableUntil1C - Dampable until 1 (°C)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil1C
+* @param float|null $dampableUntil1C
 * @return $this
 */
-public function setDampableUntil1C (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil1C): static
+public function setDampableUntil1C (?float $dampableUntil1C): static
 {
-	$this->dampableUntil1C = $dampableUntil1C;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("dampableUntil1C");
+	$this->dampableUntil1C = $fd->preSetData($this, $dampableUntil1C);
 	return $this;
 }
 
 /**
-* Get dampableUntil1T - Dampable until 1 (t)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* Get dampableUntil2C - Dampable until 2 (°C)
+* @return float|null
 */
-public function getDampableUntil1T(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getDampableUntil2C(): ?float
 {
-	$data = $this->dampableUntil1T;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil1T")->isEmpty($data)) {
+	$data = $this->dampableUntil2C;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil2C")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("dampableUntil1T");
+			return $this->getValueFromParent("dampableUntil2C");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -1383,14 +1274,15 @@ public function getDampableUntil1T(): ?\Pimcore\Model\DataObject\Data\QuantityVa
 }
 
 /**
-* Set dampableUntil1T - Dampable until 1 (t)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $dampableUntil1T
+* Set dampableUntil2C - Dampable until 2 (°C)
+* @param float|null $dampableUntil2C
 * @return $this
 */
-public function setDampableUntil1T (?\Pimcore\Model\DataObject\Data\QuantityValue $dampableUntil1T): static
+public function setDampableUntil2C (?float $dampableUntil2C): static
 {
-	$this->dampableUntil1T = $dampableUntil1T;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("dampableUntil2C");
+	$this->dampableUntil2C = $fd->preSetData($this, $dampableUntil2C);
 	return $this;
 }
 
@@ -1424,6 +1316,141 @@ public function setPressureUntil (?\Pimcore\Model\DataObject\Data\QuantityValue 
 {
 	$this->pressureUntil = $pressureUntil;
 
+	return $this;
+}
+
+/**
+* Get temperatureMin - Temperature (min)
+* @return \Pimcore\Model\DataObject\Data\QuantityValueRange|null
+*/
+public function getTemperatureMin(): ?\Pimcore\Model\DataObject\Data\QuantityValueRange
+{
+	$data = $this->temperatureMin;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureMin")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("temperatureMin");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set temperatureMin - Temperature (min)
+* @param \Pimcore\Model\DataObject\Data\QuantityValueRange|null $temperatureMin
+* @return $this
+*/
+public function setTemperatureMin (?\Pimcore\Model\DataObject\Data\QuantityValueRange $temperatureMin): static
+{
+	$this->temperatureMin = $temperatureMin;
+
+	return $this;
+}
+
+/**
+* Get temporaryUntilT - Temporary until (t)
+* @return float|null
+*/
+public function getTemporaryUntilT(): ?float
+{
+	$data = $this->temporaryUntilT;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temporaryUntilT")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("temporaryUntilT");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set temporaryUntilT - Temporary until (t)
+* @param float|null $temporaryUntilT
+* @return $this
+*/
+public function setTemporaryUntilT (?float $temporaryUntilT): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("temporaryUntilT");
+	$this->temporaryUntilT = $fd->preSetData($this, $temporaryUntilT);
+	return $this;
+}
+
+/**
+* Get dampableUntil1T - Dampable until 1 (t)
+* @return float|null
+*/
+public function getDampableUntil1T(): ?float
+{
+	$data = $this->dampableUntil1T;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil1T")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("dampableUntil1T");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set dampableUntil1T - Dampable until 1 (t)
+* @param float|null $dampableUntil1T
+* @return $this
+*/
+public function setDampableUntil1T (?float $dampableUntil1T): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("dampableUntil1T");
+	$this->dampableUntil1T = $fd->preSetData($this, $dampableUntil1T);
+	return $this;
+}
+
+/**
+* Get dampableUntil2T - Dampable until 2 (°C)
+* @return float|null
+*/
+public function getDampableUntil2T(): ?float
+{
+	$data = $this->dampableUntil2T;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("dampableUntil2T")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("dampableUntil2T");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set dampableUntil2T - Dampable until 2 (°C)
+* @param float|null $dampableUntil2T
+* @return $this
+*/
+public function setDampableUntil2T (?float $dampableUntil2T): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("dampableUntil2T");
+	$this->dampableUntil2T = $fd->preSetData($this, $dampableUntil2T);
 	return $this;
 }
 
