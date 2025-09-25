@@ -23,9 +23,10 @@
  * - workingPressureBar [numeric]
  * - minimumBurstPressurePsi [numeric]
  * - workingPressurePsi [numeric]
+ * - negativePositiveToleranceMetric [numeric]
  * - hoseDashSizeHyd [numeric]
- * - negativePositiveTolerance [select]
  * - ratingsFlexibility [select]
+ * - negativePositiveToleranceImperial [numeric]
  * - temperatureRatings [input]
  * - notesTemperature [input]
  * - isJustTemporarily [checkbox]
@@ -116,9 +117,10 @@ public const FIELD_WORKING_PRESSURE_MPA = 'workingPressureMpa';
 public const FIELD_WORKING_PRESSURE_BAR = 'workingPressureBar';
 public const FIELD_MINIMUM_BURST_PRESSURE_PSI = 'minimumBurstPressurePsi';
 public const FIELD_WORKING_PRESSURE_PSI = 'workingPressurePsi';
+public const FIELD_NEGATIVE_POSITIVE_TOLERANCE_METRIC = 'negativePositiveToleranceMetric';
 public const FIELD_HOSE_DASH_SIZE_HYD = 'hoseDashSizeHyd';
-public const FIELD_NEGATIVE_POSITIVE_TOLERANCE = 'negativePositiveTolerance';
 public const FIELD_RATINGS_FLEXIBILITY = 'ratingsFlexibility';
+public const FIELD_NEGATIVE_POSITIVE_TOLERANCE_IMPERIAL = 'negativePositiveToleranceImperial';
 public const FIELD_TEMPERATURE_RATINGS = 'temperatureRatings';
 public const FIELD_NOTES_TEMPERATURE = 'notesTemperature';
 public const FIELD_IS_JUST_TEMPORARILY = 'isJustTemporarily';
@@ -199,9 +201,10 @@ protected $workingPressureMpa;
 protected $workingPressureBar;
 protected $minimumBurstPressurePsi;
 protected $workingPressurePsi;
+protected $negativePositiveToleranceMetric;
 protected $hoseDashSizeHyd;
-protected $negativePositiveTolerance;
 protected $ratingsFlexibility;
+protected $negativePositiveToleranceImperial;
 protected $temperatureRatings;
 protected $notesTemperature;
 protected $isJustTemporarily;
@@ -953,6 +956,40 @@ public function setWorkingPressurePsi (?float $workingPressurePsi): static
 }
 
 /**
+* Get negativePositiveToleranceMetric - Negative / PositiveTolerance (mm)
+* @return float|null
+*/
+public function getNegativePositiveToleranceMetric(): ?float
+{
+	$data = $this->negativePositiveToleranceMetric;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("negativePositiveToleranceMetric")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("negativePositiveToleranceMetric");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set negativePositiveToleranceMetric - Negative / PositiveTolerance (mm)
+* @param float|null $negativePositiveToleranceMetric
+* @return $this
+*/
+public function setNegativePositiveToleranceMetric (?float $negativePositiveToleranceMetric): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("negativePositiveToleranceMetric");
+	$this->negativePositiveToleranceMetric = $fd->preSetData($this, $negativePositiveToleranceMetric);
+	return $this;
+}
+
+/**
 * Get hoseDashSizeHyd - Hose Dash Size (HYD)
 * @return float|null
 */
@@ -987,39 +1024,6 @@ public function setHoseDashSizeHyd (?float $hoseDashSizeHyd): static
 }
 
 /**
-* Get negativePositiveTolerance - Negative / PositiveTolerance
-* @return string|null
-*/
-public function getNegativePositiveTolerance(): ?string
-{
-	$data = $this->negativePositiveTolerance;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("negativePositiveTolerance")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("negativePositiveTolerance");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set negativePositiveTolerance - Negative / PositiveTolerance
-* @param string|null $negativePositiveTolerance
-* @return $this
-*/
-public function setNegativePositiveTolerance (?string $negativePositiveTolerance): static
-{
-	$this->negativePositiveTolerance = $negativePositiveTolerance;
-
-	return $this;
-}
-
-/**
 * Get ratingsFlexibility - Flexibility
 * @return string|null
 */
@@ -1049,6 +1053,40 @@ public function setRatingsFlexibility (?string $ratingsFlexibility): static
 {
 	$this->ratingsFlexibility = $ratingsFlexibility;
 
+	return $this;
+}
+
+/**
+* Get negativePositiveToleranceImperial - Negative / PositiveTolerance (in)
+* @return float|null
+*/
+public function getNegativePositiveToleranceImperial(): ?float
+{
+	$data = $this->negativePositiveToleranceImperial;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("negativePositiveToleranceImperial")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("negativePositiveToleranceImperial");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set negativePositiveToleranceImperial - Negative / PositiveTolerance (in)
+* @param float|null $negativePositiveToleranceImperial
+* @return $this
+*/
+public function setNegativePositiveToleranceImperial (?float $negativePositiveToleranceImperial): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("negativePositiveToleranceImperial");
+	$this->negativePositiveToleranceImperial = $fd->preSetData($this, $negativePositiveToleranceImperial);
 	return $this;
 }
 

@@ -67,6 +67,30 @@ public function filterByOldMaterialNumber ($data, $operator = '='): static
 }
 
 /**
+* Filter by weightMetric (Weight (kg))
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByWeightMetric ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("weightMetric")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by weightImperial (Weight (lbs))
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByWeightImperial ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("weightImperial")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
 * Filter by tariffCodes (Tariff Codes)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"

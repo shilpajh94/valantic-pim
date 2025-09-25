@@ -5,15 +5,17 @@
  * - beltThicknessMetric [numeric]
  * - toothHeightMetric [numeric]
  * - pitchHeightMetric [numeric]
- * - profile [input]
+ * - maximumSpeedMetric [numeric]
  * - beltAngle [input]
- * - maxSpeed [input]
+ * - minPulleyDiameter [numeric]
+ * - minOutsidePulleyDiameterMetric [numeric]
  * - beltThicknessImperial [numeric]
  * - toothHeightImperial [numeric]
  * - pitchHeightImperial [numeric]
+ * - maximumSpeedImperial [numeric]
  * - nominalLength [select]
- * - minPulleyDiameter [numeric]
- * - minOutsidePulleyDiameter [numeric]
+ * - profile [input]
+ * - minOutsidePulleyDiameterImperial [numeric]
  */
 
 return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
@@ -184,9 +186,9 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'name' => 'profile',
-                         'title' => 'Profile',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'maximumSpeedMetric',
+                         'title' => 'Maximum Speed (m/s)',
                          'tooltip' => '',
                          'mandatory' => true,
                          'noteditable' => false,
@@ -203,14 +205,14 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                         ),
                          'defaultValue' => NULL,
-                         'columnLength' => 190,
-                         'regex' => '',
-                         'regexFlags' => 
-                        array (
-                        ),
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
                          'unique' => false,
-                         'showCharCount' => false,
-                         'width' => '250px',
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => 250,
                          'defaultValueGenerator' => '',
                       )),
                       4 => 
@@ -244,9 +246,9 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       5 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'name' => 'maxSpeed',
-                         'title' => 'Max Speed',
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'minPulleyDiameter',
+                         'title' => 'Minimum Pulley Diameter (mm)',
                          'tooltip' => '',
                          'mandatory' => true,
                          'noteditable' => false,
@@ -263,14 +265,44 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                         ),
                          'defaultValue' => NULL,
-                         'columnLength' => 190,
-                         'regex' => '',
-                         'regexFlags' => 
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => '250px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      6 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'minOutsidePulleyDiameterMetric',
+                         'title' => 'Minimum Outside Pulley Diameter (mm)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
                         array (
                         ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
                          'unique' => false,
-                         'showCharCount' => false,
-                         'width' => 250,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => '250px',
                          'defaultValueGenerator' => '',
                       )),
                     ),
@@ -389,6 +421,36 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       3 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'maximumSpeedImperial',
+                         'title' => 'Maximum Speed (ft/s)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
+                      )),
+                      4 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                          'name' => 'nominalLength',
                          'title' => 'Nominal Length',
@@ -416,10 +478,10 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
                          'optionsProviderData' => 'UniPrNominalLengthPts',
                       )),
-                      4 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                         'name' => 'minPulleyDiameter',
-                         'title' => 'Minimum Pulley Diameter (mm)',
+                      5 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'name' => 'profile',
+                         'title' => 'Profile',
                          'tooltip' => '',
                          'mandatory' => true,
                          'noteditable' => false,
@@ -436,20 +498,20 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         array (
                         ),
                          'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
+                         'columnLength' => 190,
+                         'regex' => '',
+                         'regexFlags' => 
+                        array (
+                        ),
                          'unique' => false,
-                         'decimalSize' => NULL,
-                         'decimalPrecision' => NULL,
+                         'showCharCount' => false,
                          'width' => '250px',
                          'defaultValueGenerator' => '',
                       )),
-                      5 => 
+                      6 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                         'name' => 'minOutsidePulleyDiameter',
-                         'title' => 'Minimum Outside Pulley Diameter',
+                         'name' => 'minOutsidePulleyDiameterImperial',
+                         'title' => 'Minimum Outside Pulley Diameter (in)',
                          'tooltip' => '',
                          'mandatory' => true,
                          'noteditable' => false,

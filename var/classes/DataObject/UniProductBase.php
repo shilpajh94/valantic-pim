@@ -11,8 +11,8 @@
  * - sapMaterialNumber [input]
  * - partNumber [input]
  * - oldMaterialNumber [input]
- * - weightMetric [quantityValue]
- * - weightImperial [quantityValue]
+ * - weightMetric [numeric]
+ * - weightImperial [numeric]
  * - tariffCodes [numeric]
  * - countryOfOrigin [manyToOneRelation]
  * - eanCode [input]
@@ -66,6 +66,8 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getBySapMaterialNumber(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByPartNumber(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByOldMaterialNumber(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByWeightMetric(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByWeightImperial(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByTariffCodes(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByCountryOfOrigin(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByEanCode(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
@@ -415,10 +417,10 @@ public function setOldMaterialNumber(?string $oldMaterialNumber): static
 }
 
 /**
-* Get weightMetric - Weight (Metric)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* Get weightMetric - Weight (kg)
+* @return float|null
 */
-public function getWeightMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getWeightMetric(): ?float
 {
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
 		$preValue = $this->preGetValue("weightMetric");
@@ -437,24 +439,23 @@ public function getWeightMetric(): ?\Pimcore\Model\DataObject\Data\QuantityValue
 }
 
 /**
-* Set weightMetric - Weight (Metric)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $weightMetric
+* Set weightMetric - Weight (kg)
+* @param float|null $weightMetric
 * @return $this
 */
-public function setWeightMetric(?\Pimcore\Model\DataObject\Data\QuantityValue $weightMetric): static
+public function setWeightMetric(?float $weightMetric): static
 {
-	$this->markFieldDirty("weightMetric", true);
-
-	$this->weightMetric = $weightMetric;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getClass()->getFieldDefinition("weightMetric");
+	$this->weightMetric = $fd->preSetData($this, $weightMetric);
 	return $this;
 }
 
 /**
-* Get weightImperial - Weight (Imperial)
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* Get weightImperial - Weight (lbs)
+* @return float|null
 */
-public function getWeightImperial(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getWeightImperial(): ?float
 {
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
 		$preValue = $this->preGetValue("weightImperial");
@@ -473,16 +474,15 @@ public function getWeightImperial(): ?\Pimcore\Model\DataObject\Data\QuantityVal
 }
 
 /**
-* Set weightImperial - Weight (Imperial)
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $weightImperial
+* Set weightImperial - Weight (lbs)
+* @param float|null $weightImperial
 * @return $this
 */
-public function setWeightImperial(?\Pimcore\Model\DataObject\Data\QuantityValue $weightImperial): static
+public function setWeightImperial(?float $weightImperial): static
 {
-	$this->markFieldDirty("weightImperial", true);
-
-	$this->weightImperial = $weightImperial;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getClass()->getFieldDefinition("weightImperial");
+	$this->weightImperial = $fd->preSetData($this, $weightImperial);
 	return $this;
 }
 

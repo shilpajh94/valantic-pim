@@ -12,8 +12,8 @@
  * - sapMaterialNumber [input]
  * - partNumber [input]
  * - oldMaterialNumber [input]
- * - weightMetric [quantityValue]
- * - weightImperial [quantityValue]
+ * - weightMetric [numeric]
+ * - weightImperial [numeric]
  * - tariffCodes [numeric]
  * - countryOfOrigin [manyToOneRelation]
  * - eanCode [input]
@@ -63,7 +63,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1758624883,
+   'modificationDate' => 1758792692,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -530,15 +530,15 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'defaultValueGenerator' => '',
                               )),
                               3 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'weightMetric',
-                                 'title' => 'Weight (Metric)',
+                                 'title' => 'Weight (kg)',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
                                  'index' => false,
                                  'locked' => false,
-                                 'style' => 'margin-left:20px;',
+                                 'style' => '',
                                  'permissions' => NULL,
                                  'fieldtype' => '',
                                  'relationType' => false,
@@ -548,35 +548,27 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'unitWidth' => '',
-                                 'defaultUnit' => NULL,
-                                 'validUnits' => 
-                                array (
-                                  0 => 'weight_kg',
-                                  1 => 'weight_g',
-                                ),
-                                 'unique' => false,
-                                 'autoConvert' => true,
-                                 'defaultValueGenerator' => '',
-                                 'width' => '',
                                  'defaultValue' => NULL,
                                  'integer' => false,
                                  'unsigned' => false,
                                  'minValue' => NULL,
                                  'maxValue' => NULL,
+                                 'unique' => false,
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
+                                 'width' => 250,
+                                 'defaultValueGenerator' => '',
                               )),
                               4 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                                  'name' => 'weightImperial',
-                                 'title' => 'Weight (Imperial)',
+                                 'title' => 'Weight (lbs)',
                                  'tooltip' => '',
                                  'mandatory' => false,
                                  'noteditable' => false,
                                  'index' => false,
                                  'locked' => false,
-                                 'style' => 'margin-left:20px;',
+                                 'style' => '',
                                  'permissions' => NULL,
                                  'fieldtype' => '',
                                  'relationType' => false,
@@ -586,23 +578,16 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'blockedVarsForExport' => 
                                 array (
                                 ),
-                                 'unitWidth' => '',
-                                 'defaultUnit' => NULL,
-                                 'validUnits' => 
-                                array (
-                                  0 => 'weight_lbs',
-                                ),
-                                 'unique' => false,
-                                 'autoConvert' => true,
-                                 'defaultValueGenerator' => '',
-                                 'width' => '',
                                  'defaultValue' => NULL,
                                  'integer' => false,
                                  'unsigned' => false,
                                  'minValue' => NULL,
                                  'maxValue' => NULL,
+                                 'unique' => false,
                                  'decimalSize' => NULL,
                                  'decimalPrecision' => NULL,
+                                 'width' => 250,
+                                 'defaultValueGenerator' => '',
                               )),
                             ),
                              'locked' => false,
@@ -1359,7 +1344,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                              'classes' => 
                                             array (
                                             ),
-                                             'displayMode' => 'grid',
+                                             'displayMode' => 'combo',
                                              'pathFormatterClass' => '',
                                              'assetInlineDownloadAllowed' => false,
                                              'assetUploadPath' => '',
@@ -1401,7 +1386,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                              'classes' => 
                                             array (
                                             ),
-                                             'displayMode' => 'grid',
+                                             'displayMode' => 'combo',
                                              'pathFormatterClass' => '',
                                              'assetInlineDownloadAllowed' => false,
                                              'assetUploadPath' => '',
@@ -1447,7 +1432,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                              'classes' => 
                                             array (
                                             ),
-                                             'displayMode' => 'grid',
+                                             'displayMode' => 'combo',
                                              'pathFormatterClass' => '',
                                              'assetInlineDownloadAllowed' => false,
                                              'assetUploadPath' => '/UniProductManagement/Certificates',
@@ -2362,7 +2347,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'classes' => 
                                         array (
                                         ),
-                                         'displayMode' => 'grid',
+                                         'displayMode' => 'combo',
                                          'pathFormatterClass' => '',
                                          'assetInlineDownloadAllowed' => false,
                                          'assetUploadPath' => '',
@@ -2404,7 +2389,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'classes' => 
                                         array (
                                         ),
-                                         'displayMode' => 'grid',
+                                         'displayMode' => 'combo',
                                          'pathFormatterClass' => '',
                                          'assetInlineDownloadAllowed' => false,
                                          'assetUploadPath' => '',
@@ -2450,7 +2435,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                          'classes' => 
                                         array (
                                         ),
-                                         'displayMode' => 'grid',
+                                         'displayMode' => 'combo',
                                          'pathFormatterClass' => '',
                                          'assetInlineDownloadAllowed' => false,
                                          'assetUploadPath' => '/UniProductManagement/Certificates',
@@ -2971,7 +2956,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'labelWidth' => 250,
                  'labelAlign' => 'left',
               )),
-              4 => 
+              1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'approvalState',
                  'title' => 'Approval State',
