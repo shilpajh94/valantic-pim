@@ -165,7 +165,6 @@ class UniProductChangeTrackingService
      */
     private function isCheckboxField(AbstractObject $object, string $field): bool
     {
-        // Fix: Check if object is Concrete before calling getClass()
         if (!$object instanceof Concrete) {
             return false;
         }
@@ -187,7 +186,6 @@ class UniProductChangeTrackingService
     {
         $changes = [];
 
-        // Fix: Check if object is Concrete before calling getClass()
         if (!$object instanceof Concrete) {
             return $changes;
         }
@@ -324,7 +322,6 @@ class UniProductChangeTrackingService
     {
         $changes = [];
 
-        // Fix: Check if object is Concrete before calling getClass()
         if (!$object instanceof Concrete) {
             return $changes;
         }
@@ -551,9 +548,9 @@ class UniProductChangeTrackingService
         }
 
         return ($oldValue === [] && $newValue === null)
-               || ($oldValue === null && $newValue === [])
-               || ($oldValue === '' && $newValue === null)
-               || ($oldValue === null && $newValue === '');
+            || ($oldValue === null && $newValue === [])
+            || ($oldValue === '' && $newValue === null)
+            || ($oldValue === null && $newValue === '');
     }
 
     /**
@@ -637,7 +634,6 @@ class UniProductChangeTrackingService
     {
         $changes = [];
 
-        // Fix: Check if object is Concrete before calling getClass()
         if (!$object instanceof Concrete) {
             return $changes;
         }
@@ -744,7 +740,6 @@ class UniProductChangeTrackingService
      */
     private function getOldDataFromDatabase(AbstractObject $object): array
     {
-        // Fix: Check if object is Concrete before calling getClassName()
         if (!$object instanceof Concrete) {
             return [];
         }
@@ -770,7 +765,6 @@ class UniProductChangeTrackingService
     {
         $data = [];
 
-        // Fix: Check if object is Concrete before calling getClass()
         if (!$object instanceof Concrete) {
             return $data;
         }
@@ -815,7 +809,6 @@ class UniProductChangeTrackingService
      */
     private function getOldRelationDataFromDatabase(AbstractObject $object): array
     {
-        // Fix: Check if object is Concrete before calling getClassName()
         if (!$object instanceof Concrete) {
             return [];
         }
@@ -848,7 +841,6 @@ class UniProductChangeTrackingService
     {
         $data = [];
 
-        // Fix: Check if object is Concrete before calling getClass()
         if (!$object instanceof Concrete) {
             return $data;
         }
@@ -924,7 +916,6 @@ class UniProductChangeTrackingService
     {
         $changes = [];
 
-        // Fix: Check if object is Concrete before calling getClass()
         if (!$object instanceof Concrete) {
             return $changes;
         }
@@ -988,7 +979,6 @@ class UniProductChangeTrackingService
     {
         $data = [];
 
-        // Fix: Check if object is Concrete before calling getClass()
         if (!$object instanceof Concrete) {
             return $data;
         }
@@ -1031,7 +1021,6 @@ class UniProductChangeTrackingService
 
         foreach ($languageValues as $language => $value) {
             if (is_array($value)) {
-                // More type-safe array handling
                 $stringValues = array_filter(
                     array_map('strval', $value),
                     static fn ($v): bool => $v !== '',
