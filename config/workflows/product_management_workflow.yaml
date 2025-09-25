@@ -14,6 +14,9 @@ pimcore:
           color: '#ffcc00'
           permissions:
             -
+              condition: is_fully_authenticated() and ('ROLE_PIMCORE_ADMIN' in role_names)
+              modify: true
+            -
               condition: is_fully_authenticated() and ('ROLE_UNIADMIN' in role_names or 'ROLE_UNIENRICHMENT' in role_names)
               unpublish: false
               delete: false
@@ -30,6 +33,9 @@ pimcore:
           label: 'Pending Approval'
           color: '#ffa500'
           permissions:
+            -
+              condition: is_fully_authenticated() and ('ROLE_PIMCORE_ADMIN' in role_names)
+              modify: true
             -
               condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
               unpublish: false
@@ -55,6 +61,9 @@ pimcore:
           color: '#00cc00'
           permissions:
             -
+              condition: is_fully_authenticated() and ('ROLE_PIMCORE_ADMIN' in role_names)
+              modify: true
+            -
               condition: is_fully_authenticated() and ('ROLE_UNIADMIN' in role_names or 'ROLE_UNIENRICHMENT' in role_names)
               unpublish: false
               delete: false
@@ -71,6 +80,9 @@ pimcore:
           label: 'Rejected'
           color: '#e74c3c'
           permissions:
+            -
+              condition: is_fully_authenticated() and ('ROLE_PIMCORE_ADMIN' in role_names)
+              modify: true
             -
               condition: is_fully_authenticated() and ('ROLE_UNIADMIN' in role_names or 'ROLE_UNIENRICHMENT' in role_names)
               unpublish: false
@@ -89,6 +101,9 @@ pimcore:
           color: '#ffd700'
           permissions:
             -
+              condition: is_fully_authenticated() and ('ROLE_PIMCORE_ADMIN' in role_names)
+              modify: true
+            -
               condition: is_fully_authenticated() and ('ROLE_UNIADMIN' in role_names or 'ROLE_UNIENRICHMENT' in role_names)
               unpublish: false
               delete: false
@@ -105,6 +120,9 @@ pimcore:
           label: 'Archived'
           color: '#808080'
           permissions:
+            -
+              condition: is_fully_authenticated() and ('ROLE_PIMCORE_ADMIN' in role_names)
+              modify: true
             -
               condition: is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names
               unpublish: false
@@ -123,6 +141,9 @@ pimcore:
           color: '#c0392b'
           permissions:
             -
+              condition: is_fully_authenticated() and ('ROLE_PIMCORE_ADMIN' in role_names)
+              modify: true
+            -
               condition: is_fully_authenticated() and ('ROLE_UNIADMIN' in role_names or 'ROLE_UNIENRICHMENT' in role_names)
               unpublish: false
               delete: false
@@ -138,7 +159,11 @@ pimcore:
       transitions:
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::SUBMIT_FOR_APPROVAL->value:
           guard: "is_fully_authenticated() and ('ROLE_UNIADMIN' in role_names or 'ROLE_UNIENRICHMENT' in role_names)"
-          from: [!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CREATED->value, !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::REJECTED->value, !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::DRAFT->value]
+          from:
+            - !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CREATED->value
+            - !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::REJECTED->value
+            - !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::DRAFT->value
+            - !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::EMERGENCY_UNPUBLISHED->value
           to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::PENDING_APPROVAL->value
           options:
             label: 'Submit for Approval'
@@ -167,7 +192,7 @@ pimcore:
               commentEnabled: true
               commentRequired: false
             changePublishedState: 'force_published'
-            iconClass: 'pimcore_icon_publish'
+            iconClass: 'pimcore_icon_accept'
         !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::EDIT_DRAFT->value:
           guard: "is_fully_authenticated() and ('ROLE_UNIADMIN' in role_names or 'ROLE_UNIENRICHMENT' in role_names)"
           from: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::APPROVED->value
