@@ -6,7 +6,11 @@ namespace App\Service\UniProductManagement;
 
 use Pimcore\Db;
 use Pimcore\Model\DataObject\AbstractObject;
+use Pimcore\Model\DataObject\ClassDefinition;
+use Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks;
+use Pimcore\Model\DataObject\Concrete;
+use Pimcore\Model\DataObject\Objectbrick;
 use Psr\Log\LoggerInterface;
 
 class UniProductChangeTrackingService
@@ -21,6 +25,8 @@ class UniProductChangeTrackingService
     /**
      * Compute changes for the current object state.
      * Includes changes for standard fields, object bricks, localized fields, and relation fields.
+     *
+     * @return array<string, array{old: mixed, new: mixed}> Array with field names as keys and change data
      */
     public function computeChanges(AbstractObject $object): array
     {
@@ -71,8 +77,14 @@ class UniProductChangeTrackingService
 
     /**
      * Transform special field values (e.g., "checkbox" or "assignedUser") for better display in history.
+     *
+     * @param AbstractObject $object The object containing the field
+     * @param string $field The field name
+     * @param mixed $value The field value to transform
+     *
+     * @return string|null Transformed string representation or null
      */
-    private function transformSpecialFieldValue(AbstractObject $object, string $field, $value)
+    private function transformSpecialFieldValue(AbstractObject $object, string $field, mixed $value): ?string
     {
         if ($field === 'assignedUser') {
             $userId = (int) $value;
@@ -94,8 +106,12 @@ class UniProductChangeTrackingService
 
     /**
      * Generic value transformation for standard fields.
+     *
+     * @param mixed $value The value to transform
+     *
+     * @return string|null Transformed string representation or null
      */
-    private function transformValue($value): ?string
+    private function transformValue(mixed $value): ?string
     {
         if ($value === null) {
             return 'NULL';
@@ -121,10 +137,10 @@ class UniProductChangeTrackingService
             $name = $value->get('name');
 
             if ($name) {
-                return "$name";
+                return (string) $name;
             }
 
-            return $name ? "<$objectKey>: $name" : $objectKey;
+            return $objectKey;
         }
 
         if (is_object($value)) {
@@ -144,28 +160,37 @@ class UniProductChangeTrackingService
 
     /**
      * Check if a field is a checkbox field.
+     *
+     * @return bool True if the field is a multiselect, select, or checkbox field
      */
     private function isCheckboxField(AbstractObject $object, string $field): bool
     {
-        $class = $object->getClass();
-
-        if ($class) {
-            $fieldDefinition = $class->getFieldDefinition($field);
-
-            return $fieldDefinition instanceof \Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect
-                   || $fieldDefinition instanceof \Pimcore\Model\DataObject\ClassDefinition\Data\Select
-                   || $fieldDefinition instanceof \Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox;
+        // Fix: Check if object is Concrete before calling getClass()
+        if (!$object instanceof Concrete) {
+            return false;
         }
 
-        return false;
+        $class = $object->getClass();
+        $fieldDefinition = $class->getFieldDefinition($field);
+
+        return $fieldDefinition instanceof ClassDefinition\Data\Multiselect
+            || $fieldDefinition instanceof ClassDefinition\Data\Select
+            || $fieldDefinition instanceof ClassDefinition\Data\Checkbox;
     }
 
     /**
-     * Compute changes for the  object brick.
+     * Compute changes for the object brick.
+     *
+     * @return array<string, array{old: mixed, new: mixed}> Array with brick field names as keys and change data
      */
     private function computeObjectBrickChanges(AbstractObject $object): array
     {
         $changes = [];
+
+        // Fix: Check if object is Concrete before calling getClass()
+        if (!$object instanceof Concrete) {
+            return $changes;
+        }
 
         foreach ($object->getClass()->getFieldDefinitions() as $fieldDefinition) {
             if ($fieldDefinition instanceof Objectbricks) {
@@ -179,16 +204,16 @@ class UniProductChangeTrackingService
 
                         if ($brick) {
                             $brickType = $brick->getType();
-                            $brickClassDefinition = \Pimcore\Model\DataObject\Objectbrick\Definition::getByKey($brickType);
+                            $brickClassDefinition = Objectbrick\Definition::getByKey($brickType);
 
                             foreach ($brickClassDefinition->getFieldDefinitions() as $brickFieldDefinition) {
                                 $field = $brickFieldDefinition->getName();
 
-                                if ($brickFieldDefinition instanceof \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields) {
+                                if ($brickFieldDefinition instanceof Localizedfields) {
                                     continue;
                                 }
 
-                                if ($brickFieldDefinition instanceof \Pimcore\Model\DataObject\ClassDefinition\Data\Relations\AbstractRelations) {
+                                if ($brickFieldDefinition instanceof ClassDefinition\Data\Relations\AbstractRelations) {
                                     $oldRelationValue = $oldBrickData[$brickType][$field] ?? [];
                                     $newRelationValue = $brick->get($field);
 
@@ -231,10 +256,16 @@ class UniProductChangeTrackingService
 
     /**
      * Extract the value of a field based on its type.
+     *
+     * @param mixed $fieldDefinition The field definition object
+     * @param object $brick The brick object containing the field
+     * @param string $field The field name to extract
+     *
+     * @return mixed The field value - relation IDs for relation fields, raw value for others
      */
-    private function getFieldValue($fieldDefinition, $brick, $field)
+    private function getFieldValue(mixed $fieldDefinition, object $brick, string $field): mixed
     {
-        if ($fieldDefinition instanceof \Pimcore\Model\DataObject\ClassDefinition\Data\Relations\AbstractRelations) {
+        if ($fieldDefinition instanceof ClassDefinition\Data\Relations\AbstractRelations) {
             return $this->extractRelations($brick->get($field));
         }
 
@@ -243,8 +274,12 @@ class UniProductChangeTrackingService
 
     /**
      * Normalize values for comparison.
+     *
+     * @param mixed $value The value to normalize
+     *
+     * @return array<int, string>|string|object|null Normalized value - arrays become string arrays, strings are trimmed, objects unchanged
      */
-    private function normalizeValue($value): array|string|object|null
+    private function normalizeValue(mixed $value): array|string|object|null
     {
         if (is_array($value)) {
             return array_map('strval', array_values($value));
@@ -269,18 +304,31 @@ class UniProductChangeTrackingService
 
     /**
      * Check if two values are equivalent, considering type differences.
+     *
+     * @param string|object|array<mixed>|null $oldValue The old value to compare
+     * @param string|object|array<mixed>|null $newValue The new value to compare
+     *
+     * @return bool True if values are equivalent
      */
-    private function areValuesEquivalent($oldValue, $newValue): bool
+    private function areValuesEquivalent(string|object|array|null $oldValue, string|object|array|null $newValue): bool
     {
         return $oldValue === $newValue;
     }
 
     /**
      * Compute changes for localized fields inside object bricks - only show changed fields.
+     *
+     * @return array<string, array{old: string|null, new: string|null}> Array with brick field names as keys and formatted change data
      */
     private function computeLocalizedFieldChangesInBricks(AbstractObject $object): array
     {
         $changes = [];
+
+        // Fix: Check if object is Concrete before calling getClass()
+        if (!$object instanceof Concrete) {
+            return $changes;
+        }
+
         $localizedBrickData = $this->getOldLocalizedBrickDataFromDatabase($object);
 
         foreach ($object->getClass()->getFieldDefinitions() as $fieldDefinition) {
@@ -304,8 +352,13 @@ class UniProductChangeTrackingService
 
     /**
      * Process brick data and return changes.
+     *
+     * @param Objectbrick $objectBrickData The object brick data containing brick getters
+     * @param array<string, mixed> $localizedBrickData Localized brick data with brick types as keys
+     *
+     * @return array<string, array{old: string|null, new: string|null}> Array with brick field names as keys and formatted change data
      */
-    private function processBrickData($objectBrickData, array $localizedBrickData): array
+    private function processBrickData(Objectbrick $objectBrickData, array $localizedBrickData): array
     {
         $changes = [];
 
@@ -325,8 +378,13 @@ class UniProductChangeTrackingService
 
     /**
      * Process localized fields for a specific brick - only return changed fields.
+     *
+     * @param object $brick The brick object containing localized fields (must have getLocalizedFields() and getType() methods)
+     * @param array<string, mixed> $localizedBrickData Localized brick data with brick types as keys
+     *
+     * @return array<string, array{old: string|null, new: string|null}> Array with brick field names as keys and formatted change data
      */
-    private function processBrickLocalizedFields($brick, array $localizedBrickData): array
+    private function processBrickLocalizedFields(object $brick, array $localizedBrickData): array
     {
         $changes = [];
         $newLocalizedFields = $brick->getLocalizedFields()->getItems();
@@ -357,6 +415,12 @@ class UniProductChangeTrackingService
 
     /**
      * Get old fields for a specific language.
+     *
+     * @param array<string, mixed> $localizedBrickData Localized brick data with brick types as keys
+     * @param string $brickType The brick type to get data for
+     * @param string $language The language code to get data for
+     *
+     * @return array<string, mixed> Array of field data for the specified language, or empty array if not found
      */
     private function getOldFieldsForLanguage(array $localizedBrickData, string $brickType, string $language): array
     {
@@ -365,6 +429,12 @@ class UniProductChangeTrackingService
 
     /**
      * Compare field values between new and old - only return actual changes.
+     *
+     * @param array<string, mixed> $newFields New field values with field names as keys
+     * @param array<string, mixed> $normalizedOldFields Normalized old field values with field names as keys
+     * @param string $language Language code for the comparison
+     *
+     * @return array<string, array{old: array<string, mixed>, new: array<string, mixed>}> Field changes with field names as keys and language-specific old/new values
      */
     private function compareFieldValues(array $newFields, array $normalizedOldFields, string $language): array
     {
@@ -403,6 +473,11 @@ class UniProductChangeTrackingService
 
     /**
      * Merge field changes arrays.
+     *
+     * @param array<string, array{old: array<mixed>, new: array<mixed>}> $existing Existing field changes
+     * @param array<string, array{old: array<mixed>, new: array<mixed>}> $new New field changes to merge
+     *
+     * @return array<string, array{old: array<mixed>, new: array<mixed>}> Merged field changes
      */
     private function mergeFieldChanges(array $existing, array $new): array
     {
@@ -420,8 +495,13 @@ class UniProductChangeTrackingService
 
     /**
      * Check if a field has actually changed.
+     *
+     * @param mixed $oldValue The old field value
+     * @param mixed $newValue The new field value
+     *
+     * @return bool True if the field has changed
      */
-    private function hasFieldChanged($oldValue, $newValue): bool
+    private function hasFieldChanged(mixed $oldValue, mixed $newValue): bool
     {
         if ($this->shouldSkipChange($oldValue, $newValue)) {
             return false;
@@ -455,8 +535,13 @@ class UniProductChangeTrackingService
 
     /**
      * Check if a change should be skipped.
+     *
+     * @param mixed $oldValue The old field value
+     * @param mixed $newValue The new field value
+     *
+     * @return bool True if the change should be skipped
      */
-    private function shouldSkipChange($oldValue, $newValue): bool
+    private function shouldSkipChange(mixed $oldValue, mixed $newValue): bool
     {
         $oldEmpty = ($oldValue === null || $oldValue === '' || $oldValue === []);
         $newEmpty = ($newValue === null || $newValue === '' || $newValue === []);
@@ -485,6 +570,10 @@ class UniProductChangeTrackingService
 
     /**
      * Normalize the old `levelSpecificData` format to match the new structure dynamically.
+     *
+     * @param array<string, mixed> $oldFields Array with locale keys and nested data
+     *
+     * @return array<string, array<string, mixed>> Normalized array with locale keys and field data
      */
     private function normalizeOldFields(array $oldFields): array
     {
@@ -508,8 +597,12 @@ class UniProductChangeTrackingService
 
     /**
      * Normalize field value based on its type and content.
+     *
+     * @param mixed $value The value to normalize
+     *
+     * @return mixed The normalized value (could be original value, array, or processed string)
      */
-    private function normalizeFieldValue($value)
+    private function normalizeFieldValue(mixed $value): mixed
     {
         if ($value === null || is_array($value)) {
             return $value;
@@ -537,14 +630,22 @@ class UniProductChangeTrackingService
 
     /**
      * Compute changes for relation fields.
+     *
+     * @return array<string, array{old: list<string>, new: list<string>}> Array with relation field names as keys and change data
      */
     private function computeRelationFieldChanges(AbstractObject $object): array
     {
         $changes = [];
+
+        // Fix: Check if object is Concrete before calling getClass()
+        if (!$object instanceof Concrete) {
+            return $changes;
+        }
+
         $oldRelationData = $this->getOldRelationDataFromDatabase($object);
 
         foreach ($object->getClass()->getFieldDefinitions() as $fieldDefinition) {
-            if ($fieldDefinition instanceof \Pimcore\Model\DataObject\ClassDefinition\Data\Relations\AbstractRelations) {
+            if ($fieldDefinition instanceof ClassDefinition\Data\Relations\AbstractRelations) {
                 $fieldName = $fieldDefinition->getName();
                 $relations = $object->get($fieldName);
 
@@ -563,7 +664,14 @@ class UniProductChangeTrackingService
         return $changes;
     }
 
-    private function transformRelationObjectsToNames($relations): array
+    /**
+     * Transform relation objects to their names.
+     *
+     * @param mixed $relations Single object, array of objects, or other relation data
+     *
+     * @return list<string> Array of object names or string representations
+     */
+    private function transformRelationObjectsToNames(mixed $relations): array
     {
         if (!$relations) {
             return [];
@@ -578,6 +686,13 @@ class UniProductChangeTrackingService
         }, is_array($relations) ? $relations : [$relations]);
     }
 
+    /**
+     * Transform relation IDs to object names.
+     *
+     * @param array<mixed>|string|null $relationIds Array of IDs, comma-separated string, or null
+     *
+     * @return list<string> Array of object names or fallback strings
+     */
     private function transformRelationIdsToNames(array|string|null $relationIds): array
     {
         if (is_string($relationIds)) {
@@ -605,8 +720,12 @@ class UniProductChangeTrackingService
 
     /**
      * Helper function to extract relation IDs from a relation field.
+     *
+     * @param mixed $relations Single object, array of objects, or other relation data
+     *
+     * @return list<mixed> Array of relation IDs or values
      */
-    private function extractRelations($relations): array
+    private function extractRelations(mixed $relations): array
     {
         if (!$relations) {
             return [];
@@ -620,10 +739,22 @@ class UniProductChangeTrackingService
 
     /**
      * Retrieve the original data of an object from the database.
+     *
+     * @return array<string, mixed> Array with field names as keys and field values as values
      */
     private function getOldDataFromDatabase(AbstractObject $object): array
     {
-        $classDefinition = \Pimcore\Model\DataObject\ClassDefinition::getByName($object->getClassName());
+        // Fix: Check if object is Concrete before calling getClassName()
+        if (!$object instanceof Concrete) {
+            return [];
+        }
+
+        $classDefinition = ClassDefinition::getByName($object->getClassName());
+
+        if (!$classDefinition instanceof ClassDefinition) {
+            return [];
+        }
+
         $tableName = 'object_' . $classDefinition->getId();
         $sql = "SELECT * FROM $tableName WHERE oo_id = :id";
 
@@ -632,10 +763,18 @@ class UniProductChangeTrackingService
 
     /**
      * Retrieve localized field data for bricks.
+     *
+     * @return array<string, array<string, mixed>> Array with brick types as keys and nested localized data
      */
     private function getOldLocalizedBrickDataFromDatabase(AbstractObject $object): array
     {
         $data = [];
+
+        // Fix: Check if object is Concrete before calling getClass()
+        if (!$object instanceof Concrete) {
+            return $data;
+        }
+
         $classDefinition = $object->getClass();
 
         foreach ($classDefinition->getFieldDefinitions() as $fieldDefinition) {
@@ -671,10 +810,22 @@ class UniProductChangeTrackingService
 
     /**
      * Retrieve relation field data of an object from the database.
+     *
+     * @return array<string, list<mixed>> Array with field names as keys and arrays of destination IDs as values
      */
     private function getOldRelationDataFromDatabase(AbstractObject $object): array
     {
-        $classDefinition = \Pimcore\Model\DataObject\ClassDefinition::getByName($object->getClassName());
+        // Fix: Check if object is Concrete before calling getClassName()
+        if (!$object instanceof Concrete) {
+            return [];
+        }
+
+        $classDefinition = ClassDefinition::getByName($object->getClassName());
+
+        if (!$classDefinition instanceof ClassDefinition) {
+            return [];
+        }
+
         $tableName = 'object_relations_' . $classDefinition->getId();
         $sql = "SELECT * FROM $tableName WHERE src_id = :id";
         $rows = Db::get()->fetchAllAssociative($sql, ['id' => $object->getId()]);
@@ -690,12 +841,19 @@ class UniProductChangeTrackingService
 
     /**
      * Retrieve object brick data of an object from the database.
+     *
+     * @return array<string, array<string, mixed>> Array with brick types as keys and brick data as values
      */
-    private function getOldBrickDataFromDatabase(AbstractObject $object, $objectBrickData): array
+    private function getOldBrickDataFromDatabase(AbstractObject $object, ?Objectbrick $objectBrickData): array
     {
         $data = [];
 
-        if ($objectBrickData) {
+        // Fix: Check if object is Concrete before calling getClass()
+        if (!$object instanceof Concrete) {
+            return $data;
+        }
+
+        if ($objectBrickData instanceof Objectbrick) {
             foreach ($objectBrickData->getBrickGetters() as $brickGetter) {
                 $brick = $objectBrickData->$brickGetter();
 
@@ -715,7 +873,7 @@ class UniProductChangeTrackingService
                         unset($row['fieldname'], $row['id']);
                         $data[$brickType] = $row;
 
-                        $relationData = $this->getRelationData($objectId, $object->getClass()->getId(), $brick->getFieldname());
+                        $relationData = $this->getRelationData($objectId, (string) $object->getClass()->getId(), $brick->getFieldname());
 
                         if ($relationData !== []) {
                             $data[$brickType]['relations'] = $relationData;
@@ -730,8 +888,10 @@ class UniProductChangeTrackingService
 
     /**
      * Get relational data for a specific brick type and fieldname.
+     *
+     * @return array<int, array{dest_id: mixed, type: mixed, index: mixed}> Array of relation data
      */
-    private function getRelationData(?int $objectId, string $brickType, $fieldname): array
+    private function getRelationData(?int $objectId, string $brickType, string $fieldname): array
     {
         $relationData = [];
 
@@ -757,17 +917,26 @@ class UniProductChangeTrackingService
     /**
      * Compute changes for localized fields in normal data objects (not bricks).
      * Only shows the last changed fields.
+     *
+     * @return array<string, array{old: string|null, new: string|null}> Array with field names as keys and change data
      */
     private function computeLocalizedFieldChanges(AbstractObject $object): array
     {
         $changes = [];
+
+        // Fix: Check if object is Concrete before calling getClass()
+        if (!$object instanceof Concrete) {
+            return $changes;
+        }
+
         $localizedFieldData = $this->getOldLocalizedFieldDataFromDatabase($object);
 
         foreach ($object->getClass()->getFieldDefinitions() as $fieldDefinition) {
-            if ($fieldDefinition instanceof \Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields) {
+            if ($fieldDefinition instanceof Localizedfields) {
                 $localizedFields = $object->get($fieldDefinition->getName());
 
                 if ($localizedFields) {
+                    /** @var array<string, array{old: array<string, mixed>, new: array<string, mixed>}> $fieldChanges */
                     $fieldChanges = [];
 
                     foreach ($localizedFields->getItems() as $language => $newFields) {
@@ -810,9 +979,20 @@ class UniProductChangeTrackingService
         return $changes;
     }
 
+    /**
+     * Get old localized field data from database.
+     *
+     * @return array<string, array<string, mixed>> Array with language codes as keys and field data as values
+     */
     private function getOldLocalizedFieldDataFromDatabase(AbstractObject $object): array
     {
         $data = [];
+
+        // Fix: Check if object is Concrete before calling getClass()
+        if (!$object instanceof Concrete) {
+            return $data;
+        }
+
         $objectId = $object->getId();
         $classDefinition = $object->getClass();
         $tableName = 'object_localized_data_' . $classDefinition->getId();
@@ -836,9 +1016,10 @@ class UniProductChangeTrackingService
     /**
      * Format localized values as a string in the format "DE: value, CN: value".
      *
-     * @param array $languageValues Array with language codes as keys and values
+     * @param array<string, string|array<int|string, mixed>|null> $languageValues Array with language codes as keys
+     *                                                                            and string, array, or null as values
      *
-     * @return string Formatted string or null if no values
+     * @return string|null Formatted string or null if no values
      */
     private function formatLocalizedValues(array $languageValues): ?string
     {
@@ -849,10 +1030,16 @@ class UniProductChangeTrackingService
         $formatted = [];
 
         foreach ($languageValues as $language => $value) {
-            if ($value !== null && $value !== '' && $value !== []) {
-                if (is_array($value)) {
-                    $value = implode(', ', $value);
-                }
+            if (is_array($value)) {
+                // More type-safe array handling
+                $stringValues = array_filter(
+                    array_map('strval', $value),
+                    static fn ($v): bool => $v !== '',
+                );
+                $value = implode(', ', $stringValues);
+            }
+
+            if (!empty($value) && is_string($language)) {
                 $formatted[] = strtoupper($language) . ': ' . $value;
             }
         }
