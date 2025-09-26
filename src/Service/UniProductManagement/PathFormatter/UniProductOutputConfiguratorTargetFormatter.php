@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Service\UniProductManagement\PathFormatter;
 
+use Carbon\Carbon;
 use Pimcore\Model\DataObject\ClassDefinition\PathFormatterInterface;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\UniProductBase;
@@ -12,6 +15,13 @@ class UniProductOutputConfiguratorTargetFormatter implements PathFormatterInterf
 {
     protected const BASE_PATH = '/Unified PIM/Product Management/Products';
 
+    /**
+     * @param array<string,mixed> $result
+     * @param array<string,mixed> $targets
+     * @param array<string,mixed> $params
+     *
+     * @return array<string,string>
+     */
     public function formatPath(array $result, ElementInterface $source, array $targets, array $params): array
     {
         foreach ($targets as $key => $item) {
@@ -19,22 +29,22 @@ class UniProductOutputConfiguratorTargetFormatter implements PathFormatterInterf
                 continue;
             }
 
-            $newPath = ($item['path'] ?? $item['fullpath']) . ' - ' . time();
+            $newPath = ($item['path'] ?? $item['fullpath']) . ' - ' . Carbon::now()->timestamp;
 
             $targetObject = Concrete::getById($item['id']);
 
             if ($targetObject instanceof UniProductBase) {
                 $newPath = sprintf(
                     'Finished Good %s: %s - %s',
-                    str_replace(self::BASE_PATH.'/', '', $targetObject->getFullPath()),
+                    str_replace(self::BASE_PATH . '/', '', $targetObject->getFullPath()),
                     $targetObject->getSapMaterialNumber(),
-                    $targetObject->getSapDescription()
+                    $targetObject->getSapDescription(),
                 );
-            } else if ($targetObject instanceof UniProductCategoryInternal) {
+            } elseif ($targetObject instanceof UniProductCategoryInternal) {
                 $newPath = sprintf(
                     'Internal category %s: %s',
-                    str_replace(self::BASE_PATH.'/', '', $targetObject->getFullPath()),
-                    $targetObject->getName()
+                    str_replace(self::BASE_PATH . '/', '', $targetObject->getFullPath()),
+                    $targetObject->getName(),
                 );
             }
 
