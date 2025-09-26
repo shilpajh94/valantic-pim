@@ -50,6 +50,7 @@ return RectorConfig::configure()
     ])
     ->withSkip([
         __DIR__ . '/src/Pimcore',
+        __DIR__ . '/src/Services', // Happiest Minds
         __DIR__ . '/src/Kernel.php',
     ])
     ->withParallel(
