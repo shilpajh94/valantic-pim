@@ -191,7 +191,7 @@ class DefaultController extends FrontendController
                 if ($designfactorId) {
                     foreach ($designfactorId as $id) {
                         $parentObj = \Pimcore\Model\DataObject::getById($id);
-                        if($parentObj->getType() != 'folder'){
+                        if ($parentObj->getType() != 'folder') {
                             $designfactor[] = $parentObj->getName();
                         }
                     }
@@ -212,8 +212,8 @@ class DefaultController extends FrontendController
                             $features[] = $parentObj->getName();
                         }
                     }
-                    if(!empty($features) && !empty($featureIcon)){
-                        $featuresArr = array_combine($features, $featureIcon);    
+                    if (!empty($features) && !empty($featureIcon)) {
+                        $featuresArr = array_combine($features, $featureIcon);
                     }
                 }
                 $brandingLayline = $firstFertProduct->getBrandingLayline();
@@ -291,7 +291,20 @@ class DefaultController extends FrontendController
             } else {
                 $subHeaderRequired = $iconRequired = $orderCode = null;
                 $productAttributesArr = [
-                    $brand, null, null, null, null, null, null, null, null, null, null, null, null, $footer_logo_src,
+                    $brand,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    $footer_logo_src,
                 ];
                 $columnsDataWithImages = [];
                 $assetId = $this->getPdfGeneration($dataArray, $productAttributesArr, $columnsDataWithImages, $subHeaderRequired, $iconRequired, $orderCode);
@@ -340,7 +353,7 @@ class DefaultController extends FrontendController
             if ($designfactorId) {
                 foreach ($designfactorId as $id) {
                     $parentObj = \Pimcore\Model\DataObject::getById($id);
-                    if($parentObj->getType() != 'folder'){
+                    if ($parentObj->getType() != 'folder') {
                         $designfactor[] = $parentObj->getName();
                     }
                 }
@@ -361,10 +374,9 @@ class DefaultController extends FrontendController
                         $features[] = $parentObj->getName();
                     }
                 }
-                if(!empty($features) && !empty($featureIcon)){
-                    $featuresArr = array_combine($features, $featureIcon);    
+                if (!empty($features) && !empty($featureIcon)) {
+                    $featuresArr = array_combine($features, $featureIcon);
                 }
-                
             }
             $brandingLayline = $firstFertProduct->getBrandingLayline();
 
@@ -453,10 +465,11 @@ class DefaultController extends FrontendController
 
     public function getPdfGeneration($dataArray, $productAttributesArr, $columnsDataWithImages, $subHeaderRequired, $iconRequired, $orderCode)
     {
+        //define('BASE_URL', (isset($_SERVER['HTTPS']) ? "http" : "http") . "://" . $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'));
 
         $html  = '<!DOCTYPE html>';
         $html .= "<html>";
-        $html .= '<head><title>Spec Sheet Export</title><link rel="stylesheet" type="text/css" href="/static/css/print_style.css" /></head>';
+        $html .= "<head><title>Spec Sheet Export</title><link rel='stylesheet' type='text/css' href='/static/css/print_style.css' /></head>";
         $html .= "<body>";
 
         $html .= "

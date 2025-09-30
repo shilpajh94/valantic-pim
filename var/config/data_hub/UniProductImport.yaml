@@ -8,7 +8,7 @@ pimcore_data_hub:
                 group: ''
                 active: false
                 path: null
-                modificationDate: 1756886600
+                modificationDate: 1758728311
                 createDate: 1756777034
             loaderConfig:
                 type: asset
@@ -30,13 +30,21 @@ pimcore_data_hub:
                         language: ''
                         includeUnpublished: true
                 createLocationStrategy:
-                    type: findOrCreateFolder
+                    type: findParent
                     settings:
+                        findStrategy: path
+                        attributeDataObjectClassId: ''
+                        attributeName: ''
+                        attributeLanguage: ''
                         dataSourceIndex: '2'
                         fallbackPath: /
                 locationUpdateStrategy:
-                    type: findOrCreateFolder
+                    type: findParent
                     settings:
+                        findStrategy: path
+                        attributeDataObjectClassId: ''
+                        attributeName: ''
+                        attributeLanguage: ''
                         dataSourceIndex: '2'
                         fallbackPath: /
                 publishingStrategy:
@@ -74,32 +82,39 @@ pimcore_data_hub:
                             writeIfSourceIsEmpty: false
                     transformationPipeline: {  }
                 -
-                    label: 'Fitting 1 Type (Type: Many-To-One Relation)'
+                    label: heightMetric
                     dataSourceIndex:
                         - '3'
                     settings:
-                        loadStrategy: attribute
-                        attributeDataObjectClassId: UNI_PR_FHS_ML_FT
-                        attributeName: name
-                        attributeLanguage: en
-                        loadUnpublished: 'on'
-                    transformationResultType: dataObject
+                        unitSourceSelect: static
+                        staticUnitSelect: distance_mm
+                    transformationResultType: quantityValue
                     dataTarget:
                         type: direct
                         settings:
-                            fieldName: productGroupSpecific.UniPrFgFhs.fitting1Type
+                            fieldName: productGroupSpecific.UniPrFgPts.heightMetric
                             language: ''
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
                     transformationPipeline:
                         -
                             settings:
-                                loadStrategy: attribute
-                                attributeDataObjectClassId: UNI_PR_FHS_ML_FT
-                                attributeName: name
-                                attributeLanguage: en
-                                loadUnpublished: 'on'
-                            type: loadDataObject
+                                unitSourceSelect: static
+                                staticUnitSelect: distance_mm
+                            type: quantityValue
+                -
+                    label: oldMaterialNumber
+                    dataSourceIndex:
+                        - '4'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: oldMaterialNumber
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
             executionConfig:
                 scheduleType: recurring
                 cronDefinition: ''

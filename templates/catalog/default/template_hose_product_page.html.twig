@@ -10,7 +10,7 @@
             "subtypes": {
                 "object": ["object"]
             },
-            "classes": ["CatalogTables"]
+            "classes": ["CatalogTables", "SpecSheetCatalog"]
         })}}
 	{% endif %}
 		<style>
@@ -219,19 +219,11 @@
 									{% endif %}
 								</p>
 								{% if editmode %}
-									{% set imgSrcObj1 = pimcore_image("HHPP_Image_Left_" ~ md5key ~ "_" ~ incr2) %}
-									{% if not imgSrcObj1.isEmpty() %}
-										{{ pimcore_image("HHPP_Image_Left_" ~ md5key ~ "_" ~ incr2, {"class": "leftImg", "width": 600, "height": 200}) }}
-									{% else %}
-										{{ pimcore_image("HHPP_Image_Left_" ~ md5key ~ "_" ~ incr2, {"class": "leftImg", "width": 600, "height": 200}).setImage(brandData['LeftPrintCatalogImageObj']) | raw}}
-									{% endif %}
 
-									{% set imgSrcObj2 = pimcore_image("HHPP_Image_Right_" ~ md5key ~ "_" ~ incr2) %}
-									{% if not imgSrcObj2.isEmpty() %}
-										{{ pimcore_image("HHPP_Image_Right_" ~ md5key ~ "_" ~ incr2, {"class": "rightImg", "width": 600, "height": 200}) }}
-									{% else %}
-										{{ pimcore_image("HHPP_Image_Right_" ~ md5key ~ "_" ~ incr2, {"class": "rightImg", "width": 600, "height": 200}).setImage(brandData['RightPrintCatalogImageObj']) | raw}}
-									{% endif %}
+										<img src="{{ getImageThumbnail(brandData['LeftPrintCatalogImageObj'], imageWidth) }}" class="leftImg" width="600" height="200"/>
+										{% if brandData['RightPrintCatalogImageObj'] %}
+											<img src="{{ getImageThumbnail(brandData['RightPrintCatalogImageObj'], imageWidth) }}" class="rightImg" width="600" height="200"/>
+										{% endif %}
 								{% else %}
 									{% set imgSrcObj1 = pimcore_image("HHPP_Image_Left_" ~ md5key ~ "_" ~ incr2, {"class": "leftImg", "width": 600, "height": 200}) %}
 									{% if imgSrcObj1 %}

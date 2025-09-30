@@ -10,6 +10,10 @@ return Valantic\PhpCsFixerConfig\ConfigFactory::createValanticConfig([])
                 __DIR__ . '/.ci',
             ])
             ->name(['*.php', '*.stub'])
+            ->notPath([ // Happiest Minds
+                'Services',
+                'Kernel.php',
+            ])
     )
     ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
     ->setRiskyAllowed(true);

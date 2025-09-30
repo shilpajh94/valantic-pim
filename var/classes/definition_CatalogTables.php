@@ -17,6 +17,7 @@
  * - Columns [textarea]
  * - ProductsData [table]
  * - headerData [textarea]
+ * - SortingColumns [textarea]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -26,7 +27,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1706469126,
+   'modificationDate' => 1750059157,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -147,7 +148,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'options' => NULL,
                      'defaultValue' => '',
                      'columnLength' => 190,
                      'dynamicOptions' => false,
@@ -306,6 +306,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'maxItems' => NULL,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
+                     'defaultValue' => NULL,
                      'height' => '',
                      'width' => '',
                      'optionsProviderType' => NULL,
@@ -366,6 +367,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'maxItems' => NULL,
                      'renderType' => 'tags',
                      'dynamicOptions' => false,
+                     'defaultValue' => NULL,
                      'height' => '',
                      'width' => '',
                      'optionsProviderType' => NULL,
@@ -521,6 +523,80 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
                  'name' => 'headerData',
                  'title' => 'Header Data',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'maxLength' => NULL,
+                 'showCharCount' => false,
+                 'excludeFromSearchIndex' => false,
+                 'height' => '',
+                 'width' => '',
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '',
+             'labelWidth' => 100,
+             'labelAlign' => 'left',
+          )),
+          2 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'Sorting',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Sorting',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+                 'name' => 'SortingHeaders',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => 'Sorting Columns',
+                 'width' => 0,
+                 'height' => 0,
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'fieldset',
+                 'labelWidth' => 100,
+                 'labelAlign' => 'left',
+              )),
+              1 => 
+              \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+                 'name' => 'SortingColumns',
+                 'title' => 'SortingColumns',
                  'tooltip' => '',
                  'mandatory' => false,
                  'noteditable' => false,

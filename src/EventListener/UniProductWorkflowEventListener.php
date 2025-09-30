@@ -16,7 +16,7 @@ use Symfony\Component\Workflow\Registry;
 
 class UniProductWorkflowEventListener implements EventSubscriberInterface
 {
-    private const RESET_TO_APPROVAL = 'reset_to_approval';
+    public const SKIP_WORKFLOW_LISTENER = 'skip_workflow_listener';
 
     public function __construct(
         private readonly Registry $workflowRegistry,
@@ -42,7 +42,7 @@ class UniProductWorkflowEventListener implements EventSubscriberInterface
         // when resetting the status to approved.
         if (
             !$object instanceof UniProductBase
-            || ($event->hasArgument(self::RESET_TO_APPROVAL) && $event->getArgument(self::RESET_TO_APPROVAL) === true)
+            || ($event->hasArgument(self::SKIP_WORKFLOW_LISTENER) && $event->getArgument(self::SKIP_WORKFLOW_LISTENER) === true)
         ) {
             return;
         }
@@ -89,6 +89,6 @@ class UniProductWorkflowEventListener implements EventSubscriberInterface
 
         // Reset workflow state
         $object->setApprovalState(ProductApprovalWorkflowPlace::APPROVED->value);
-        $object->save([self::RESET_TO_APPROVAL => true]);
+        $object->save([self::SKIP_WORKFLOW_LISTENER => true]);
     }
 }

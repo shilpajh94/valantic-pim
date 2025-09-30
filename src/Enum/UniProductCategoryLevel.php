@@ -17,6 +17,20 @@ enum UniProductCategoryLevel: string implements OptionsProviderSupport
     case PRODUCT_VARIANT = 'PRODUCT_VARIANT';
     case FINISHED_GOOD = 'FINISHED_GOOD';
 
+    public static function fromLevelNumber(int $level): self
+    {
+        return match ($level) {
+            1 => self::PRODUCT_GROUP,
+            2 => self::CATEGORY,
+            3 => self::SUB_CATEGORY,
+            4 => self::HIGH_LEVEL_BRAND,
+            5 => self::PRODUCT_LINE,
+            6 => self::PRODUCT_VARIANT,
+            7 => self::FINISHED_GOOD,
+            default => throw new \InvalidArgumentException(sprintf('Invalid level number: %s', $level)),
+        };
+    }
+
     public function label(): string
     {
         return match ($this) {

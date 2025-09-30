@@ -1,19 +1,18 @@
 <?php
 
-if (CUSTOM_ENV == "qc") {
-
-    define("CDN_ENABLE", 0);
-    define("CDN_HOST", "https://test_cdn");
+if (CUSTOM_ENV == "qc" || CUSTOM_ENV == "dev") {	
+	define("CDN_ENABLE", 1);
+    define("CDN_HOST", "https://d1iu74bzymbqn3.cloudfront.net");
     define("S3_HOST", "https://s3.us-east-1.amazonaws.com");
-    define("S3_BUCKET", "megha-pim");
-    define("S3_KEY", "AKIAZI2LIJSNHSLUSOAZ");
-    define("S3_SECRET", "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");
-    define("S3_REGION", "us-east-1");
+    define("S3_BUCKET", "pimcore11-contitech-assets-qa");
+   // define("S3_KEY", "AKIAZI2LIJSNHSLUSOAZ");
+    //define("S3_SECRET", "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");
+    define("S3_REGION", "eu-central-1");
  
-    define("S3_BUCKET_BW_SAP_ARCHIVE", "megha-pim");
-    define("S3_KEY_BW_SAP_ARCHIVE", "AKIAZ6MFIGPTWVTS2K6D");
-    define("S3_SECRET_BW_SAP_ARCHIVE", "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");
-    define("S3_REGION_BW_SAP_ARCHIVE", "us-east-1");
+    define("S3_BUCKET_BW_SAP_ARCHIVE", "pimcore11-contitech-assets-qa");
+   // define("S3_KEY_BW_SAP_ARCHIVE", "AKIAZ6MFIGPTWVTS2K6D");
+    //define("S3_SECRET_BW_SAP_ARCHIVE", "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");
+    define("S3_REGION_BW_SAP_ARCHIVE", "eu-central-1");
     define("S3_BW_SAP_ARCHIVE_DIRECTORY", "SAP_import_archived_files/");
     
 //     define("S3_BUCKET_BW_SAP_ARCHIVE", "pim-sap-import-archive-prod");

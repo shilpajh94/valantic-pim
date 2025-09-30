@@ -1,0 +1,14 @@
+pimcore:
+    documents:
+        doc_types:
+            definitions:
+                01f31bb4-44b1-4e06-8129-b8fe9e3a59z8:
+                    name: 'Spec Sheet Hydraulic Fitting'
+                    group: 'Spec Sheet'
+                    controller: 'CatalogBundle\Controller\HydraulicFittingController::fittingPageAction'
+                    template: catalog/fitting/hydraulic_fitting.html.twig
+                    type: printpage
+                    priority: 0
+                    creationDate: 1710333930
+                    modificationDate: 1710422884
+                    staticGeneratorEnabled: false

@@ -32,19 +32,33 @@ class CopySapDescriptionIntoProductShortDescriptionCommand extends AbstractComma
         $select = "SELECT Distinct oo_id FROM object_1";
         $join = " INNER JOIN object_localized_data_1 on object_1.oo_id = object_localized_data_1.ooo_id";
         $productTypeCondition = "ProductType = 'fert'";
-        $languageCondition = "object_localized_data_1.language = 'en' ";
-        $productShortDescriptionCondition = "(object_localized_data_1.productShortDescription is NULL OR 
-                                                object_localized_data_1.productShortDescription = '' OR 
-                                                object_localized_data_1.productShortDescription = 'NULL')";
+        $enLanguageCondition = "object_localized_data_1.language = 'en' ";
+        $esLanguageCondition = "object_localized_data_1.language = 'es' ";
+        $ptLanguageCondition = "object_localized_data_1.language = 'pt' ";
+        $productShortDescriptionCondition = "object_localized_data_1.sapDescription IS NOT NULL AND
+            object_localized_data_1.sapDescription != '' AND
+            (object_localized_data_1.productShortDescription is NULL OR
+            object_localized_data_1.productShortDescription = '' OR
+            object_localized_data_1.productShortDescription = 'NULL')";
 
-        $sql = $select.$join." Where ". $productTypeCondition." And ".$languageCondition." And ".$productShortDescriptionCondition;
+        $sql1 = $select.$join." Where ". $productTypeCondition." And ".
+            $enLanguageCondition." And ".$productShortDescriptionCondition;
+        $sql2 = $select.$join." Where ". $productTypeCondition." And ".
+            $esLanguageCondition." And ".$productShortDescriptionCondition;
+        $sql3 = $select.$join." Where ". $productTypeCondition." And ".
+            $ptLanguageCondition." And ".$productShortDescriptionCondition;
         try{
-            $modifiedEmptyProductShortDescriptionProductIds = $this->db->fetchFirstColumn($sql);
+            $modifiedEmptyProductShortDescriptionEnProductIds = $this->db->fetchFirstColumn($sql1);
+            $modifiedEmptyProductShortDescriptionEsProductIds = $this->db->fetchFirstColumn($sql2);
+            $modifiedEmptyProductShortDescriptionPtProductIds = $this->db->fetchFirstColumn($sql3);
         }catch (\Exception $exception){
             Logger::error("Exception: " . $exception->getMessage());
             throw new \Exception("An unexpected error occurred.");
         }
-
+        $modifiedEmptyProductShortDescriptionProductIds = array_merge(
+        $modifiedEmptyProductShortDescriptionEnProductIds,
+        $modifiedEmptyProductShortDescriptionEsProductIds,
+        $modifiedEmptyProductShortDescriptionPtProductIds);
         $totalCount = count($modifiedEmptyProductShortDescriptionProductIds);
         echo 'Number of Products - '.$totalCount;
         echo PHP_EOL;
@@ -57,6 +71,10 @@ class CopySapDescriptionIntoProductShortDescriptionCommand extends AbstractComma
                     if($productObj){
                         $sapDescription = $productObj->getSapDescription("en");
                         $productObj->setProductShortDescription($sapDescription,"en");
+                        $sapDescription = $productObj->getSapDescription("es");
+                        $productObj->setProductShortDescription($sapDescription,"es");
+                        $sapDescription = $productObj->getSapDescription("pt");
+                        $productObj->setProductShortDescription($sapDescription,"pt");
                         $productObj->save();
                         echo ++$i .' - '.$productObj->getArticleNumber();
                         echo PHP_EOL;

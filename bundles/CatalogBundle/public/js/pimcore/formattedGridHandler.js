@@ -21,10 +21,11 @@ pimcore.plugin.formattedGridHandler = Class.create({
     },
 
     setUpFormattedGrid: function (e) {
-        // alert('yes');
-        var objectClassName = e.detail.object.data.general.className;
+
+        let objectClassName = e.detail.object.data.general.className;
         let dataFields = e.detail.object.edit.dataFields;
-        if (objectClassName == 'CatalogTables') {
+		let objId = e.detail.object.id;
+        if (objectClassName == 'CatalogTables' || objectClassName == 'SpecSheetCatalog') {
             var objectId = e.detail.object.id;
             let headerDataFieldName = 'Columns';
             let tabIndexContainingFormatedTable = 1;
@@ -44,7 +45,12 @@ pimcore.plugin.formattedGridHandler = Class.create({
                 let formattedTableCompleteField = element.items.getRange()[indexOfFormattedTableOnTab];
                  
                 let formattedTableGrid = formattedTableCompleteField.items.getRange()[0];
-               // console.log(formattedTableGrid);
+
+			   var URL = "/catalog/get-table-data";
+			   if(objectClassName == 'SpecSheetCatalog'){
+				   
+				   URL = "/specsheet/get-table-data";
+			   }
 
                 this.updateTableButton = Ext.create('Ext.Button', {
                     text: 'Update Table',
@@ -56,13 +62,17 @@ pimcore.plugin.formattedGridHandler = Class.create({
                     iconCls: "plt_icon_plt_generate_button_icon",
                     cls: "plt_lightgrey_button",
                     handler: function () {
-                        console.log('Update Table Button Clicked');
+                      //  console.log('Update Table Button Clicked');
                         Ext.Ajax.request({
-                            url: "/catalog/get-table-data",
+                            url: URL,
                             async: false,
-                            params:{'objId' : e.detail.object.id},
+                            params:{'objId' : e.detail.object.id, className : objectClassName},
                             success: function (response) {
                                 response = Ext.decode(response.responseText);
+								if(response.brandAndNomenClatureValueCheck == false){
+									Ext.Msg.alert("Status","Please select at least one field value from either Brand or Nomenclature.");
+									return false;
+								}
 
                                 var store = Ext.create('Ext.data.Store', {
                                     fields  : response.fieldData,
@@ -81,8 +91,6 @@ pimcore.plugin.formattedGridHandler = Class.create({
                                 });
 
                                  var columns = response.columnData;
-                                // columns.data = response.columnData;
-                                 //   console.log(e.detail.object.data);
                                 let headerJson = [];
                                 
                                 var table = new Catalog.pimcore.object.tags.table([["1","1"],['2','2']],e.detail.object.edit.dataFields.ProductsData.fieldConfig);
@@ -90,19 +98,70 @@ pimcore.plugin.formattedGridHandler = Class.create({
                                // console.log(e.detail.object.edit.dataFields.ProductsData.component.id);
                                 var comp = Ext.getCmp(e.detail.object.edit.dataFields.ProductsData.component.id);
                                // console.log(comp);
-                                table.initStore(response.data,comp,e.detail.object.edit.dataFields.ProductsData,columns);
-                                console.log(e.detail.object);
+                                table.initStore(response.data,comp,e.detail.object.edit.dataFields.ProductsData,columns, objectClassName, e);
                                 var headerComp = Ext.getCmp(e.detail.object.edit.dataFields.headerData.component.id);
                                
                                 headerComp.setValue(response.headerData);
+								if(objectClassName == 'SpecSheetCatalog'){
+									 response.customRecords.forEach(function (item) {
+										Ext.getCmp('CatalogDataGrid_'+e.detail.object.id).getSelectionModel().select(item,true,false);
+
+									});			
+								}
                                 
                             }.bind(this)
                         });
                         
                     }.bind(this)
                 });
-
-                panelContainingFormattedTable.insert(0, this.updateTableButton);
+				 panelContainingFormattedTable.insert(0, this.updateTableButton);
+				if(objectClassName == 'SpecSheetCatalog'){
+				
+				  this.updateCustomSelectionButton = Ext.create('Ext.Button', {
+                    text: 'Update Custom Products',
+                    tooltip: 'Save Custom Products Selection',
+                    style: {
+                        'margin-bottom': '10px',
+						'margin-left': '10px',
+                    },
+                    // scale:"medium",
+                    iconCls: "plt_icon_plt_generate_button_icon",
+                    cls: "plt_lightgrey_button",
+					id: "customButton_"+e.detail.object.id,
+                    handler: function () {
+						
+						
+				    var selection = Ext.getCmp('CatalogDataGrid_'+e.detail.object.id).getSelection();
+					
+                    var fieldArray = new Array();
+                    for(let i in selection){
+						if(selection[i].data["SAP Number"]){
+                          fieldArray.push(selection[i].data["SAP Number"]);
+						} else if(selection[i].data["SAP #"]){
+						  fieldArray.push(selection[i].data["SAP #"]);
+						}
+                    }
+                   // if(selection.length){
+                        var selectFertForExportListArr = JSON.parse("[" + fieldArray.join() + "]");
+                        Ext.Ajax.request({
+                            url : '/specsheet/addCustomSelection',
+                            params : {
+                                objectId: e.detail.object.id,
+                                data: JSON.stringify(selectFertForExportListArr),
+                            },
+                            success : function(r){
+                                //var res = Ext.decode(r.responseText);
+                                
+                            },
+                        });
+                   // }
+                        
+                    }.bind(this)
+                });
+				
+				panelContainingFormattedTable.insert(1, this.updateCustomSelectionButton);
+				
+				}
                 
             }.bind(this));
         }

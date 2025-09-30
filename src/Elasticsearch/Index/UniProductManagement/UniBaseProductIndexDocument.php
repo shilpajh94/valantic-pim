@@ -110,7 +110,7 @@ class UniBaseProductIndexDocument extends AbstractDocument
             $result[] = $this->getNormalizedObjectbrick($objectBrick, self::FINISHED_GOOD_PRODUCT_GROUP_SPECIFIC_PREFIX);
         }
 
-        return array_merge(...$result);
+        return array_merge_recursive(...$result);
     }
 
     /** @return array<string, mixed> */

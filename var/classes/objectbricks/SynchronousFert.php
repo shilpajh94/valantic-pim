@@ -2,16 +2,13 @@
 
 /**
  * Fields Summary:
- * - pitchUOM [select]
- * - pitchIN [numeric]
- * - pitchMM [numeric]
  * - numberOfTeeth [numeric]
- * - pitchLengthUOM [select]
  * - pitchLengthIN [numeric]
+ * - pitchLengthUOM [select]
  * - pitchLengthMM [numeric]
  */
 
-return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
+return \Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'dao' => NULL,
    'key' => 'SynchronousFert',
    'parentClass' => '',
@@ -19,7 +16,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
    'title' => '',
    'group' => 'Synchronous',
    'layoutDefinitions' => 
-  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => NULL,
      'type' => NULL,
      'region' => NULL,
@@ -33,7 +30,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
      'children' => 
     array (
       0 => 
-      Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+      \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -47,7 +44,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
              'name' => 'Field Container',
              'type' => NULL,
              'region' => NULL,
@@ -61,7 +58,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'children' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -75,108 +72,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                     'name' => 'pitchUOM',
-                     'title' => 'Pitch UOM',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'options' => 
-                    array (
-                      0 => 
-                      array (
-                        'key' => 'IN',
-                        'value' => 'IN',
-                      ),
-                      1 => 
-                      array (
-                        'key' => 'MM',
-                        'value' => 'MM',
-                      ),
-                    ),
-                     'defaultValue' => '',
-                     'columnLength' => 190,
-                     'dynamicOptions' => false,
-                     'defaultValueGenerator' => '',
-                     'width' => 300,
-                     'optionsProviderType' => NULL,
-                     'optionsProviderClass' => '',
-                     'optionsProviderData' => '',
-                  )),
-                  1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'name' => 'pitchIN',
-                     'title' => 'Pitch (in)',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => true,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => 3,
-                     'width' => 300,
-                     'defaultValueGenerator' => '',
-                  )),
-                  2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'name' => 'pitchMM',
-                     'title' => 'Pitch (MM)',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => true,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => 1,
-                     'width' => 300,
-                     'defaultValueGenerator' => '',
-                  )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'numberOfTeeth',
                      'title' => 'Number of teeth',
                      'tooltip' => '',
@@ -205,6 +101,36 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'width' => 300,
                      'defaultValueGenerator' => '',
                   )),
+                  1 => 
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                     'name' => 'pitchLengthIN',
+                     'title' => 'Pitch Length (in)',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'defaultValue' => NULL,
+                     'integer' => false,
+                     'unsigned' => true,
+                     'minValue' => NULL,
+                     'maxValue' => NULL,
+                     'unique' => false,
+                     'decimalSize' => NULL,
+                     'decimalPrecision' => 3,
+                     'width' => 300,
+                     'defaultValueGenerator' => '',
+                  )),
                 ),
                  'locked' => false,
                  'blockedVarsForExport' => 
@@ -217,7 +143,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'labelAlign' => 'left',
               )),
               1 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+              \Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
                  'name' => 'Field Container',
                  'type' => NULL,
                  'region' => NULL,
@@ -231,7 +157,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                      'name' => 'pitchLengthUOM',
                      'title' => 'Pitch Length UOM',
                      'tooltip' => '',
@@ -267,42 +193,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'dynamicOptions' => false,
                      'defaultValueGenerator' => '',
                      'width' => 300,
-                     'optionsProviderType' => NULL,
+                     'optionsProviderType' => 'configure',
                      'optionsProviderClass' => '',
                      'optionsProviderData' => '',
                   )),
                   1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
-                     'name' => 'pitchLengthIN',
-                     'title' => 'Pitch Length (in)',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => 'margin-left: 20px;',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'defaultValue' => NULL,
-                     'integer' => false,
-                     'unsigned' => true,
-                     'minValue' => NULL,
-                     'maxValue' => NULL,
-                     'unique' => false,
-                     'decimalSize' => NULL,
-                     'decimalPrecision' => 3,
-                     'width' => 300,
-                     'defaultValueGenerator' => '',
-                  )),
-                  2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                  \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                      'name' => 'pitchLengthMM',
                      'title' => 'Pitch Length (MM)',
                      'tooltip' => '',

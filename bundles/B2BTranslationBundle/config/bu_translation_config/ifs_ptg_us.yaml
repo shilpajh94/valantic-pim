@@ -1082,7 +1082,7 @@ parameters:
             fieldName: pitchUOM
             sqlQuery: "pitchUOM"
             fieldLocation: objectbrick
-            objectBrickClassName: SynchronousFert
+            objectBrickClassName: PTGSkeleton
             isLocalized: false
         minBoreMm:
             className: ''
@@ -1180,14 +1180,14 @@ parameters:
             fieldName: pitchIN
             sqlQuery: "pitchIN"
             fieldLocation: objectbrick
-            objectBrickClassName: SynchronousFert
+            objectBrickClassName: PTGSkeleton
             isLocalized: false
         pitchMM:
             className: ''
             fieldName: pitchMM
             sqlQuery: "pitchMM"
             fieldLocation: objectbrick
-            objectBrickClassName: SynchronousFert
+            objectBrickClassName: PTGSkeleton
             isLocalized: false
         pitchLengthIN:
             className: ''

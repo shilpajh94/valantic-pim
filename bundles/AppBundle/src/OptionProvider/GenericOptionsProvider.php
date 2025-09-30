@@ -55,9 +55,12 @@ class GenericOptionsProvider implements SelectOptionsProviderInterface {
                     foreach ($listingObject as $object) {
                         $displayFieldGetter = "get" . ucfirst($displayFieldName);
                         $name = $object->$displayFieldGetter();
+						// Arun was here to put check for consider only not null values
+						if(isset($name) && !empty($name)){
                         $allAvailablelArray[] = array(
                             "key" => $name, "value" => $object->getId()
                         );
+						}
                     }
 
                     if(!empty($allAvailablelArray))
@@ -79,7 +82,7 @@ class GenericOptionsProvider implements SelectOptionsProviderInterface {
      */
     public function getDefaultValue(array $context, Data $fieldDefinition): ?string
     {
-        return true;
+        return false;
     }
 
     /**

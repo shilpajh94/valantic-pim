@@ -354,6 +354,7 @@ class PlantMaterialService
         $deleteCount = 0;
         if(count($deletedRecords) > 0)
         {
+            echo count($deletedRecords).' records found to be unpublished'.PHP_EOL;
             foreach ($deletedRecords as $key => $value)
             {
                 $keyArray = explode('$',$value['id']);
@@ -362,11 +363,15 @@ class PlantMaterialService
                 $objDelete = DataObject\PTGEUPlantMaterialMaster::getByPath("/".ImportConstants::
                 PTGEU_MATERIAL_MASTER_PLANT_MATERIAL_MASTER_FOLDER."/".$material."/".$key);
 
-                if($objDelete)
+                if($objDelete && $objDelete->getPublished())
                 {
                     $deleteCount++;
                     $objDelete->setPublished(false);
                     $objDelete->save();
+                    if($deleteCount % 1000 == 0){
+                        echo $deleteCount .'/'.count($deletedRecords).' unpublished'.PHP_EOL;
+                    }
+
                 }
             }
 

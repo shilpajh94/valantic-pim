@@ -313,6 +313,10 @@ sup {
     margin-bottom: 15px;
 }
 
+.marginBottom17 {
+    margin-bottom: 17px;
+}
+
 .marginBottom10 {
     margin-bottom: 10px;
 }
@@ -970,6 +974,21 @@ h3 .pimcore_tag_input.empty {
     margin: 15px 8px;
 }
 
+.products-hose-tile {
+    min-height: 165px;
+}
+
+/* .products-hose-tile figcaption{
+    margin-left: 5px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 12px;
+    max-width: 75%;
+    padding-left: 5px;
+} */
+
 .products figcaption {
     margin-left: 5px;
     position: relative;
@@ -1057,6 +1076,12 @@ section.spacing {
 .img-placeholder img {
     max-width: 100%;
     height: auto;
+}
+
+
+.img-placeholder2 img {
+    max-width: 43px !important;
+    max-height: 165px !important;
 }
 
 aside p {
@@ -2291,7 +2316,10 @@ margin-right:20px;
 
 
 .inh-section-break .grid{
+    /* break-before: avoid; */
     break-before: avoid;
+    break-after: avoid;
+    break-inside: auto;
 }
 
 /*.continueLable{ border:1px solid red;}*/
@@ -2299,6 +2327,11 @@ margin-right:20px;
 .page-break-inside-avoid{
     page-break-inside: avoid;
 }
+
+.page-break-inside-auto{
+    page-break-inside: auto;
+}
+
 .brandingLaylineStyle
 {
     letter-spacing: 0.15em;

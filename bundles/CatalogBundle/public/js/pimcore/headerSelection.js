@@ -27,16 +27,12 @@ pimcore.plugin.headerSelection = Class.create({
         var objectClassName = object.data.general.className;
 
 
-        if (objectClassName == 'CatalogTables') {
+        if (objectClassName == 'CatalogTables' || objectClassName == 'SpecSheetCatalog') {
             var headerDataFieldName = 'Columns';
             var dataFields = object.edit.dataFields;
             var headerDataComponent = dataFields[headerDataFieldName].component;
-            // console.log(headerDataComponent);
-            
             var objectEditParentPanel = object.edit.layout.items.items[0];
-            
             var objectEditParentPanelItems = objectEditParentPanel.items;
-            // console.log(objectEditParentPanelItems);
             var panelContainingConfiguration = objectEditParentPanelItems.items[tabIndexContainingConfiguration];
 
             var panelContainingConfigurationItems = panelContainingConfiguration.items.getRange();
@@ -99,11 +95,8 @@ pimcore.plugin.headerSelection = Class.create({
                 toTitle: 'Selected',
                 listeners: {
                     change: function (field, newValue, oldValue, eOpts) {
-                        // console.log(my_item_selector_instance);
-                        // console.log(my_item_selector_instance);
+                        
                         let selectedHeaders = my_item_selector_instance.getValue();
-                        // console.log(selectedHeaders);
-                        // console.log(completeData);
                         // setting selected headers in selectedHeadersField
                         let formatedSelectedHeaders = this.formatHeaderDataForSave(selectedHeaders, completeData);
                         formatedSelectedHeaders = JSON.stringify(formatedSelectedHeaders);
@@ -156,27 +149,16 @@ pimcore.plugin.headerSelection = Class.create({
         return returnData;
     },
     formatHeaderDataForSave: function (data, completeData) {
-        let returnData = {};
-
-        // now doing this in php for applied header
-        // if (data.length > 0) {
-        //     returnData['id'] = this.idColumnConfig;
-        // }
- 
-        for (let i = 0; i < data.length; i++) {
-           // console.log(completeData);
+           let returnData = {};
+            for (let i = 0; i < data.length; i++) {
           
             var completeHeaderData = completeData[data[i]];
-            // console.log(completeHeaderData)
             header = {
                 "columnName": data[i],
                 "columnLabel": completeHeaderData.fieldLabel,
                 "groupName": completeHeaderData.groupName,
                 "unitName": completeHeaderData.unitName,
                 "columnWidth": completeHeaderData.columnWidth,
-                // "columnName": data[i],
-                // "columnWidth": completeHeaderData[1],
-                // "columnLabel": completeHeaderData[2]
             };
             returnData[data[i]] = header;
         }
@@ -185,4 +167,3 @@ pimcore.plugin.headerSelection = Class.create({
 
 });
 
-//var headerSelection = new pimcore.plugin.headerSelection();
