@@ -25,9 +25,16 @@ pimcore:
                         hidden: false
                         id: 544ec849-31fc-1a27-a602-33da4b6369eb
                     -
-                        type: assets
+                        type: customview
                         position: left
                         sort: 3
+                        expanded: false
+                        hidden: false
+                        id: f27b405e-670d-b4d5-1282-4025321cd7dd
+                    -
+                        type: assets
+                        position: left
+                        sort: 4
                         expanded: false
                         hidden: false
                         treeContextMenu:
