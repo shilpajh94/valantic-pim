@@ -38,9 +38,9 @@
  * - prop65 [select]
  * - roHS [select]
  * - gprs [select]
- * - prop65Certificates [manyToOneRelation]
- * - roHSCertificates [manyToOneRelation]
- * - gprsCertificates [manyToOneRelation]
+ * - prop65Certificate [manyToOneRelation]
+ * - rohsCertificate [manyToOneRelation]
+ * - gprsCertificate [manyToOneRelation]
  * - b2bFlag [checkbox]
  * - b2cFlag [checkbox]
  * - printedCatalogueFlag [checkbox]
@@ -89,9 +89,9 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProp65(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByRoHS(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByGprs(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProp65Certificates(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByRoHSCertificates(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByGprsCertificates(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByProp65Certificate(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByRohsCertificate(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByGprsCertificate(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByB2bFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByB2cFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByPrintedCatalogueFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
@@ -137,9 +137,9 @@ public const FIELD_OEM_CROSS_REFERENCE = 'oemCrossReference';
 public const FIELD_PROP65 = 'prop65';
 public const FIELD_RO_HS = 'roHS';
 public const FIELD_GPRS = 'gprs';
-public const FIELD_PROP65_CERTIFICATES = 'prop65Certificates';
-public const FIELD_RO_HSCERTIFICATES = 'roHSCertificates';
-public const FIELD_GPRS_CERTIFICATES = 'gprsCertificates';
+public const FIELD_PROP65_CERTIFICATE = 'prop65Certificate';
+public const FIELD_ROHS_CERTIFICATE = 'rohsCertificate';
+public const FIELD_GPRS_CERTIFICATE = 'gprsCertificate';
 public const FIELD_B2B_FLAG = 'b2bFlag';
 public const FIELD_B2C_FLAG = 'b2cFlag';
 public const FIELD_PRINTED_CATALOGUE_FLAG = 'printedCatalogueFlag';
@@ -176,9 +176,9 @@ protected $oemCrossReference;
 protected $prop65;
 protected $roHS;
 protected $gprs;
-protected $prop65Certificates;
-protected $roHSCertificates;
-protected $gprsCertificates;
+protected $prop65Certificate;
+protected $rohsCertificate;
+protected $gprsCertificate;
 protected $b2bFlag;
 protected $b2cFlag;
 protected $printedCatalogueFlag;
@@ -1357,19 +1357,19 @@ public function setGprs(?string $gprs): static
 }
 
 /**
-* Get prop65Certificates - Prop65 Certificates
+* Get prop65Certificate - Prop65 Certificate
 * @return \Pimcore\Model\Asset\Document|null
 */
-public function getProp65Certificates(): ?\Pimcore\Model\Element\AbstractElement
+public function getProp65Certificate(): ?\Pimcore\Model\Element\AbstractElement
 {
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("prop65Certificates");
+		$preValue = $this->preGetValue("prop65Certificate");
 		if ($preValue !== null) {
 			return $preValue;
 		}
 	}
 
-	$data = $this->getClass()->getFieldDefinition("prop65Certificates")->preGetData($this);
+	$data = $this->getClass()->getFieldDefinition("prop65Certificate")->preGetData($this);
 
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
@@ -1379,40 +1379,40 @@ public function getProp65Certificates(): ?\Pimcore\Model\Element\AbstractElement
 }
 
 /**
-* Set prop65Certificates - Prop65 Certificates
-* @param \Pimcore\Model\Asset\Document|null $prop65Certificates
+* Set prop65Certificate - Prop65 Certificate
+* @param \Pimcore\Model\Asset\Document|null $prop65Certificate
 * @return $this
 */
-public function setProp65Certificates(?\Pimcore\Model\Element\AbstractElement $prop65Certificates): static
+public function setProp65Certificate(?\Pimcore\Model\Element\AbstractElement $prop65Certificate): static
 {
 	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
-	$fd = $this->getClass()->getFieldDefinition("prop65Certificates");
+	$fd = $this->getClass()->getFieldDefinition("prop65Certificate");
 	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
 	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	$currentData = $this->getProp65Certificates();
+	$currentData = $this->getProp65Certificate();
 	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $prop65Certificates);
+	$isEqual = $fd->isEqual($currentData, $prop65Certificate);
 	if (!$isEqual) {
-		$this->markFieldDirty("prop65Certificates", true);
+		$this->markFieldDirty("prop65Certificate", true);
 	}
-	$this->prop65Certificates = $fd->preSetData($this, $prop65Certificates);
+	$this->prop65Certificate = $fd->preSetData($this, $prop65Certificate);
 	return $this;
 }
 
 /**
-* Get roHSCertificates - RoHS Certificates
-* @return \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null
+* Get rohsCertificate - RoHS Certificate
+* @return \Pimcore\Model\Asset\Document|null
 */
-public function getRoHSCertificates(): ?\Pimcore\Model\Element\AbstractElement
+public function getRohsCertificate(): ?\Pimcore\Model\Element\AbstractElement
 {
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("roHSCertificates");
+		$preValue = $this->preGetValue("rohsCertificate");
 		if ($preValue !== null) {
 			return $preValue;
 		}
 	}
 
-	$data = $this->getClass()->getFieldDefinition("roHSCertificates")->preGetData($this);
+	$data = $this->getClass()->getFieldDefinition("rohsCertificate")->preGetData($this);
 
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
@@ -1422,40 +1422,40 @@ public function getRoHSCertificates(): ?\Pimcore\Model\Element\AbstractElement
 }
 
 /**
-* Set roHSCertificates - RoHS Certificates
-* @param \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null $roHSCertificates
+* Set rohsCertificate - RoHS Certificate
+* @param \Pimcore\Model\Asset\Document|null $rohsCertificate
 * @return $this
 */
-public function setRoHSCertificates(?\Pimcore\Model\Element\AbstractElement $roHSCertificates): static
+public function setRohsCertificate(?\Pimcore\Model\Element\AbstractElement $rohsCertificate): static
 {
 	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
-	$fd = $this->getClass()->getFieldDefinition("roHSCertificates");
+	$fd = $this->getClass()->getFieldDefinition("rohsCertificate");
 	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
 	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	$currentData = $this->getRoHSCertificates();
+	$currentData = $this->getRohsCertificate();
 	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $roHSCertificates);
+	$isEqual = $fd->isEqual($currentData, $rohsCertificate);
 	if (!$isEqual) {
-		$this->markFieldDirty("roHSCertificates", true);
+		$this->markFieldDirty("rohsCertificate", true);
 	}
-	$this->roHSCertificates = $fd->preSetData($this, $roHSCertificates);
+	$this->rohsCertificate = $fd->preSetData($this, $rohsCertificate);
 	return $this;
 }
 
 /**
-* Get gprsCertificates - GPRS Certificates
-* @return \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null
+* Get gprsCertificate - GPRS Certificate
+* @return \Pimcore\Model\Asset\Document|null
 */
-public function getGprsCertificates(): ?\Pimcore\Model\Element\AbstractElement
+public function getGprsCertificate(): ?\Pimcore\Model\Element\AbstractElement
 {
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("gprsCertificates");
+		$preValue = $this->preGetValue("gprsCertificate");
 		if ($preValue !== null) {
 			return $preValue;
 		}
 	}
 
-	$data = $this->getClass()->getFieldDefinition("gprsCertificates")->preGetData($this);
+	$data = $this->getClass()->getFieldDefinition("gprsCertificate")->preGetData($this);
 
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
@@ -1465,23 +1465,23 @@ public function getGprsCertificates(): ?\Pimcore\Model\Element\AbstractElement
 }
 
 /**
-* Set gprsCertificates - GPRS Certificates
-* @param \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null $gprsCertificates
+* Set gprsCertificate - GPRS Certificate
+* @param \Pimcore\Model\Asset\Document|null $gprsCertificate
 * @return $this
 */
-public function setGprsCertificates(?\Pimcore\Model\Element\AbstractElement $gprsCertificates): static
+public function setGprsCertificate(?\Pimcore\Model\Element\AbstractElement $gprsCertificate): static
 {
 	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
-	$fd = $this->getClass()->getFieldDefinition("gprsCertificates");
+	$fd = $this->getClass()->getFieldDefinition("gprsCertificate");
 	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
 	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	$currentData = $this->getGprsCertificates();
+	$currentData = $this->getGprsCertificate();
 	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $gprsCertificates);
+	$isEqual = $fd->isEqual($currentData, $gprsCertificate);
 	if (!$isEqual) {
-		$this->markFieldDirty("gprsCertificates", true);
+		$this->markFieldDirty("gprsCertificate", true);
 	}
-	$this->gprsCertificates = $fd->preSetData($this, $gprsCertificates);
+	$this->gprsCertificate = $fd->preSetData($this, $gprsCertificate);
 	return $this;
 }
 

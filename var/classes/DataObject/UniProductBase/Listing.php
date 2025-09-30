@@ -331,38 +331,38 @@ public function filterByGprs ($data, $operator = '='): static
 }
 
 /**
-* Filter by prop65Certificates (Prop65 Certificates)
+* Filter by prop65Certificate (Prop65 Certificate)
 * @param mixed $data
 * @param string $operator SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
-public function filterByProp65Certificates ($data, $operator = '='): static
+public function filterByProp65Certificate ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("prop65Certificates")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("prop65Certificate")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
 /**
-* Filter by roHSCertificates (RoHS Certificates)
+* Filter by rohsCertificate (RoHS Certificate)
 * @param mixed $data
 * @param string $operator SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
-public function filterByRoHSCertificates ($data, $operator = '='): static
+public function filterByRohsCertificate ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("roHSCertificates")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("rohsCertificate")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
 /**
-* Filter by gprsCertificates (GPRS Certificates)
+* Filter by gprsCertificate (GPRS Certificate)
 * @param mixed $data
 * @param string $operator SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
-public function filterByGprsCertificates ($data, $operator = '='): static
+public function filterByGprsCertificate ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("gprsCertificates")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("gprsCertificate")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
