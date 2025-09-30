@@ -39,9 +39,9 @@
  * - prop65 [select]
  * - roHS [select]
  * - gprs [select]
- * - prop65Certificates [manyToOneRelation]
- * - roHSCertificates [manyToOneRelation]
- * - gprsCertificates [manyToOneRelation]
+ * - prop65Certificate [manyToOneRelation]
+ * - rohsCertificate [manyToOneRelation]
+ * - gprsCertificate [manyToOneRelation]
  * - b2bFlag [checkbox]
  * - b2cFlag [checkbox]
  * - printedCatalogueFlag [checkbox]
@@ -63,7 +63,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1759221249,
+   'modificationDate' => 1759252575,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -1867,8 +1867,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 array (
                                   0 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                                     'name' => 'prop65Certificates',
-                                     'title' => 'Prop65 Certificates',
+                                     'name' => 'prop65Certificate',
+                                     'title' => 'Prop65 Certificate',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -1909,8 +1909,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   )),
                                   1 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                                     'name' => 'roHSCertificates',
-                                     'title' => 'RoHS Certificates',
+                                     'name' => 'rohsCertificate',
+                                     'title' => 'RoHS Certificate',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -1940,10 +1940,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                     array (
                                       0 => 
                                       array (
-                                        'assetTypes' => 'text',
-                                      ),
-                                      1 => 
-                                      array (
                                         'assetTypes' => 'document',
                                       ),
                                     ),
@@ -1955,8 +1951,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                   )),
                                   2 => 
                                   Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                                     'name' => 'gprsCertificates',
-                                     'title' => 'GPRS Certificates',
+                                     'name' => 'gprsCertificate',
+                                     'title' => 'GPRS Certificate',
                                      'tooltip' => '',
                                      'mandatory' => false,
                                      'noteditable' => false,
@@ -1978,17 +1974,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'displayMode' => 'grid',
                                      'pathFormatterClass' => '',
                                      'assetInlineDownloadAllowed' => false,
-                                     'assetUploadPath' => '/UniProductManagement/Certificates',
+                                     'assetUploadPath' => '',
                                      'allowToClearRelation' => true,
                                      'objectsAllowed' => false,
                                      'assetsAllowed' => true,
                                      'assetTypes' => 
                                     array (
                                       0 => 
-                                      array (
-                                        'assetTypes' => 'text',
-                                      ),
-                                      1 => 
                                       array (
                                         'assetTypes' => 'document',
                                       ),
@@ -2306,153 +2298,128 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'children' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                 'name' => 'Field Container',
-                 'type' => NULL,
-                 'region' => NULL,
-                 'title' => NULL,
-                 'width' => 500,
-                 'height' => '',
-                 'collapsible' => false,
-                 'collapsed' => false,
-                 'bodyStyle' => '',
-                 'datatype' => 'layout',
-                 'children' => 
-                array (
-                  0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                     'name' => 'internalCategories',
-                     'title' => 'Internal Categories',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => true,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'classes' => 
-                    array (
-                      0 => 
-                      array (
-                        'classes' => 'UniProductCategoryInternal',
-                      ),
-                    ),
-                     'displayMode' => 'grid',
-                     'pathFormatterClass' => '',
-                     'maxItems' => NULL,
-                     'visibleFields' => 'level,name,categoryLevel',
-                     'allowToCreateNewObject' => false,
-                     'allowToClearRelation' => true,
-                     'optimizedAdminLoading' => false,
-                     'enableTextSelection' => false,
-                     'visibleFieldDefinitions' => 
-                    array (
-                    ),
-                     'width' => '',
-                     'height' => '',
-                  )),
-                  1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'name' => 'ghpFullCode',
-                     'title' => 'Product Hierarchy Full Code (GHP)',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => true,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => true,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'defaultValue' => NULL,
-                     'columnLength' => 190,
-                     'regex' => '',
-                     'regexFlags' => 
-                    array (
-                    ),
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'width' => '',
-                     'defaultValueGenerator' => '',
-                  )),
-                  2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
-                     'name' => 'skeletonPimInternalHierarchyCode',
-                     'title' => 'Skeleton PIM Internal Hierarchy Code',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'elementType' => 'input',
-                     'calculatorType' => 'class',
-                     'calculatorExpression' => '',
-                     'calculatorClass' => 'App\\Model\\CalculatedValue\\UniProductManagement\\UniProductCategoryFullCode',
-                     'columnLength' => 190,
-                     'width' => '250px',
-                  )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
-                     'name' => 'hierarchySearchData',
-                     'title' => 'Hierarchy Search Data',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => true,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => true,
-                     'visibleGridView' => true,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'elementType' => 'textarea',
-                     'calculatorType' => 'class',
-                     'calculatorExpression' => '',
-                     'calculatorClass' => '@App\\Model\\CalculatedValue\\UniProductManagement\\UniProductStructureInternalSearchData',
-                     'columnLength' => 20000,
-                     'width' => '250px',
-                  )),
-                ),
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                 'name' => 'internalCategories',
+                 'title' => 'Internal Categories',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => true,
+                 'index' => false,
                  'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'fieldtype' => 'fieldcontainer',
-                 'layout' => 'vbox',
-                 'fieldLabel' => '',
-                 'labelWidth' => 250,
-                 'labelAlign' => 'left',
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'UniProductCategoryInternal',
+                  ),
+                ),
+                 'displayMode' => 'grid',
+                 'pathFormatterClass' => '',
+                 'maxItems' => NULL,
+                 'visibleFields' => 'level,name,categoryLevel',
+                 'allowToCreateNewObject' => false,
+                 'allowToClearRelation' => true,
+                 'optimizedAdminLoading' => false,
+                 'enableTextSelection' => false,
+                 'visibleFieldDefinitions' => 
+                array (
+                ),
+                 'width' => '',
+                 'height' => '',
               )),
               1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                 'name' => 'ghpFullCode',
+                 'title' => 'Product Hierarchy Full Code (GHP)',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => true,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => true,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'regex' => '',
+                 'regexFlags' => 
+                array (
+                ),
+                 'unique' => false,
+                 'showCharCount' => false,
+                 'width' => '',
+                 'defaultValueGenerator' => '',
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+                 'name' => 'skeletonPimInternalHierarchyCode',
+                 'title' => 'Skeleton PIM Internal Hierarchy Code',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'elementType' => 'input',
+                 'calculatorType' => 'class',
+                 'calculatorExpression' => '',
+                 'calculatorClass' => 'App\\Model\\CalculatedValue\\UniProductManagement\\UniProductCategoryFullCode',
+                 'columnLength' => 190,
+                 'width' => '250px',
+              )),
+              3 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+                 'name' => 'hierarchySearchData',
+                 'title' => 'Hierarchy Search Data',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => true,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => true,
+                 'visibleGridView' => true,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'elementType' => 'textarea',
+                 'calculatorType' => 'class',
+                 'calculatorExpression' => '',
+                 'calculatorClass' => '@App\\Model\\CalculatedValue\\UniProductManagement\\UniProductStructureInternalSearchData',
+                 'columnLength' => 20000,
+                 'width' => '250px',
+              )),
+              4 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'approvalState',
                  'title' => 'Approval State',

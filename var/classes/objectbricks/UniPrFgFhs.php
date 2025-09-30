@@ -814,7 +814,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                       ),
                     ),
                      'displayMode' => 'combo',
-                     'pathFormatterClass' => '',
+                     'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductMasterlistPathFormatter',
                      'maxItems' => NULL,
                      'visibleFields' => 
                     array (

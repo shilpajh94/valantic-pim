@@ -11,11 +11,11 @@
  * - productDesignCode [input]
  * - industrialStandards [multiselect]
  * - agencyCompliance [multiselect]
- * - b2bSubCategory [manyToManyObjectRelation]
+ * - b2bSubCategory [input]
  * - reach [select]
+ * - reachCertificate [manyToOneRelation]
  * - hazardousSubstanceClassification [manyToOneRelation]
  * - featuresAndBenefits [manyToOneRelation]
- * - reachCertificates [manyToOneRelation]
  * - localizedfields [localizedfields]
  * -- legalText [textarea]
  * -- disclaimer [textarea]
@@ -43,9 +43,9 @@ public const FIELD_INDUSTRIAL_STANDARDS = 'industrialStandards';
 public const FIELD_AGENCY_COMPLIANCE = 'agencyCompliance';
 public const FIELD_B2B_SUB_CATEGORY = 'b2bSubCategory';
 public const FIELD_REACH = 'reach';
+public const FIELD_REACH_CERTIFICATE = 'reachCertificate';
 public const FIELD_HAZARDOUS_SUBSTANCE_CLASSIFICATION = 'hazardousSubstanceClassification';
 public const FIELD_FEATURES_AND_BENEFITS = 'featuresAndBenefits';
-public const FIELD_REACH_CERTIFICATES = 'reachCertificates';
 public const FIELD_LEGAL_TEXT = 'legalText';
 public const FIELD_DISCLAIMER = 'disclaimer';
 public const FIELD_MARKETING_DESCRIPTION_SHORT = 'marketingDescriptionShort';
@@ -63,9 +63,9 @@ protected $industrialStandards;
 protected $agencyCompliance;
 protected $b2bSubCategory;
 protected $reach;
+protected $reachCertificate;
 protected $hazardousSubstanceClassification;
 protected $featuresAndBenefits;
-protected $reachCertificates;
 protected $localizedfields;
 
 
@@ -379,11 +379,11 @@ public function setAgencyCompliance (?array $agencyCompliance): static
 
 /**
 * Get b2bSubCategory - B2b Sub Category
-* @return \Pimcore\Model\DataObject\UniProductCategoryExternal[]
+* @return string|null
 */
-public function getB2bSubCategory(): array
+public function getB2bSubCategory(): ?string
 {
-	$data = $this->getDefinition()->getFieldDefinition("b2bSubCategory")->preGetData($this);
+	$data = $this->b2bSubCategory;
 	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("b2bSubCategory")->isEmpty($data)) {
 		try {
 			return $this->getValueFromParent("b2bSubCategory");
@@ -400,30 +400,13 @@ public function getB2bSubCategory(): array
 
 /**
 * Set b2bSubCategory - B2b Sub Category
-* @param \Pimcore\Model\DataObject\UniProductCategoryExternal[] $b2bSubCategory
+* @param string|null $b2bSubCategory
 * @return $this
 */
-public function setB2bSubCategory (?array $b2bSubCategory): static
+public function setB2bSubCategory (?string $b2bSubCategory): static
 {
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
-	$fd = $this->getDefinition()->getFieldDefinition("b2bSubCategory");
-	$class = $this->getObject() ? $this->getObject()->getClass() : null;
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	if ($class && $class->getAllowInherit()) {
-		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
-			return $this->getB2bSubCategory();
-		});
-	}
-	else {
-		$currentData = $this->getB2bSubCategory();
-	}	
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $b2bSubCategory);
-	if (!$isEqual) {
-		$this->markFieldDirty("b2bSubCategory", true);
-	}
-	$this->b2bSubCategory = $fd->preSetData($this, $b2bSubCategory);
+	$this->b2bSubCategory = $b2bSubCategory;
+
 	return $this;
 }
 
@@ -457,6 +440,56 @@ public function setReach (?string $reach): static
 {
 	$this->reach = $reach;
 
+	return $this;
+}
+
+/**
+* Get reachCertificate - REACH Certificate
+* @return \Pimcore\Model\Asset\Document|null
+*/
+public function getReachCertificate(): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getDefinition()->getFieldDefinition("reachCertificate")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("reachCertificate")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("reachCertificate");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set reachCertificate - REACH Certificate
+* @param \Pimcore\Model\Asset\Document|null $reachCertificate
+* @return $this
+*/
+public function setReachCertificate (?\Pimcore\Model\Element\AbstractElement $reachCertificate): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("reachCertificate");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getReachCertificate();
+		});
+	}
+	else {
+		$currentData = $this->getReachCertificate();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $reachCertificate);
+	if (!$isEqual) {
+		$this->markFieldDirty("reachCertificate", true);
+	}
+	$this->reachCertificate = $fd->preSetData($this, $reachCertificate);
 	return $this;
 }
 
@@ -557,56 +590,6 @@ public function setFeaturesAndBenefits (?\Pimcore\Model\Element\AbstractElement 
 		$this->markFieldDirty("featuresAndBenefits", true);
 	}
 	$this->featuresAndBenefits = $fd->preSetData($this, $featuresAndBenefits);
-	return $this;
-}
-
-/**
-* Get reachCertificates - REACH Certificates
-* @return \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null
-*/
-public function getReachCertificates(): ?\Pimcore\Model\Element\AbstractElement
-{
-	$data = $this->getDefinition()->getFieldDefinition("reachCertificates")->preGetData($this);
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("reachCertificates")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("reachCertificates");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set reachCertificates - REACH Certificates
-* @param \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null $reachCertificates
-* @return $this
-*/
-public function setReachCertificates (?\Pimcore\Model\Element\AbstractElement $reachCertificates): static
-{
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
-	$fd = $this->getDefinition()->getFieldDefinition("reachCertificates");
-	$class = $this->getObject() ? $this->getObject()->getClass() : null;
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	if ($class && $class->getAllowInherit()) {
-		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
-			return $this->getReachCertificates();
-		});
-	}
-	else {
-		$currentData = $this->getReachCertificates();
-	}	
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $reachCertificates);
-	if (!$isEqual) {
-		$this->markFieldDirty("reachCertificates", true);
-	}
-	$this->reachCertificates = $fd->preSetData($this, $reachCertificates);
 	return $this;
 }
 

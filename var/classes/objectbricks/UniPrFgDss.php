@@ -116,7 +116,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         'classes' => 'UniPrDssModelType',
                       ),
                     ),
-                     'displayMode' => 'grid',
+                     'displayMode' => 'combo',
                      'pathFormatterClass' => '',
                      'assetInlineDownloadAllowed' => false,
                      'assetUploadPath' => '',
