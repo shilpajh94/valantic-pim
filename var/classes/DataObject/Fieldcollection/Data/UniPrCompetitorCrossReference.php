@@ -2,7 +2,7 @@
 
 /**
  * Fields Summary:
- * - competitor [input]
+ * - competitor [manyToOneRelation]
  * - partNumber [input]
  */
 
@@ -23,11 +23,14 @@ protected $partNumber;
 
 /**
 * Get competitor - Competitor
-* @return string|null
+* @return \Pimcore\Model\DataObject\UniPrCompetitorCrossReference|null
 */
-public function getCompetitor(): ?string
+public function getCompetitor(): ?\Pimcore\Model\Element\AbstractElement
 {
-	$data = $this->competitor;
+	$container = $this;
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("competitor");
+	$data = $fd->preGetData($container);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
 	}
@@ -37,13 +40,22 @@ public function getCompetitor(): ?string
 
 /**
 * Set competitor - Competitor
-* @param string|null $competitor
+* @param \Pimcore\Model\DataObject\UniPrCompetitorCrossReference|null $competitor
 * @return $this
 */
-public function setCompetitor(?string $competitor): static
+public function setCompetitor(?\Pimcore\Model\Element\AbstractElement $competitor): static
 {
-	$this->competitor = $competitor;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("competitor");
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getCompetitor();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $competitor);
+	if (!$isEqual) {
+		$this->markFieldDirty("competitor", true);
+	}
+	$this->competitor = $fd->preSetData($this, $competitor);
 	return $this;
 }
 

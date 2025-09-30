@@ -26,8 +26,14 @@ class UniProductMasterlistPathFormatter implements PathFormatterInterface
 
             $targetObject = Concrete::getById($item['id']);
 
+            if ($targetObject === null) {
+                continue;
+            }
+
             if (method_exists($targetObject, 'getName')) {
                 $result[$key] = $targetObject->getName();
+            } elseif (method_exists($targetObject, 'getKey')) {
+                $result[$key] = $targetObject->getKey();
             }
         }
 

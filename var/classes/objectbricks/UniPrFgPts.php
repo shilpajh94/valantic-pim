@@ -2,45 +2,42 @@
 
 /**
  * Fields Summary:
- * - localizedfields [localizedfields]
- * -- materialType [manyToOneRelation]
- * -- matchMakerLL [input]
+ * - materialType [manyToOneRelation]
  * - numberOfTeeth [numeric]
- * - effectiveLengthMetric [quantityValue]
- * - effectiveLengthImperial [quantityValue]
- * - effectiveLengthUOM [select]
- * - pitchLengthMetric [quantityValue]
- * - pitchLengthImperial [quantityValue]
- * - pitchLengthUOM [select]
- * - datumLengthMetric [quantityValue]
- * - datumLengthImperial [quantityValue]
- * - outsideLengthMetric [quantityValue]
- * - outsideLengthImperial [quantityValue]
- * - insideLengthMetric [quantityValue]
- * - insideLengthImperial [quantityValue]
- * - refLengthLrMetric [quantityValue]
- * - refLengthLrImperial [quantityValue]
- * - refLineDiffHbMetric [quantityValue]
- * - refLineDiffHbImperial [quantityValue]
- * - heightMetric [quantityValue]
- * - heightImperial [quantityValue]
- * - heightUOM [select]
- * - widthMetric [quantityValue]
- * - widthImperial [quantityValue]
- * - widthUOM [select]
- * - profileHeightHMetric [quantityValue]
- * - profileHeightHImperial [quantityValue]
- * - ribPitchSMetric [quantityValue]
- * - ribPitchSImperial [quantityValue]
- * - pitchWidthBdMetric [quantityValue]
- * - pitchWidthBdImperial [quantityValue]
- * - pitchHeightHduMetric [quantityValue]
- * - pitchHeightHduImperial [quantityValue]
- * - lowerBeltWidthBiMetric [quantityValue]
- * - lowerBeltWidthBiImperial [quantityValue]
+ * - effectiveLengthMetric [numeric]
+ * - pitchLengthMetric [numeric]
+ * - datumLengthMetric [numeric]
+ * - outsideLengthMetric [numeric]
+ * - insideLengthMetric [numeric]
+ * - refLengthLrMetric [numeric]
+ * - refLineDiffHbMetric [numeric]
+ * - heightMetric [numeric]
+ * - widthMetric [numeric]
+ * - profileHeightHMetric [numeric]
+ * - ribPitchSMetric [numeric]
+ * - pitchWidthBdMetric [numeric]
+ * - pitchHeightHduMetric [numeric]
+ * - lowerBeltWidthBiMetric [numeric]
  * - ribs [numeric]
+ * - effectiveLengthImperial [numeric]
+ * - pitchLengthImperial [numeric]
+ * - datumLengthImperial [numeric]
+ * - outsideLengthImperial [numeric]
+ * - insideLengthImperial [numeric]
+ * - refLengthLrImperial [numeric]
+ * - refLineDiffHbImperial [numeric]
+ * - heightImperial [numeric]
+ * - widthImperial [numeric]
+ * - profileHeightHImperial [numeric]
+ * - ribPitchSImperial [numeric]
+ * - pitchWidthBdImperial [numeric]
+ * - pitchHeightHduImperial [numeric]
+ * - lowerBeltWidthBiImperial [numeric]
+ * - localizedfields [localizedfields]
+ * -- matchMakerLL [input]
  * - maxPulleyGroove [numeric]
  * - finishing [input]
+ * - beltType [manyToOneRelation]
  * - isLowPah [checkbox]
  */
 
@@ -94,156 +91,46 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'children' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-                 'name' => 'localizedfields',
-                 'title' => '',
-                 'tooltip' => NULL,
-                 'mandatory' => false,
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                 'name' => 'materialType',
+                 'title' => 'Material Type',
+                 'tooltip' => '',
+                 'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
-                 'style' => NULL,
+                 'style' => '',
                  'permissions' => NULL,
                  'fieldtype' => '',
-                 'relationType' => false,
+                 'relationType' => true,
                  'invisible' => false,
-                 'visibleGridView' => true,
+                 'visibleGridView' => false,
                  'visibleSearch' => true,
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'children' => 
+                 'classes' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                     'name' => 'materialType',
-                     'title' => 'Material Type',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'classes' => 
-                    array (
-                      0 => 
-                      array (
-                        'classes' => 'UniPrPtsMaterialType',
-                      ),
-                    ),
-                     'displayMode' => 'combo',
-                     'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductMasterlistPathFormatter',
-                     'assetInlineDownloadAllowed' => false,
-                     'assetUploadPath' => '',
-                     'allowToClearRelation' => true,
-                     'objectsAllowed' => true,
-                     'assetsAllowed' => false,
-                     'assetTypes' => 
-                    array (
-                    ),
-                     'documentsAllowed' => false,
-                     'documentTypes' => 
-                    array (
-                    ),
-                     'width' => 240,
-                  )),
+                  array (
+                    'classes' => 'UniPrPtsMaterialType',
+                  ),
                 ),
-                 'region' => NULL,
-                 'layout' => NULL,
-                 'maxTabs' => 35,
-                 'border' => false,
-                 'provideSplitView' => false,
-                 'tabPosition' => 'top',
-                 'hideLabelsWhenTabsReached' => NULL,
-                 'referencedFields' => 
+                 'displayMode' => 'combo',
+                 'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductMasterlistPathFormatter',
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => true,
+                 'assetsAllowed' => false,
+                 'assetTypes' => 
                 array (
-                  0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-                     'name' => 'localizedfields',
-                     'title' => '',
-                     'tooltip' => NULL,
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => NULL,
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => true,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'children' => 
-                    array (
-                      0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'name' => 'matchMakerLL',
-                         'title' => 'MATCHMAKER',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'columnLength' => 190,
-                         'regex' => '',
-                         'regexFlags' => 
-                        array (
-                        ),
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'width' => '250px',
-                         'defaultValueGenerator' => '',
-                      )),
-                    ),
-                     'region' => NULL,
-                     'layout' => NULL,
-                     'maxTabs' => 35,
-                     'border' => false,
-                     'provideSplitView' => false,
-                     'tabPosition' => 'top',
-                     'hideLabelsWhenTabsReached' => NULL,
-                     'referencedFields' => 
-                    array (
-                    ),
-                     'permissionView' => NULL,
-                     'permissionEdit' => NULL,
-                     'labelWidth' => 200,
-                     'labelAlign' => 'left',
-                     'width' => '',
-                     'height' => '',
-                     'fieldDefinitionsCache' => NULL,
-                  )),
                 ),
-                 'permissionView' => NULL,
-                 'permissionEdit' => NULL,
-                 'labelWidth' => 200,
-                 'labelAlign' => 'left',
-                 'width' => 0,
-                 'height' => 0,
-                 'fieldDefinitionsCache' => NULL,
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                ),
+                 'width' => 240,
               )),
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
@@ -329,7 +216,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'defaultValueGenerator' => '',
                       )),
                       2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'effectiveLengthMetric',
                          'title' => 'Effective Length (mm)',
                          'tooltip' => '',
@@ -347,106 +234,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_mm',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => 5,
                          'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
                       )),
                       3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'effectiveLengthImperial',
-                         'title' => 'Effective Length (in)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_in',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      4 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                         'name' => 'effectiveLengthUOM',
-                         'title' => 'Effective Length UOM',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'options' => 
-                        array (
-                          0 => 
-                          array (
-                            'key' => 'mm',
-                            'value' => 'mm',
-                          ),
-                          1 => 
-                          array (
-                            'key' => 'in',
-                            'value' => 'in',
-                          ),
-                        ),
-                         'defaultValue' => '',
-                         'columnLength' => 190,
-                         'dynamicOptions' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '',
-                         'optionsProviderType' => 'configure',
-                         'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-                         'optionsProviderData' => 'UniBasePrFeaturesAndBenefits',
-                      )),
-                      5 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'pitchLengthMetric',
                          'title' => 'Pitch Length (mm)',
                          'tooltip' => '',
@@ -464,106 +264,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_mm',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => NULL,
                          'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      6 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'pitchLengthImperial',
-                         'title' => 'Pitch Length (in)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_in',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
                          'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
                          'decimalSize' => 5,
                          'decimalPrecision' => NULL,
-                      )),
-                      7 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                         'name' => 'pitchLengthUOM',
-                         'title' => 'Pitch Length UOM',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'options' => 
-                        array (
-                          0 => 
-                          array (
-                            'key' => 'mm',
-                            'value' => 'mm',
-                          ),
-                          1 => 
-                          array (
-                            'key' => 'in',
-                            'value' => 'in',
-                          ),
-                        ),
-                         'defaultValue' => '',
-                         'columnLength' => 190,
-                         'dynamicOptions' => false,
+                         'width' => '146px',
                          'defaultValueGenerator' => '',
-                         'width' => '',
-                         'optionsProviderType' => 'configure',
-                         'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-                         'optionsProviderData' => 'UniBasePrFeaturesAndBenefits',
                       )),
-                      8 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      4 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'datumLengthMetric',
                          'title' => 'Datum Length (mm)',
                          'tooltip' => '',
@@ -581,65 +294,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_mm',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => NULL,
                          'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      9 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'datumLengthImperial',
-                         'title' => 'Datum Length (in)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_in',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
                          'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
                          'decimalSize' => 5,
                          'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
                       )),
-                      10 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      5 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'outsideLengthMetric',
                          'title' => 'Outside Length (mm)',
                          'tooltip' => '',
@@ -657,65 +324,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_mm',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => NULL,
                          'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      11 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'outsideLengthImperial',
-                         'title' => 'Outside Length (in)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_in',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
                          'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
                          'decimalSize' => 5,
                          'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
                       )),
-                      12 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      6 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'insideLengthMetric',
                          'title' => 'Inside Length (mm)',
                          'tooltip' => '',
@@ -733,65 +354,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_mm',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => NULL,
                          'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      13 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'insideLengthImperial',
-                         'title' => 'Inside Length (in)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_in',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
                          'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
                          'decimalSize' => 5,
                          'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
                       )),
-                      14 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      7 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'refLengthLrMetric',
                          'title' => 'Reference. Length (Lr) (mm)',
                          'tooltip' => '',
@@ -809,65 +384,19 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_mm',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => NULL,
                          'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      15 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'refLengthLrImperial',
-                         'title' => 'Refierence. Length (Lr) (in)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_in',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
                          'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
                          'decimalSize' => 5,
                          'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
                       )),
-                      16 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
+                      8 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'refLineDiffHbMetric',
                          'title' => 'Reference line diff. (hb) (mm)',
                          'tooltip' => '',
@@ -885,29 +414,21 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_mm',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => 5,
                          'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
                       )),
-                      17 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'refLineDiffHbImperial',
-                         'title' => 'Reference line diff. (hb) (in)',
+                      9 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'heightMetric',
+                         'title' => 'Height (mm)',
                          'tooltip' => '',
                          'mandatory' => true,
                          'noteditable' => false,
@@ -923,24 +444,196 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_in',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
                          'defaultValue' => NULL,
                          'integer' => false,
                          'unsigned' => true,
                          'minValue' => NULL,
                          'maxValue' => NULL,
+                         'unique' => false,
                          'decimalSize' => 5,
                          'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      10 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'widthMetric',
+                         'title' => 'Width (mm)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => true,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      11 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'profileHeightHMetric',
+                         'title' => 'Profile Height (H) (mm)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      12 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'ribPitchSMetric',
+                         'title' => 'Rib Pitch (s) (mm)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      13 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'pitchWidthBdMetric',
+                         'title' => 'Pitch Width (bd) (mm)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      14 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'pitchHeightHduMetric',
+                         'title' => 'Pitch Height (hd/u) (mm)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      15 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'lowerBeltWidthBiMetric',
+                         'title' => 'Lower Belt Width (bi) (mm)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
                       )),
                     ),
                      'locked' => false,
@@ -993,616 +686,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'border' => false,
                       )),
                       1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'heightMetric',
-                         'title' => 'Height (mm)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_mm',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'heightImperial',
-                         'title' => 'Height (in)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_in',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      3 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                         'name' => 'heightUOM',
-                         'title' => 'Height UOM',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'options' => 
-                        array (
-                          0 => 
-                          array (
-                            'key' => 'mm',
-                            'value' => 'mm',
-                          ),
-                          1 => 
-                          array (
-                            'key' => 'in',
-                            'value' => 'in',
-                          ),
-                        ),
-                         'defaultValue' => '',
-                         'columnLength' => 190,
-                         'dynamicOptions' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '',
-                         'optionsProviderType' => 'configure',
-                         'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-                         'optionsProviderData' => 'UniBasePrFeaturesAndBenefits',
-                      )),
-                      4 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'widthMetric',
-                         'title' => 'Width (mm)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_mm',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => true,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      5 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'widthImperial',
-                         'title' => 'Width (in)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_in',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      6 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                         'name' => 'widthUOM',
-                         'title' => 'Width UOM',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'options' => 
-                        array (
-                          0 => 
-                          array (
-                            'key' => 'mm',
-                            'value' => 'mm',
-                          ),
-                          1 => 
-                          array (
-                            'key' => 'in',
-                            'value' => 'in',
-                          ),
-                        ),
-                         'defaultValue' => '',
-                         'columnLength' => 190,
-                         'dynamicOptions' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '',
-                         'optionsProviderType' => 'configure',
-                         'optionsProviderClass' => 'Pimcore\\Bundle\\CoreBundle\\OptionsProvider\\SelectOptionsOptionsProvider',
-                         'optionsProviderData' => 'UniBasePrFeaturesAndBenefits',
-                      )),
-                      7 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'profileHeightHMetric',
-                         'title' => 'Profile Height (H) (mm)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_mm',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      8 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'profileHeightHImperial',
-                         'title' => 'Profile Height (H) (in)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_in',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      9 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'ribPitchSMetric',
-                         'title' => 'Rib Pitch (s) (mm)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_mm',
-                         'validUnits' => 
-                        array (
-                          0 => 'weight_lbs',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      10 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'ribPitchSImperial',
-                         'title' => 'Rib Pitch (s) (In)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_in',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      11 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'pitchWidthBdMetric',
-                         'title' => 'Pitch Width (bd) (mm)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_mm',
-                         'validUnits' => 
-                        array (
-                          0 => 'weight_lbs',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      12 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'pitchWidthBdImperial',
-                         'title' => 'Pitch Width (bd) (In)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_in',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      13 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'pitchHeightHduMetric',
-                         'title' => 'Pitch Height (hd/u) (mm)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_mm',
-                         'validUnits' => 
-                        array (
-                          0 => 'weight_lbs',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      14 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'pitchHeightHduImperial',
-                         'title' => 'Pitch Height (hd/u) (in)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_in',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      15 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'lowerBeltWidthBiMetric',
-                         'title' => 'Lower Belt Width (bi) (mm)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_mm',
-                         'validUnits' => 
-                        array (
-                          0 => 'weight_lbs',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      16 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue::__set_state(array(
-                         'name' => 'lowerBeltWidthBiImperial',
-                         'title' => 'Lower belt width (bi) (in)',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'unitWidth' => '100px',
-                         'defaultUnit' => 'distance_in',
-                         'validUnits' => 
-                        array (
-                          0 => 'distance_mm',
-                          1 => 'distance_in',
-                        ),
-                         'unique' => false,
-                         'autoConvert' => false,
-                         'defaultValueGenerator' => '',
-                         'width' => '146px',
-                         'defaultValue' => NULL,
-                         'integer' => false,
-                         'unsigned' => true,
-                         'minValue' => NULL,
-                         'maxValue' => NULL,
-                         'decimalSize' => 5,
-                         'decimalPrecision' => NULL,
-                      )),
-                      17 => 
                       Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                          'name' => 'ribs',
                          'title' => 'Ribs',
@@ -1630,6 +713,426 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                          'decimalSize' => NULL,
                          'decimalPrecision' => NULL,
                          'width' => '250px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'effectiveLengthImperial',
+                         'title' => 'Effective Length (in)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      3 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'pitchLengthImperial',
+                         'title' => 'Pitch Length (in)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      4 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'datumLengthImperial',
+                         'title' => 'Datum Length (in)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      5 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'outsideLengthImperial',
+                         'title' => 'Outside Length (in)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      6 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'insideLengthImperial',
+                         'title' => 'Inside Length (in)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      7 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'refLengthLrImperial',
+                         'title' => 'Refierence. Length (Lr) (in)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      8 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'refLineDiffHbImperial',
+                         'title' => 'Reference line diff. (hb) (in)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      9 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'heightImperial',
+                         'title' => 'Height (in)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      10 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'widthImperial',
+                         'title' => 'Width (in)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      11 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'profileHeightHImperial',
+                         'title' => 'Profile Height (H) (in)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      12 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'ribPitchSImperial',
+                         'title' => 'Rib Pitch (s) (In)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      13 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'pitchWidthBdImperial',
+                         'title' => 'Pitch Width (bd) (In)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      14 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'pitchHeightHduImperial',
+                         'title' => 'Pitch Height (hd/u) (in)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                         'defaultValueGenerator' => '',
+                      )),
+                      15 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                         'name' => 'lowerBeltWidthBiImperial',
+                         'title' => 'Lower belt width (bi) (in)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'integer' => false,
+                         'unsigned' => true,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'unique' => false,
+                         'decimalSize' => 5,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
                          'defaultValueGenerator' => '',
                       )),
                     ),
@@ -1680,7 +1183,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'matchMakerLL',
                      'title' => 'MATCHMAKER',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -1811,6 +1314,48 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'children' => 
             array (
               0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                 'name' => 'beltType',
+                 'title' => 'Belt Type',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'UniPrPtsBeltType',
+                  ),
+                ),
+                 'displayMode' => 'combo',
+                 'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductMasterlistPathFormatter',
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => true,
+                 'assetsAllowed' => false,
+                 'assetTypes' => 
+                array (
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                ),
+                 'width' => 240,
+              )),
+              1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
                  'name' => 'isLowPah',
                  'title' => 'Low PAH  (Polyhydroxyalkanoate)',
