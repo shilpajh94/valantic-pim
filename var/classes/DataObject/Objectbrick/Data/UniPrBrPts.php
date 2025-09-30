@@ -9,7 +9,6 @@
  * - fabricColor [manyToOneRelation]
  * - beltHardness [numeric]
  * - beltTeethType [manyToOneRelation]
- * - beltType [manyToOneRelation]
  * - localizedfields [localizedfields]
  * -- quality [input]
  * -- performance [input]
@@ -35,7 +34,6 @@ public const FIELD_FABRIC_TYPE = 'fabricType';
 public const FIELD_FABRIC_COLOR = 'fabricColor';
 public const FIELD_BELT_HARDNESS = 'beltHardness';
 public const FIELD_BELT_TEETH_TYPE = 'beltTeethType';
-public const FIELD_BELT_TYPE = 'beltType';
 public const FIELD_QUALITY = 'quality';
 public const FIELD_PERFORMANCE = 'performance';
 public const FIELD_STATIC_CONDUCTIVE = 'staticConductive';
@@ -51,7 +49,6 @@ protected $fabricType;
 protected $fabricColor;
 protected $beltHardness;
 protected $beltTeethType;
-protected $beltType;
 protected $localizedfields;
 protected $temperatureC;
 protected $temperatureF;
@@ -400,56 +397,6 @@ public function setBeltTeethType (?\Pimcore\Model\Element\AbstractElement $beltT
 		$this->markFieldDirty("beltTeethType", true);
 	}
 	$this->beltTeethType = $fd->preSetData($this, $beltTeethType);
-	return $this;
-}
-
-/**
-* Get beltType - Belt Type
-* @return \Pimcore\Model\DataObject\UniPrPtsBeltType|null
-*/
-public function getBeltType(): ?\Pimcore\Model\Element\AbstractElement
-{
-	$data = $this->getDefinition()->getFieldDefinition("beltType")->preGetData($this);
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("beltType")->isEmpty($data)) {
-		try {
-			return $this->getValueFromParent("beltType");
-		} catch (InheritanceParentNotFoundException $e) {
-			// no data from parent available, continue ...
-		}
-	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set beltType - Belt Type
-* @param \Pimcore\Model\DataObject\UniPrPtsBeltType|null $beltType
-* @return $this
-*/
-public function setBeltType (?\Pimcore\Model\Element\AbstractElement $beltType): static
-{
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
-	$fd = $this->getDefinition()->getFieldDefinition("beltType");
-	$class = $this->getObject() ? $this->getObject()->getClass() : null;
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	if ($class && $class->getAllowInherit()) {
-		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
-			return $this->getBeltType();
-		});
-	}
-	else {
-		$currentData = $this->getBeltType();
-	}	
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $beltType);
-	if (!$isEqual) {
-		$this->markFieldDirty("beltType", true);
-	}
-	$this->beltType = $fd->preSetData($this, $beltType);
 	return $this;
 }
 
