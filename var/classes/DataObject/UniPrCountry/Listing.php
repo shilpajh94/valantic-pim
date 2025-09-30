@@ -1,21 +1,21 @@
 <?php
 
-namespace Pimcore\Model\DataObject\UniPrCountryOfOrigin;
+namespace Pimcore\Model\DataObject\UniPrCountry;
 
 use Pimcore\Model;
 use Pimcore\Model\DataObject;
 
 /**
- * @method DataObject\UniPrCountryOfOrigin|false current()
- * @method DataObject\UniPrCountryOfOrigin[] load()
- * @method DataObject\UniPrCountryOfOrigin[] getData()
- * @method DataObject\UniPrCountryOfOrigin[] getObjects()
+ * @method DataObject\UniPrCountry|false current()
+ * @method DataObject\UniPrCountry[] load()
+ * @method DataObject\UniPrCountry[] getData()
+ * @method DataObject\UniPrCountry[] getObjects()
  */
 
 class Listing extends DataObject\Listing\Concrete
 {
-protected $classId = "UNI_PR_ML_COO";
-protected $className = "UniPrCountryOfOrigin";
+protected $classId = "UNI_PR_ML_C";
+protected $className = "UniPrCountry";
 
 
 /**

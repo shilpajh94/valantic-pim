@@ -247,6 +247,54 @@ public function filterByProductDescriptionExtended ($data, $operator = '='): sta
 }
 
 /**
+* Filter by completenessPercentage (Completeness Percentage)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByCompletenessPercentage ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("completenessPercentage")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by emptyFieldsBrand (Empty Fields Brand)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByEmptyFieldsBrand ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("emptyFieldsBrand")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by emptyFieldsSkeleton (Empty Fields Skeleton)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByEmptyFieldsSkeleton ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("emptyFieldsSkeleton")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by emptyFieldsFinishedGood (Empty Fields Finished Good)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByEmptyFieldsFinishedGood ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("emptyFieldsFinishedGood")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
 * Filter by prop65 (Prop65)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
@@ -315,90 +363,6 @@ public function filterByRoHSCertificates ($data, $operator = '='): static
 public function filterByGprsCertificates ($data, $operator = '='): static
 {
 	$this->getClass()->getFieldDefinition("gprsCertificates")->addListingFilter($this, $data, $operator);
-	return $this;
-}
-
-/**
-* Filter by completenessPercentage (Completeness Percentage)
-* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
-* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
-* @return $this
-*/
-public function filterByCompletenessPercentage ($data, $operator = '='): static
-{
-	$this->getClass()->getFieldDefinition("completenessPercentage")->addListingFilter($this, $data, $operator);
-	return $this;
-}
-
-/**
-* Filter by emptyFieldsBrand (Empty Fields Brand)
-* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
-* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
-* @return $this
-*/
-public function filterByEmptyFieldsBrand ($data, $operator = '='): static
-{
-	$this->getClass()->getFieldDefinition("emptyFieldsBrand")->addListingFilter($this, $data, $operator);
-	return $this;
-}
-
-/**
-* Filter by emptyFieldsSkeleton (Empty Fields Skeleton)
-* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
-* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
-* @return $this
-*/
-public function filterByEmptyFieldsSkeleton ($data, $operator = '='): static
-{
-	$this->getClass()->getFieldDefinition("emptyFieldsSkeleton")->addListingFilter($this, $data, $operator);
-	return $this;
-}
-
-/**
-* Filter by emptyFieldsFinishedGood (Empty Fields Finished Good)
-* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
-* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
-* @return $this
-*/
-public function filterByEmptyFieldsFinishedGood ($data, $operator = '='): static
-{
-	$this->getClass()->getFieldDefinition("emptyFieldsFinishedGood")->addListingFilter($this, $data, $operator);
-	return $this;
-}
-
-/**
-* Filter by competitorCrossReference (Competitor Cross Reference)
-* @param mixed $data
-* @param string $operator SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
-* @return $this
-*/
-public function filterByCompetitorCrossReference ($data, $operator = '='): static
-{
-	$this->getClass()->getFieldDefinition("competitorCrossReference")->addListingFilter($this, $data, $operator);
-	return $this;
-}
-
-/**
-* Filter by customerReference (Customer Reference)
-* @param mixed $data
-* @param string $operator SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
-* @return $this
-*/
-public function filterByCustomerReference ($data, $operator = '='): static
-{
-	$this->getClass()->getFieldDefinition("customerReference")->addListingFilter($this, $data, $operator);
-	return $this;
-}
-
-/**
-* Filter by oemCrossReference (OE / OEM Cross Reference)
-* @param mixed $data
-* @param string $operator SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
-* @return $this
-*/
-public function filterByOemCrossReference ($data, $operator = '='): static
-{
-	$this->getClass()->getFieldDefinition("oemCrossReference")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 

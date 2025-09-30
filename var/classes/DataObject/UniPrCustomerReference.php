@@ -5,8 +5,7 @@
  * Variants: no
  *
  * Fields Summary:
- * - customer [input]
- * - partNumber [input]
+ * - name [input]
  */
 
 namespace Pimcore\Model\DataObject;
@@ -16,19 +15,16 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 
 /**
 * @method static \Pimcore\Model\DataObject\UniPrCustomerReference\Listing getList(array $config = [])
-* @method static \Pimcore\Model\DataObject\UniPrCustomerReference\Listing|\Pimcore\Model\DataObject\UniPrCustomerReference|null getByCustomer(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniPrCustomerReference\Listing|\Pimcore\Model\DataObject\UniPrCustomerReference|null getByPartNumber(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniPrCustomerReference\Listing|\Pimcore\Model\DataObject\UniPrCustomerReference|null getByName(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 */
 
 class UniPrCustomerReference extends Concrete
 {
-public const FIELD_CUSTOMER = 'customer';
-public const FIELD_PART_NUMBER = 'partNumber';
+public const FIELD_NAME = 'name';
 
 protected $classId = "UNI_PR_ML_CR";
 protected $className = "UniPrCustomerReference";
-protected $customer;
-protected $partNumber;
+protected $name;
 
 
 /**
@@ -43,19 +39,19 @@ public static function create(array $values = []): static
 }
 
 /**
-* Get customer - Customer
+* Get name - Customer name
 * @return string|null
 */
-public function getCustomer(): ?string
+public function getName(): ?string
 {
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("customer");
+		$preValue = $this->preGetValue("name");
 		if ($preValue !== null) {
 			return $preValue;
 		}
 	}
 
-	$data = $this->customer;
+	$data = $this->name;
 
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
@@ -65,51 +61,15 @@ public function getCustomer(): ?string
 }
 
 /**
-* Set customer - Customer
-* @param string|null $customer
+* Set name - Customer name
+* @param string|null $name
 * @return $this
 */
-public function setCustomer(?string $customer): static
+public function setName(?string $name): static
 {
-	$this->markFieldDirty("customer", true);
+	$this->markFieldDirty("name", true);
 
-	$this->customer = $customer;
-
-	return $this;
-}
-
-/**
-* Get partNumber - Part Number
-* @return string|null
-*/
-public function getPartNumber(): ?string
-{
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("partNumber");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	$data = $this->partNumber;
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set partNumber - Part Number
-* @param string|null $partNumber
-* @return $this
-*/
-public function setPartNumber(?string $partNumber): static
-{
-	$this->markFieldDirty("partNumber", true);
-
-	$this->partNumber = $partNumber;
+	$this->name = $name;
 
 	return $this;
 }

@@ -22,7 +22,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Internal Category',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1757676895,
+   'modificationDate' => 1759221246,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductCategoryInternal',
@@ -277,7 +277,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'options' => NULL,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'dynamicOptions' => false,

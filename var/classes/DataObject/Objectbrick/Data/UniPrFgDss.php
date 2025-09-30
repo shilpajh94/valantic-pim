@@ -314,7 +314,7 @@ public function setMaximumStrokeMetric (?float $maximumStrokeMetric): static
 }
 
 /**
-* Get workingPressureBar - Working Pressure (bar)
+* Get workingPressureBar - Working Pressure (Bar)
 * @return float|null
 */
 public function getWorkingPressureBar(): ?float
@@ -335,7 +335,7 @@ public function getWorkingPressureBar(): ?float
 }
 
 /**
-* Set workingPressureBar - Working Pressure (bar)
+* Set workingPressureBar - Working Pressure (Bar)
 * @param float|null $workingPressureBar
 * @return $this
 */
@@ -518,7 +518,7 @@ public function setMaximumStrokeImperial (?float $maximumStrokeImperial): static
 }
 
 /**
-* Get workingPressurePsi - Working Pressure(psi)
+* Get workingPressurePsi - Working Pressure (psi)
 * @return float|null
 */
 public function getWorkingPressurePsi(): ?float
@@ -539,7 +539,7 @@ public function getWorkingPressurePsi(): ?float
 }
 
 /**
-* Set workingPressurePsi - Working Pressure(psi)
+* Set workingPressurePsi - Working Pressure (psi)
 * @param float|null $workingPressurePsi
 * @return $this
 */
