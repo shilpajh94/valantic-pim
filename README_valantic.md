@@ -1,4 +1,4 @@
-# Additional READEM for valantic
+# Additional README for valantic
 
 ## Local development
 For local development with ddev create the file `config/local/ddev.yaml` with the following content:
