@@ -5,19 +5,18 @@
  * Variants: no
  *
  * Fields Summary:
- * - abbreviation [input]
  * - localizedfields [localizedfields]
  * -- name [input]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'id' => 'UNI_PR_ML_COO',
-   'name' => 'UniPrCountryOfOrigin',
+   'id' => 'UNI_PR_ML_FAB',
+   'name' => 'UniPrFeaturesAndBenefits',
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1758622574,
+   'modificationDate' => 1759145722,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -47,7 +46,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'children' => 
     array (
       0 => 
-      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+      Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -61,36 +60,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'children' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'abbreviation',
-             'title' => 'Abbreviation',
-             'tooltip' => '',
-             'mandatory' => true,
-             'noteditable' => false,
-             'index' => true,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => true,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'defaultValue' => NULL,
-             'columnLength' => 190,
-             'regex' => '',
-             'regexFlags' => 
-            array (
-            ),
-             'unique' => false,
-             'showCharCount' => false,
-             'width' => '',
-             'defaultValueGenerator' => '',
-          )),
-          1 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
              'name' => 'localizedfields',
              'title' => '',
@@ -114,11 +83,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                  'name' => 'name',
-                 'title' => 'Name',
+                 'title' => 'Features And Benefits name',
                  'tooltip' => '',
                  'mandatory' => true,
                  'noteditable' => false,
-                 'index' => true,
+                 'index' => false,
                  'locked' => false,
                  'style' => '',
                  'permissions' => NULL,
@@ -136,7 +105,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'regexFlags' => 
                 array (
                 ),
-                 'unique' => false,
+                 'unique' => true,
                  'showCharCount' => false,
                  'width' => '',
                  'defaultValueGenerator' => '',
@@ -154,7 +123,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             ),
              'permissionView' => NULL,
              'permissionEdit' => NULL,
-             'labelWidth' => 150,
+             'labelWidth' => 100,
              'labelAlign' => 'left',
              'width' => '',
              'height' => '',
@@ -165,8 +134,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'blockedVarsForExport' => 
         array (
         ),
-         'fieldtype' => 'fieldset',
-         'labelWidth' => 150,
+         'fieldtype' => 'panel',
+         'layout' => NULL,
+         'border' => false,
+         'icon' => '',
+         'labelWidth' => 100,
          'labelAlign' => 'left',
       )),
     ),

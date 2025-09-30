@@ -28,27 +28,27 @@
  * -- productMarking1 [textarea]
  * -- productMarking2 [textarea]
  * -- productDescriptionExtended [wysiwyg]
- * -- prop65 [select]
- * -- roHS [select]
- * -- gprs [select]
- * -- prop65Certificates [manyToOneRelation]
- * -- roHSCertificates [manyToOneRelation]
- * -- gprsCertificates [manyToOneRelation]
  * -- completenessPercentage [input]
  * -- emptyFieldsBrand [textarea]
  * -- emptyFieldsSkeleton [textarea]
  * -- emptyFieldsFinishedGood [textarea]
  * - productGroupSpecific [objectbricks]
- * - competitorCrossReference [manyToManyObjectRelation]
- * - customerReference [manyToManyObjectRelation]
- * - oemCrossReference [manyToManyObjectRelation]
+ * - competitorCrossReference [fieldcollections]
+ * - customerReference [fieldcollections]
+ * - oemCrossReference [fieldcollections]
+ * - prop65 [select]
+ * - roHS [select]
+ * - gprs [select]
+ * - prop65Certificates [manyToOneRelation]
+ * - roHSCertificates [manyToOneRelation]
+ * - gprsCertificates [manyToOneRelation]
  * - b2bFlag [checkbox]
  * - b2cFlag [checkbox]
  * - printedCatalogueFlag [checkbox]
  * - virtualCatalogueFlag [checkbox]
  * - customerPortalFlag [checkbox]
- * - regions [calculatedValue]
  * - regionalAvailability [manyToManyObjectRelation]
+ * - regions [calculatedValue]
  * - internalCategories [manyToManyObjectRelation]
  * - ghpFullCode [input]
  * - skeletonPimInternalHierarchyCode [calculatedValue]
@@ -63,7 +63,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1758792692,
+   'modificationDate' => 1759221249,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -667,7 +667,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 array (
                                   0 => 
                                   array (
-                                    'classes' => 'UniPrCountryOfOrigin',
+                                    'classes' => 'UniPrCountry',
                                   ),
                                 ),
                                  'displayMode' => 'combo',
@@ -971,7 +971,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'name' => 'productDescriptionShort',
                                      'title' => 'Product Description  - Short',
                                      'tooltip' => '',
-                                     'mandatory' => true,
+                                     'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
                                      'locked' => false,
@@ -996,7 +996,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'name' => 'productDescriptionLong',
                                      'title' => 'Product Description - Long',
                                      'tooltip' => '',
-                                     'mandatory' => true,
+                                     'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
                                      'locked' => false,
@@ -1021,7 +1021,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'name' => 'productMarking1',
                                      'title' => 'Product Marking - 1',
                                      'tooltip' => '',
-                                     'mandatory' => true,
+                                     'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
                                      'locked' => false,
@@ -1071,7 +1071,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                      'name' => 'productDescriptionExtended',
                                      'title' => 'Product Description - Extended',
                                      'tooltip' => '',
-                                     'mandatory' => true,
+                                     'mandatory' => false,
                                      'noteditable' => false,
                                      'index' => false,
                                      'locked' => false,
@@ -1111,393 +1111,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'fieldDefinitionsCache' => NULL,
                               )),
                               1 => 
-                              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-                                 'name' => 'localizedfields',
-                                 'title' => '',
-                                 'tooltip' => NULL,
-                                 'mandatory' => false,
-                                 'noteditable' => false,
-                                 'index' => false,
-                                 'locked' => false,
-                                 'style' => NULL,
-                                 'permissions' => NULL,
-                                 'fieldtype' => '',
-                                 'relationType' => false,
-                                 'invisible' => false,
-                                 'visibleGridView' => true,
-                                 'visibleSearch' => true,
-                                 'blockedVarsForExport' => 
-                                array (
-                                ),
-                                 'children' => 
-                                array (
-                                  0 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                                     'name' => 'Field Container',
-                                     'type' => NULL,
-                                     'region' => NULL,
-                                     'title' => NULL,
-                                     'width' => 0,
-                                     'height' => 0,
-                                     'collapsible' => false,
-                                     'collapsed' => false,
-                                     'bodyStyle' => '',
-                                     'datatype' => 'layout',
-                                     'children' => 
-                                    array (
-                                      0 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                                         'name' => 'Field Container',
-                                         'type' => NULL,
-                                         'region' => NULL,
-                                         'title' => NULL,
-                                         'width' => 400,
-                                         'height' => 0,
-                                         'collapsible' => false,
-                                         'collapsed' => false,
-                                         'bodyStyle' => '',
-                                         'datatype' => 'layout',
-                                         'children' => 
-                                        array (
-                                          0 => 
-                                          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                             'name' => 'prop65',
-                                             'title' => 'Prop65',
-                                             'tooltip' => '',
-                                             'mandatory' => false,
-                                             'noteditable' => false,
-                                             'index' => false,
-                                             'locked' => false,
-                                             'style' => '',
-                                             'permissions' => NULL,
-                                             'fieldtype' => '',
-                                             'relationType' => false,
-                                             'invisible' => false,
-                                             'visibleGridView' => false,
-                                             'visibleSearch' => true,
-                                             'blockedVarsForExport' => 
-                                            array (
-                                            ),
-                                             'options' => 
-                                            array (
-                                              0 => 
-                                              array (
-                                                'key' => 'compliant',
-                                                'value' => 'compliant',
-                                              ),
-                                              1 => 
-                                              array (
-                                                'key' => 'not compliant',
-                                                'value' => 'not compliant',
-                                              ),
-                                              2 => 
-                                              array (
-                                                'key' => 'not applicable',
-                                                'value' => 'not not applicable',
-                                              ),
-                                            ),
-                                             'defaultValue' => '',
-                                             'columnLength' => 190,
-                                             'dynamicOptions' => false,
-                                             'defaultValueGenerator' => '',
-                                             'width' => 250,
-                                             'optionsProviderType' => 'configure',
-                                             'optionsProviderClass' => '',
-                                             'optionsProviderData' => '',
-                                          )),
-                                          1 => 
-                                          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                             'name' => 'roHS',
-                                             'title' => 'RoHS',
-                                             'tooltip' => '',
-                                             'mandatory' => false,
-                                             'noteditable' => false,
-                                             'index' => false,
-                                             'locked' => false,
-                                             'style' => '',
-                                             'permissions' => NULL,
-                                             'fieldtype' => '',
-                                             'relationType' => false,
-                                             'invisible' => false,
-                                             'visibleGridView' => false,
-                                             'visibleSearch' => true,
-                                             'blockedVarsForExport' => 
-                                            array (
-                                            ),
-                                             'options' => 
-                                            array (
-                                              0 => 
-                                              array (
-                                                'key' => 'compliant',
-                                                'value' => 'compliant',
-                                              ),
-                                              1 => 
-                                              array (
-                                                'key' => 'not compliant',
-                                                'value' => 'not compliant',
-                                              ),
-                                              2 => 
-                                              array (
-                                                'key' => 'not applicable',
-                                                'value' => 'not applicable',
-                                              ),
-                                            ),
-                                             'defaultValue' => '',
-                                             'columnLength' => 190,
-                                             'dynamicOptions' => false,
-                                             'defaultValueGenerator' => '',
-                                             'width' => 250,
-                                             'optionsProviderType' => 'configure',
-                                             'optionsProviderClass' => '',
-                                             'optionsProviderData' => '',
-                                          )),
-                                          2 => 
-                                          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                             'name' => 'gprs',
-                                             'title' => 'GPRS',
-                                             'tooltip' => '',
-                                             'mandatory' => false,
-                                             'noteditable' => false,
-                                             'index' => false,
-                                             'locked' => false,
-                                             'style' => '',
-                                             'permissions' => NULL,
-                                             'fieldtype' => '',
-                                             'relationType' => false,
-                                             'invisible' => false,
-                                             'visibleGridView' => false,
-                                             'visibleSearch' => true,
-                                             'blockedVarsForExport' => 
-                                            array (
-                                            ),
-                                             'options' => 
-                                            array (
-                                              0 => 
-                                              array (
-                                                'key' => 'compliant',
-                                                'value' => 'compliant',
-                                              ),
-                                              1 => 
-                                              array (
-                                                'key' => 'not applicable',
-                                                'value' => 'not applicable',
-                                              ),
-                                              2 => 
-                                              array (
-                                                'key' => 'not compliant',
-                                                'value' => 'not compliant',
-                                              ),
-                                            ),
-                                             'defaultValue' => '',
-                                             'columnLength' => 190,
-                                             'dynamicOptions' => false,
-                                             'defaultValueGenerator' => '',
-                                             'width' => 250,
-                                             'optionsProviderType' => 'configure',
-                                             'optionsProviderClass' => '',
-                                             'optionsProviderData' => '',
-                                          )),
-                                        ),
-                                         'locked' => false,
-                                         'blockedVarsForExport' => 
-                                        array (
-                                        ),
-                                         'fieldtype' => 'fieldcontainer',
-                                         'layout' => 'vbox',
-                                         'fieldLabel' => '',
-                                         'labelWidth' => 100,
-                                         'labelAlign' => 'left',
-                                      )),
-                                      1 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                                         'name' => 'Field Container',
-                                         'type' => NULL,
-                                         'region' => NULL,
-                                         'title' => NULL,
-                                         'width' => 700,
-                                         'height' => 0,
-                                         'collapsible' => false,
-                                         'collapsed' => false,
-                                         'bodyStyle' => '',
-                                         'datatype' => 'layout',
-                                         'children' => 
-                                        array (
-                                          0 => 
-                                          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                                             'name' => 'prop65Certificates',
-                                             'title' => 'Prop65 Certificates',
-                                             'tooltip' => '',
-                                             'mandatory' => false,
-                                             'noteditable' => false,
-                                             'index' => false,
-                                             'locked' => false,
-                                             'style' => '',
-                                             'permissions' => NULL,
-                                             'fieldtype' => '',
-                                             'relationType' => true,
-                                             'invisible' => false,
-                                             'visibleGridView' => false,
-                                             'visibleSearch' => false,
-                                             'blockedVarsForExport' => 
-                                            array (
-                                            ),
-                                             'classes' => 
-                                            array (
-                                            ),
-                                             'displayMode' => 'combo',
-                                             'pathFormatterClass' => '',
-                                             'assetInlineDownloadAllowed' => false,
-                                             'assetUploadPath' => '',
-                                             'allowToClearRelation' => true,
-                                             'objectsAllowed' => false,
-                                             'assetsAllowed' => true,
-                                             'assetTypes' => 
-                                            array (
-                                              0 => 
-                                              array (
-                                                'assetTypes' => 'document',
-                                              ),
-                                            ),
-                                             'documentsAllowed' => false,
-                                             'documentTypes' => 
-                                            array (
-                                            ),
-                                             'width' => 350,
-                                          )),
-                                          1 => 
-                                          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                                             'name' => 'roHSCertificates',
-                                             'title' => 'RoHS Certificates',
-                                             'tooltip' => '',
-                                             'mandatory' => false,
-                                             'noteditable' => false,
-                                             'index' => false,
-                                             'locked' => false,
-                                             'style' => '',
-                                             'permissions' => NULL,
-                                             'fieldtype' => '',
-                                             'relationType' => true,
-                                             'invisible' => false,
-                                             'visibleGridView' => false,
-                                             'visibleSearch' => false,
-                                             'blockedVarsForExport' => 
-                                            array (
-                                            ),
-                                             'classes' => 
-                                            array (
-                                            ),
-                                             'displayMode' => 'combo',
-                                             'pathFormatterClass' => '',
-                                             'assetInlineDownloadAllowed' => false,
-                                             'assetUploadPath' => '',
-                                             'allowToClearRelation' => true,
-                                             'objectsAllowed' => false,
-                                             'assetsAllowed' => true,
-                                             'assetTypes' => 
-                                            array (
-                                              0 => 
-                                              array (
-                                                'assetTypes' => 'text',
-                                              ),
-                                              1 => 
-                                              array (
-                                                'assetTypes' => 'document',
-                                              ),
-                                            ),
-                                             'documentsAllowed' => false,
-                                             'documentTypes' => 
-                                            array (
-                                            ),
-                                             'width' => 350,
-                                          )),
-                                          2 => 
-                                          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                                             'name' => 'gprsCertificates',
-                                             'title' => 'GPRS Certificates',
-                                             'tooltip' => '',
-                                             'mandatory' => false,
-                                             'noteditable' => false,
-                                             'index' => false,
-                                             'locked' => false,
-                                             'style' => '',
-                                             'permissions' => NULL,
-                                             'fieldtype' => '',
-                                             'relationType' => true,
-                                             'invisible' => false,
-                                             'visibleGridView' => false,
-                                             'visibleSearch' => false,
-                                             'blockedVarsForExport' => 
-                                            array (
-                                            ),
-                                             'classes' => 
-                                            array (
-                                            ),
-                                             'displayMode' => 'combo',
-                                             'pathFormatterClass' => '',
-                                             'assetInlineDownloadAllowed' => false,
-                                             'assetUploadPath' => '/UniProductManagement/Certificates',
-                                             'allowToClearRelation' => true,
-                                             'objectsAllowed' => false,
-                                             'assetsAllowed' => true,
-                                             'assetTypes' => 
-                                            array (
-                                              0 => 
-                                              array (
-                                                'assetTypes' => 'text',
-                                              ),
-                                              1 => 
-                                              array (
-                                                'assetTypes' => 'document',
-                                              ),
-                                            ),
-                                             'documentsAllowed' => false,
-                                             'documentTypes' => 
-                                            array (
-                                            ),
-                                             'width' => 350,
-                                          )),
-                                        ),
-                                         'locked' => false,
-                                         'blockedVarsForExport' => 
-                                        array (
-                                        ),
-                                         'fieldtype' => 'fieldcontainer',
-                                         'layout' => 'vbox',
-                                         'fieldLabel' => '',
-                                         'labelWidth' => 150,
-                                         'labelAlign' => 'left',
-                                      )),
-                                    ),
-                                     'locked' => false,
-                                     'blockedVarsForExport' => 
-                                    array (
-                                    ),
-                                     'fieldtype' => 'fieldcontainer',
-                                     'layout' => 'hbox',
-                                     'fieldLabel' => '',
-                                     'labelWidth' => 200,
-                                     'labelAlign' => 'left',
-                                  )),
-                                ),
-                                 'region' => NULL,
-                                 'layout' => '',
-                                 'maxTabs' => NULL,
-                                 'border' => false,
-                                 'provideSplitView' => false,
-                                 'tabPosition' => 'top',
-                                 'hideLabelsWhenTabsReached' => NULL,
-                                 'referencedFields' => 
-                                array (
-                                ),
-                                 'permissionView' => NULL,
-                                 'permissionEdit' => NULL,
-                                 'labelWidth' => 250,
-                                 'labelAlign' => 'left',
-                                 'width' => '',
-                                 'height' => '',
-                                 'fieldDefinitionsCache' => NULL,
-                              )),
-                              2 => 
                               Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                                  'name' => 'localizedfields',
                                  'title' => '',
@@ -1754,7 +1367,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'name' => 'productDescriptionShort',
                                  'title' => 'Product Description  - Short',
                                  'tooltip' => '',
-                                 'mandatory' => true,
+                                 'mandatory' => false,
                                  'noteditable' => false,
                                  'index' => false,
                                  'locked' => false,
@@ -1779,7 +1392,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'name' => 'productDescriptionLong',
                                  'title' => 'Product Description - Long',
                                  'tooltip' => '',
-                                 'mandatory' => true,
+                                 'mandatory' => false,
                                  'noteditable' => false,
                                  'index' => false,
                                  'locked' => false,
@@ -1804,7 +1417,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'name' => 'productMarking1',
                                  'title' => 'Product Marking - 1',
                                  'tooltip' => '',
-                                 'mandatory' => true,
+                                 'mandatory' => false,
                                  'noteditable' => false,
                                  'index' => false,
                                  'locked' => false,
@@ -1854,7 +1467,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'name' => 'productDescriptionExtended',
                                  'title' => 'Product Description - Extended',
                                  'tooltip' => '',
-                                 'mandatory' => true,
+                                 'mandatory' => false,
                                  'noteditable' => false,
                                  'index' => false,
                                  'locked' => false,
@@ -1920,7 +1533,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'type' => NULL,
                      'region' => NULL,
                      'title' => 'Cross References',
-                     'width' => 0,
+                     'width' => 800,
                      'height' => 0,
                      'collapsible' => false,
                      'collapsed' => false,
@@ -1929,149 +1542,97 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                         'name' => 'Field Container',
-                         'type' => NULL,
-                         'region' => NULL,
-                         'title' => NULL,
-                         'width' => 600,
-                         'height' => 0,
-                         'collapsible' => false,
-                         'collapsed' => false,
-                         'bodyStyle' => '',
-                         'datatype' => 'layout',
-                         'children' => 
-                        array (
-                          0 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                             'name' => 'competitorCrossReference',
-                             'title' => 'Competitor Cross Reference',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'fieldtype' => '',
-                             'relationType' => true,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => true,
-                             'blockedVarsForExport' => 
-                            array (
-                            ),
-                             'classes' => 
-                            array (
-                              0 => 
-                              array (
-                                'classes' => 'UniPrCompetitorCrossReference',
-                              ),
-                            ),
-                             'displayMode' => 'combo',
-                             'pathFormatterClass' => '',
-                             'maxItems' => 0,
-                             'visibleFields' => 'competitor,partNumber',
-                             'allowToCreateNewObject' => false,
-                             'allowToClearRelation' => true,
-                             'optimizedAdminLoading' => false,
-                             'enableTextSelection' => false,
-                             'visibleFieldDefinitions' => 
-                            array (
-                            ),
-                             'width' => '',
-                             'height' => '',
-                          )),
-                          1 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                             'name' => 'customerReference',
-                             'title' => 'Customer Reference',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'fieldtype' => '',
-                             'relationType' => true,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'blockedVarsForExport' => 
-                            array (
-                            ),
-                             'classes' => 
-                            array (
-                              0 => 
-                              array (
-                                'classes' => 'UniPrCustomerReference',
-                              ),
-                            ),
-                             'displayMode' => 'combo',
-                             'pathFormatterClass' => '',
-                             'maxItems' => NULL,
-                             'visibleFields' => 'customer,partNumber',
-                             'allowToCreateNewObject' => false,
-                             'allowToClearRelation' => true,
-                             'optimizedAdminLoading' => false,
-                             'enableTextSelection' => false,
-                             'visibleFieldDefinitions' => 
-                            array (
-                            ),
-                             'width' => '',
-                             'height' => '',
-                          )),
-                          2 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                             'name' => 'oemCrossReference',
-                             'title' => 'OE / OEM Cross Reference',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'fieldtype' => '',
-                             'relationType' => true,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'blockedVarsForExport' => 
-                            array (
-                            ),
-                             'classes' => 
-                            array (
-                              0 => 
-                              array (
-                                'classes' => 'UniPrOemCrossReference',
-                              ),
-                            ),
-                             'displayMode' => 'combo',
-                             'pathFormatterClass' => '',
-                             'maxItems' => NULL,
-                             'visibleFields' => 'oem,partNumber',
-                             'allowToCreateNewObject' => false,
-                             'allowToClearRelation' => true,
-                             'optimizedAdminLoading' => false,
-                             'enableTextSelection' => false,
-                             'visibleFieldDefinitions' => 
-                            array (
-                            ),
-                             'width' => '',
-                             'height' => '',
-                          )),
-                        ),
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+                         'name' => 'competitorCrossReference',
+                         'title' => 'Competitor Cross Reference',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
                          'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'fieldtype' => 'fieldcontainer',
-                         'layout' => 'vbox',
-                         'fieldLabel' => '',
-                         'labelWidth' => 250,
-                         'labelAlign' => 'left',
+                         'allowedTypes' => 
+                        array (
+                          0 => 'UniPrCompetitorCrossReference',
+                        ),
+                         'lazyLoading' => false,
+                         'maxItems' => 0,
+                         'disallowAddRemove' => false,
+                         'disallowReorder' => false,
+                         'collapsed' => false,
+                         'collapsible' => false,
+                         'border' => false,
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+                         'name' => 'customerReference',
+                         'title' => 'Customer Reference',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'allowedTypes' => 
+                        array (
+                          0 => 'UniPrCustomerReference',
+                        ),
+                         'lazyLoading' => false,
+                         'maxItems' => NULL,
+                         'disallowAddRemove' => false,
+                         'disallowReorder' => false,
+                         'collapsed' => false,
+                         'collapsible' => false,
+                         'border' => false,
+                      )),
+                      2 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+                         'name' => 'oemCrossReference',
+                         'title' => 'OE / OEM Cross Reference',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'allowedTypes' => 
+                        array (
+                          0 => 'UniPrOemCrossReference',
+                        ),
+                         'lazyLoading' => false,
+                         'maxItems' => NULL,
+                         'disallowAddRemove' => false,
+                         'disallowReorder' => false,
+                         'collapsed' => false,
+                         'collapsible' => false,
+                         'border' => false,
                       )),
                     ),
                      'locked' => false,
@@ -2114,24 +1675,17 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                          'children' => 
                         array (
                           0 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-                             'name' => 'localizedfields',
-                             'title' => '',
-                             'tooltip' => NULL,
-                             'mandatory' => false,
-                             'noteditable' => false,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => NULL,
-                             'permissions' => NULL,
-                             'fieldtype' => '',
-                             'relationType' => false,
-                             'invisible' => false,
-                             'visibleGridView' => true,
-                             'visibleSearch' => true,
-                             'blockedVarsForExport' => 
-                            array (
-                            ),
+                          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                             'name' => 'Field Container',
+                             'type' => NULL,
+                             'region' => NULL,
+                             'title' => NULL,
+                             'width' => 0,
+                             'height' => 0,
+                             'collapsible' => false,
+                             'collapsed' => false,
+                             'bodyStyle' => '',
+                             'datatype' => 'layout',
                              'children' => 
                             array (
                               0 => 
@@ -2140,7 +1694,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'type' => NULL,
                                  'region' => NULL,
                                  'title' => NULL,
-                                 'width' => 0,
+                                 'width' => 400,
                                  'height' => 0,
                                  'collapsible' => false,
                                  'collapsed' => false,
@@ -2149,326 +1703,142 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                  'children' => 
                                 array (
                                   0 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                                     'name' => 'Field Container',
-                                     'type' => NULL,
-                                     'region' => NULL,
-                                     'title' => NULL,
-                                     'width' => 400,
-                                     'height' => 0,
-                                     'collapsible' => false,
-                                     'collapsed' => false,
-                                     'bodyStyle' => '',
-                                     'datatype' => 'layout',
-                                     'children' => 
-                                    array (
-                                      0 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                         'name' => 'prop65',
-                                         'title' => 'Prop65',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => false,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'fieldtype' => '',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => true,
-                                         'blockedVarsForExport' => 
-                                        array (
-                                        ),
-                                         'options' => 
-                                        array (
-                                          0 => 
-                                          array (
-                                            'key' => 'compliant',
-                                            'value' => 'compliant',
-                                          ),
-                                          1 => 
-                                          array (
-                                            'key' => 'not compliant',
-                                            'value' => 'not compliant',
-                                          ),
-                                          2 => 
-                                          array (
-                                            'key' => 'not applicable',
-                                            'value' => 'not not applicable',
-                                          ),
-                                        ),
-                                         'defaultValue' => '',
-                                         'columnLength' => 190,
-                                         'dynamicOptions' => false,
-                                         'defaultValueGenerator' => '',
-                                         'width' => 250,
-                                         'optionsProviderType' => 'configure',
-                                         'optionsProviderClass' => '',
-                                         'optionsProviderData' => '',
-                                      )),
-                                      1 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                         'name' => 'roHS',
-                                         'title' => 'RoHS',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => false,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'fieldtype' => '',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => true,
-                                         'blockedVarsForExport' => 
-                                        array (
-                                        ),
-                                         'options' => 
-                                        array (
-                                          0 => 
-                                          array (
-                                            'key' => 'compliant',
-                                            'value' => 'compliant',
-                                          ),
-                                          1 => 
-                                          array (
-                                            'key' => 'not compliant',
-                                            'value' => 'not compliant',
-                                          ),
-                                          2 => 
-                                          array (
-                                            'key' => 'not applicable',
-                                            'value' => 'not applicable',
-                                          ),
-                                        ),
-                                         'defaultValue' => '',
-                                         'columnLength' => 190,
-                                         'dynamicOptions' => false,
-                                         'defaultValueGenerator' => '',
-                                         'width' => 250,
-                                         'optionsProviderType' => 'configure',
-                                         'optionsProviderClass' => '',
-                                         'optionsProviderData' => '',
-                                      )),
-                                      2 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                                         'name' => 'gprs',
-                                         'title' => 'GPRS',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => false,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'fieldtype' => '',
-                                         'relationType' => false,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => true,
-                                         'blockedVarsForExport' => 
-                                        array (
-                                        ),
-                                         'options' => 
-                                        array (
-                                          0 => 
-                                          array (
-                                            'key' => 'compliant',
-                                            'value' => 'compliant',
-                                          ),
-                                          1 => 
-                                          array (
-                                            'key' => 'not applicable',
-                                            'value' => 'not applicable',
-                                          ),
-                                          2 => 
-                                          array (
-                                            'key' => 'not compliant',
-                                            'value' => 'not compliant',
-                                          ),
-                                        ),
-                                         'defaultValue' => '',
-                                         'columnLength' => 190,
-                                         'dynamicOptions' => false,
-                                         'defaultValueGenerator' => '',
-                                         'width' => 250,
-                                         'optionsProviderType' => 'configure',
-                                         'optionsProviderClass' => '',
-                                         'optionsProviderData' => '',
-                                      )),
-                                    ),
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                     'name' => 'prop65',
+                                     'title' => 'Prop65',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
                                      'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'fieldtype' => '',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => true,
                                      'blockedVarsForExport' => 
                                     array (
                                     ),
-                                     'fieldtype' => 'fieldcontainer',
-                                     'layout' => 'vbox',
-                                     'fieldLabel' => '',
-                                     'labelWidth' => 100,
-                                     'labelAlign' => 'left',
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'compliant',
+                                        'value' => 'compliant',
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'not compliant',
+                                        'value' => 'not compliant',
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'not applicable',
+                                        'value' => 'not not applicable',
+                                      ),
+                                    ),
+                                     'defaultValue' => '',
+                                     'columnLength' => 190,
+                                     'dynamicOptions' => false,
+                                     'defaultValueGenerator' => '',
+                                     'width' => 250,
+                                     'optionsProviderType' => 'configure',
+                                     'optionsProviderClass' => '',
+                                     'optionsProviderData' => '',
                                   )),
                                   1 => 
-                                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                                     'name' => 'Field Container',
-                                     'type' => NULL,
-                                     'region' => NULL,
-                                     'title' => NULL,
-                                     'width' => 700,
-                                     'height' => 0,
-                                     'collapsible' => false,
-                                     'collapsed' => false,
-                                     'bodyStyle' => '',
-                                     'datatype' => 'layout',
-                                     'children' => 
-                                    array (
-                                      0 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                                         'name' => 'prop65Certificates',
-                                         'title' => 'Prop65 Certificates',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => false,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'fieldtype' => '',
-                                         'relationType' => true,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                         'blockedVarsForExport' => 
-                                        array (
-                                        ),
-                                         'classes' => 
-                                        array (
-                                        ),
-                                         'displayMode' => 'combo',
-                                         'pathFormatterClass' => '',
-                                         'assetInlineDownloadAllowed' => false,
-                                         'assetUploadPath' => '',
-                                         'allowToClearRelation' => true,
-                                         'objectsAllowed' => false,
-                                         'assetsAllowed' => true,
-                                         'assetTypes' => 
-                                        array (
-                                          0 => 
-                                          array (
-                                            'assetTypes' => 'document',
-                                          ),
-                                        ),
-                                         'documentsAllowed' => false,
-                                         'documentTypes' => 
-                                        array (
-                                        ),
-                                         'width' => 350,
-                                      )),
-                                      1 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                                         'name' => 'roHSCertificates',
-                                         'title' => 'RoHS Certificates',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => false,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'fieldtype' => '',
-                                         'relationType' => true,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                         'blockedVarsForExport' => 
-                                        array (
-                                        ),
-                                         'classes' => 
-                                        array (
-                                        ),
-                                         'displayMode' => 'combo',
-                                         'pathFormatterClass' => '',
-                                         'assetInlineDownloadAllowed' => false,
-                                         'assetUploadPath' => '',
-                                         'allowToClearRelation' => true,
-                                         'objectsAllowed' => false,
-                                         'assetsAllowed' => true,
-                                         'assetTypes' => 
-                                        array (
-                                          0 => 
-                                          array (
-                                            'assetTypes' => 'text',
-                                          ),
-                                          1 => 
-                                          array (
-                                            'assetTypes' => 'document',
-                                          ),
-                                        ),
-                                         'documentsAllowed' => false,
-                                         'documentTypes' => 
-                                        array (
-                                        ),
-                                         'width' => 350,
-                                      )),
-                                      2 => 
-                                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                                         'name' => 'gprsCertificates',
-                                         'title' => 'GPRS Certificates',
-                                         'tooltip' => '',
-                                         'mandatory' => false,
-                                         'noteditable' => false,
-                                         'index' => false,
-                                         'locked' => false,
-                                         'style' => '',
-                                         'permissions' => NULL,
-                                         'fieldtype' => '',
-                                         'relationType' => true,
-                                         'invisible' => false,
-                                         'visibleGridView' => false,
-                                         'visibleSearch' => false,
-                                         'blockedVarsForExport' => 
-                                        array (
-                                        ),
-                                         'classes' => 
-                                        array (
-                                        ),
-                                         'displayMode' => 'combo',
-                                         'pathFormatterClass' => '',
-                                         'assetInlineDownloadAllowed' => false,
-                                         'assetUploadPath' => '/UniProductManagement/Certificates',
-                                         'allowToClearRelation' => true,
-                                         'objectsAllowed' => false,
-                                         'assetsAllowed' => true,
-                                         'assetTypes' => 
-                                        array (
-                                          0 => 
-                                          array (
-                                            'assetTypes' => 'text',
-                                          ),
-                                          1 => 
-                                          array (
-                                            'assetTypes' => 'document',
-                                          ),
-                                        ),
-                                         'documentsAllowed' => false,
-                                         'documentTypes' => 
-                                        array (
-                                        ),
-                                         'width' => 350,
-                                      )),
-                                    ),
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                     'name' => 'roHS',
+                                     'title' => 'RoHS',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
                                      'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'fieldtype' => '',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => true,
                                      'blockedVarsForExport' => 
                                     array (
                                     ),
-                                     'fieldtype' => 'fieldcontainer',
-                                     'layout' => 'vbox',
-                                     'fieldLabel' => '',
-                                     'labelWidth' => 150,
-                                     'labelAlign' => 'left',
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'compliant',
+                                        'value' => 'compliant',
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'not compliant',
+                                        'value' => 'not compliant',
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'not applicable',
+                                        'value' => 'not applicable',
+                                      ),
+                                    ),
+                                     'defaultValue' => '',
+                                     'columnLength' => 190,
+                                     'dynamicOptions' => false,
+                                     'defaultValueGenerator' => '',
+                                     'width' => 250,
+                                     'optionsProviderType' => 'configure',
+                                     'optionsProviderClass' => '',
+                                     'optionsProviderData' => '',
+                                  )),
+                                  2 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                                     'name' => 'gprs',
+                                     'title' => 'GPRS',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'fieldtype' => '',
+                                     'relationType' => false,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => true,
+                                     'blockedVarsForExport' => 
+                                    array (
+                                    ),
+                                     'options' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'key' => 'compliant',
+                                        'value' => 'compliant',
+                                      ),
+                                      1 => 
+                                      array (
+                                        'key' => 'not applicable',
+                                        'value' => 'not applicable',
+                                      ),
+                                      2 => 
+                                      array (
+                                        'key' => 'not compliant',
+                                        'value' => 'not compliant',
+                                      ),
+                                    ),
+                                     'defaultValue' => '',
+                                     'columnLength' => 190,
+                                     'dynamicOptions' => false,
+                                     'defaultValueGenerator' => '',
+                                     'width' => 250,
+                                     'optionsProviderType' => 'configure',
+                                     'optionsProviderClass' => '',
+                                     'optionsProviderData' => '',
                                   )),
                                 ),
                                  'locked' => false,
@@ -2476,29 +1846,180 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                                 array (
                                 ),
                                  'fieldtype' => 'fieldcontainer',
-                                 'layout' => 'hbox',
+                                 'layout' => 'vbox',
                                  'fieldLabel' => '',
-                                 'labelWidth' => 200,
+                                 'labelWidth' => 100,
+                                 'labelAlign' => 'left',
+                              )),
+                              1 => 
+                              Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                                 'name' => 'Field Container',
+                                 'type' => NULL,
+                                 'region' => NULL,
+                                 'title' => NULL,
+                                 'width' => 700,
+                                 'height' => 0,
+                                 'collapsible' => false,
+                                 'collapsed' => false,
+                                 'bodyStyle' => '',
+                                 'datatype' => 'layout',
+                                 'children' => 
+                                array (
+                                  0 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                                     'name' => 'prop65Certificates',
+                                     'title' => 'Prop65 Certificates',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'fieldtype' => '',
+                                     'relationType' => true,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'blockedVarsForExport' => 
+                                    array (
+                                    ),
+                                     'classes' => 
+                                    array (
+                                    ),
+                                     'displayMode' => 'grid',
+                                     'pathFormatterClass' => '',
+                                     'assetInlineDownloadAllowed' => false,
+                                     'assetUploadPath' => '',
+                                     'allowToClearRelation' => true,
+                                     'objectsAllowed' => false,
+                                     'assetsAllowed' => true,
+                                     'assetTypes' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'assetTypes' => 'document',
+                                      ),
+                                    ),
+                                     'documentsAllowed' => false,
+                                     'documentTypes' => 
+                                    array (
+                                    ),
+                                     'width' => 350,
+                                  )),
+                                  1 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                                     'name' => 'roHSCertificates',
+                                     'title' => 'RoHS Certificates',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'fieldtype' => '',
+                                     'relationType' => true,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'blockedVarsForExport' => 
+                                    array (
+                                    ),
+                                     'classes' => 
+                                    array (
+                                    ),
+                                     'displayMode' => 'grid',
+                                     'pathFormatterClass' => '',
+                                     'assetInlineDownloadAllowed' => false,
+                                     'assetUploadPath' => '',
+                                     'allowToClearRelation' => true,
+                                     'objectsAllowed' => false,
+                                     'assetsAllowed' => true,
+                                     'assetTypes' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'assetTypes' => 'text',
+                                      ),
+                                      1 => 
+                                      array (
+                                        'assetTypes' => 'document',
+                                      ),
+                                    ),
+                                     'documentsAllowed' => false,
+                                     'documentTypes' => 
+                                    array (
+                                    ),
+                                     'width' => 350,
+                                  )),
+                                  2 => 
+                                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                                     'name' => 'gprsCertificates',
+                                     'title' => 'GPRS Certificates',
+                                     'tooltip' => '',
+                                     'mandatory' => false,
+                                     'noteditable' => false,
+                                     'index' => false,
+                                     'locked' => false,
+                                     'style' => '',
+                                     'permissions' => NULL,
+                                     'fieldtype' => '',
+                                     'relationType' => true,
+                                     'invisible' => false,
+                                     'visibleGridView' => false,
+                                     'visibleSearch' => false,
+                                     'blockedVarsForExport' => 
+                                    array (
+                                    ),
+                                     'classes' => 
+                                    array (
+                                    ),
+                                     'displayMode' => 'grid',
+                                     'pathFormatterClass' => '',
+                                     'assetInlineDownloadAllowed' => false,
+                                     'assetUploadPath' => '/UniProductManagement/Certificates',
+                                     'allowToClearRelation' => true,
+                                     'objectsAllowed' => false,
+                                     'assetsAllowed' => true,
+                                     'assetTypes' => 
+                                    array (
+                                      0 => 
+                                      array (
+                                        'assetTypes' => 'text',
+                                      ),
+                                      1 => 
+                                      array (
+                                        'assetTypes' => 'document',
+                                      ),
+                                    ),
+                                     'documentsAllowed' => false,
+                                     'documentTypes' => 
+                                    array (
+                                    ),
+                                     'width' => 350,
+                                  )),
+                                ),
+                                 'locked' => false,
+                                 'blockedVarsForExport' => 
+                                array (
+                                ),
+                                 'fieldtype' => 'fieldcontainer',
+                                 'layout' => 'vbox',
+                                 'fieldLabel' => '',
+                                 'labelWidth' => 150,
                                  'labelAlign' => 'left',
                               )),
                             ),
-                             'region' => NULL,
-                             'layout' => '',
-                             'maxTabs' => NULL,
-                             'border' => false,
-                             'provideSplitView' => false,
-                             'tabPosition' => 'top',
-                             'hideLabelsWhenTabsReached' => NULL,
-                             'referencedFields' => 
+                             'locked' => false,
+                             'blockedVarsForExport' => 
                             array (
                             ),
-                             'permissionView' => NULL,
-                             'permissionEdit' => NULL,
-                             'labelWidth' => 250,
+                             'fieldtype' => 'fieldcontainer',
+                             'layout' => 'hbox',
+                             'fieldLabel' => '',
+                             'labelWidth' => 200,
                              'labelAlign' => 'left',
-                             'width' => '',
-                             'height' => '',
-                             'fieldDefinitionsCache' => NULL,
                           )),
                         ),
                          'locked' => false,
@@ -2672,95 +2193,70 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'children' => 
                     array (
                       0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
-                         'name' => 'Field Container',
-                         'type' => NULL,
-                         'region' => NULL,
-                         'title' => NULL,
-                         'width' => 600,
-                         'height' => '',
-                         'collapsible' => false,
-                         'collapsed' => false,
-                         'bodyStyle' => '',
-                         'datatype' => 'layout',
-                         'children' => 
-                        array (
-                          0 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
-                             'name' => 'regions',
-                             'title' => 'Regions',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => true,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'fieldtype' => '',
-                             'relationType' => false,
-                             'invisible' => true,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'blockedVarsForExport' => 
-                            array (
-                            ),
-                             'elementType' => 'input',
-                             'calculatorType' => 'class',
-                             'calculatorExpression' => '',
-                             'calculatorClass' => 'App\\Model\\CalculatedValue\\UniProductManagement\\UniProductRegion',
-                             'columnLength' => 190,
-                             'width' => 350,
-                          )),
-                          1 => 
-                          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                             'name' => 'regionalAvailability',
-                             'title' => 'Available in',
-                             'tooltip' => '',
-                             'mandatory' => false,
-                             'noteditable' => true,
-                             'index' => false,
-                             'locked' => false,
-                             'style' => '',
-                             'permissions' => NULL,
-                             'fieldtype' => '',
-                             'relationType' => true,
-                             'invisible' => false,
-                             'visibleGridView' => false,
-                             'visibleSearch' => false,
-                             'blockedVarsForExport' => 
-                            array (
-                            ),
-                             'classes' => 
-                            array (
-                              0 => 
-                              array (
-                                'classes' => 'UniRegion',
-                              ),
-                            ),
-                             'displayMode' => 'combo',
-                             'pathFormatterClass' => '',
-                             'maxItems' => NULL,
-                             'visibleFields' => 'name',
-                             'allowToCreateNewObject' => false,
-                             'allowToClearRelation' => true,
-                             'optimizedAdminLoading' => false,
-                             'enableTextSelection' => false,
-                             'visibleFieldDefinitions' => 
-                            array (
-                            ),
-                             'width' => 300,
-                             'height' => '',
-                          )),
-                        ),
+                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+                         'name' => 'regionalAvailability',
+                         'title' => 'Available in',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => true,
+                         'index' => false,
                          'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => true,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
                          'blockedVarsForExport' => 
                         array (
                         ),
-                         'fieldtype' => 'fieldcontainer',
-                         'layout' => 'vbox',
-                         'fieldLabel' => '',
-                         'labelWidth' => 250,
-                         'labelAlign' => 'left',
+                         'classes' => 
+                        array (
+                          0 => 
+                          array (
+                            'classes' => 'UniRegion',
+                          ),
+                        ),
+                         'displayMode' => 'grid',
+                         'pathFormatterClass' => '',
+                         'maxItems' => NULL,
+                         'visibleFields' => 'name',
+                         'allowToCreateNewObject' => false,
+                         'allowToClearRelation' => true,
+                         'optimizedAdminLoading' => false,
+                         'enableTextSelection' => false,
+                         'visibleFieldDefinitions' => 
+                        array (
+                        ),
+                         'width' => '',
+                         'height' => '',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\CalculatedValue::__set_state(array(
+                         'name' => 'regions',
+                         'title' => 'Regions',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => true,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => true,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'elementType' => 'input',
+                         'calculatorType' => 'class',
+                         'calculatorExpression' => '',
+                         'calculatorClass' => 'App\\Model\\CalculatedValue\\UniProductManagement\\UniProductRegion',
+                         'columnLength' => 190,
+                         'width' => '',
                       )),
                     ),
                      'locked' => false,
@@ -2849,7 +2345,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                         'classes' => 'UniProductCategoryInternal',
                       ),
                     ),
-                     'displayMode' => 'combo',
+                     'displayMode' => 'grid',
                      'pathFormatterClass' => '',
                      'maxItems' => NULL,
                      'visibleFields' => 'level,name,categoryLevel',

@@ -116,7 +116,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                         'classes' => 'UniPrDssModelType',
                       ),
                     ),
-                     'displayMode' => 'combo',
+                     'displayMode' => 'grid',
                      'pathFormatterClass' => '',
                      'assetInlineDownloadAllowed' => false,
                      'assetUploadPath' => '',
@@ -357,7 +357,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           4 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'name' => 'workingPressureBar',
-                             'title' => 'Working Pressure (bar)',
+                             'title' => 'Working Pressure (Bar)',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,
@@ -562,7 +562,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                           4 => 
                           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                              'name' => 'workingPressurePsi',
-                             'title' => 'Working Pressure(psi)',
+                             'title' => 'Working Pressure (psi)',
                              'tooltip' => '',
                              'mandatory' => false,
                              'noteditable' => false,

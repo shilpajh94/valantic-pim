@@ -5,7 +5,6 @@
  * Variants: no
  *
  * Fields Summary:
- * - abbreviation [input]
  * - localizedfields [localizedfields]
  * -- name [input]
  */
@@ -16,20 +15,17 @@ use Pimcore\Model\DataObject\Exception\InheritanceParentNotFoundException;
 use Pimcore\Model\DataObject\PreGetValueHookInterface;
 
 /**
-* @method static \Pimcore\Model\DataObject\UniPrCountryOfOrigin\Listing getList(array $config = [])
-* @method static \Pimcore\Model\DataObject\UniPrCountryOfOrigin\Listing|\Pimcore\Model\DataObject\UniPrCountryOfOrigin|null getByAbbreviation(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniPrCountryOfOrigin\Listing|\Pimcore\Model\DataObject\UniPrCountryOfOrigin|null getByLocalizedfields(string $field, mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniPrCountryOfOrigin\Listing|\Pimcore\Model\DataObject\UniPrCountryOfOrigin|null getByName(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniPrHazardousSubstanceClassification\Listing getList(array $config = [])
+* @method static \Pimcore\Model\DataObject\UniPrHazardousSubstanceClassification\Listing|\Pimcore\Model\DataObject\UniPrHazardousSubstanceClassification|null getByLocalizedfields(string $field, mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniPrHazardousSubstanceClassification\Listing|\Pimcore\Model\DataObject\UniPrHazardousSubstanceClassification|null getByName(mixed $value, ?string $locale = null, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 */
 
-class UniPrCountryOfOrigin extends Concrete
+class UniPrHazardousSubstanceClassification extends Concrete
 {
-public const FIELD_ABBREVIATION = 'abbreviation';
 public const FIELD_NAME = 'name';
 
-protected $classId = "UNI_PR_ML_COO";
-protected $className = "UniPrCountryOfOrigin";
-protected $abbreviation;
+protected $classId = "UNI_PR_ML_HSC";
+protected $className = "UniPrHazardousSubstanceClassification";
 protected $localizedfields;
 
 
@@ -42,42 +38,6 @@ public static function create(array $values = []): static
 	$object = new static();
 	$object->setValues($values);
 	return $object;
-}
-
-/**
-* Get abbreviation - Abbreviation
-* @return string|null
-*/
-public function getAbbreviation(): ?string
-{
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("abbreviation");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	$data = $this->abbreviation;
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set abbreviation - Abbreviation
-* @param string|null $abbreviation
-* @return $this
-*/
-public function setAbbreviation(?string $abbreviation): static
-{
-	$this->markFieldDirty("abbreviation", true);
-
-	$this->abbreviation = $abbreviation;
-
-	return $this;
 }
 
 /**
@@ -103,7 +63,7 @@ public function getLocalizedfields(): ?\Pimcore\Model\DataObject\Localizedfield
 }
 
 /**
-* Get name - Name
+* Get name - Hazardous Substance Classification name
 * @return string|null
 */
 public function getName(?string $language = null): ?string
@@ -143,7 +103,7 @@ public function setLocalizedfields(?\Pimcore\Model\DataObject\Localizedfield $lo
 }
 
 /**
-* Set name - Name
+* Set name - Hazardous Substance Classification name
 * @param string|null $name
 * @return $this
 */

@@ -12,11 +12,11 @@
  * - industrialStandards [multiselect]
  * - agencyCompliance [multiselect]
  * - b2bSubCategory [manyToManyObjectRelation]
+ * - reach [select]
+ * - hazardousSubstanceClassification [manyToOneRelation]
+ * - featuresAndBenefits [manyToOneRelation]
+ * - reachCertificates [manyToOneRelation]
  * - localizedfields [localizedfields]
- * -- reach [select]
- * -- hazardousSubstanceClassification [multiselect]
- * -- featuresAndBenefits [multiselect]
- * -- reachCertificates [manyToOneRelation]
  * -- legalText [textarea]
  * -- disclaimer [textarea]
  * -- marketingDescriptionShort [wysiwyg]
@@ -62,6 +62,10 @@ protected $productDesignCode;
 protected $industrialStandards;
 protected $agencyCompliance;
 protected $b2bSubCategory;
+protected $reach;
+protected $hazardousSubstanceClassification;
+protected $featuresAndBenefits;
+protected $reachCertificates;
 protected $localizedfields;
 
 
@@ -424,6 +428,189 @@ public function setB2bSubCategory (?array $b2bSubCategory): static
 }
 
 /**
+* Get reach - REACH  
+* @return string|null
+*/
+public function getReach(): ?string
+{
+	$data = $this->reach;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("reach")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("reach");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set reach - REACH  
+* @param string|null $reach
+* @return $this
+*/
+public function setReach (?string $reach): static
+{
+	$this->reach = $reach;
+
+	return $this;
+}
+
+/**
+* Get hazardousSubstanceClassification - Hazardous Substance Classification
+* @return \Pimcore\Model\DataObject\UniPrHazardousSubstanceClassification|null
+*/
+public function getHazardousSubstanceClassification(): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getDefinition()->getFieldDefinition("hazardousSubstanceClassification")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("hazardousSubstanceClassification")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("hazardousSubstanceClassification");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set hazardousSubstanceClassification - Hazardous Substance Classification
+* @param \Pimcore\Model\DataObject\UniPrHazardousSubstanceClassification|null $hazardousSubstanceClassification
+* @return $this
+*/
+public function setHazardousSubstanceClassification (?\Pimcore\Model\Element\AbstractElement $hazardousSubstanceClassification): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("hazardousSubstanceClassification");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getHazardousSubstanceClassification();
+		});
+	}
+	else {
+		$currentData = $this->getHazardousSubstanceClassification();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $hazardousSubstanceClassification);
+	if (!$isEqual) {
+		$this->markFieldDirty("hazardousSubstanceClassification", true);
+	}
+	$this->hazardousSubstanceClassification = $fd->preSetData($this, $hazardousSubstanceClassification);
+	return $this;
+}
+
+/**
+* Get featuresAndBenefits - Features And Benefits
+* @return \Pimcore\Model\DataObject\UniPrFeaturesAndBenefits|null
+*/
+public function getFeaturesAndBenefits(): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getDefinition()->getFieldDefinition("featuresAndBenefits")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("featuresAndBenefits")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("featuresAndBenefits");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set featuresAndBenefits - Features And Benefits
+* @param \Pimcore\Model\DataObject\UniPrFeaturesAndBenefits|null $featuresAndBenefits
+* @return $this
+*/
+public function setFeaturesAndBenefits (?\Pimcore\Model\Element\AbstractElement $featuresAndBenefits): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("featuresAndBenefits");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getFeaturesAndBenefits();
+		});
+	}
+	else {
+		$currentData = $this->getFeaturesAndBenefits();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $featuresAndBenefits);
+	if (!$isEqual) {
+		$this->markFieldDirty("featuresAndBenefits", true);
+	}
+	$this->featuresAndBenefits = $fd->preSetData($this, $featuresAndBenefits);
+	return $this;
+}
+
+/**
+* Get reachCertificates - REACH Certificates
+* @return \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null
+*/
+public function getReachCertificates(): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getDefinition()->getFieldDefinition("reachCertificates")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("reachCertificates")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("reachCertificates");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set reachCertificates - REACH Certificates
+* @param \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null $reachCertificates
+* @return $this
+*/
+public function setReachCertificates (?\Pimcore\Model\Element\AbstractElement $reachCertificates): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("reachCertificates");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getReachCertificates();
+		});
+	}
+	else {
+		$currentData = $this->getReachCertificates();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $reachCertificates);
+	if (!$isEqual) {
+		$this->markFieldDirty("reachCertificates", true);
+	}
+	$this->reachCertificates = $fd->preSetData($this, $reachCertificates);
+	return $this;
+}
+
+/**
 * Get localizedfields - 
 * @return \Pimcore\Model\DataObject\Localizedfield|null
 */
@@ -437,62 +624,6 @@ public function getLocalizedfields(): ?\Pimcore\Model\DataObject\Localizedfield
 			// no data from parent available, continue ...
 		}
 	}
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get reach - REACH  
-* @return string|null
-*/
-public function getReach(?string $language = null): ?string
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("reach", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get hazardousSubstanceClassification - Hazardous Substance Classification
-* @return string[]|null
-*/
-public function getHazardousSubstanceClassification(?string $language = null): ?array
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("hazardousSubstanceClassification", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get featuresAndBenefits - Features And Benefits
-* @return string[]|null
-*/
-public function getFeaturesAndBenefits(?string $language = null): ?array
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("featuresAndBenefits", $language);
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Get reachCertificates - REACH Certificates
-* @return \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null
-*/
-public function getReachCertificates(?string $language = null): ?\Pimcore\Model\Element\AbstractElement
-{
-	$data = $this->getLocalizedfields()->getLocalizedValue("reachCertificates", $language);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
 	}
@@ -577,66 +708,6 @@ public function setLocalizedfields (?\Pimcore\Model\DataObject\Localizedfield $l
 	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
 	$this->markFieldDirty("localizedfields", true);
 	$this->localizedfields = $localizedfields;
-
-	return $this;
-}
-
-/**
-* Set reach - REACH  
-* @param string|null $reach
-* @return $this
-*/
-public function setReach (?string $reach, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("reach", $reach, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set hazardousSubstanceClassification - Hazardous Substance Classification
-* @param string[]|null $hazardousSubstanceClassification
-* @return $this
-*/
-public function setHazardousSubstanceClassification (?array $hazardousSubstanceClassification, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("hazardousSubstanceClassification", $hazardousSubstanceClassification, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set featuresAndBenefits - Features And Benefits
-* @param string[]|null $featuresAndBenefits
-* @return $this
-*/
-public function setFeaturesAndBenefits (?array $featuresAndBenefits, ?string $language = null): static
-{
-	$isEqual = false;
-	$this->getLocalizedfields()->setLocalizedValue("featuresAndBenefits", $featuresAndBenefits, $language, !$isEqual);
-
-	return $this;
-}
-
-/**
-* Set reachCertificates - REACH Certificates
-* @param \Pimcore\Model\Asset\Text|\Pimcore\Model\Asset\Document|null $reachCertificates
-* @return $this
-*/
-public function setReachCertificates (?\Pimcore\Model\Element\AbstractElement $reachCertificates, ?string $language = null): static
-{
-	$fd = $this->getDefinition()->getFieldDefinition("localizedfields")->getFieldDefinition("reachCertificates");
-	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	$currentData = $this->getReachCertificates($language);
-	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $reachCertificates);
-	if (!$isEqual) {
-		$this->markFieldDirty("reachCertificates", true);
-	}
-	$this->getLocalizedfields()->setLocalizedValue("reachCertificates", $reachCertificates, $language, !$isEqual);
 
 	return $this;
 }

@@ -30,15 +30,17 @@
  * - temperatureRatings [input]
  * - notesTemperature [input]
  * - isJustTemporarily [checkbox]
- * - temperatureMax [quantityValueRange]
+ * - temperatureMinMaxC [numericRange]
  * - temporaryUntilC [numeric]
  * - dampableUntil1C [numeric]
  * - dampableUntil2C [numeric]
- * - pressureUntil [quantityValue]
- * - temperatureMin [quantityValueRange]
+ * - pressureUntilBar [numeric]
+ * - pressureUntilMpa [numeric]
+ * - temperatureMinMaxF [numericRange]
  * - temporaryUntilT [numeric]
  * - dampableUntil1T [numeric]
  * - dampableUntil2T [numeric]
+ * - pressureUntilPsi [numeric]
  * - isOnlyOpenSystem [checkbox]
  * - localizedfields [localizedfields]
  * -- headlineWeb [input]
@@ -124,15 +126,17 @@ public const FIELD_NEGATIVE_POSITIVE_TOLERANCE_IMPERIAL = 'negativePositiveToler
 public const FIELD_TEMPERATURE_RATINGS = 'temperatureRatings';
 public const FIELD_NOTES_TEMPERATURE = 'notesTemperature';
 public const FIELD_IS_JUST_TEMPORARILY = 'isJustTemporarily';
-public const FIELD_TEMPERATURE_MAX = 'temperatureMax';
+public const FIELD_TEMPERATURE_MIN_MAX_C = 'temperatureMinMaxC';
 public const FIELD_TEMPORARY_UNTIL_C = 'temporaryUntilC';
 public const FIELD_DAMPABLE_UNTIL1_C = 'dampableUntil1C';
 public const FIELD_DAMPABLE_UNTIL2_C = 'dampableUntil2C';
-public const FIELD_PRESSURE_UNTIL = 'pressureUntil';
-public const FIELD_TEMPERATURE_MIN = 'temperatureMin';
+public const FIELD_PRESSURE_UNTIL_BAR = 'pressureUntilBar';
+public const FIELD_PRESSURE_UNTIL_MPA = 'pressureUntilMpa';
+public const FIELD_TEMPERATURE_MIN_MAX_F = 'temperatureMinMaxF';
 public const FIELD_TEMPORARY_UNTIL_T = 'temporaryUntilT';
 public const FIELD_DAMPABLE_UNTIL1_T = 'dampableUntil1T';
 public const FIELD_DAMPABLE_UNTIL2_T = 'dampableUntil2T';
+public const FIELD_PRESSURE_UNTIL_PSI = 'pressureUntilPsi';
 public const FIELD_IS_ONLY_OPEN_SYSTEM = 'isOnlyOpenSystem';
 public const FIELD_HEADLINE_WEB = 'headlineWeb';
 public const FIELD_FLOW_MEDIUM_STABILITY_FLAG = 'flowMediumStabilityFlag';
@@ -208,15 +212,17 @@ protected $negativePositiveToleranceImperial;
 protected $temperatureRatings;
 protected $notesTemperature;
 protected $isJustTemporarily;
-protected $temperatureMax;
+protected $temperatureMinMaxC;
 protected $temporaryUntilC;
 protected $dampableUntil1C;
 protected $dampableUntil2C;
-protected $pressureUntil;
-protected $temperatureMin;
+protected $pressureUntilBar;
+protected $pressureUntilMpa;
+protected $temperatureMinMaxF;
 protected $temporaryUntilT;
 protected $dampableUntil1T;
 protected $dampableUntil2T;
+protected $pressureUntilPsi;
 protected $isOnlyOpenSystem;
 protected $localizedfields;
 protected $ratingsResistanceToAbrasion;
@@ -1190,15 +1196,15 @@ public function setIsJustTemporarily (?bool $isJustTemporarily): static
 }
 
 /**
-* Get temperatureMax - Temperature (max)
-* @return \Pimcore\Model\DataObject\Data\QuantityValueRange|null
+* Get temperatureMinMaxC - Temperature (min/max, °C)
+* @return \Pimcore\Model\DataObject\Data\NumericRange|null
 */
-public function getTemperatureMax(): ?\Pimcore\Model\DataObject\Data\QuantityValueRange
+public function getTemperatureMinMaxC(): ?\Pimcore\Model\DataObject\Data\NumericRange
 {
-	$data = $this->temperatureMax;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureMax")->isEmpty($data)) {
+	$data = $this->temperatureMinMaxC;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureMinMaxC")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("temperatureMax");
+			return $this->getValueFromParent("temperatureMinMaxC");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -1211,13 +1217,13 @@ public function getTemperatureMax(): ?\Pimcore\Model\DataObject\Data\QuantityVal
 }
 
 /**
-* Set temperatureMax - Temperature (max)
-* @param \Pimcore\Model\DataObject\Data\QuantityValueRange|null $temperatureMax
+* Set temperatureMinMaxC - Temperature (min/max, °C)
+* @param \Pimcore\Model\DataObject\Data\NumericRange|null $temperatureMinMaxC
 * @return $this
 */
-public function setTemperatureMax (?\Pimcore\Model\DataObject\Data\QuantityValueRange $temperatureMax): static
+public function setTemperatureMinMaxC (?\Pimcore\Model\DataObject\Data\NumericRange $temperatureMinMaxC): static
 {
-	$this->temperatureMax = $temperatureMax;
+	$this->temperatureMinMaxC = $temperatureMinMaxC;
 
 	return $this;
 }
@@ -1325,15 +1331,15 @@ public function setDampableUntil2C (?float $dampableUntil2C): static
 }
 
 /**
-* Get pressureUntil - Pressure Until
-* @return \Pimcore\Model\DataObject\Data\QuantityValue|null
+* Get pressureUntilBar - Pressure Until (Bar)
+* @return float|null
 */
-public function getPressureUntil(): ?\Pimcore\Model\DataObject\Data\QuantityValue
+public function getPressureUntilBar(): ?float
 {
-	$data = $this->pressureUntil;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("pressureUntil")->isEmpty($data)) {
+	$data = $this->pressureUntilBar;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("pressureUntilBar")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("pressureUntil");
+			return $this->getValueFromParent("pressureUntilBar");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -1346,27 +1352,28 @@ public function getPressureUntil(): ?\Pimcore\Model\DataObject\Data\QuantityValu
 }
 
 /**
-* Set pressureUntil - Pressure Until
-* @param \Pimcore\Model\DataObject\Data\QuantityValue|null $pressureUntil
+* Set pressureUntilBar - Pressure Until (Bar)
+* @param float|null $pressureUntilBar
 * @return $this
 */
-public function setPressureUntil (?\Pimcore\Model\DataObject\Data\QuantityValue $pressureUntil): static
+public function setPressureUntilBar (?float $pressureUntilBar): static
 {
-	$this->pressureUntil = $pressureUntil;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("pressureUntilBar");
+	$this->pressureUntilBar = $fd->preSetData($this, $pressureUntilBar);
 	return $this;
 }
 
 /**
-* Get temperatureMin - Temperature (min)
-* @return \Pimcore\Model\DataObject\Data\QuantityValueRange|null
+* Get pressureUntilMpa - Pressure Until (MPa)
+* @return float|null
 */
-public function getTemperatureMin(): ?\Pimcore\Model\DataObject\Data\QuantityValueRange
+public function getPressureUntilMpa(): ?float
 {
-	$data = $this->temperatureMin;
-	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureMin")->isEmpty($data)) {
+	$data = $this->pressureUntilMpa;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("pressureUntilMpa")->isEmpty($data)) {
 		try {
-			return $this->getValueFromParent("temperatureMin");
+			return $this->getValueFromParent("pressureUntilMpa");
 		} catch (InheritanceParentNotFoundException $e) {
 			// no data from parent available, continue ...
 		}
@@ -1379,13 +1386,47 @@ public function getTemperatureMin(): ?\Pimcore\Model\DataObject\Data\QuantityVal
 }
 
 /**
-* Set temperatureMin - Temperature (min)
-* @param \Pimcore\Model\DataObject\Data\QuantityValueRange|null $temperatureMin
+* Set pressureUntilMpa - Pressure Until (MPa)
+* @param float|null $pressureUntilMpa
 * @return $this
 */
-public function setTemperatureMin (?\Pimcore\Model\DataObject\Data\QuantityValueRange $temperatureMin): static
+public function setPressureUntilMpa (?float $pressureUntilMpa): static
 {
-	$this->temperatureMin = $temperatureMin;
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("pressureUntilMpa");
+	$this->pressureUntilMpa = $fd->preSetData($this, $pressureUntilMpa);
+	return $this;
+}
+
+/**
+* Get temperatureMinMaxF - Temperature (min/max, °F)
+* @return \Pimcore\Model\DataObject\Data\NumericRange|null
+*/
+public function getTemperatureMinMaxF(): ?\Pimcore\Model\DataObject\Data\NumericRange
+{
+	$data = $this->temperatureMinMaxF;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("temperatureMinMaxF")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("temperatureMinMaxF");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set temperatureMinMaxF - Temperature (min/max, °F)
+* @param \Pimcore\Model\DataObject\Data\NumericRange|null $temperatureMinMaxF
+* @return $this
+*/
+public function setTemperatureMinMaxF (?\Pimcore\Model\DataObject\Data\NumericRange $temperatureMinMaxF): static
+{
+	$this->temperatureMinMaxF = $temperatureMinMaxF;
 
 	return $this;
 }
@@ -1489,6 +1530,40 @@ public function setDampableUntil2T (?float $dampableUntil2T): static
 	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
 	$fd = $this->getDefinition()->getFieldDefinition("dampableUntil2T");
 	$this->dampableUntil2T = $fd->preSetData($this, $dampableUntil2T);
+	return $this;
+}
+
+/**
+* Get pressureUntilPsi - Pressure Until (psi)
+* @return float|null
+*/
+public function getPressureUntilPsi(): ?float
+{
+	$data = $this->pressureUntilPsi;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("pressureUntilPsi")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("pressureUntilPsi");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set pressureUntilPsi - Pressure Until (psi)
+* @param float|null $pressureUntilPsi
+* @return $this
+*/
+public function setPressureUntilPsi (?float $pressureUntilPsi): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Numeric $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("pressureUntilPsi");
+	$this->pressureUntilPsi = $fd->preSetData($this, $pressureUntilPsi);
 	return $this;
 }
 
