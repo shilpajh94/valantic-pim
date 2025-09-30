@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\UniProductManagement;
 
-use App\Repository\UniProductChangeHistoryRepository;
+use App\Repository\UniProductManagement\UniProductChangeHistoryRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UniProductChangeHistoryRepository::class)]

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\EventListener\Admin\UniProductManagement;
 
-use App\Entity\UniProductChangeHistory;
+use App\Entity\UniProductManagement\UniProductChangeHistory;
 use App\Service\UniProductManagement\UniProductChangeTrackingService;
 use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,6 +14,7 @@ use Pimcore\Model\DataObject\AbstractObject;
 use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Pimcore\Model\Element\ValidationException;
+use Pimcore\Security\User\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -103,7 +104,7 @@ class UniProductChangeHistoryListener implements EventSubscriberInterface
         if ($token && $token->getUser()) {
             $user = $token->getUser();
 
-            if ($user instanceof \Pimcore\Security\User\User) {
+            if ($user instanceof User) {
                 return $user->getUser()->getName();
             }
         }

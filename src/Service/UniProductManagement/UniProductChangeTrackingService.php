@@ -7,10 +7,15 @@ namespace App\Service\UniProductManagement;
 use Pimcore\Db;
 use Pimcore\Model\DataObject\AbstractObject;
 use Pimcore\Model\DataObject\ClassDefinition;
+use Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields;
+use Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks;
+use Pimcore\Model\DataObject\ClassDefinition\Data\Relations\AbstractRelations;
+use Pimcore\Model\DataObject\ClassDefinition\Data\Select;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Objectbrick;
+use Pimcore\Model\User;
 use Psr\Log\LoggerInterface;
 
 class UniProductChangeTrackingService
@@ -88,9 +93,9 @@ class UniProductChangeTrackingService
     {
         if ($field === 'assignedUser') {
             $userId = (int) $value;
-            $user = \Pimcore\Model\User::getById($userId);
+            $user = User::getById($userId);
 
-            return $user instanceof \Pimcore\Model\User ? $user->getName() : "User ID $userId (Not Found)";
+            return $user instanceof User ? $user->getName() : "User ID $userId (Not Found)";
         }
 
         if ($this->isCheckboxField($object, $field)) {
@@ -125,7 +130,7 @@ class UniProductChangeTrackingService
             return implode(', ', array_map([$this, 'transformValue'], $value));
         }
 
-        if ($value instanceof \Pimcore\Model\User) {
+        if ($value instanceof User) {
             $username = $value->getName();
             $email = $value->getEmail();
 
@@ -172,9 +177,9 @@ class UniProductChangeTrackingService
         $class = $object->getClass();
         $fieldDefinition = $class->getFieldDefinition($field);
 
-        return $fieldDefinition instanceof ClassDefinition\Data\Multiselect
-            || $fieldDefinition instanceof ClassDefinition\Data\Select
-            || $fieldDefinition instanceof ClassDefinition\Data\Checkbox;
+        return $fieldDefinition instanceof Multiselect
+            || $fieldDefinition instanceof Select
+            || $fieldDefinition instanceof Checkbox;
     }
 
     /**
@@ -211,7 +216,7 @@ class UniProductChangeTrackingService
                                     continue;
                                 }
 
-                                if ($brickFieldDefinition instanceof ClassDefinition\Data\Relations\AbstractRelations) {
+                                if ($brickFieldDefinition instanceof AbstractRelations) {
                                     $oldRelationValue = $oldBrickData[$brickType][$field] ?? [];
                                     $newRelationValue = $brick->get($field);
 
@@ -263,7 +268,7 @@ class UniProductChangeTrackingService
      */
     private function getFieldValue(mixed $fieldDefinition, object $brick, string $field): mixed
     {
-        if ($fieldDefinition instanceof ClassDefinition\Data\Relations\AbstractRelations) {
+        if ($fieldDefinition instanceof AbstractRelations) {
             return $this->extractRelations($brick->get($field));
         }
 
@@ -641,7 +646,7 @@ class UniProductChangeTrackingService
         $oldRelationData = $this->getOldRelationDataFromDatabase($object);
 
         foreach ($object->getClass()->getFieldDefinitions() as $fieldDefinition) {
-            if ($fieldDefinition instanceof ClassDefinition\Data\Relations\AbstractRelations) {
+            if ($fieldDefinition instanceof AbstractRelations) {
                 $fieldName = $fieldDefinition->getName();
                 $relations = $object->get($fieldName);
 

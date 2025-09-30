@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace App\Repository\UniProductManagement;
 
-use App\Entity\UniProductChangeHistory;
+use App\Entity\UniProductManagement\UniProductChangeHistory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

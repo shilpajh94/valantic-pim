@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace App\Controller\UniProductManagement;
 
-use App\Entity\UniProductChangeHistory;
+use App\Entity\UniProductManagement\UniProductChangeHistory;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class UniProductChangeHistoryController extends AbstractController
 {
-    #[\Symfony\Component\Routing\Attribute\Route('/admin/change-history', name: 'admin_change_history', methods: ['GET'], options: ['expose' => true])]
+    #[Route('/admin/change-history', name: 'admin_change_history', methods: ['GET'], options: ['expose' => true])]
     public function index(Request $request, EntityManagerInterface $em, SerializerInterface $serializer): JsonResponse
     {
         $objectId = $request->query->get('objectId');
@@ -38,7 +39,7 @@ class UniProductChangeHistoryController extends AbstractController
         ]);
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route('/admin/change-history/{id}', name: 'admin_change_history_detail', methods: ['GET'], options: ['expose' => true])]
+    #[Route('/admin/change-history/{id}', name: 'admin_change_history_detail', methods: ['GET'], options: ['expose' => true])]
     public function detailedView(int $id, EntityManagerInterface $em): JsonResponse
     {
         $repository = $em->getRepository(UniProductChangeHistory::class);
