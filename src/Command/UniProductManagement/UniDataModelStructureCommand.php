@@ -107,6 +107,9 @@ class UniDataModelStructureCommand extends AbstractCommand
         return self::SUCCESS;
     }
 
+    /**
+     * Search for all finished goods in the Uni Product namespace and process them.
+     */
     private function processFinishedGoods(): void
     {
         $listing = new ProductListing();
@@ -136,6 +139,10 @@ class UniDataModelStructureCommand extends AbstractCommand
         $progress->finish();
         $this->output->writeln('');
     }
+
+    /**
+     * Search for all categories in the Uni Product namespace and process them.
+     */
 
     private function processCategories(): void
     {
@@ -167,13 +174,16 @@ class UniDataModelStructureCommand extends AbstractCommand
         $this->output->writeln('');
     }
 
+    /**
+     * Add internal category level relations when missing and ensure the correct Objectbricks are added based on the product group.
+     */
     private function processFinishedGood(UniProductBase $object): void
     {
         // $object = VersionService::getPublishedOrLatestVersion($object);
 
         /* --- Fix Levels --- */
 
-        $parents = $this->getParents($object);
+        $parents = $this->getFullCategoryHistory($object);
         $catTransformer = static fn ($cat): ?string => $cat instanceof UniProductCategoryInternal ? $cat->getFullPath() : null;
         $mappedLevels = array_filter(array_map($catTransformer, $object->getInternalCategories()));
         $actualLevels = array_filter(array_map($catTransformer, $parents));
@@ -219,6 +229,10 @@ class UniDataModelStructureCommand extends AbstractCommand
         $object->save([UniProductWorkflowEventListener::SKIP_WORKFLOW_LISTENER => true]);
     }
 
+
+    /**
+     * Set internal category level name when missing and ensure the correct Objectbricks are added based on the product group.
+     */
     private function processCategory(UniProductCategoryInternal $object): void
     {
         // $object = VersionService::getPublishedOrLatestVersion($object);
@@ -264,7 +278,7 @@ class UniDataModelStructureCommand extends AbstractCommand
     }
 
     /** @return UniProductCategoryInternal[] */
-    private function getParents(UniProductBase|UniProductCategoryInternal $object): array
+    private function getFullCategoryHistory(UniProductBase|UniProductCategoryInternal $object): array
     {
         $result = [];
         $parent = $object->getParent();
@@ -282,13 +296,16 @@ class UniDataModelStructureCommand extends AbstractCommand
     }
 
     /**
+     * Returns a list of Objectbricks that should be assigned to a given object based on product hierarchy level
+     * and product group.
+     *
      * @param array<string,mixed> $lookup
      *
      * @return string[]
      */
     private function getMissingBricks(UniProductBase|UniProductCategoryInternal $object, array $lookup): array
     {
-        $parents = $this->getParents($object);
+        $parents = $this->getFullCategoryHistory($object);
 
         if ($parents === []) {
             return [];
