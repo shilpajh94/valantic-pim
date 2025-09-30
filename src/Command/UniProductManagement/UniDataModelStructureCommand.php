@@ -143,7 +143,6 @@ class UniDataModelStructureCommand extends AbstractCommand
     /**
      * Search for all categories in the Uni Product namespace and process them.
      */
-
     private function processCategories(): void
     {
         $listing = new CategoryListing();
@@ -228,7 +227,6 @@ class UniDataModelStructureCommand extends AbstractCommand
         $object->setOmitMandatoryCheck(true);
         $object->save([UniProductWorkflowEventListener::SKIP_WORKFLOW_LISTENER => true]);
     }
-
 
     /**
      * Set internal category level name when missing and ensure the correct Objectbricks are added based on the product group.
