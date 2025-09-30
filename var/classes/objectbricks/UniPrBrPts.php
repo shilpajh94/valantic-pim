@@ -9,7 +9,6 @@
  * - fabricColor [manyToOneRelation]
  * - beltHardness [numeric]
  * - beltTeethType [manyToOneRelation]
- * - beltType [manyToOneRelation]
  * - localizedfields [localizedfields]
  * -- quality [input]
  * -- performance [input]
@@ -377,48 +376,6 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'children' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                 'name' => 'beltType',
-                 'title' => 'Belt Type',
-                 'tooltip' => '',
-                 'mandatory' => true,
-                 'noteditable' => false,
-                 'index' => false,
-                 'locked' => false,
-                 'style' => '',
-                 'permissions' => NULL,
-                 'fieldtype' => '',
-                 'relationType' => true,
-                 'invisible' => false,
-                 'visibleGridView' => false,
-                 'visibleSearch' => true,
-                 'blockedVarsForExport' => 
-                array (
-                ),
-                 'classes' => 
-                array (
-                  0 => 
-                  array (
-                    'classes' => 'UniPrPtsBeltType',
-                  ),
-                ),
-                 'displayMode' => 'combo',
-                 'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductMasterlistPathFormatter',
-                 'assetInlineDownloadAllowed' => false,
-                 'assetUploadPath' => '',
-                 'allowToClearRelation' => true,
-                 'objectsAllowed' => true,
-                 'assetsAllowed' => false,
-                 'assetTypes' => 
-                array (
-                ),
-                 'documentsAllowed' => false,
-                 'documentTypes' => 
-                array (
-                ),
-                 'width' => 240,
-              )),
-              1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
                  'name' => 'localizedfields',
                  'title' => '',

@@ -37,6 +37,7 @@
  * -- matchMakerLL [input]
  * - maxPulleyGroove [numeric]
  * - finishing [input]
+ * - beltType [manyToOneRelation]
  * - isLowPah [checkbox]
  */
 
@@ -83,6 +84,7 @@ public const FIELD_LOWER_BELT_WIDTH_BI_IMPERIAL = 'lowerBeltWidthBiImperial';
 public const FIELD_MATCH_MAKER_LL = 'matchMakerLL';
 public const FIELD_MAX_PULLEY_GROOVE = 'maxPulleyGroove';
 public const FIELD_FINISHING = 'finishing';
+public const FIELD_BELT_TYPE = 'beltType';
 public const FIELD_IS_LOW_PAH = 'isLowPah';
 
 protected string $type = "UniPrFgPts";
@@ -120,6 +122,7 @@ protected $lowerBeltWidthBiImperial;
 protected $localizedfields;
 protected $maxPulleyGroove;
 protected $finishing;
+protected $beltType;
 protected $isLowPah;
 
 
@@ -1341,6 +1344,56 @@ public function setFinishing (?string $finishing): static
 {
 	$this->finishing = $finishing;
 
+	return $this;
+}
+
+/**
+* Get beltType - Belt Type
+* @return \Pimcore\Model\DataObject\UniPrPtsBeltType|null
+*/
+public function getBeltType(): ?\Pimcore\Model\Element\AbstractElement
+{
+	$data = $this->getDefinition()->getFieldDefinition("beltType")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues($this->getObject()) && $this->getDefinition()->getFieldDefinition("beltType")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("beltType");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set beltType - Belt Type
+* @param \Pimcore\Model\DataObject\UniPrPtsBeltType|null $beltType
+* @return $this
+*/
+public function setBeltType (?\Pimcore\Model\Element\AbstractElement $beltType): static
+{
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("beltType");
+	$class = $this->getObject() ? $this->getObject()->getClass() : null;
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	if ($class && $class->getAllowInherit()) {
+		$currentData = \Pimcore\Model\DataObject\Service::useInheritedValues(false, function() {
+			return $this->getBeltType();
+		});
+	}
+	else {
+		$currentData = $this->getBeltType();
+	}	
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $beltType);
+	if (!$isEqual) {
+		$this->markFieldDirty("beltType", true);
+	}
+	$this->beltType = $fd->preSetData($this, $beltType);
 	return $this;
 }
 
