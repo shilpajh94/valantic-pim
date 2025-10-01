@@ -2,7 +2,7 @@
 
 /**
  * Fields Summary:
- * - customer [input]
+ * - customer [manyToOneRelation]
  * - partNumber [input]
  */
 
@@ -11,7 +11,7 @@ return Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
    'key' => 'UniPrCustomerReference',
    'parentClass' => '',
    'implementsInterfaces' => '',
-   'title' => 'Customer Reference',
+   'title' => '',
    'group' => '',
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -56,7 +56,7 @@ return Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
              'children' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                  'name' => 'customer',
                  'title' => 'Customer',
                  'tooltip' => '',
@@ -67,23 +67,35 @@ return Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
                  'style' => '',
                  'permissions' => NULL,
                  'fieldtype' => '',
-                 'relationType' => false,
+                 'relationType' => true,
                  'invisible' => false,
                  'visibleGridView' => false,
                  'visibleSearch' => true,
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'defaultValue' => NULL,
-                 'columnLength' => 190,
-                 'regex' => '',
-                 'regexFlags' => 
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'UniPrCustomerReference',
+                  ),
+                ),
+                 'displayMode' => 'combo',
+                 'pathFormatterClass' => '',
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => true,
+                 'assetsAllowed' => false,
+                 'assetTypes' => 
                 array (
                 ),
-                 'unique' => false,
-                 'showCharCount' => false,
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                ),
                  'width' => '',
-                 'defaultValueGenerator' => '',
               )),
               1 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(

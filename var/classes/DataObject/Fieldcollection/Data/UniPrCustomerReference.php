@@ -2,7 +2,7 @@
 
 /**
  * Fields Summary:
- * - customer [input]
+ * - customer [manyToOneRelation]
  * - partNumber [input]
  */
 
@@ -23,11 +23,14 @@ protected $partNumber;
 
 /**
 * Get customer - Customer
-* @return string|null
+* @return \Pimcore\Model\DataObject\UniPrCustomerReference|null
 */
-public function getCustomer(): ?string
+public function getCustomer(): ?\Pimcore\Model\Element\AbstractElement
 {
-	$data = $this->customer;
+	$container = $this;
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("customer");
+	$data = $fd->preGetData($container);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
 	}
@@ -37,13 +40,22 @@ public function getCustomer(): ?string
 
 /**
 * Set customer - Customer
-* @param string|null $customer
+* @param \Pimcore\Model\DataObject\UniPrCustomerReference|null $customer
 * @return $this
 */
-public function setCustomer(?string $customer): static
+public function setCustomer(?\Pimcore\Model\Element\AbstractElement $customer): static
 {
-	$this->customer = $customer;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("customer");
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getCustomer();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $customer);
+	if (!$isEqual) {
+		$this->markFieldDirty("customer", true);
+	}
+	$this->customer = $fd->preSetData($this, $customer);
 	return $this;
 }
 
