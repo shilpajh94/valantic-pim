@@ -53,6 +53,11 @@ services:
         arguments:
             - 'App\CustomReport\Adapter\ContextAwareSql'
 
+    app.custom_report.adapter.factory.uni_finished_goods:
+        class: Pimcore\Bundle\CustomReportsBundle\Tool\Adapter\DefaultCustomReportAdapterFactory
+        arguments:
+            - 'App\CustomReport\Adapter\UniProductManagement\UniFinishedGoods'
+
     # Example custom templating helper
     # AppBundle\Templating\Helper\Example:
     #     # templating helpers need to be public as they
