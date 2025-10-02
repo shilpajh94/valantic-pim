@@ -9,6 +9,7 @@ imports:
     - { resource: ptg_eu_product_enrichment_workflow.yaml }
     - { resource: ifs_eu_product_enrichment_workflow.yaml }
     - { resource: "workflows/" }
+    - { resource: elastica_bridge.yaml }
 
 pimcore:
     assets:
@@ -116,3 +117,4 @@ framework:
 pimcore_custom_reports:
     adapters:
         contextAwareSql: app.custom_report.adapter.factory.context_aware_sql
+        uniFinishedGoods: app.custom_report.adapter.factory.uni_finished_goods

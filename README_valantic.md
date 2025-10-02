@@ -21,10 +21,6 @@ flysystem:
       directory_visibility: public
       options:
         directory: '%kernel.project_dir%/public/var/assets'
-
-valantic_elastica_bridge:
-  client:
-    dsn: '%env(ELASTICSEARCH_URL)%'
 ```
 
 Then, run `ddev start` in the project root.
