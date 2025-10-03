@@ -1,0 +1,125 @@
+pimcore_data_hub:
+    configurations:
+        UniProductImport:
+            general:
+                type: dataImporterDataObject
+                name: UniProductImport
+                description: ''
+                group: ''
+                active: false
+                path: null
+                modificationDate: 1758728311
+                createDate: 1756777034
+            loaderConfig:
+                type: asset
+                settings:
+                    assetPath: '/ImportSampleFiles/Sample Product Import Data.xlsx'
+            interpreterConfig:
+                type: xlsx
+                settings:
+                    skipFirstRow: true
+                    sheetName: Sheet1
+            resolverConfig:
+                elementType: dataObject
+                dataObjectClassId: UNI_PR
+                loadingStrategy:
+                    type: attribute
+                    settings:
+                        dataSourceIndex: '0'
+                        attributeName: sapMaterialNumber
+                        language: ''
+                        includeUnpublished: true
+                createLocationStrategy:
+                    type: findParent
+                    settings:
+                        findStrategy: path
+                        attributeDataObjectClassId: ''
+                        attributeName: ''
+                        attributeLanguage: ''
+                        dataSourceIndex: '2'
+                        fallbackPath: /
+                locationUpdateStrategy:
+                    type: findParent
+                    settings:
+                        findStrategy: path
+                        attributeDataObjectClassId: ''
+                        attributeName: ''
+                        attributeLanguage: ''
+                        dataSourceIndex: '2'
+                        fallbackPath: /
+                publishingStrategy:
+                    type: noChangeUnpublishNew
+            processingConfig:
+                executionType: parallel
+                idDataIndex: '0'
+                cleanup:
+                    strategy: unpublish
+            mappingConfig:
+                -
+                    label: 'SAP Material Number'
+                    dataSourceIndex:
+                        - '0'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: sapMaterialNumber
+                            language: ''
+                            writeIfTargetIsNotEmpty: false
+                            writeIfSourceIsEmpty: false
+                    transformationPipeline: {  }
+                -
+                    label: key
+                    dataSourceIndex:
+                        - '1'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: key
+                            language: ''
+                            writeIfTargetIsNotEmpty: false
+                            writeIfSourceIsEmpty: false
+                    transformationPipeline: {  }
+                -
+                    label: heightMetric
+                    dataSourceIndex:
+                        - '3'
+                    settings:
+                        unitSourceSelect: static
+                        staticUnitSelect: distance_mm
+                    transformationResultType: quantityValue
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: productGroupSpecific.UniPrFgPts.heightMetric
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline:
+                        -
+                            settings:
+                                unitSourceSelect: static
+                                staticUnitSelect: distance_mm
+                            type: quantityValue
+                -
+                    label: oldMaterialNumber
+                    dataSourceIndex:
+                        - '4'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: oldMaterialNumber
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+            executionConfig:
+                scheduleType: recurring
+                cronDefinition: ''
+                scheduledAt: ''
+            permissions:
+                user: {  }
+                role: {  }
+            workspaces: {  }

@@ -1,0 +1,5 @@
+# Note: This file is required to be able to override config/bundle/dev configurations with a config/local/*.yaml file.
+# See https://symfony.com/doc/6.4/configuration.html#configuration-environments for more information on config
+# file loading order.
+imports:
+  - { resource: 'local/' }

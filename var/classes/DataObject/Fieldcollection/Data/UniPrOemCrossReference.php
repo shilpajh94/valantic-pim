@@ -2,7 +2,7 @@
 
 /**
  * Fields Summary:
- * - oem [input]
+ * - oem [manyToOneRelation]
  * - partNumber [input]
  */
 
@@ -23,11 +23,14 @@ protected $partNumber;
 
 /**
 * Get oem - OEM  
-* @return string|null
+* @return \Pimcore\Model\DataObject\UniPrOemCrossReference|null
 */
-public function getOem(): ?string
+public function getOem(): ?\Pimcore\Model\Element\AbstractElement
 {
-	$data = $this->oem;
+	$container = $this;
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("oem");
+	$data = $fd->preGetData($container);
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
 	}
@@ -37,13 +40,22 @@ public function getOem(): ?string
 
 /**
 * Set oem - OEM  
-* @param string|null $oem
+* @param \Pimcore\Model\DataObject\UniPrOemCrossReference|null $oem
 * @return $this
 */
-public function setOem(?string $oem): static
+public function setOem(?\Pimcore\Model\Element\AbstractElement $oem): static
 {
-	$this->oem = $oem;
-
+	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation $fd */
+	$fd = $this->getDefinition()->getFieldDefinition("oem");
+	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
+	$currentData = $this->getOem();
+	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
+	$isEqual = $fd->isEqual($currentData, $oem);
+	if (!$isEqual) {
+		$this->markFieldDirty("oem", true);
+	}
+	$this->oem = $fd->preSetData($this, $oem);
 	return $this;
 }
 

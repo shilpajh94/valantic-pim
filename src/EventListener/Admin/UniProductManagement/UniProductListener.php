@@ -41,7 +41,7 @@ class UniProductListener implements EventSubscriberInterface
 
     public function addCategoryBricksToFinishedGood(GenericEvent $event): void
     {
-        $obj = $event->getArgument('object');
+        $obj = $event->hasArgument('object') ? $event->getArgument('object') : null;
 
         if (!$obj instanceof UniProductBase) {
             return;
@@ -59,7 +59,7 @@ class UniProductListener implements EventSubscriberInterface
 
     public function processObjectbrickDefinitions(GenericEvent $event): void
     {
-        $obj = $event->getArgument('object');
+        $obj = $event->hasArgument('object') ? $event->getArgument('object') : null;
 
         if (!$obj instanceof UniProductBase || !array_key_exists($event->getArgument('fieldName'), self::CATEGORY_LEVELS)) {
             return;
@@ -99,8 +99,7 @@ class UniProductListener implements EventSubscriberInterface
         );
     }
 
-
-    /** @return array<mixed> */
+    /** @return array<mixed>|null */
     private function getCategoryBrickData(?UniProductCategoryInternal $category): ?array
     {
         $fields = $category?->getClass()?->getFieldDefinitions()[UniProductCategoryInternal::FIELD_LEVEL_SPECIFIC_DATA] ?? null;

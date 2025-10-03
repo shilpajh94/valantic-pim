@@ -9,6 +9,7 @@ parameters:
         - tests
     excludePaths:
         - src/Kernel.php
+        - src/Services
     level: 6
 #    ignoreErrors:
 #        - "#^Call to an undefined method Symfony\\\\Component\\\\Console\\\\Helper\\\\HelperInterface\\:\\:ask\\(\\)\\.$#"

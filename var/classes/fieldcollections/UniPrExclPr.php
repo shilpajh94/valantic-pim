@@ -5,7 +5,7 @@
  * - Products [manyToManyObjectRelation]
  */
 
-return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
+return Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
    'dao' => NULL,
    'key' => 'UniPrExclPr',
    'parentClass' => '',
@@ -13,7 +13,7 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
    'title' => 'Exclude products',
    'group' => '',
    'layoutDefinitions' => 
-  \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
      'name' => NULL,
      'type' => NULL,
      'region' => NULL,
@@ -27,7 +27,7 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
      'children' => 
     array (
       0 => 
-      \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+      Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
          'name' => 'Layout',
          'type' => NULL,
          'region' => NULL,
@@ -41,7 +41,7 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
              'name' => 'Products',
              'title' => 'Products',
              'tooltip' => '',
@@ -66,7 +66,7 @@ return \Pimcore\Model\DataObject\Fieldcollection\Definition::__set_state(array(
                 'classes' => 'UniProductBase',
               ),
             ),
-             'displayMode' => 'grid',
+             'displayMode' => 'combo',
              'pathFormatterClass' => '',
              'maxItems' => NULL,
              'visibleFields' => 'sapDescription,sapMaterialNumber,ghpFullCode',

@@ -8,6 +8,7 @@ class LevelSpecificData extends \Pimcore\Model\DataObject\Objectbrick {
 
 protected $brickGetters = ['UniPrBr','UniPrBrFhs','UniPrBrPts','UniPrSkFhs','UniPrSkPts'];
 
+
 protected \Pimcore\Model\DataObject\Objectbrick\Data\UniPrBr|null $UniPrBr = null;
 
 /**
@@ -129,7 +130,6 @@ public function getUniPrSkPts(bool $includeDeletedBricks = false)
 */
 public function setUniPrSkPts(?\Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkPts $UniPrSkPts): static
 {
-
 	$this->UniPrSkPts = $UniPrSkPts;
 	return $this;
 }

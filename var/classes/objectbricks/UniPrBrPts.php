@@ -2,20 +2,19 @@
 
 /**
  * Fields Summary:
+ * - material [manyToOneRelation]
+ * - reinforcement [manyToOneRelation]
+ * - color [manyToOneRelation]
+ * - fabricType [manyToOneRelation]
+ * - fabricColor [manyToOneRelation]
+ * - beltHardness [numeric]
+ * - beltTeethType [manyToOneRelation]
  * - localizedfields [localizedfields]
- * -- material [manyToOneRelation]
- * -- reinforcement [manyToOneRelation]
- * -- color [manyToOneRelation]
- * -- fabricType [manyToOneRelation]
- * -- fabricColor [manyToOneRelation]
- * -- beltType [manyToOneRelation]
  * -- quality [input]
  * -- performance [input]
  * -- staticConductive [input]
- * - beltHardness [numeric]
- * - beltTeethType [manyToOneRelation]
- * - temperatureC [quantityValueRange]
- * - temperatureF [quantityValueRange]
+ * - temperatureC [numericRange]
+ * - temperatureF [numericRange]
  * - heatOilResistant [checkbox]
  */
 
@@ -69,468 +68,216 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'children' => 
             array (
               0 => 
-              Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-                 'name' => 'localizedfields',
-                 'title' => '',
-                 'tooltip' => NULL,
-                 'mandatory' => false,
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                 'name' => 'material',
+                 'title' => 'Material',
+                 'tooltip' => '',
+                 'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
-                 'style' => NULL,
+                 'style' => '',
                  'permissions' => NULL,
                  'fieldtype' => '',
-                 'relationType' => false,
+                 'relationType' => true,
                  'invisible' => false,
-                 'visibleGridView' => true,
+                 'visibleGridView' => false,
                  'visibleSearch' => true,
                  'blockedVarsForExport' => 
                 array (
                 ),
-                 'children' => 
+                 'classes' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                     'name' => 'material',
-                     'title' => 'Material',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'classes' => 
-                    array (
-                      0 => 
-                      array (
-                        'classes' => 'UniPrPtsMaterial',
-                      ),
-                    ),
-                     'displayMode' => 'grid',
-                     'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductMasterlistPathFormatter',
-                     'assetInlineDownloadAllowed' => false,
-                     'assetUploadPath' => '',
-                     'allowToClearRelation' => true,
-                     'objectsAllowed' => true,
-                     'assetsAllowed' => false,
-                     'assetTypes' => 
-                    array (
-                    ),
-                     'documentsAllowed' => false,
-                     'documentTypes' => 
-                    array (
-                    ),
-                     'width' => 240,
-                  )),
-                  1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                     'name' => 'reinforcement',
-                     'title' => 'Reinforcement',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'classes' => 
-                    array (
-                      0 => 
-                      array (
-                        'classes' => 'UniPrPtsReinforcement',
-                      ),
-                    ),
-                     'displayMode' => 'grid',
-                     'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductMasterlistPathFormatter',
-                     'assetInlineDownloadAllowed' => false,
-                     'assetUploadPath' => '',
-                     'allowToClearRelation' => true,
-                     'objectsAllowed' => true,
-                     'assetsAllowed' => false,
-                     'assetTypes' => 
-                    array (
-                    ),
-                     'documentsAllowed' => false,
-                     'documentTypes' => 
-                    array (
-                    ),
-                     'width' => 240,
-                  )),
-                  2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                     'name' => 'color',
-                     'title' => 'Color',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'classes' => 
-                    array (
-                      0 => 
-                      array (
-                        'classes' => 'UniPrPtsColor',
-                      ),
-                    ),
-                     'displayMode' => 'grid',
-                     'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductMasterlistPathFormatter',
-                     'assetInlineDownloadAllowed' => false,
-                     'assetUploadPath' => '',
-                     'allowToClearRelation' => true,
-                     'objectsAllowed' => true,
-                     'assetsAllowed' => false,
-                     'assetTypes' => 
-                    array (
-                    ),
-                     'documentsAllowed' => false,
-                     'documentTypes' => 
-                    array (
-                    ),
-                     'width' => 240,
-                  )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                     'name' => 'fabricType',
-                     'title' => 'Fabric Type',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'classes' => 
-                    array (
-                      0 => 
-                      array (
-                        'classes' => 'UniPrPtsFabricType',
-                      ),
-                    ),
-                     'displayMode' => 'grid',
-                     'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductMasterlistPathFormatter',
-                     'assetInlineDownloadAllowed' => false,
-                     'assetUploadPath' => '',
-                     'allowToClearRelation' => true,
-                     'objectsAllowed' => true,
-                     'assetsAllowed' => false,
-                     'assetTypes' => 
-                    array (
-                    ),
-                     'documentsAllowed' => false,
-                     'documentTypes' => 
-                    array (
-                    ),
-                     'width' => 240,
-                  )),
-                  4 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                     'name' => 'fabricColor',
-                     'title' => 'Fabric Color',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'classes' => 
-                    array (
-                      0 => 
-                      array (
-                        'classes' => 'UniPrPtsFabricColor',
-                      ),
-                    ),
-                     'displayMode' => 'grid',
-                     'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductMasterlistPathFormatter',
-                     'assetInlineDownloadAllowed' => false,
-                     'assetUploadPath' => '',
-                     'allowToClearRelation' => true,
-                     'objectsAllowed' => true,
-                     'assetsAllowed' => false,
-                     'assetTypes' => 
-                    array (
-                    ),
-                     'documentsAllowed' => false,
-                     'documentTypes' => 
-                    array (
-                    ),
-                     'width' => 240,
-                  )),
+                  array (
+                    'classes' => 'UniPrPtsMaterial',
+                  ),
                 ),
-                 'region' => NULL,
-                 'layout' => NULL,
-                 'maxTabs' => 35,
-                 'border' => false,
-                 'provideSplitView' => false,
-                 'tabPosition' => 'top',
-                 'hideLabelsWhenTabsReached' => NULL,
-                 'referencedFields' => 
+                 'displayMode' => 'combo',
+                 'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductMasterlistPathFormatter',
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => true,
+                 'assetsAllowed' => false,
+                 'assetTypes' => 
                 array (
-                  0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-                     'name' => 'localizedfields',
-                     'title' => '',
-                     'tooltip' => NULL,
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => NULL,
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => true,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'children' => 
-                    array (
-                      0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                         'name' => 'beltType',
-                         'title' => 'Belt Type',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => true,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'classes' => 
-                        array (
-                          0 => 
-                          array (
-                            'classes' => 'UniPrPtsBeltType',
-                          ),
-                        ),
-                         'displayMode' => 'grid',
-                         'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductMasterlistPathFormatter',
-                         'assetInlineDownloadAllowed' => false,
-                         'assetUploadPath' => '',
-                         'allowToClearRelation' => true,
-                         'objectsAllowed' => true,
-                         'assetsAllowed' => false,
-                         'assetTypes' => 
-                        array (
-                        ),
-                         'documentsAllowed' => false,
-                         'documentTypes' => 
-                        array (
-                        ),
-                         'width' => 240,
-                      )),
-                      1 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'name' => 'quality',
-                         'title' => 'Quality',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'columnLength' => 190,
-                         'regex' => '',
-                         'regexFlags' => 
-                        array (
-                        ),
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'width' => '250px',
-                         'defaultValueGenerator' => '',
-                      )),
-                      2 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'name' => 'performance',
-                         'title' => 'Performance',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'columnLength' => 190,
-                         'regex' => '',
-                         'regexFlags' => 
-                        array (
-                        ),
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'width' => '250px',
-                         'defaultValueGenerator' => '',
-                      )),
-                    ),
-                     'region' => NULL,
-                     'layout' => NULL,
-                     'maxTabs' => 35,
-                     'border' => false,
-                     'provideSplitView' => false,
-                     'tabPosition' => 'top',
-                     'hideLabelsWhenTabsReached' => NULL,
-                     'referencedFields' => 
-                    array (
-                    ),
-                     'permissionView' => NULL,
-                     'permissionEdit' => NULL,
-                     'labelWidth' => 200,
-                     'labelAlign' => 'left',
-                     'width' => '',
-                     'height' => '',
-                     'fieldDefinitionsCache' => NULL,
-                  )),
-                  1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
-                     'name' => 'localizedfields',
-                     'title' => '',
-                     'tooltip' => NULL,
-                     'mandatory' => false,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => NULL,
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => true,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'children' => 
-                    array (
-                      0 => 
-                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                         'name' => 'staticConductive',
-                         'title' => 'Static Conductive',
-                         'tooltip' => '',
-                         'mandatory' => true,
-                         'noteditable' => false,
-                         'index' => false,
-                         'locked' => false,
-                         'style' => '',
-                         'permissions' => NULL,
-                         'fieldtype' => '',
-                         'relationType' => false,
-                         'invisible' => false,
-                         'visibleGridView' => false,
-                         'visibleSearch' => true,
-                         'blockedVarsForExport' => 
-                        array (
-                        ),
-                         'defaultValue' => NULL,
-                         'columnLength' => 190,
-                         'regex' => '',
-                         'regexFlags' => 
-                        array (
-                        ),
-                         'unique' => false,
-                         'showCharCount' => false,
-                         'width' => 250,
-                         'defaultValueGenerator' => '',
-                      )),
-                    ),
-                     'region' => NULL,
-                     'layout' => NULL,
-                     'maxTabs' => 35,
-                     'border' => false,
-                     'provideSplitView' => false,
-                     'tabPosition' => 'top',
-                     'hideLabelsWhenTabsReached' => NULL,
-                     'referencedFields' => 
-                    array (
-                    ),
-                     'permissionView' => NULL,
-                     'permissionEdit' => NULL,
-                     'labelWidth' => 200,
-                     'labelAlign' => 'left',
-                     'width' => '',
-                     'height' => '',
-                     'fieldDefinitionsCache' => NULL,
-                  )),
                 ),
-                 'permissionView' => NULL,
-                 'permissionEdit' => NULL,
-                 'labelWidth' => 200,
-                 'labelAlign' => 'left',
-                 'width' => '',
-                 'height' => '',
-                 'fieldDefinitionsCache' => NULL,
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                ),
+                 'width' => 240,
               )),
               1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                 'name' => 'reinforcement',
+                 'title' => 'Reinforcement',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'UniPrPtsReinforcement',
+                  ),
+                ),
+                 'displayMode' => 'combo',
+                 'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductMasterlistPathFormatter',
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => true,
+                 'assetsAllowed' => false,
+                 'assetTypes' => 
+                array (
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                ),
+                 'width' => 240,
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                 'name' => 'color',
+                 'title' => 'Color',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'UniPrPtsColor',
+                  ),
+                ),
+                 'displayMode' => 'combo',
+                 'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductMasterlistPathFormatter',
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => true,
+                 'assetsAllowed' => false,
+                 'assetTypes' => 
+                array (
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                ),
+                 'width' => 240,
+              )),
+              3 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                 'name' => 'fabricType',
+                 'title' => 'Fabric Type',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'UniPrPtsFabricType',
+                  ),
+                ),
+                 'displayMode' => 'combo',
+                 'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductMasterlistPathFormatter',
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => true,
+                 'assetsAllowed' => false,
+                 'assetTypes' => 
+                array (
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                ),
+                 'width' => 240,
+              )),
+              4 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+                 'name' => 'fabricColor',
+                 'title' => 'Fabric Color',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => true,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => true,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'classes' => 
+                array (
+                  0 => 
+                  array (
+                    'classes' => 'UniPrPtsFabricColor',
+                  ),
+                ),
+                 'displayMode' => 'combo',
+                 'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductMasterlistPathFormatter',
+                 'assetInlineDownloadAllowed' => false,
+                 'assetUploadPath' => '',
+                 'allowToClearRelation' => true,
+                 'objectsAllowed' => true,
+                 'assetsAllowed' => false,
+                 'assetTypes' => 
+                array (
+                ),
+                 'documentsAllowed' => false,
+                 'documentTypes' => 
+                array (
+                ),
+                 'width' => 240,
+              )),
+              5 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
                  'name' => 'beltHardness',
                  'title' => 'Belt Hardness',
@@ -560,7 +307,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'width' => '250px',
                  'defaultValueGenerator' => '',
               )),
-              2 => 
+              6 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
                  'name' => 'beltTeethType',
                  'title' => 'Belt Teeth Type',
@@ -586,7 +333,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                     'classes' => 'UniPrPtsBeltTeethType',
                   ),
                 ),
-                 'displayMode' => 'grid',
+                 'displayMode' => 'combo',
                  'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductMasterlistPathFormatter',
                  'assetInlineDownloadAllowed' => false,
                  'assetUploadPath' => '',
@@ -650,53 +397,11 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
-                     'name' => 'beltType',
-                     'title' => 'Belt Type',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => true,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'classes' => 
-                    array (
-                      0 => 
-                      array (
-                        'classes' => 'UniPrPtsBeltType',
-                      ),
-                    ),
-                     'displayMode' => 'grid',
-                     'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductMasterlistPathFormatter',
-                     'assetInlineDownloadAllowed' => false,
-                     'assetUploadPath' => '',
-                     'allowToClearRelation' => true,
-                     'objectsAllowed' => true,
-                     'assetsAllowed' => false,
-                     'assetTypes' => 
-                    array (
-                    ),
-                     'documentsAllowed' => false,
-                     'documentTypes' => 
-                    array (
-                    ),
-                     'width' => 240,
-                  )),
-                  1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'quality',
                      'title' => 'Quality',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -721,12 +426,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'width' => '250px',
                      'defaultValueGenerator' => '',
                   )),
-                  2 => 
+                  1 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'performance',
                      'title' => 'Performance',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -761,6 +466,76 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'hideLabelsWhenTabsReached' => NULL,
                  'referencedFields' => 
                 array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields::__set_state(array(
+                     'name' => 'localizedfields',
+                     'title' => '',
+                     'tooltip' => NULL,
+                     'mandatory' => false,
+                     'noteditable' => false,
+                     'index' => false,
+                     'locked' => false,
+                     'style' => NULL,
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => true,
+                     'visibleSearch' => true,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                         'name' => 'staticConductive',
+                         'title' => 'Static Conductive',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'defaultValue' => NULL,
+                         'columnLength' => 190,
+                         'regex' => '',
+                         'regexFlags' => 
+                        array (
+                        ),
+                         'unique' => false,
+                         'showCharCount' => false,
+                         'width' => 250,
+                         'defaultValueGenerator' => '',
+                      )),
+                    ),
+                     'region' => NULL,
+                     'layout' => NULL,
+                     'maxTabs' => 35,
+                     'border' => false,
+                     'provideSplitView' => false,
+                     'tabPosition' => 'top',
+                     'hideLabelsWhenTabsReached' => NULL,
+                     'referencedFields' => 
+                    array (
+                    ),
+                     'permissionView' => NULL,
+                     'permissionEdit' => NULL,
+                     'labelWidth' => 200,
+                     'labelAlign' => 'left',
+                     'width' => '',
+                     'height' => '',
+                     'fieldDefinitionsCache' => NULL,
+                  )),
                 ),
                  'permissionView' => NULL,
                  'permissionEdit' => NULL,
@@ -811,97 +586,12 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'children' => 
                 array (
                   0 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValueRange::__set_state(array(
-                     'name' => 'temperatureC',
-                     'title' => 'Temperature (°C)',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '100px',
-                     'defaultUnit' => 'temperature_c',
-                     'validUnits' => 
-                    array (
-                      0 => 'temperature_c',
-                      1 => 'temperature_f',
-                    ),
-                     'decimalPrecision' => NULL,
-                     'autoConvert' => false,
-                     'width' => '146px',
-                  )),
-                  1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                     'name' => 'rangeTemperatureC',
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'name' => 'Field Container',
                      'type' => NULL,
                      'region' => NULL,
-                     'title' => '',
-                     'width' => 500,
-                     'height' => 0,
-                     'collapsible' => false,
-                     'collapsed' => false,
-                     'bodyStyle' => '',
-                     'datatype' => 'layout',
-                     'children' => 
-                    array (
-                    ),
-                     'locked' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'fieldtype' => 'text',
-                     'html' => '',
-                     'renderingClass' => 'App\\Helpers\\DynamicTextLabels\\UniProductManagement\\UniProductTempRangeDynamicTextPts',
-                     'renderingData' => 'Range Temperature (°C)',
-                     'border' => false,
-                  )),
-                  2 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValueRange::__set_state(array(
-                     'name' => 'temperatureF',
-                     'title' => 'Temperature (°F)',
-                     'tooltip' => '',
-                     'mandatory' => true,
-                     'noteditable' => false,
-                     'index' => false,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => true,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'unitWidth' => '100px',
-                     'defaultUnit' => 'temperature_f',
-                     'validUnits' => 
-                    array (
-                      0 => 'temperature_f',
-                      1 => 'temperature_c',
-                    ),
-                     'decimalPrecision' => NULL,
-                     'autoConvert' => false,
-                     'width' => '146px',
-                  )),
-                  3 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
-                     'name' => 'rangeTemperatureF',
-                     'type' => NULL,
-                     'region' => NULL,
-                     'title' => '',
-                     'width' => 500,
+                     'title' => NULL,
+                     'width' => 700,
                      'height' => '',
                      'collapsible' => false,
                      'collapsed' => false,
@@ -909,16 +599,145 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'datatype' => 'layout',
                      'children' => 
                     array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\NumericRange::__set_state(array(
+                         'name' => 'temperatureC',
+                         'title' => 'Temperature (°C)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                         'name' => 'rangeTemperatureC',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => '',
+                         'width' => 400,
+                         'height' => 0,
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => '',
+                         'datatype' => 'layout',
+                         'children' => 
+                        array (
+                        ),
+                         'locked' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'fieldtype' => 'text',
+                         'html' => '',
+                         'renderingClass' => 'App\\Helpers\\DynamicTextLabels\\UniProductManagement\\UniProductTempRangeDynamicTextPts',
+                         'renderingData' => 'Range Temperature (°C)',
+                         'border' => false,
+                      )),
                     ),
                      'locked' => false,
                      'blockedVarsForExport' => 
                     array (
                     ),
-                     'fieldtype' => 'text',
-                     'html' => '',
-                     'renderingClass' => 'App\\Helpers\\DynamicTextLabels\\UniProductManagement\\UniProductTempRangeDynamicTextPts',
-                     'renderingData' => 'Range Temperature (°F)',
-                     'border' => false,
+                     'fieldtype' => 'fieldcontainer',
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'labelWidth' => 200,
+                     'labelAlign' => 'left',
+                  )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldcontainer::__set_state(array(
+                     'name' => 'Field Container',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => NULL,
+                     'width' => 700,
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\NumericRange::__set_state(array(
+                         'name' => 'temperatureF',
+                         'title' => 'Temperature (°F)',
+                         'tooltip' => '',
+                         'mandatory' => true,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => true,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'integer' => false,
+                         'unsigned' => false,
+                         'minValue' => NULL,
+                         'maxValue' => NULL,
+                         'decimalSize' => NULL,
+                         'decimalPrecision' => NULL,
+                         'width' => '146px',
+                      )),
+                      1 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+                         'name' => 'rangeTemperatureF',
+                         'type' => NULL,
+                         'region' => NULL,
+                         'title' => '',
+                         'width' => 400,
+                         'height' => '',
+                         'collapsible' => false,
+                         'collapsed' => false,
+                         'bodyStyle' => '',
+                         'datatype' => 'layout',
+                         'children' => 
+                        array (
+                        ),
+                         'locked' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'fieldtype' => 'text',
+                         'html' => '',
+                         'renderingClass' => 'App\\Helpers\\DynamicTextLabels\\UniProductManagement\\UniProductTempRangeDynamicTextPts',
+                         'renderingData' => 'Range Temperature (°F)',
+                         'border' => false,
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'fieldcontainer',
+                     'layout' => 'vbox',
+                     'fieldLabel' => '',
+                     'labelWidth' => 200,
+                     'labelAlign' => 'left',
                   )),
                 ),
                  'locked' => false,
@@ -926,7 +745,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                 array (
                 ),
                  'fieldtype' => 'fieldcontainer',
-                 'layout' => 'vbox',
+                 'layout' => 'hbox',
                  'fieldLabel' => '',
                  'labelWidth' => 200,
                  'labelAlign' => 'left',
@@ -983,7 +802,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                      'name' => 'staticConductive',
                      'title' => 'Static Conductive',
                      'tooltip' => '',
-                     'mandatory' => true,
+                     'mandatory' => false,
                      'noteditable' => false,
                      'index' => false,
                      'locked' => false,
@@ -1032,7 +851,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
                  'name' => 'heatOilResistant',
                  'title' => 'Heat & Oil Resistant',
                  'tooltip' => '',
-                 'mandatory' => true,
+                 'mandatory' => false,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,

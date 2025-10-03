@@ -25,6 +25,7 @@
     "pimcore/admin-ui-classic-bundle": "^1.4",
     "pimcore/bundle-generator": "^2.0",
     "pimcore/compatibility-bridge-v10": "^1.0",
+    "pimcore/data-hub": "^1.9",
     "pimcore/data-importer": "^1.9",
     "pimcore/ecommerce-framework-bundle": "^1.0",
     "pimcore/file-explorer-bundle": "^1.0",

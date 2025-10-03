@@ -1,0 +1,7 @@
+#!/bin/bash
+
+## Description: Run the YAML code quality tools
+## Usage: yaml-lint
+## Example: ddev yaml-lint
+
+yamllint config src -c .yamllint.yaml

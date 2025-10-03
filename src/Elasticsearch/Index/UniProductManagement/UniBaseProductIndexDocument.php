@@ -69,15 +69,37 @@ class UniBaseProductIndexDocument extends AbstractDocument
     private function getNormalizedFinishedGood(UniProductBase $element): array
     {
         $result = [[
-            // TODO: Add more fields. Make dynamic as well? Probably not for base model
             ...$this->plainAttributes($element, [
-                UniBaseProductIndex::ATTRIBUTE_PRODUCT_BRAND_NAME => UniProductBase::FIELD_PRODUCT_BRAND_NAME,
                 UniBaseProductIndex::ATTRIBUTE_GHP_FULL_CODE => UniProductBase::FIELD_GHP_FULL_CODE,
                 UniBaseProductIndex::ATTRIBUTE_SAP_MATERIAL_NUMBER => UniProductBase::FIELD_SAP_MATERIAL_NUMBER,
+                UniBaseProductIndex::ATTRIBUTE_PART_NUMBER => UniProductBase::FIELD_PART_NUMBER,
+                UniBaseProductIndex::ATTRIBUTE_OLD_MATERIAL_NUMBER => UniProductBase::FIELD_OLD_MATERIAL_NUMBER,
+                UniBaseProductIndex::ATTRIBUTE_TARIFF_CODES => UniProductBase::FIELD_TARIFF_CODES,
+                UniBaseProductIndex::ATTRIBUTE_EAN_CODE => UniProductBase::FIELD_EAN_CODE,
+                UniBaseProductIndex::ATTRIBUTE_WEIGHT_METRIC => UniProductBase::FIELD_WEIGHT_METRIC,
+                UniBaseProductIndex::ATTRIBUTE_WEIGHT_IMPERIAL => UniProductBase::FIELD_WEIGHT_IMPERIAL,
+                UniBaseProductIndex::ATTRIBUTE_COUNTRY_OF_ORIGIN => UniProductBase::FIELD_COUNTRY_OF_ORIGIN,
+                UniBaseProductIndex::ATTRIBUTE_COMPETITOR_CROSS_REFERENCE => UniProductBase::FIELD_COMPETITOR_CROSS_REFERENCE,
+                UniBaseProductIndex::ATTRIBUTE_CUSTOMER_REFERENCE => UniProductBase::FIELD_CUSTOMER_REFERENCE,
+                UniBaseProductIndex::ATTRIBUTE_OEM_CROSS_REFERENCE => UniProductBase::FIELD_OEM_CROSS_REFERENCE,
+                UniBaseProductIndex::ATTRIBUTE_B2B_FLAG => UniProductBase::FIELD_B2B_FLAG,
+                UniBaseProductIndex::ATTRIBUTE_B2C_FLAG => UniProductBase::FIELD_B2C_FLAG,
+                UniBaseProductIndex::ATTRIBUTE_PRINTED_CATALOGUE_FLAG => UniProductBase::FIELD_PRINTED_CATALOGUE_FLAG,
+                UniBaseProductIndex::ATTRIBUTE_VIRTUAL_CATALOGUE_FLAG => UniProductBase::FIELD_VIRTUAL_CATALOGUE_FLAG,
+                UniBaseProductIndex::ATTRIBUTE_CUSTOMER_PORTAL_FLAG => UniProductBase::FIELD_CUSTOMER_PORTAL_FLAG,
             ]),
             ...$this->localizedAttributes($element, [
                 UniBaseProductIndex::ATTRIBUTE_SAP_DESCRIPTION => UniProductBase::FIELD_SAP_DESCRIPTION,
-                UniBaseProductIndex::ATTRIBUTE_PRODUCT_SUB_CATEGORY => UniProductBase::FIELD_PRODUCT_SUB_CATEGORY,
+                UniBaseProductIndex::ATTRIBUTE_SAP_DESCRIPTION_LANGUAGE => UniProductBase::FIELD_SAP_DESCRIPTION_LANGUAGE,
+                UniBaseProductIndex::ATTRIBUTE_PLANT_PRODUCED => UniProductBase::FIELD_PLANT_PRODUCED,
+                UniBaseProductIndex::ATTRIBUTE_PRODUCT_DESCRIPTION_SHORT => UniProductBase::FIELD_PRODUCT_DESCRIPTION_SHORT,
+                UniBaseProductIndex::ATTRIBUTE_PRODUCT_DESCRIPTION_LONG => UniProductBase::FIELD_PRODUCT_DESCRIPTION_LONG,
+                UniBaseProductIndex::ATTRIBUTE_PRODUCT_MARKING1 => UniProductBase::FIELD_PRODUCT_MARKING1,
+                UniBaseProductIndex::ATTRIBUTE_PRODUCT_MARKING2 => UniProductBase::FIELD_PRODUCT_MARKING2,
+                UniBaseProductIndex::ATTRIBUTE_PRODUCT_DESCRIPTION_EXTENDED => UniProductBase::FIELD_PRODUCT_DESCRIPTION_EXTENDED,
+                UniBaseProductIndex::ATTRIBUTE_PROP65 => UniProductBase::FIELD_PROP65,
+                UniBaseProductIndex::ATTRIBUTE_RO_HS => UniProductBase::FIELD_RO_HS,
+                UniBaseProductIndex::ATTRIBUTE_GPRS => UniProductBase::FIELD_GPRS,
             ]),
             ...$this->relationAttributes($element, [
                 UniBaseProductIndex::ATTRIBUTE_REGIONAL_AVAILABILITY => UniProductBase::FIELD_REGIONAL_AVAILABILITY,
@@ -85,11 +107,10 @@ class UniBaseProductIndexDocument extends AbstractDocument
         ]];
 
         foreach ($element->getProductGroupSpecific()?->getItems() ?? [] as $objectBrick) {
-
-            $result[] = $this->getNormalizedObjectbrick($objectBrick, self::PRODUCT_GROUP_SPECIFIC_TECHNICAL_PREFIX);
+            $result[] = $this->getNormalizedObjectbrick($objectBrick, self::FINISHED_GOOD_PRODUCT_GROUP_SPECIFIC_PREFIX);
         }
 
-        return array_merge(...$result);
+        return array_merge_recursive(...$result);
     }
 
     /** @return array<string, mixed> */

@@ -7,7 +7,7 @@ namespace App\Helpers\DynamicTextLabels\UniProductManagement;
 use App\Service\VersionService;
 use Pimcore\Model\DataObject\ClassDefinition\Layout\DynamicTextLabelInterface;
 use Pimcore\Model\DataObject\Concrete;
-use Pimcore\Model\DataObject\Data\QuantityValueRange;
+use Pimcore\Model\DataObject\Data\NumericRange;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Pimcore\Model\DataObject\UniProductCategoryInternal\LevelSpecificData;
@@ -18,7 +18,6 @@ use Pimcore\Model\DataObject\UniProductCategoryInternal\LevelSpecificData;
  * Refer to the Pimcore documentation for more information:
  * https://docs.pimcore.com/platform/Pimcore/Objects/Object_Classes/Layout_Elements/Dynamic_Text_Labels/
  */
-
 class UniProductTempRangeDynamicTextPts extends UniProductDynamicText implements DynamicTextLabelInterface
 {
     public function renderLayoutText(string $data, ?Concrete $object, array $params): string
@@ -61,7 +60,7 @@ class UniProductTempRangeDynamicTextPts extends UniProductDynamicText implements
         $temperatureData = $parentBrickData->get($temperatureDataField);
 
         // Validate and process temperature data
-        if ($temperatureData instanceof QuantityValueRange && $temperatureData->getMinimum() !== '' && $temperatureData->getMinimum() !== null && $temperatureData->getMaximum() !== '' && $temperatureData->getMaximum() !== null) {
+        if ($temperatureData instanceof NumericRange && $temperatureData->getMinimum() !== '' && $temperatureData->getMinimum() !== null && $temperatureData->getMaximum() !== '' && $temperatureData->getMaximum() !== null) {
             return $this->renderText($data, sprintf('%s to %s', $temperatureData->getMinimum(), $temperatureData->getMaximum()));
         }
 

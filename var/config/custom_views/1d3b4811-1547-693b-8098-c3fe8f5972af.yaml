@@ -1,0 +1,32 @@
+pimcore:
+    custom_views:
+        definitions:
+            1d3b4811-1547-693b-8098-c3fe8f5972af:
+                name: 'Output Configurator'
+                treetype: object
+                position: left
+                rootfolder: '/Unified PIM/Product Management/Output Configurator'
+                showroot: true
+                sort: 0
+                treeContextMenu:
+                    object:
+                        items:
+                            add: true
+                            addFolder: true
+                            importCsv: true
+                            cut: true
+                            copy: true
+                            paste: true
+                            delete: true
+                            rename: true
+                            reload: true
+                            publish: true
+                            unpublish: true
+                            searchAndMove: true
+                            lock: true
+                            unlock: true
+                            lockAndPropagate: true
+                            unlockAndPropagate: true
+                            changeChildrenSortBy: true
+                classes: UniPrOutConfig
+                icon: /bundles/pimcoreadmin/img/flat-color-icons/excel.svg

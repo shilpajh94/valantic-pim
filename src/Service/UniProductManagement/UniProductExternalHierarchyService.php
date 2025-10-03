@@ -66,9 +66,7 @@ class UniProductExternalHierarchyService
      */
     public function resolveProductFilter(UniProductCategoryExternal $categoryExternal): array
     {
-        $includes = $categoryExternal->getProductInclude()?->getItems() ?? [];
-
-        if (count($includes) === 0) {
+        if (!$this->hasIncludeRulesInHierarchy($categoryExternal)) {
             return [];
         }
 
@@ -83,22 +81,27 @@ class UniProductExternalHierarchyService
         ;
 
         return $result = $this->queryProductsPaginated($searchQuery, fn (Result $item): int => (int) substr($item->getId(), 6));
-        // TODO: To be determined: If parent has no product include rules, use included products of parent instead.
-        //       Or create specific "products from parent" include rule and add it by default? What happens if this is missing?
+    }
 
-        // $parent = $categoryExternal->getParent();
+    public function hasIncludeRulesInHierarchy(UniProductCategoryExternal $categoryExternal): bool
+    {
+        $includes = $categoryExternal->getProductInclude()?->getItems() ?? [];
+        $parent = $categoryExternal->getParent();
 
-        // if (!$parent instanceof UniProductCategoryExternal) {
-        //    return $result;
-        // }
+        $result = count($includes) > 0;
 
-        // return array_values(array_intersect($this->resolveProductFilter($parent), $result));
+        if (!$parent instanceof UniProductCategoryExternal) {
+            return $result;
+        }
+
+        return $result || $this->hasIncludeRulesInHierarchy($parent);
     }
 
     private function buildIncludeQuery(UniProductCategoryExternal $categoryExternal): AbstractQuery
     {
         $query = new BoolQuery();
 
+        // Build the query for the current category
         foreach ($categoryExternal->getProductInclude()?->getItems() ?? [] as $item) {
             if ($item instanceof UniPrInclPr) {
                 $productIds = array_map(fn (UniProductBase $product): ?int => $product->getId(), $item->getProducts());
@@ -113,11 +116,21 @@ class UniProductExternalHierarchyService
 
                 continue;
             }
-
-            // Hint: Other rules currently not implemented in PoC
         }
 
-        return $query;
+        $parent = $categoryExternal->getParent();
+
+        if (!$parent instanceof UniProductCategoryExternal || !$this->hasIncludeRulesInHierarchy($parent)) {
+            return $query;
+        }
+
+        // Resolve parent product IDs
+        $parentProductIds = $this->resolveProductFilter($parent);
+
+        return (new BoolQuery())
+            ->addMust($query)
+            ->addMust(new Terms(DocumentInterface::META_ID, $parentProductIds))
+        ;
     }
 
     private function buildFilterQuery(): AbstractQuery
