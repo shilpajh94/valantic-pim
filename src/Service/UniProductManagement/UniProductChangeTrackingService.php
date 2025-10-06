@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Service\UniProductManagement;
 
+use App\Entity\UniProductManagement\UniProductChangeHistory;
+use Carbon\Carbon;
+use Doctrine\ORM\EntityManagerInterface;
 use Pimcore\Db;
 use Pimcore\Model\DataObject\AbstractObject;
 use Pimcore\Model\DataObject\ClassDefinition;
@@ -15,59 +18,167 @@ use Pimcore\Model\DataObject\ClassDefinition\Data\Relations\AbstractRelations;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Select;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Objectbrick;
+use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Pimcore\Model\User;
+use Pimcore\Security\User\User as SecurityUser;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class UniProductChangeTrackingService
 {
-    private LoggerInterface $logger;
+    public function __construct(
+        private readonly LoggerInterface $logger,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly TokenStorageInterface $tokenStorage,
+    ) {
+    }
 
-    public function __construct(LoggerInterface $logger)
+    /**
+     * Track and save changes for an object.
+     */
+    public function trackAndSaveChanges(AbstractObject $object): void
     {
-        $this->logger = $logger;
+        $changes = $this->computeChanges($object);
+
+        if ($changes === []) {
+            return;
+        }
+
+        $this->saveChangeHistory($object, $changes);
+    }
+
+    /**
+     * Save change history to database.
+     *
+     * @param array<string, array{old: mixed, new: mixed}> $changes
+     */
+    private function saveChangeHistory(AbstractObject $object, array $changes): void
+    {
+        $previousValues = [];
+        $newValues = [];
+
+        foreach ($changes as $field => $change) {
+            $previousValues[$field] = $this->formatValueForStorage($change['old']);
+            $newValues[$field] = $this->formatValueForStorage($change['new']);
+        }
+
+        $history = new UniProductChangeHistory();
+        $history
+            ->setObjectId((string) $object->getId())
+            ->setFullObjectPath($object->getFullPath())
+            ->setObjectClass($object::class)
+            ->setTimestamp(Carbon::now())
+            ->setUser($this->getCurrentUserName())
+            ->setPreviousValues($previousValues)
+            ->setNewValues($newValues)
+        ;
+
+        $this->entityManager->persist($history);
+        $this->entityManager->flush();
+    }
+
+    /**
+     * Format value for JSON storage.
+     */
+    private function formatValueForStorage(mixed $value): string
+    {
+        if ($value === null) {
+            return '(Empty)';
+        }
+
+        if (is_array($value)) {
+            return implode(', ', $value);
+        }
+
+        return (string) $value;
+    }
+
+    /**
+     * Get current authenticated user name.
+     */
+    private function getCurrentUserName(): string
+    {
+        $token = $this->tokenStorage->getToken();
+
+        if (!$token instanceof \Symfony\Component\Security\Core\Authentication\Token\TokenInterface || !$token->getUser() instanceof \Symfony\Component\Security\Core\User\UserInterface) {
+            return 'System';
+        }
+
+        $user = $token->getUser();
+
+        if (!($user instanceof SecurityUser)) {
+            return 'System';
+        }
+
+        $innerUser = $user->getUser();
+        $username = $innerUser->getName() ?? 'Unknown';
+        $email = $innerUser->getEmail();
+
+        if ($email !== null && $email !== '' && $email !== '0') {
+            return sprintf('%s <%s>', $username, $email);
+        }
+
+        return $username;
     }
 
     /**
      * Compute changes for the current object state.
-     * Includes changes for standard fields, object bricks, localized fields, and relation fields.
      *
-     * @return array<string, array{old: mixed, new: mixed}> Array with field names as keys and change data
+     * @return array<string, array{old: string, new: string}> Array with field names as keys and formatted change data
      */
-    public function computeChanges(AbstractObject $object): array
+    private function computeChanges(AbstractObject $object): array
     {
+        if (!$object instanceof Concrete) {
+            return [];
+        }
+
         $dirtyFields = $object->getDirtyFields();
-
         $oldData = $this->getOldDataFromDatabase($object);
-
         $newData = [];
 
         foreach ($dirtyFields as $field) {
+            $fieldDefinition = $object->getClass()->getFieldDefinition($field);
+
+            if ($fieldDefinition instanceof Localizedfields) {
+                continue;
+            }
+
             $getterMethod = 'get' . ucfirst($field);
 
-            if (method_exists($object, $getterMethod)) {
-                $newValue = $object->$getterMethod();
-                $newData[$field] = $this->transformSpecialFieldValue($object, $field, $newValue);
+            if (!method_exists($object, $getterMethod)) {
+                continue;
             }
+
+            $newValue = $object->$getterMethod();
+            $newData[$field] = $fieldDefinition instanceof Select
+                ? $this->normalizeSelectValue($fieldDefinition, $newValue)
+                : $this->transformSpecialFieldValue($object, $field, $newValue);
         }
 
         $objectBrickChanges = $this->computeObjectBrickChanges($object);
         $localizedFieldChanges = $this->computeLocalizedFieldChanges($object);
         $brickLocalizedFieldChanges = $this->computeLocalizedFieldChangesInBricks($object);
         $relationFieldChanges = $this->computeRelationFieldChanges($object);
+
         $standardFieldChanges = [];
 
         foreach ($dirtyFields as $field) {
+            $fieldDefinition = $object->getClass()->getFieldDefinition($field);
             $oldRawValue = $oldData[$field] ?? null;
-            $oldValue = $this->transformSpecialFieldValue($object, $field, $oldRawValue);
+
+            $oldValue = $fieldDefinition instanceof Select
+                ? $this->normalizeSelectValue($fieldDefinition, $oldRawValue)
+                : $this->transformSpecialFieldValue($object, $field, $oldRawValue);
+
             $newValue = $newData[$field] ?? null;
 
-            if ($oldValue === $newValue) {
+            if ($this->areValuesEquivalent($oldValue, $newValue)) {
                 continue;
             }
 
             $standardFieldChanges[$field] = [
-                'old' => $oldValue,
-                'new' => $newValue,
+                'old' => $oldValue ?? '(Empty)',
+                'new' => $newValue ?? '(Empty)',
             ];
         }
 
@@ -81,6 +192,24 @@ class UniProductChangeTrackingService
     }
 
     /**
+     * Normalize value for Select fields.
+     */
+    private function normalizeSelectValue(Select $fieldDefinition, mixed $value): ?string
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        foreach ($fieldDefinition->getOptions() as $option) {
+            if ((string) $option['value'] === (string) $value) {
+                return $option['key'];
+            }
+        }
+
+        return (string) $value;
+    }
+
+    /**
      * Transform special field values (e.g., "checkbox" or "assignedUser") for better display in history.
      *
      * @param AbstractObject $object The object containing the field
@@ -91,19 +220,22 @@ class UniProductChangeTrackingService
      */
     private function transformSpecialFieldValue(AbstractObject $object, string $field, mixed $value): ?string
     {
-        if ($field === 'assignedUser') {
+        if ($field === UniProductCategoryInternal::FIELD_ASSIGNED_USER) {
             $userId = (int) $value;
             $user = User::getById($userId);
 
-            return $user instanceof User ? $user->getName() : "User ID $userId (Not Found)";
+            if ($user instanceof User) {
+                $username = $user->getName();
+                $email = $user->getEmail();
+
+                return sprintf('%s <%s>', $username, $email);
+            }
+
+            return "User ID $userId (Not Found)";
         }
 
         if ($this->isCheckboxField($object, $field)) {
-            if ($value === true) {
-                return 'Yes';
-            }
-
-            return 'No';
+            return $value === true ? 'Yes' : 'No';
         }
 
         return $this->transformValue($value);
@@ -119,7 +251,7 @@ class UniProductChangeTrackingService
     private function transformValue(mixed $value): ?string
     {
         if ($value === null) {
-            return 'NULL';
+            return '(Empty)';
         }
 
         if (is_bool($value)) {
@@ -134,18 +266,13 @@ class UniProductChangeTrackingService
             $username = $value->getName();
             $email = $value->getEmail();
 
-            return $email !== null && $email !== '' && $email !== '0' ? "$username <$email>" : $username;
+            return $email !== null && $email !== '' ? "$username <$email>" : $username;
         }
 
         if ($value instanceof AbstractObject) {
-            $objectKey = $value->getKey();
             $name = $value->get('name');
 
-            if ($name) {
-                return (string) $name;
-            }
-
-            return $objectKey;
+            return $name ? (string) $name : $value->getKey();
         }
 
         if (is_object($value)) {
@@ -217,27 +344,35 @@ class UniProductChangeTrackingService
                                 }
 
                                 if ($brickFieldDefinition instanceof AbstractRelations) {
-                                    $oldRelationValue = $oldBrickData[$brickType][$field] ?? [];
+                                    $fieldname = $brick->getFieldname();
+                                    $oldRelationIds = $this->getBrickRelationIds($object, $fieldname, $field);
                                     $newRelationValue = $brick->get($field);
 
-                                    $oldRelationValue = is_array($oldRelationValue) ? $oldRelationValue : explode(',', (string) $oldRelationValue);
+                                    $oldRelationValue = $this->transformRelationIdsToNames($oldRelationIds);
                                     $newRelationValue = $this->transformRelationObjectsToNames($newRelationValue);
-                                    $oldRelationValue = $this->transformRelationIdsToNames($oldRelationValue);
 
-                                    if ($newRelationValue !== $oldRelationValue) {
+                                    sort($oldRelationValue);
+                                    sort($newRelationValue);
+
+                                    if ($oldRelationValue === [] && $newRelationValue === []) {
+                                        continue;
+                                    }
+
+                                    if ($oldRelationValue !== $newRelationValue) {
                                         $changes["{$brickType}.relation.{$field}"] = [
-                                            'old' => $oldRelationValue,
-                                            'new' => $newRelationValue,
+                                            'old' => implode(', ', $oldRelationValue),
+                                            'new' => implode(', ', $newRelationValue),
                                         ];
                                     }
 
                                     continue;
                                 }
-                                $newValue = $this->getFieldValue($brickFieldDefinition, $brick, $field);
-                                $oldValue = $oldBrickData[$brickType][$field] ?? null;
-
-                                $newValue = $this->normalizeValue($newValue);
-                                $oldValue = $this->normalizeValue($oldValue);
+                                $newValue = $this->normalizeValue(
+                                    $this->getFieldValue($brickFieldDefinition, $brick, $field),
+                                );
+                                $oldValue = $this->normalizeValue(
+                                    $oldBrickData[$brickType][$field] ?? null,
+                                );
 
                                 if ($this->areValuesEquivalent($oldValue, $newValue)) {
                                     continue;
@@ -315,6 +450,20 @@ class UniProductChangeTrackingService
      */
     private function areValuesEquivalent(string|object|array|null $oldValue, string|object|array|null $newValue): bool
     {
+        // Normalize array values for comparison
+        if (is_array($oldValue) && is_array($newValue)) {
+            sort($oldValue);
+            sort($newValue);
+
+            return $oldValue === $newValue;
+        }
+
+        // Normalize strings by trimming whitespace
+        if (is_string($oldValue) && is_string($newValue)) {
+            return trim($oldValue) === trim($newValue);
+        }
+
+        // Fallback to strict comparison
         return $oldValue === $newValue;
     }
 
@@ -552,10 +701,7 @@ class UniProductChangeTrackingService
             return true;
         }
 
-        return ($oldValue === [] && $newValue === null)
-            || ($oldValue === null && $newValue === [])
-            || ($oldValue === '' && $newValue === null)
-            || ($oldValue === null && $newValue === '');
+        return ($oldValue === [] || $oldValue === null || $oldValue === '') && ($newValue === [] || $newValue === null || $newValue === '');
     }
 
     /**
@@ -777,29 +923,31 @@ class UniProductChangeTrackingService
         $classDefinition = $object->getClass();
 
         foreach ($classDefinition->getFieldDefinitions() as $fieldDefinition) {
-            if ($fieldDefinition instanceof Objectbricks) {
-                foreach ($fieldDefinition->getAllowedTypes() as $brickType) {
-                    $classId = $classDefinition->getId();
-                    $objectId = $object->getId();
+            if (!($fieldDefinition instanceof Objectbricks)) {
+                continue;
+            }
 
-                    $localizedTableName = "object_brick_localized_{$brickType}_{$classId}";
+            foreach ($fieldDefinition->getAllowedTypes() as $brickType) {
+                $classId = $classDefinition->getId();
+                $objectId = $object->getId();
+                $localizedTableName = "object_brick_localized_{$brickType}_{$classId}";
 
-                    try {
-                        $localizedSql = "SELECT * FROM $localizedTableName WHERE ooo_id = :id";
-                        $localizedRows = Db::get()->fetchAllAssociative($localizedSql, ['id' => $objectId]);
+                $localizedSql = "SELECT * FROM $localizedTableName WHERE ooo_id = :id";
 
-                        foreach ($localizedRows as $localizedRow) {
-                            $language = $localizedRow['language'];
-                            $fieldname = $localizedRow['fieldname'];
-                            unset($localizedRow['ooo_id'], $localizedRow['language'], $localizedRow['fieldname']);
+                try {
+                    $localizedRows = Db::get()->fetchAllAssociative($localizedSql, ['id' => $objectId]);
+                } catch (\Exception $e) {
+                    $this->logger->warning("Localized table for {$brickType} not found: " . $e->getMessage());
 
-                            $data[$brickType]['localized'][$language][$fieldname] = $localizedRow;
-                        }
-                    } catch (\Exception $e) {
-                        $this->logger->warning("Localized table for {$brickType} not found: " . $e->getMessage());
+                    continue;
+                }
 
-                        continue;
-                    }
+                foreach ($localizedRows as $localizedRow) {
+                    $language = $localizedRow['language'];
+                    $fieldname = $localizedRow['fieldname'];
+                    unset($localizedRow['ooo_id'], $localizedRow['language'], $localizedRow['fieldname']);
+
+                    $data[$brickType]['localized'][$language][$fieldname] = $localizedRow;
                 }
             }
         }
@@ -866,15 +1014,21 @@ class UniProductChangeTrackingService
                         'fieldname' => $brick->getFieldname(),
                     ]);
 
-                    if ($row) {
-                        unset($row['fieldname'], $row['id']);
-                        $data[$brickType] = $row;
+                    if (!$row) {
+                        continue;
+                    }
 
-                        $relationData = $this->getRelationData($objectId, (string) $object->getClass()->getId(), $brick->getFieldname());
+                    unset($row['fieldname'], $row['id']);
+                    $data[$brickType] = $row;
 
-                        if ($relationData !== []) {
-                            $data[$brickType]['relations'] = $relationData;
-                        }
+                    $relationData = $this->getRelationData(
+                        $objectId,
+                        (string) $object->getClass()->getId(),
+                        $brick->getFieldname(),
+                    );
+
+                    if ($relationData !== []) {
+                        $data[$brickType]['relations'] = $relationData;
                     }
                 }
             }
@@ -919,60 +1073,86 @@ class UniProductChangeTrackingService
      */
     private function computeLocalizedFieldChanges(AbstractObject $object): array
     {
-        $changes = [];
-
         if (!$object instanceof Concrete) {
-            return $changes;
+            return [];
         }
 
         $localizedFieldData = $this->getOldLocalizedFieldDataFromDatabase($object);
+        $changes = [];
 
         foreach ($object->getClass()->getFieldDefinitions() as $fieldDefinition) {
-            if ($fieldDefinition instanceof Localizedfields) {
-                $localizedFields = $object->get($fieldDefinition->getName());
-
-                if ($localizedFields) {
-                    /** @var array<string, array{old: array<string, mixed>, new: array<string, mixed>}> $fieldChanges */
-                    $fieldChanges = [];
-
-                    foreach ($localizedFields->getItems() as $language => $newFields) {
-                        $oldFields = $localizedFieldData[$language] ?? [];
-
-                        foreach ($newFields as $fieldName => $newValue) {
-                            $oldValue = $oldFields[$fieldName] ?? null;
-
-                            $newValue = $this->normalizeValue($newValue);
-                            $oldValue = $this->normalizeValue($oldValue);
-
-                            if (($oldValue === [] && $newValue === null) || ($oldValue === null && $newValue === [])) {
-                                continue;
-                            } elseif ($oldValue === $newValue) {
-                                continue;
-                            }
-
-                            if (!isset($fieldChanges[$fieldName])) {
-                                $fieldChanges[$fieldName] = ['old' => [], 'new' => []];
-                            }
-
-                            $fieldChanges[$fieldName]['old'][$language] = $oldValue;
-                            $fieldChanges[$fieldName]['new'][$language] = $newValue;
-                        }
-                    }
-
-                    foreach ($fieldChanges as $fieldName => $languageChanges) {
-                        $oldFormatted = $this->formatLocalizedValues($languageChanges['old']);
-                        $newFormatted = $this->formatLocalizedValues($languageChanges['new']);
-
-                        $changes["localized.{$fieldName}"] = [
-                            'old' => $oldFormatted,
-                            'new' => $newFormatted,
-                        ];
-                    }
-                }
+            if (!$fieldDefinition instanceof Localizedfields) {
+                continue;
             }
+
+            $localizedFields = $object->get($fieldDefinition->getName());
+
+            if (!$localizedFields) {
+                continue;
+            }
+
+            $fieldChanges = $this->processLocalizedFieldChanges($localizedFields, $localizedFieldData);
+
+            if ($fieldChanges === []) {
+                continue;
+            }
+
+            $this->formatFieldChanges($fieldChanges, $changes);
         }
 
         return $changes;
+    }
+
+    /**
+     * @param object $localizedFields Object with getItems(): array<string, array<string, mixed>>
+     * @param array<string, array<string, mixed>> $localizedFieldData
+     *
+     * @return array<string, array{old: array<string, mixed>, new: array<string, mixed>}>
+     */
+    private function processLocalizedFieldChanges($localizedFields, array $localizedFieldData): array
+    {
+        $fieldChanges = [];
+
+        foreach ($localizedFields->getItems() as $language => $newFields) {
+            $oldFields = $localizedFieldData[$language] ?? [];
+
+            foreach ($newFields as $fieldName => $newValue) {
+                $oldValue = $oldFields[$fieldName] ?? null;
+
+                $newValue = $this->normalizeValue($newValue);
+                $oldValue = $this->normalizeValue($oldValue);
+
+                if ($this->areValuesEquivalent($oldValue, $newValue)) {
+                    continue;
+                }
+
+                if (!isset($fieldChanges[$fieldName])) {
+                    $fieldChanges[$fieldName] = ['old' => [], 'new' => []];
+                }
+
+                $fieldChanges[$fieldName]['old'][$language] = $oldValue;
+                $fieldChanges[$fieldName]['new'][$language] = $newValue;
+            }
+        }
+
+        return $fieldChanges;
+    }
+
+    /**
+     * @param array<string, array{old: mixed, new: mixed}> $fieldChanges
+     * @param array<string, array{old: mixed, new: mixed}> $changes
+     */
+    private function formatFieldChanges(array $fieldChanges, array &$changes): void
+    {
+        foreach ($fieldChanges as $fieldName => $languageChanges) {
+            $oldFormatted = $this->formatLocalizedValues($languageChanges['old']);
+            $newFormatted = $this->formatLocalizedValues($languageChanges['new']);
+
+            $changes["localized.{$fieldName}"] = [
+                'old' => $oldFormatted,
+                'new' => $newFormatted,
+            ];
+        }
     }
 
     /**
@@ -991,18 +1171,20 @@ class UniProductChangeTrackingService
         $objectId = $object->getId();
         $classDefinition = $object->getClass();
         $tableName = 'object_localized_data_' . $classDefinition->getId();
+        $localizedSql = "SELECT * FROM {$tableName} WHERE ooo_id = :id";
 
         try {
-            $localizedSql = "SELECT * FROM {$tableName} WHERE ooo_id = :id";
             $rows = Db::get()->fetchAllAssociative($localizedSql, ['id' => $objectId]);
-
-            foreach ($rows as $row) {
-                $language = $row['language'];
-                unset($row['ooo_id'], $row['language']);
-                $data[$language] = $row;
-            }
         } catch (\Exception $e) {
             $this->logger->warning('Localized table for normal fields not found: ' . $e->getMessage());
+
+            return $data;
+        }
+
+        foreach ($rows as $row) {
+            $language = $row['language'];
+            unset($row['ooo_id'], $row['language']);
+            $data[$language] = $row;
         }
 
         return $data;
@@ -1039,5 +1221,44 @@ class UniProductChangeTrackingService
         }
 
         return $formatted !== [] ? implode(', ', $formatted) : null;
+    }
+
+    /**
+     * Get relation IDs for a specific brick field.
+     *
+     * @return array<int, int>
+     */
+    private function getBrickRelationIds(AbstractObject $object, string $brickFieldname, string $relationField): array
+    {
+        if (!$object instanceof Concrete) {
+            return [];
+        }
+
+        $classId = $object->getClass()->getId();
+        $tableName = 'object_relations_' . $classId;
+
+        $fullFieldname = $brickFieldname . '~' . $relationField;
+
+        $sql = "SELECT dest_id FROM $tableName WHERE src_id = :objectId AND fieldname = :fieldname ORDER BY `index`";
+
+        try {
+            $rows = Db::get()->fetchAllAssociative($sql, [
+                'objectId' => $object->getId(),
+                'fieldname' => $fullFieldname,
+            ]);
+
+            if ($rows === []) {
+                $rows = Db::get()->fetchAllAssociative($sql, [
+                    'objectId' => $object->getId(),
+                    'fieldname' => $relationField,
+                ]);
+            }
+
+            return array_map(fn ($row): int => (int) $row['dest_id'], $rows);
+        } catch (\Exception $e) {
+            $this->logger->warning('Error fetching brick relations: ' . $e->getMessage());
+
+            return [];
+        }
     }
 }

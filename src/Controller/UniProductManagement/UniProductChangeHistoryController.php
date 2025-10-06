@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Controller\UniProductManagement;
 
-use App\Entity\UniProductManagement\UniProductChangeHistory;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\UniProductManagement\UniProductChangeHistoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class UniProductChangeHistoryController extends AbstractController
 {
     #[Route('/admin/change-history', name: 'admin_change_history', methods: ['GET'], options: ['expose' => true])]
-    public function index(Request $request, EntityManagerInterface $em, SerializerInterface $serializer): JsonResponse
+    public function index(Request $request, UniProductChangeHistoryRepository $repository, NormalizerInterface $normalizer): JsonResponse
     {
         $objectId = $request->query->get('objectId');
         $className = $request->query->get('className');
@@ -24,33 +24,32 @@ class UniProductChangeHistoryController extends AbstractController
             return new JsonResponse(['error' => 'Invalid parameters'], JsonResponse::HTTP_BAD_REQUEST);
         }
 
-        $repository = $em->getRepository(UniProductChangeHistory::class);
-        $data = $repository->findBy(
-            ['objectId' => $objectId, 'objectClass' => 'Pimcore\Model\DataObject\\' . $className],
-            ['timestamp' => 'DESC'],
-        );
-
-        $jsonData = $serializer->serialize($data, 'json');
+        $data = $repository->findByObjectId($objectId, $className, ['timestamp' => 'DESC']);
 
         return new JsonResponse([
             'status' => 'success',
-            'data' => json_decode($jsonData, true),
+            'data' => $normalizer->normalize($data),
             'count' => count($data),
         ]);
     }
 
     #[Route('/admin/change-history/{id}', name: 'admin_change_history_detail', methods: ['GET'], options: ['expose' => true])]
-    public function detailedView(int $id, EntityManagerInterface $em): JsonResponse
+    public function detailedView(int $id, UniProductChangeHistoryRepository $repository): JsonResponse
     {
-        $repository = $em->getRepository(UniProductChangeHistory::class);
         $history = $repository->find($id);
+
+        if ($history === null) {
+            throw new NotFoundHttpException('Change history record not found');
+        }
 
         return new JsonResponse([
             'status' => 'success',
             'data' => [
-                'changeFields' => $history->getChangeFields(),
-                'previousValues' => $history->getPreviousValue(),
-                'newValues' => $history->getNewValue(),
+                'id' => $history->getId(),
+                'timestamp' => $history->getTimestamp()?->format('Y-m-d H:i:s'),
+                'user' => $history->getUser(),
+                'previousValues' => $history->getPreviousValues(),
+                'newValues' => $history->getNewValues(),
             ],
         ]);
     }

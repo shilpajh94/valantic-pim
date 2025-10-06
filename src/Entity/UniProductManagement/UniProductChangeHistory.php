@@ -32,22 +32,16 @@ class UniProductChangeHistory
     private ?string $user = null;
 
     /**
-     * @var array<string> Specifies that the array contains strings
-     */
-    #[ORM\Column(name: 'change_fields', type: 'json', nullable: true)]
-    private array $changeFields = [];
-
-    /**
-     * @var array<mixed> Specifies that the array contains mixed types
+     * @var array<string, mixed>
      */
     #[ORM\Column(name: 'previous_values', type: 'json', nullable: true)]
-    private array $previousValue = [];
+    private array $previousValues = [];
 
     /**
-     * @var array<mixed> Specifies that the array contains mixed types
+     * @var array<string, mixed>
      */
     #[ORM\Column(name: 'new_values', type: 'json', nullable: true)]
-    private array $newValue = [];
+    private array $newValues = [];
 
     public function getId(): ?int
     {
@@ -115,56 +109,46 @@ class UniProductChangeHistory
     }
 
     /**
-     * @return array<string> The type of values in the array is string
+     * @return array<string, mixed>
      */
-    public function getChangeFields(): array
+    public function getPreviousValues(): array
     {
-        return $this->changeFields;
+        return $this->previousValues;
     }
 
     /**
-     * @param array<string> $changeFields Specifies that the array contains strings
+     * @param array<string, mixed> $previousValues
      */
-    public function setChangeFields(array $changeFields): static
+    public function setPreviousValues(array $previousValues): static
     {
-        $this->changeFields = $changeFields;
+        $this->previousValues = $previousValues;
 
         return $this;
     }
 
     /**
-     * @return array<mixed> Mixed types are allowed in this array
+     * @return array<string, mixed>
      */
-    public function getPreviousValue(): array
+    public function getNewValues(): array
     {
-        return $this->previousValue;
+        return $this->newValues;
     }
 
     /**
-     * @param array<mixed> $previousValue Specifies that the array contains mixed types
+     * @param array<string, mixed> $newValues
      */
-    public function setPreviousValue(array $previousValue): static
+    public function setNewValues(array $newValues): static
     {
-        $this->previousValue = $previousValue;
+        $this->newValues = $newValues;
 
         return $this;
     }
 
     /**
-     * @return array<mixed> Mixed types are allowed in this array
+     * @return array<int, string>
      */
-    public function getNewValue(): array
+    public function getChangedFields(): array
     {
-        return $this->newValue;
-    }
-
-    /**
-     * @param array<mixed> $newValue Specifies that the array contains mixed types
-     */
-    public function setNewValue(array $newValue): static
-    {
-        $this->newValue = $newValue;
-
-        return $this;
+        return array_keys($this->newValues);
     }
 }
