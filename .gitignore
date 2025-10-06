@@ -89,6 +89,7 @@ var/config/extensions.php
 /public/var/tmp/
 /config/local/*
 /config/packages/*
+!/config/packages/doctrine.yaml
 /config/pimcore/*
 /config/bundles.php
 !/config/packages/doctrine_migrations.yaml
