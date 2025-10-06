@@ -1,0 +1,97 @@
+pimcore_custom_reports:
+    definitions:
+        UniRejectedFinishedGoods:
+            name: UniRejectedFinishedGoods
+            sql: ''
+            dataSourceConfig:
+                -
+                    filter: REJECTED_FINISHED_GOODS
+                    type: uniFinishedGoods
+            columnConfiguration:
+                -
+                    name: oo_id
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ID
+                    id: extModel634-1
+                    columnAction: openObject
+                -
+                    name: path
+                    display: false
+                    export: true
+                    order: true
+                    width: ''
+                    label: Path
+                    id: extModel634-2
+                -
+                    name: fullPath
+                    display: false
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Full Path'
+                    id: extModel634-3
+                -
+                    name: sapMaterialNumber
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'SAP Material Number'
+                    id: extModel634-4
+                -
+                    name: sapDescription
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'SAP Description'
+                    id: extModel634-5
+                -
+                    name: approvalState
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Approval State'
+                    id: extModel634-6
+                -
+                    name: modificationDate
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Modified At'
+                    id: extModel634-7
+                -
+                    name: creationDate
+                    display: false
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Created At'
+                    id: extModel634-8
+            niceName: 'Uni: Rejected Finished Goods'
+            group: UniProductWorkflow
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1759743563
+            creationDate: 1758860073
+            shareGlobally: false
+            sharedUserNames: {  }
+            sharedRoleNames:
+                - UniAdmin
+                - UniApprovalPts
+                - UniApprovalDss
+                - UniApprovalFhs
+                - UniEnrichment
+                - UniReadOnly
