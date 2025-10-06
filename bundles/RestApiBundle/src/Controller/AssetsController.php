@@ -118,7 +118,7 @@ class AssetsController extends FrontendController
        	$query .= " and t.name in ('Brochures & Catalogues', 'Videos & Animations', 'Images & Visuals', 'Social Media', 'Presentation', 'Aftermarket', 'Conveying Solutions','Dynamic & Suspension Solutions', 'Hydraulics', 'Industrial Hose', 'Power Transmission Solutions')";
 		}
 		if(isset($mediaNameFilter)){ 
-			$query .= " AND LOWER(a.filename) like LOWER('%$mediaNameFilter%')"; 
+			$query .= " AND LOWER(a.filename) like LOWER('%$mediaNameFilter%')";
 		}
 		if(isset($primaryTag) && !isset($secondaryTag)){
 			
@@ -171,7 +171,7 @@ class AssetsController extends FrontendController
 		
 		
 			$arrayData[$i]["key"] = "MediaEntry.".$arr["filename"];
-			$arrayData[$i]["mediaName"] = substr($arr["filename"], 0, strrpos($arr["filename"], '.'));
+			$arrayData[$i]["mediaName"] = $thumbNailTitle;
 			$arrayData[$i]["document"]["title"] = $thumbNailTitle;
 			$arrayData[$i]["document"]["_publishUrl"] = $s3hosturl . $path . $arr["filename"];
 			$arrayData[$i]["document"]["_dmS7Url"] = "";
@@ -257,7 +257,7 @@ class AssetsController extends FrontendController
 				$json["data"]["mediaByPath"]["item"]["secondaryTags"] = $sTags;
 				
 		}
-		return $this->jsonResponce($json);
+		return $this->jsonResponce($json); 
 		 
 	 }
 
