@@ -1,0 +1,97 @@
+pimcore_custom_reports:
+    definitions:
+        UniNewlyCreatedProducts:
+            name: UniNewlyCreatedProducts
+            sql: ''
+            dataSourceConfig:
+                -
+                    filter: NEWLY_CREATED_PRODUCTS
+                    type: uniFinishedGoods
+            columnConfiguration:
+                -
+                    name: oo_id
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ID
+                    columnAction: openObject
+                    id: extModel634-1
+                -
+                    name: sapMaterialNumber
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'SAP Material Number'
+                    id: extModel634-2
+                -
+                    name: sapDescription
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'SAP Description'
+                    id: extModel634-3
+                -
+                    name: approvalState
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Approval State'
+                    id: extModel634-4
+                -
+                    name: modificationDate
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Modified At'
+                    id: extModel634-5
+                -
+                    name: path
+                    display: false
+                    export: true
+                    order: true
+                    width: ''
+                    label: Path
+                    id: extModel634-6
+                -
+                    name: fullPath
+                    display: false
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Full Path'
+                    id: extModel634-7
+                -
+                    name: creationDate
+                    display: false
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Created At'
+                    id: extModel634-8
+            niceName: 'Uni: Newly created products'
+            group: UniProductWorkflow
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1759746761
+            creationDate: 1758615085
+            shareGlobally: false
+            sharedUserNames: {  }
+            sharedRoleNames:
+                - UniAdmin
+                - UniApprovalPts
+                - UniApprovalDss
+                - UniApprovalFhs
+                - UniEnrichment
+                - UniReadOnly
