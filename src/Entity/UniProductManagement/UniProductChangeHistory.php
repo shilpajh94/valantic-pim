@@ -145,7 +145,7 @@ class UniProductChangeHistory
     }
 
     /**
-     * @return array<int, string>
+     * @return list<string>
      */
     public function getChangedFields(): array
     {

@@ -23,6 +23,8 @@ use Pimcore\Model\User;
 use Pimcore\Security\User\User as SecurityUser;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class UniProductChangeTrackingService
 {
@@ -94,19 +96,19 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Get current authenticated user name.
+     * Get current authenticated username.
      */
     private function getCurrentUserName(): string
     {
         $token = $this->tokenStorage->getToken();
 
-        if (!$token instanceof \Symfony\Component\Security\Core\Authentication\Token\TokenInterface || !$token->getUser() instanceof \Symfony\Component\Security\Core\User\UserInterface) {
+        if (!$token instanceof TokenInterface || !$token->getUser() instanceof UserInterface) {
             return 'System';
         }
 
         $user = $token->getUser();
 
-        if (!($user instanceof SecurityUser)) {
+        if (!$user instanceof SecurityUser) {
             return 'System';
         }
 
@@ -323,73 +325,114 @@ class UniProductChangeTrackingService
         }
 
         foreach ($object->getClass()->getFieldDefinitions() as $fieldDefinition) {
-            if ($fieldDefinition instanceof Objectbricks) {
-                $fieldName = $fieldDefinition->getName();
-                $objectBrickData = $object->get($fieldName);
-                $oldBrickData = $this->getOldBrickDataFromDatabase($object, $objectBrickData);
+            if (!$fieldDefinition instanceof Objectbricks) {
+                continue;
+            }
 
-                if ($objectBrickData) {
-                    foreach ($objectBrickData->getBrickGetters() as $brickGetter) {
-                        $brick = $objectBrickData->$brickGetter();
+            $fieldName = $fieldDefinition->getName();
+            $objectBrickData = $object->get($fieldName);
+            $oldBrickData = $this->getOldBrickDataFromDatabase($object, $objectBrickData);
 
-                        if ($brick) {
-                            $brickType = $brick->getType();
-                            $brickClassDefinition = Objectbrick\Definition::getByKey($brickType);
+            if (!$objectBrickData) {
+                continue;
+            }
 
-                            foreach ($brickClassDefinition->getFieldDefinitions() as $brickFieldDefinition) {
-                                $field = $brickFieldDefinition->getName();
+            foreach ($objectBrickData->getBrickGetters() as $brickGetter) {
+                $brick = $objectBrickData->$brickGetter();
 
-                                if ($brickFieldDefinition instanceof Localizedfields) {
-                                    continue;
-                                }
+                if (!$brick) {
+                    continue;
+                }
 
-                                if ($brickFieldDefinition instanceof AbstractRelations) {
-                                    $fieldname = $brick->getFieldname();
-                                    $oldRelationIds = $this->getBrickRelationIds($object, $fieldname, $field);
-                                    $newRelationValue = $brick->get($field);
+                $brickType = $brick->getType();
+                $brickClassDefinition = Objectbrick\Definition::getByKey($brickType);
 
-                                    $oldRelationValue = $this->transformRelationIdsToNames($oldRelationIds);
-                                    $newRelationValue = $this->transformRelationObjectsToNames($newRelationValue);
+                foreach ($brickClassDefinition->getFieldDefinitions() as $brickFieldDefinition) {
+                    $field = $brickFieldDefinition->getName();
 
-                                    sort($oldRelationValue);
-                                    sort($newRelationValue);
-
-                                    if ($oldRelationValue === [] && $newRelationValue === []) {
-                                        continue;
-                                    }
-
-                                    if ($oldRelationValue !== $newRelationValue) {
-                                        $changes["{$brickType}.relation.{$field}"] = [
-                                            'old' => implode(', ', $oldRelationValue),
-                                            'new' => implode(', ', $newRelationValue),
-                                        ];
-                                    }
-
-                                    continue;
-                                }
-                                $newValue = $this->normalizeValue(
-                                    $this->getFieldValue($brickFieldDefinition, $brick, $field),
-                                );
-                                $oldValue = $this->normalizeValue(
-                                    $oldBrickData[$brickType][$field] ?? null,
-                                );
-
-                                if ($this->areValuesEquivalent($oldValue, $newValue)) {
-                                    continue;
-                                }
-
-                                $changes["{$brickType}.{$field}"] = [
-                                    'old' => $oldValue,
-                                    'new' => $newValue,
-                                ];
-                            }
-                        }
+                    if ($brickFieldDefinition instanceof Localizedfields) {
+                        continue;
                     }
+
+                    if ($brickFieldDefinition instanceof AbstractRelations) {
+                        $this->processRelationFieldChanges($changes, $object, $brick, $brickType, $field);
+
+                        continue;
+                    }
+
+                    $this->processRegularFieldChanges($changes, $brick, $brickFieldDefinition, $oldBrickData, $brickType, $field);
                 }
             }
         }
 
         return $changes;
+    }
+
+    /**
+     * Process changes for relation fields in object bricks.
+     *
+     * @param array<string, array{old: string, new: string}> $changes
+     */
+    private function processRelationFieldChanges(
+        array &$changes,
+        AbstractObject $object,
+        Objectbrick\Data\AbstractData $brick,
+        string $brickType,
+        string $field,
+    ): void {
+        $fieldname = $brick->getFieldname();
+        $oldRelationIds = $this->getBrickRelationIds($object, $fieldname, $field);
+        $newRelationValue = $brick->get($field);
+
+        $oldRelationValue = $this->transformRelationIdsToNames($oldRelationIds);
+        $newRelationValue = $this->transformRelationObjectsToNames($newRelationValue);
+
+        sort($oldRelationValue);
+        sort($newRelationValue);
+
+        if ($oldRelationValue === [] && $newRelationValue === []) {
+            return;
+        }
+
+        if ($oldRelationValue === $newRelationValue) {
+            return;
+        }
+
+        $changes["{$brickType}.relation.{$field}"] = [
+            'old' => implode(', ', $oldRelationValue),
+            'new' => implode(', ', $newRelationValue),
+        ];
+    }
+
+    /**
+     * Process changes for regular (non-relation) fields in object bricks.
+     *
+     * @param array<string, array{old: mixed, new: mixed}> $changes
+     * @param array<string, array<string, mixed>> $oldBrickData
+     */
+    private function processRegularFieldChanges(
+        array &$changes,
+        object $brick,
+        ClassDefinition\Data $brickFieldDefinition,
+        array $oldBrickData,
+        string $brickType,
+        string $field,
+    ): void {
+        $newValue = $this->normalizeValue(
+            $this->getFieldValue($brickFieldDefinition, $brick, $field),
+        );
+        $oldValue = $this->normalizeValue(
+            $oldBrickData[$brickType][$field] ?? null,
+        );
+
+        if ($this->areValuesEquivalent($oldValue, $newValue)) {
+            return;
+        }
+
+        $changes["{$brickType}.{$field}"] = [
+            'old' => $oldValue,
+            'new' => $newValue,
+        ];
     }
 
     /**
@@ -605,17 +648,14 @@ class UniProductChangeTrackingService
         }
 
         foreach ($normalizedOldFields as $fieldName => $oldValue) {
-            if (!array_key_exists($fieldName, $newFields)) {
-                if ($this->shouldSkipBrickField($fieldName)) {
-                    continue;
-                }
+            if (array_key_exists($fieldName, $newFields) || $this->shouldSkipBrickField($fieldName)) {
+                continue;
+            }
+            $newValue = null;
 
-                $newValue = null;
-
-                if ($this->hasFieldChanged($oldValue, $newValue)) {
-                    $fieldChanges[$fieldName]['old'][$language] = $oldValue;
-                    $fieldChanges[$fieldName]['new'][$language] = $newValue;
-                }
+            if ($this->hasFieldChanged($oldValue, $newValue)) {
+                $fieldChanges[$fieldName]['old'][$language] = $oldValue;
+                $fieldChanges[$fieldName]['new'][$language] = $newValue;
             }
         }
 
@@ -694,14 +734,10 @@ class UniProductChangeTrackingService
      */
     private function shouldSkipChange(mixed $oldValue, mixed $newValue): bool
     {
-        $oldEmpty = ($oldValue === null || $oldValue === '' || $oldValue === []);
-        $newEmpty = ($newValue === null || $newValue === '' || $newValue === []);
+        $oldEmpty = $oldValue === null || $oldValue === '' || $oldValue === [];
+        $newEmpty = $newValue === null || $newValue === '' || $newValue === [];
 
-        if ($oldEmpty && $newEmpty) {
-            return true;
-        }
-
-        return ($oldValue === [] || $oldValue === null || $oldValue === '') && ($newValue === [] || $newValue === null || $newValue === '');
+        return $oldEmpty && $newEmpty;
     }
 
     /**
@@ -986,51 +1022,49 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Retrieve object brick data of an object from the database.
-     *
-     * @return array<string, array<string, mixed>> Array with brick types as keys and brick data as values
+     * @return array<string, array<string, mixed>>
      */
     private function getOldBrickDataFromDatabase(AbstractObject $object, ?Objectbrick $objectBrickData): array
     {
         $data = [];
 
-        if (!$object instanceof Concrete) {
+        if (!$object instanceof Concrete || !$objectBrickData instanceof Objectbrick) {
             return $data;
         }
 
-        if ($objectBrickData instanceof Objectbrick) {
-            foreach ($objectBrickData->getBrickGetters() as $brickGetter) {
-                $brick = $objectBrickData->$brickGetter();
+        foreach ($objectBrickData->getBrickGetters() as $brickGetter) {
+            $brick = $objectBrickData->$brickGetter();
 
-                if ($brick) {
-                    $brickType = $brick->getType();
-                    $classId = $object->getClass()->getId();
-                    $objectId = $object->getId();
+            if (!$brick) {
+                continue;
+            }
 
-                    $tableName = "object_brick_query_{$brickType}_{$classId}";
-                    $sql = "SELECT * FROM $tableName WHERE id = :id AND fieldname = :fieldname";
-                    $row = Db::get()->fetchAssociative($sql, [
-                        'id' => $objectId,
-                        'fieldname' => $brick->getFieldname(),
-                    ]);
+            $brickType = $brick->getType();
+            $classId = $object->getClass()->getId();
+            $objectId = $object->getId();
 
-                    if (!$row) {
-                        continue;
-                    }
+            $tableName = "object_brick_query_{$brickType}_{$classId}";
+            $sql = "SELECT * FROM $tableName WHERE id = :id AND fieldname = :fieldname";
+            $row = Db::get()->fetchAssociative($sql, [
+                'id' => $objectId,
+                'fieldname' => $brick->getFieldname(),
+            ]);
 
-                    unset($row['fieldname'], $row['id']);
-                    $data[$brickType] = $row;
+            if (!$row) {
+                continue;
+            }
 
-                    $relationData = $this->getRelationData(
-                        $objectId,
-                        (string) $object->getClass()->getId(),
-                        $brick->getFieldname(),
-                    );
+            unset($row['fieldname'], $row['id']);
+            $data[$brickType] = $row;
 
-                    if ($relationData !== []) {
-                        $data[$brickType]['relations'] = $relationData;
-                    }
-                }
+            $relationData = $this->getRelationData(
+                $objectId,
+                (string) $object->getClass()->getId(),
+                $brick->getFieldname(),
+            );
+
+            if ($relationData !== []) {
+                $data[$brickType]['relations'] = $relationData;
             }
         }
 

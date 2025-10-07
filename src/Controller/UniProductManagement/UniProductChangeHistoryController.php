@@ -24,7 +24,7 @@ class UniProductChangeHistoryController extends AbstractController
             return new JsonResponse(['error' => 'Invalid parameters'], JsonResponse::HTTP_BAD_REQUEST);
         }
 
-        $data = $repository->findByObjectId($objectId, $className, ['timestamp' => 'DESC']);
+        $data = $repository->findByObjectId($objectId, ['timestamp' => 'DESC']);
 
         return new JsonResponse([
             'status' => 'success',

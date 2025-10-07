@@ -10,27 +10,13 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<UniProductChangeHistory>
+ *
+ * @method UniProductChangeHistory[] findByObjectId(int $objectId, array<string, string>|null $orderBy)
  */
 class UniProductChangeHistoryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, UniProductChangeHistory::class);
-    }
-
-    /**
-     * @param array<string, string> $orderBy
-     *
-     * @return array<int, UniProductChangeHistory>
-     */
-    public function findByObjectId(string $objectId, string $className, array $orderBy = []): array
-    {
-        return $this->findBy(
-            [
-                'objectId' => $objectId,
-                'objectClass' => 'Pimcore\Model\DataObject\\' . $className,
-            ],
-            $orderBy,
-        );
     }
 }

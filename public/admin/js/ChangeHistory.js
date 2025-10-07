@@ -34,20 +34,20 @@ pimcore.element.history = Class.create({
         this.showDetailModal = this.showDetailModal.bind(this);
     },
 
-    getLayout: function () {
-        if (this.layout !== null) {
-            return this.layout;
-        }
-
-        this.layout = new Ext.Panel({
-            title: 'Change History',
-            iconCls: 'pimcore_icon_versions',
-            layout: 'fit',
-            items: [this.getGrid()],
-        });
-
+ getLayout: function () {
+    if (this.layout !== null) {
         return this.layout;
-    },
+    }
+
+    this.layout = new Ext.Panel({
+        title: 'Change History',
+        icon: '/bundles/pimcoreadmin/img/flat-white-icons/calendar.svg',
+        layout: 'fit',
+        items: [this.getGrid()],
+    });
+
+    return this.layout;
+},
 
     getGrid: function () {
         if (!this.objectId || !this.objectClassName) {
@@ -81,19 +81,7 @@ pimcore.element.history = Class.create({
             autoLoad: true,
             listeners: {
                 exception: function (proxy, response, options) {
-                    let errorMessage = 'Failed to load change history';
-
-                    if (response.status === 404) {
-                        errorMessage = 'Change history endpoint not found';
-                    } else if (response.status === 500) {
-                        errorMessage = 'Server error while loading change history';
-                    } else if (response.statusText) {
-                        errorMessage += ': ' + response.statusText;
-                    }
-
-
-
-                    Ext.MessageBox.alert('Error', errorMessage);
+                     Ext.MessageBox.alert('Error', 'Failed to load change history');
                 },
             },
         });
@@ -175,33 +163,12 @@ pimcore.element.history = Class.create({
             success: (response) => {
                 Ext.MessageBox.hide();
 
-                try {
-                    const result = Ext.decode(response.responseText);
-
-                    if (!result.data) {
-                        throw new Error('Invalid response format: missing data property');
-                    }
-
-                    this.showDetailModal(result.data);
-                } catch (error) {
-
-                    Ext.MessageBox.alert('Error', 'Failed to load change history details');
-                }
+                const result = Ext.decode(response.responseText);
+                this.showDetailModal(result.data);
             },
-            failure: (response) => {
+            failure: () => {
                 Ext.MessageBox.hide();
-
-                let errorMessage = 'Failed to load change history details';
-
-                if (response.status === 404) {
-                    errorMessage = 'Change history record not found';
-                } else if (response.status === 500) {
-                    errorMessage = 'Server error while loading details';
-                } else if (response.statusText) {
-                    errorMessage += ': ' + response.statusText;
-                }
-
-                Ext.MessageBox.alert('Error', errorMessage);
+                Ext.MessageBox.alert('Error', 'Failed to load change history details');
             },
         });
     },
