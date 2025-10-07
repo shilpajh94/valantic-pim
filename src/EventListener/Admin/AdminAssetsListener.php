@@ -24,7 +24,6 @@ class AdminAssetsListener implements EventSubscriberInterface
             '/admin/js/perspective.js',
             '/admin/js/CategoryExportPanel.js',
             '/admin/js/output-configurator.js',
-            '/admin/js/contextAwareSql.js',
             '/admin/js/uniFinishedGoods.js',
         ]);
     }
