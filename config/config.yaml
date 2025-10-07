@@ -116,5 +116,4 @@ framework:
 
 pimcore_custom_reports:
     adapters:
-        contextAwareSql: app.custom_report.adapter.factory.context_aware_sql
         uniFinishedGoods: app.custom_report.adapter.factory.uni_finished_goods
