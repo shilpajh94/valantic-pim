@@ -8,7 +8,7 @@ pimcore_data_hub:
                 group: ''
                 active: false
                 path: null
-                modificationDate: 1759831367
+                modificationDate: 1759916171
                 createDate: 1756777034
             loaderConfig:
                 type: upload
@@ -62,7 +62,7 @@ pimcore_data_hub:
                 -
                     label: sapMaterialNumber
                     dataSourceIndex:
-                        - '2'
+                        - '3'
                     transformationResultType: default
                     dataTarget:
                         type: direct
@@ -75,7 +75,7 @@ pimcore_data_hub:
                 -
                     label: sapDescription
                     dataSourceIndex:
-                        - '3'
+                        - '4'
                     transformationResultType: default
                     dataTarget:
                         type: direct
@@ -88,7 +88,7 @@ pimcore_data_hub:
                 -
                     label: oldMaterial
                     dataSourceIndex:
-                        - '4'
+                        - '5'
                     transformationResultType: default
                     dataTarget:
                         type: direct
@@ -101,7 +101,7 @@ pimcore_data_hub:
                 -
                     label: fullGhpCode
                     dataSourceIndex:
-                        - '5'
+                        - '7'
                     transformationResultType: default
                     dataTarget:
                         type: direct
@@ -114,7 +114,7 @@ pimcore_data_hub:
                 -
                     label: stccCode
                     dataSourceIndex:
-                        - '7'
+                        - '9'
                     transformationResultType: default
                     dataTarget:
                         type: direct
@@ -127,12 +127,77 @@ pimcore_data_hub:
                 -
                     label: externalId
                     dataSourceIndex:
-                        - '11'
+                        - '13'
                     transformationResultType: default
                     dataTarget:
                         type: direct
                         settings:
                             fieldName: externalId
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: hierarchyLevel
+                    dataSourceIndex:
+                        - '14'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: hierarchyLevel
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: hierarchyLevelDescription
+                    dataSourceIndex:
+                        - '15'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: hierarchyLevelDescription
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: productBrand
+                    dataSourceIndex:
+                        - '16'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: corporateBrand
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: productName
+                    dataSourceIndex:
+                        - '17'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: productName
+                            language: ''
+                            writeIfTargetIsNotEmpty: true
+                            writeIfSourceIsEmpty: true
+                    transformationPipeline: {  }
+                -
+                    label: ghpCode
+                    dataSourceIndex:
+                        - '6'
+                    transformationResultType: default
+                    dataTarget:
+                        type: direct
+                        settings:
+                            fieldName: ghpCode
                             language: ''
                             writeIfTargetIsNotEmpty: true
                             writeIfSourceIsEmpty: true
