@@ -17,7 +17,7 @@ document.addEventListener(pimcore.events.postOpenObject, (e) => {
 
             object.tabbar.add(historyLayout);
         } catch (error) {
-            throw new Error('Failed to add change history tab');
+            console.error('Failed to add change history tab:', error);
         }
     }, 100);
 });
@@ -34,20 +34,20 @@ pimcore.element.history = Class.create({
         this.showDetailModal = this.showDetailModal.bind(this);
     },
 
- getLayout: function () {
-    if (this.layout !== null) {
+    getLayout: function () {
+        if (this.layout !== null) {
+            return this.layout;
+        }
+
+        this.layout = new Ext.Panel({
+            title: 'Change History',
+            icon: '/bundles/pimcoreadmin/img/flat-white-icons/calendar.svg',
+            layout: 'fit',
+            items: [this.getGrid()],
+        });
+
         return this.layout;
-    }
-
-    this.layout = new Ext.Panel({
-        title: 'Change History',
-        icon: '/bundles/pimcoreadmin/img/flat-white-icons/calendar.svg',
-        layout: 'fit',
-        items: [this.getGrid()],
-    });
-
-    return this.layout;
-},
+    },
 
     getGrid: function () {
         if (!this.objectId || !this.objectClassName) {
@@ -75,13 +75,11 @@ pimcore.element.history = Class.create({
                 { name: 'timestamp', type: 'string' },
                 { name: 'user', type: 'string' },
                 { name: 'changedFields', type: 'auto' },
-                { name: 'previousValue', type: 'auto' },
-                { name: 'newValue', type: 'auto' }
             ],
             autoLoad: true,
             listeners: {
                 exception: function (proxy, response, options) {
-                     Ext.MessageBox.alert('Error', 'Failed to load change history');
+                    Ext.MessageBox.alert('Error', 'Failed to load change history');
                 },
             },
         });
@@ -121,8 +119,10 @@ pimcore.element.history = Class.create({
                             return 'No fields changed';
                         }
 
-                        const list = value.join(', ');
-                        return `<div title="${list}">${list}</div>`;
+                        const displayText = value.join(', ');
+                        const escapedText = Ext.util.Format.htmlEncode(displayText);
+
+                        return `<div title="${escapedText}">${escapedText}</div>`;
                     },
                 },
             ],
@@ -140,8 +140,8 @@ pimcore.element.history = Class.create({
         const id = rowIndex.id;
 
         if (!id) {
-            return 'No record ID found for row click';
-
+            console.warn('No record ID found for row click');
+            return;
         }
 
         this.loadDetailView(id);
@@ -163,11 +163,22 @@ pimcore.element.history = Class.create({
             success: (response) => {
                 Ext.MessageBox.hide();
 
-                const result = Ext.decode(response.responseText);
-                this.showDetailModal(result.data);
+                try {
+                    const result = Ext.decode(response.responseText);
+
+                    if (result && result.data) {
+                        this.showDetailModal(result.data);
+                    } else {
+                        Ext.MessageBox.alert('Error', 'Invalid response format');
+                    }
+                } catch (e) {
+                    console.error('Failed to parse response:', e);
+                    Ext.MessageBox.alert('Error', 'Failed to parse change history details');
+                }
             },
-            failure: () => {
+            failure: (response) => {
                 Ext.MessageBox.hide();
+                console.error('Failed to load change history details:', response);
                 Ext.MessageBox.alert('Error', 'Failed to load change history details');
             },
         });
@@ -179,23 +190,34 @@ pimcore.element.history = Class.create({
             return;
         }
 
+        const fieldLabels = data.fieldLabels || {};
+
         const rows = Object.keys(data.previousValues)
-            .filter((key) => {
-                const oldValue = data.previousValues[key];
-                const newValue = data.newValues[key];
+            .filter((fieldName) => {
+                const oldValue = data.previousValues[fieldName];
+                const newValue = data.newValues[fieldName];
                 return oldValue !== newValue;
             })
-            .map((key) => {
-                const oldValue = data.previousValues[key] || 'null';
-                const newValue = data.newValues[key] || 'null';
+            .map((fieldName) => {
+                const oldValue = data.previousValues[fieldName];
+                const newValue = data.newValues[fieldName];
+                const fieldLabel = fieldLabels[fieldName] || fieldName;
 
-                const encodedKey = Ext.util.Format.htmlEncode(key);
-                const encodedOldValue = Ext.util.Format.htmlEncode(String(oldValue));
-                const encodedNewValue = Ext.util.Format.htmlEncode(String(newValue));
+                const displayOldValue = (oldValue === null || oldValue === undefined || oldValue === '')
+                    ? '(Empty)'
+                    : String(oldValue);
+
+                const displayNewValue = (newValue === null || newValue === undefined || newValue === '')
+                    ? '(Empty)'
+                    : String(newValue);
+
+                const encodedLabel = Ext.util.Format.htmlEncode(fieldLabel);
+                const encodedOldValue = Ext.util.Format.htmlEncode(displayOldValue);
+                const encodedNewValue = Ext.util.Format.htmlEncode(displayNewValue);
 
                 return `
                 <tr>
-                    <td style="padding: 10px; border: 1px solid #ccc;">${encodedKey}</td>
+                    <td style="padding: 10px; border: 1px solid #ccc; font-weight: bold;">${encodedLabel}</td>
                     <td style="padding: 10px; border: 1px solid #ccc;">${encodedOldValue}</td>
                     <td style="padding: 10px; border: 1px solid #ccc;">${encodedNewValue}</td>
                 </tr>
@@ -208,29 +230,36 @@ pimcore.element.history = Class.create({
         }
 
         const modal = new Ext.Window({
-            title: 'Change History Details',
-            width: 800,
+            title: `Change History Details - ${data.user || 'Unknown User'} at ${data.timestamp || ''}`,
+            width: 900,
             height: 600,
             layout: 'fit',
             modal: true,
+            autoScroll: true,
             html: `
-            <table style="width: 100%; border-collapse: collapse;">
-                <thead>
-                    <tr>
-                        <th style="padding: 10px; border: 1px solid #ccc; text-align: left;">Field</th>
-                        <th style="padding: 10px; border: 1px solid #ccc; text-align: left;">Old Value</th>
-                        <th style="padding: 10px; border: 1px solid #ccc; text-align: left;">New Value</th>
-                    </tr>
-                </thead>
-                <tbody>${rows.join('')}</tbody>
-            </table>
+            <div style="padding: 10px; overflow: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background-color: #f0f0f0;">
+                            <th style="padding: 10px; border: 1px solid #ccc; text-align: left; width: 25%;">Field</th>
+                            <th style="padding: 10px; border: 1px solid #ccc; text-align: left; width: 37.5%;">Previous Value</th>
+                            <th style="padding: 10px; border: 1px solid #ccc; text-align: left; width: 37.5%;">New Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${rows.join('')}
+                    </tbody>
+                </table>
+            </div>
         `,
-            buttons: [{
-                text: 'Close',
-                handler: function () {
-                    modal.close();
-                },
-            }],
+            buttons: [
+                {
+                    text: 'Close',
+                    handler: function () {
+                        modal.close();
+                    },
+                }
+            ],
         });
 
         modal.show();

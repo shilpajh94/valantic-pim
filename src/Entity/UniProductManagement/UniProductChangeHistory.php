@@ -43,6 +43,12 @@ class UniProductChangeHistory
     #[ORM\Column(name: 'new_values', type: 'json', nullable: true)]
     private array $newValues = [];
 
+    /**
+     * @var array<string, mixed>
+     */
+    #[ORM\Column(name: 'field_labels', type: 'json', nullable: true)]
+    private array $fieldLabels = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -150,5 +156,23 @@ class UniProductChangeHistory
     public function getChangedFields(): array
     {
         return array_keys($this->newValues);
+    }
+
+    /**
+     * @param array<string, string> $fieldLabels
+     */
+    public function setFieldLabels(array $fieldLabels): self
+    {
+        $this->fieldLabels = $fieldLabels;
+
+        return $this;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getFieldLabels(): array
+    {
+        return $this->fieldLabels;
     }
 }

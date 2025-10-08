@@ -26,10 +26,26 @@ class UniProductChangeHistoryController extends AbstractController
 
         $data = $repository->findByObjectId($objectId, ['timestamp' => 'DESC']);
 
+        $transformedData = array_map(function ($history): array {
+            $fieldLabels = $history->getFieldLabels();
+            $changedFields = array_keys($history->getNewValues());
+
+            $changedFieldLabels = array_map(fn ($fieldName) => $fieldLabels[$fieldName] ?? ucfirst($fieldName), $changedFields);
+
+            return [
+                'id' => $history->getId(),
+                'timestamp' => $history->getTimestamp()?->format('Y-m-d H:i:s'),
+                'user' => $history->getUser(),
+                'changedFields' => $changedFieldLabels,
+                'previousValue' => null,
+                'newValue' => null,
+            ];
+        }, $data);
+
         return new JsonResponse([
             'status' => 'success',
-            'data' => $normalizer->normalize($data),
-            'count' => count($data),
+            'data' => $transformedData,
+            'total' => count($transformedData),
         ]);
     }
 
@@ -50,6 +66,7 @@ class UniProductChangeHistoryController extends AbstractController
                 'user' => $history->getUser(),
                 'previousValues' => $history->getPreviousValues(),
                 'newValues' => $history->getNewValues(),
+                'fieldLabels' => $history->getFieldLabels(),
             ],
         ]);
     }
