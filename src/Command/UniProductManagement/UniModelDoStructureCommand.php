@@ -10,7 +10,6 @@ use App\Service\VersionService;
 use App\Util\Helpers;
 use Pimcore\Console\AbstractCommand;
 use Pimcore\Model\DataObject\Concrete;
-use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBr;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrFhs;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgDss;
@@ -45,23 +44,10 @@ class UniModelDoStructureCommand extends AbstractCommand
     public const MODE_FIX = 'fix';
     public const TYPE_PRODUCT = 'product';
     public const TYPE_CATEGORY = 'category';
-
-    protected const BRICKS_CLASSES_BR = [
-        'DY' => [UniPrBr::class],
-        'FL' => [UniPrBr::class, UniPrBrFhs::class],
-        'PT' => [UniPrBr::class, UniPrBrPts::class],
-    ];
-
-    protected const BRICKS_CLASSES_SK = [
-        'DY' => [],
-        'FL' => [UniPrSkFhs::class],
-        'PT' => [UniPrSkPts::class],
-    ];
-
-    protected const BRICKS_CLASSES_FG = [
+    protected const BRICKS_CLASSES = [
         'DY' => [UniPrFgDss::class],
-        'FL' => [UniPrFgFhs::class],
-        'PT' => [UniPrFgPts::class],
+        'FL' => [UniPrBrFhs::class, UniPrSkFhs::class, UniPrFgFhs::class],
+        'PT' => [UniPrBrPts::class, UniPrSkPts::class, UniPrFgPts::class],
     ];
 
     private bool $fix = false;
@@ -219,7 +205,7 @@ class UniModelDoStructureCommand extends AbstractCommand
 
         /* --- Fix Objectbricks --- */
 
-        $missingBricks = $this->getMissingBricks($object, self::BRICKS_CLASSES_FG);
+        $missingBricks = $this->processMissingBricks($object);
 
         if ($missingBricks !== []) {
             $this->result[self::objKey($object)][] = sprintf('Missing bricks: %s', implode(', ', $missingBricks));
@@ -228,7 +214,13 @@ class UniModelDoStructureCommand extends AbstractCommand
         if ($this->fix) {
             foreach ($missingBricks as $missingBrick) {
                 $setter = sprintf('set%s', Helpers::classBasename($missingBrick));
-                $object->getProductGroupSpecific()?->$setter(new $missingBrick($object));
+                $brickGetter = match ($missingBrick) {
+                    UniPrBrFhs::class, UniPrBrPts::class => 'getBrandProductGroupSpecific',
+                    UniPrSkFhs::class, UniPrSkPts::class => 'getSkeletonProductGroupSpecific',
+                    UniPrFgDss::class, UniPrFgFhs::class, UniPrFgPts::class => 'getFinishedGoodProductGroupSpecific',
+                    default => throw new \RuntimeException(sprintf('Unknown brick %s', $missingBrick)),
+                };
+                $object->$brickGetter()?->$setter(new $missingBrick($object));
             }
         }
 
@@ -268,7 +260,7 @@ class UniModelDoStructureCommand extends AbstractCommand
         // $object = VersionService::getPublishedOrLatestVersion($object);
 
         $level = (int) $object->getLevel();
-        $hierarchyLevel = $object->getCategoryLevel();
+        $hierarchyLevel = $object->getHierarchyLevel();
         $fixLevel = UniProductHierarchyLevel::fromLevelNumber($level)->value;
         $levelMismatch = $hierarchyLevel !== $fixLevel;
 
@@ -276,35 +268,14 @@ class UniModelDoStructureCommand extends AbstractCommand
             $this->result[self::objKey($object)][] = sprintf('Wrong or missing level: %s instead of %s', $hierarchyLevel ?? '–', $fixLevel);
 
             if ($this->fix) {
-                $object->setCategoryLevel($fixLevel);
+                $object->setHierarchyLevel($fixLevel);
             }
         }
 
-        $bricksClasses = match ($level) {
-            5 => self::BRICKS_CLASSES_BR,
-            6 => self::BRICKS_CLASSES_SK,
-            default => [],
-        };
-
-        $missingBricks = $this->getMissingBricks($object, $bricksClasses);
-
-        if ($missingBricks !== []) {
-            $this->result[self::objKey($object)][] = sprintf('Missing bricks: %s', implode(', ', $missingBricks));
+        if ($this->fix) {
+            $object->setOmitMandatoryCheck(true);
+            $object->save([UniProductWorkflowEventListener::SKIP_WORKFLOW_LISTENER => true]);
         }
-
-        // TODO: Remove surplus bricks?
-
-        if (!$this->fix || ($missingBricks === [] && !$levelMismatch)) {
-            return;
-        }
-
-        foreach ($missingBricks as $missingBrick) {
-            $setter = sprintf('set%s', Helpers::classBasename($missingBrick));
-            $object->getLevelSpecificData()?->$setter(new $missingBrick($object));
-        }
-
-        $object->setOmitMandatoryCheck(true);
-        $object->save([UniProductWorkflowEventListener::SKIP_WORKFLOW_LISTENER => true]);
     }
 
     /** @return UniProductCategoryInternal[] */
@@ -329,11 +300,9 @@ class UniModelDoStructureCommand extends AbstractCommand
      * Returns a list of Objectbricks that should be assigned to a given object based on product hierarchy level
      * and product group.
      *
-     * @param array<string, list<string>> $lookup
-     *
      * @return string[]
      */
-    private function getMissingBricks(UniProductBase|UniProductCategoryInternal $object, array $lookup): array
+    private function processMissingBricks(UniProductBase $object): array
     {
         $parents = $this->getFullCategoryHistory($object);
 
@@ -342,10 +311,11 @@ class UniModelDoStructureCommand extends AbstractCommand
         }
 
         $l1 = end($parents);
-        $bricksClasses = $lookup[$l1->getKey()] ?? [];
-        $bricks = match ($object::class) {
-            UniProductBase::class => $object->getProductGroupSpecific()?->getItems() ?? [],
-            UniProductCategoryInternal::class => $object->getLevelSpecificData()?->getItems() ?? [],
+        $bricksClasses = self::BRICKS_CLASSES[$l1->getKey()] ?? [];
+        $bricks = match ($object->getHierarchyLevel()) {
+            UniProductHierarchyLevel::PRODUCT_LINE->value => $object->getBrandProductGroupSpecific()?->getItems() ?? [],
+            UniProductHierarchyLevel::PRODUCT_VARIANT->value => $object->getSkeletonProductGroupSpecific()?->getItems() ?? [],
+            UniProductHierarchyLevel::FINISHED_GOOD->value => $object->getFinishedGoodProductGroupSpecific()?->getItems() ?? [],
             default => [],
         };
         $existingBricks = array_map(static fn ($brick): string => $brick::class, $bricks);
