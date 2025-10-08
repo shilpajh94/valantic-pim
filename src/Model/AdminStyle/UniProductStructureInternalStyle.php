@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\AdminStyle;
 
-use App\Enum\UniProductCategoryLevel;
+use App\Enum\UniProductHierarchyLevel;
 use App\Model\DataObject\UniProductManagement\AbstractUniProductGroupSpecificData;
 use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
@@ -47,8 +47,8 @@ class UniProductStructureInternalStyle extends AdminStyle
 
         $this->elementText = sprintf($levelTemplate . ' %s', $element->getLevel(), $element->getName());
         $this->elementIcon = match ($element->getCategoryLevel()) {
-            UniProductCategoryLevel::PRODUCT_LINE->value => sprintf($iconPathTemplate, 'yellow'),
-            UniProductCategoryLevel::PRODUCT_VARIANT->value => sprintf($iconPathTemplate, 'blue'),
+            UniProductHierarchyLevel::PRODUCT_LINE->value => sprintf($iconPathTemplate, 'yellow'),
+            UniProductHierarchyLevel::PRODUCT_VARIANT->value => sprintf($iconPathTemplate, 'blue'),
             default => sprintf($iconPathTemplate, 'orange'),
         };
     }
