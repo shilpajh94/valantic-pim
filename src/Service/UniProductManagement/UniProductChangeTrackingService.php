@@ -29,6 +29,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class UniProductChangeTrackingService
 {
+    private const EMPTY_VALUE = '(Empty)';
+    private const NUMERIC_PRECISION = 0.0001;
+    private const DECIMAL_PLACES = 4;
+    private const FIELDS_TO_SKIP = ['index'];
+
     public function __construct(
         private readonly LoggerInterface $logger,
         private readonly EntityManagerInterface $entityManager,
@@ -36,9 +41,6 @@ class UniProductChangeTrackingService
     ) {
     }
 
-    /**
-     * Track and save changes for an object.
-     */
     public function trackAndSaveChanges(AbstractObject $object): void
     {
         $changes = $this->computeChanges($object);
@@ -51,8 +53,6 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Save change history to database.
-     *
      * @param array<string, array{old: mixed, new: mixed}> $changes
      */
     private function saveChangeHistory(AbstractObject $object, array $changes): void
@@ -66,8 +66,6 @@ class UniProductChangeTrackingService
             $newValues[$field] = $this->formatValueForStorage($change['new']);
             $fieldLabels[$field] = $this->getFieldLabel($object, $field);
         }
-
-        $fieldLabels = $fieldLabels !== [] ? $fieldLabels : [];
 
         $history = new UniProductChangeHistory();
         $history
@@ -85,89 +83,48 @@ class UniProductChangeTrackingService
         $this->entityManager->flush();
     }
 
-    /**
-     * Get the label for a field.
-     */
     private function getFieldLabel(AbstractObject $object, string $field): string
     {
         if (!$object instanceof Concrete) {
             throw new \InvalidArgumentException('The provided object must be a Concrete object.');
         }
 
-        if (str_contains($field, '.')) {
-            $parts = explode('.', $field);
-            $brickType = $parts[0];
-
-            if (count($parts) === 3 && $parts[1] === 'localized') {
-                $fieldName = $parts[2];
-
-                return $this->getBrickFieldLabel($brickType, $fieldName) ?? ucfirst($field);
-            }
-
-            if (count($parts) === 3 && $parts[1] === 'relation') {
-                $fieldName = $parts[2];
-
-                return $this->getBrickFieldLabel($brickType, $fieldName) ?? ucfirst($field);
-            }
-
-            if (count($parts) === 2) {
-                $fieldName = $parts[1];
-
-                return $this->getBrickFieldLabel($brickType, $fieldName) ?? ucfirst($field);
-            }
+        if (str_contains($field, '.') && !str_starts_with($field, 'localized.') && !str_starts_with($field, 'relation.')) {
+            return $this->getBrickFieldLabel($field);
         }
 
         if (str_starts_with($field, 'relation.')) {
-            $fieldName = substr($field, 9);
-            $classDefinition = ClassDefinition::getByName($object->getClassName());
-
-            if ($classDefinition !== null) {
-                $fieldDefinition = $classDefinition->getFieldDefinition($fieldName);
-            } else {
-                throw new \RuntimeException("Class definition not found for object: {$object->getClassName()}");
-            }
-
-            return $fieldDefinition && $fieldDefinition->getTitle() ? $fieldDefinition->getTitle() : ucfirst($fieldName);
+            return $this->getRelationFieldLabel($object, substr($field, 9));
         }
 
         if (str_starts_with($field, 'localized.')) {
-            $fieldName = substr($field, 10);
-            $classDefinition = ClassDefinition::getByName($object->getClassName());
-
-            if ($classDefinition === null) {
-                throw new \RuntimeException("Class definition not found for object: {$object->getClassName()}");
-            }
-
-            $localizedFieldDef = $classDefinition->getFieldDefinition('localizedfields');
-
-            if ($localizedFieldDef instanceof Localizedfields) {
-                $fieldDefinition = $localizedFieldDef->getFieldDefinition($fieldName);
-
-                return $fieldDefinition && $fieldDefinition->getTitle() ? $fieldDefinition->getTitle() : ucfirst($fieldName);
-            }
-
-            return ucfirst($fieldName);
+            return $this->getLocalizedFieldLabel($object, substr($field, 10));
         }
 
-        $classDefinition = ClassDefinition::getByName($object->getClassName());
-
-        if ($classDefinition === null) {
-            throw new \RuntimeException("Class definition not found for object: {$object->getClassName()}");
-        }
-
-        $fieldDefinition = $classDefinition->getFieldDefinition($field);
-
-        if (!$fieldDefinition instanceof ClassDefinition\Data) {
-            return ucfirst($field);
-        }
-
-        return !in_array($fieldDefinition->getTitle(), ['', '0'], true) ? $fieldDefinition->getTitle() : ucfirst($field);
+        return $this->getStandardFieldLabel($object, $field);
     }
 
-    /**
-     * Get field label from brick definition.
-     */
-    private function getBrickFieldLabel(string $brickType, string $fieldName): ?string
+    private function getBrickFieldLabel(string $field): string
+    {
+        $parts = explode('.', $field);
+        $brickType = $parts[0];
+
+        if (count($parts) === 3 && in_array($parts[1], ['localized', 'relation'], true)) {
+            $fieldName = $parts[2];
+
+            return $this->getBrickFieldLabelFromDefinition($brickType, $fieldName) ?? ucfirst($field);
+        }
+
+        if (count($parts) === 2) {
+            $fieldName = $parts[1];
+
+            return $this->getBrickFieldLabelFromDefinition($brickType, $fieldName) ?? ucfirst($field);
+        }
+
+        return ucfirst($field);
+    }
+
+    private function getBrickFieldLabelFromDefinition(string $brickType, string $fieldName): ?string
     {
         try {
             $brickDefinition = Objectbrick\Definition::getByKey($brickType);
@@ -179,7 +136,7 @@ class UniProductChangeTrackingService
             $fieldDefinition = $brickDefinition->getFieldDefinition($fieldName);
 
             if ($fieldDefinition instanceof ClassDefinition\Data) {
-                return !in_array($fieldDefinition->getTitle(), ['', '0'], true) ? $fieldDefinition->getTitle() : null;
+                return $this->extractFieldTitle($fieldDefinition);
             }
 
             $localizedFieldDef = $brickDefinition->getFieldDefinition('localizedfields');
@@ -187,9 +144,7 @@ class UniProductChangeTrackingService
             if ($localizedFieldDef instanceof Localizedfields) {
                 $fieldDefinition = $localizedFieldDef->getFieldDefinition($fieldName);
 
-                return $fieldDefinition->getTitle() !== null && $fieldDefinition->getTitle() !== '' && $fieldDefinition->getTitle() !== '0'
-                    ? $fieldDefinition->getTitle()
-                    : null;
+                return $fieldDefinition instanceof ClassDefinition\Data ? $this->extractFieldTitle($fieldDefinition) : null;
             }
 
             return null;
@@ -200,38 +155,62 @@ class UniProductChangeTrackingService
         }
     }
 
-    /**
-     * Normalize QuantityValue field data from database.
-     */
-    private function normalizeQuantityValueFromDb(mixed $value): ?string
+    private function getRelationFieldLabel(AbstractObject $object, string $fieldName): string
     {
-        if ($value === null || $value === '') {
-            return null;
-        }
+        $classDefinition = $this->getClassDefinition($object);
+        $fieldDefinition = $classDefinition->getFieldDefinition($fieldName);
 
-        if (is_array($value)) {
-            $val = $value['value'] ?? null;
-            $unit = $value['unit'] ?? null;
-
-            return $this->formatQuantityValue($val, $unit);
-        }
-
-        if (is_string($value)) {
-            $decoded = json_decode($value, true);
-
-            if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
-                return $this->normalizeQuantityValueFromDb($decoded);
-            }
-
-            return trim($value);
-        }
-
-        return null;
+        return $fieldDefinition instanceof ClassDefinition\Data ? $this->extractFieldTitle($fieldDefinition) : ucfirst($fieldName);
     }
 
-    /**
-     * Normalize QuantityValue field data consistently.
-     */
+    private function getLocalizedFieldLabel(AbstractObject $object, string $fieldName): string
+    {
+        if (!$object instanceof Concrete) {
+            return ucfirst($fieldName);
+        }
+
+        $classDefinition = $this->getClassDefinition($object);
+        $localizedFieldDef = $classDefinition->getFieldDefinition('localizedfields');
+
+        if ($localizedFieldDef instanceof Localizedfields) {
+            $fieldDefinition = $localizedFieldDef->getFieldDefinition($fieldName);
+
+            if ($fieldDefinition instanceof ClassDefinition\Data) {
+                return $this->extractFieldTitle($fieldDefinition);
+            }
+        }
+
+        return ucfirst($fieldName);
+    }
+
+    private function getStandardFieldLabel(AbstractObject $object, string $field): string
+    {
+        $classDefinition = $this->getClassDefinition($object);
+        $fieldDefinition = $classDefinition->getFieldDefinition($field);
+
+        if (!$fieldDefinition instanceof ClassDefinition\Data) {
+            return ucfirst($field);
+        }
+
+        return $this->extractFieldTitle($fieldDefinition);
+    }
+
+    private function extractFieldTitle(ClassDefinition\Data $fieldDefinition): string
+    {
+        $title = $fieldDefinition->getTitle();
+
+        return $title !== '' && $title !== '0' ? $title : ucfirst($fieldDefinition->getName());
+    }
+
+    private function getClassDefinition(AbstractObject $object): ClassDefinition
+    {
+        if (!$object instanceof Concrete) {
+            throw new \InvalidArgumentException('The provided object must be a Concrete object.');
+        }
+
+        return $object->getClass();
+    }
+
     private function normalizeQuantityValue(mixed $value): ?string
     {
         if ($value === null || $value === '') {
@@ -239,17 +218,11 @@ class UniProductChangeTrackingService
         }
 
         if (is_object($value) && method_exists($value, 'getValue') && method_exists($value, 'getUnit')) {
-            $val = $value->getValue();
-            $unit = $value->getUnit();
-
-            return $this->formatQuantityValue($val, $unit);
+            return $this->formatQuantityValue($value->getValue(), $value->getUnit());
         }
 
         if (is_array($value)) {
-            $val = $value['value'] ?? null;
-            $unit = $value['unit'] ?? null;
-
-            return $this->formatQuantityValue($val, $unit);
+            return $this->formatQuantityValue($value['value'] ?? null, $value['unit'] ?? null);
         }
 
         if (is_string($value)) {
@@ -265,27 +238,21 @@ class UniProductChangeTrackingService
         return null;
     }
 
-    /**
-     * Format QuantityValue consistently for storage and comparison.
-     */
     private function formatQuantityValue(mixed $value, mixed $unit): string
     {
         if ($value === null && $unit === null) {
-            return '(Empty)';
+            return self::EMPTY_VALUE;
         }
 
-        $formattedValue = $value !== null ? number_format((float) $value, 4) : '';
+        $formattedValue = $value !== null ? number_format((float) $value, self::DECIMAL_PLACES) : '';
 
         return trim($formattedValue . ' ' . ($unit ?? ''));
     }
 
-    /**
-     * Format value for JSON storage.
-     */
     private function formatValueForStorage(mixed $value): string
     {
         if ($value === null) {
-            return '(Empty)';
+            return self::EMPTY_VALUE;
         }
 
         if (is_array($value)) {
@@ -324,9 +291,7 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Compute changes for the current object state.
-     *
-     * @return array<string, array{old: string, new: string}> Array with field names as keys and formatted change data
+     * @return array<string, array{old: string, new: string}>
      */
     private function computeChanges(AbstractObject $object): array
     {
@@ -336,74 +301,15 @@ class UniProductChangeTrackingService
 
         $dirtyFields = $object->getDirtyFields();
         $oldData = $this->getOldDataFromDatabase($object);
-
         $allFieldsToCheck = $this->getAllFieldsToCheck($object, $dirtyFields, $oldData);
 
-        $newData = [];
-
-        foreach ($allFieldsToCheck as $field) {
-            $fieldDefinition = $object->getClass()->getFieldDefinition($field);
-
-            if ($fieldDefinition instanceof Localizedfields) {
-                continue;
-            }
-
-            $getterMethod = 'get' . ucfirst($field);
-
-            if (!method_exists($object, $getterMethod)) {
-                continue;
-            }
-
-            $newValue = $object->$getterMethod();
-
-            if ($fieldDefinition instanceof ClassDefinition\Data\Numeric) {
-                $newValue = $newValue !== null && $newValue !== '' ? (float) $newValue : null;
-            }
-
-            if ($fieldDefinition instanceof QuantityValue) {
-                $newValue = $this->normalizeQuantityValue($newValue);
-
-                $this->logger->debug("QuantityValue field {$field} new value", [
-                    'raw' => $object->$getterMethod(),
-                    'normalized' => $newValue,
-                ]);
-            }
-
-            $newData[$field] = $fieldDefinition instanceof Select
-                ? $this->normalizeSelectValue($fieldDefinition, $newValue)
-                : $this->transformSpecialFieldValue($object, $field, $newValue);
-        }
+        $newData = $this->collectNewFieldData($object, $allFieldsToCheck);
+        $standardFieldChanges = $this->compareStandardFields($object, $allFieldsToCheck, $oldData, $newData);
 
         $objectBrickChanges = $this->computeObjectBrickChanges($object);
         $localizedFieldChanges = $this->computeLocalizedFieldChanges($object);
         $brickLocalizedFieldChanges = $this->computeLocalizedFieldChangesInBricks($object);
         $relationFieldChanges = $this->computeRelationFieldChanges($object);
-
-        $standardFieldChanges = [];
-
-        foreach ($allFieldsToCheck as $field) {
-            $fieldDefinition = $object->getClass()->getFieldDefinition($field);
-            $oldRawValue = $oldData[$field] ?? null;
-
-            if ($fieldDefinition instanceof ClassDefinition\Data\Numeric) {
-                $oldRawValue = $oldRawValue !== null && $oldRawValue !== '' ? (float) $oldRawValue : null;
-            }
-
-            $oldValue = $fieldDefinition instanceof Select
-                ? $this->normalizeSelectValue($fieldDefinition, $oldRawValue)
-                : $this->transformSpecialFieldValue($object, $field, $oldRawValue);
-
-            $newValue = $newData[$field] ?? null;
-
-            if ($this->areValuesEquivalent($oldValue, $newValue)) {
-                continue;
-            }
-
-            $standardFieldChanges[$field] = [
-                'old' => $oldValue ?? '(Empty)',
-                'new' => $newValue ?? '(Empty)',
-            ];
-        }
 
         return array_merge(
             $standardFieldChanges,
@@ -415,8 +321,6 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Get all fields to check for changes, including numeric and QuantityValue fields that getDirtyFields() might miss.
-     *
      * @param array<int, string> $dirtyFields
      * @param array<string, mixed> $oldData
      *
@@ -437,49 +341,12 @@ class UniProductChangeTrackingService
                 continue;
             }
 
-            if ($fieldDefinition instanceof ClassDefinition\Data\Numeric) {
-                $getterMethod = 'get' . ucfirst($fieldName);
-
-                if (!method_exists($object, $getterMethod)) {
-                    continue;
-                }
-
-                $newValue = $object->$getterMethod();
-                $newValue = $newValue !== null && $newValue !== '' ? (float) $newValue : null;
-
-                $oldValue = $oldData[$fieldName] ?? null;
-                $oldValue = $oldValue !== null && $oldValue !== '' && is_numeric($oldValue) ? (float) $oldValue : null;
-
-                if ($oldValue !== null && $newValue !== null) {
-                    if (abs($oldValue - $newValue) >= 0.0001) {
-                        $fieldsToCheck[] = $fieldName;
-                    }
-                } elseif ($oldValue !== $newValue) {
-                    $fieldsToCheck[] = $fieldName;
-                }
+            if ($this->shouldCheckNumericField($object, $fieldDefinition, $fieldName, $oldData)) {
+                $fieldsToCheck[] = $fieldName;
             }
 
-            if ($fieldDefinition instanceof QuantityValue) {
-                $getterMethod = 'get' . ucfirst($fieldName);
-
-                if (!method_exists($object, $getterMethod)) {
-                    continue;
-                }
-
-                $newValue = $object->$getterMethod();
-                $newValue = $this->normalizeQuantityValue($newValue);
-
-                $oldValue = $oldData[$fieldName] ?? null;
-
-                $this->logger->debug("QuantityValue comparison for {$fieldName}", [
-                    'old' => $oldValue,
-                    'new' => $newValue,
-                    'equal' => $oldValue === $newValue,
-                ]);
-
-                if ($oldValue !== $newValue) {
-                    $fieldsToCheck[] = $fieldName;
-                }
+            if ($this->shouldCheckQuantityValueField($object, $fieldDefinition, $fieldName, $oldData)) {
+                $fieldsToCheck[] = $fieldName;
             }
         }
 
@@ -487,8 +354,119 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Normalize value for Select fields.
+     * @param array<string, mixed> $oldData
      */
+    private function shouldCheckNumericField(
+        Concrete $object,
+        ClassDefinition\Data $fieldDefinition,
+        string $fieldName,
+        array $oldData,
+    ): bool {
+        if (!$fieldDefinition instanceof ClassDefinition\Data\Numeric) {
+            return false;
+        }
+
+        $getterMethod = 'get' . ucfirst($fieldName);
+
+        if (!method_exists($object, $getterMethod)) {
+            return false;
+        }
+
+        $newValue = $this->normalizeNumericValue($object->$getterMethod());
+        $oldValue = $this->normalizeNumericValue($oldData[$fieldName] ?? null);
+
+        return !$this->areNumericValuesEqual($oldValue, $newValue);
+    }
+
+    /**
+     * @param array<string, mixed> $oldData
+     */
+    private function shouldCheckQuantityValueField(
+        Concrete $object,
+        ClassDefinition\Data $fieldDefinition,
+        string $fieldName,
+        array $oldData,
+    ): bool {
+        if (!$fieldDefinition instanceof QuantityValue) {
+            return false;
+        }
+
+        $getterMethod = 'get' . ucfirst($fieldName);
+
+        if (!method_exists($object, $getterMethod)) {
+            return false;
+        }
+
+        $newValue = $this->normalizeQuantityValue($object->$getterMethod());
+        $oldValue = $oldData[$fieldName] ?? null;
+
+        return $oldValue !== $newValue;
+    }
+
+    private function normalizeNumericValue(mixed $value): ?float
+    {
+        return ($value !== null && $value !== '' && is_numeric($value)) ? (float) $value : null;
+    }
+
+    private function areNumericValuesEqual(?float $oldValue, ?float $newValue): bool
+    {
+        if ($oldValue === null && $newValue === null) {
+            return true;
+        }
+
+        if ($oldValue === null || $newValue === null) {
+            return false;
+        }
+
+        return abs($oldValue - $newValue) < self::NUMERIC_PRECISION;
+    }
+
+    /**
+     * @param array<int, string> $allFieldsToCheck
+     *
+     * @return array<string, mixed>
+     */
+    private function collectNewFieldData(Concrete $object, array $allFieldsToCheck): array
+    {
+        $newData = [];
+
+        foreach ($allFieldsToCheck as $field) {
+            $fieldDefinition = $object->getClass()->getFieldDefinition($field);
+
+            if ($fieldDefinition instanceof Localizedfields) {
+                continue;
+            }
+
+            $getterMethod = 'get' . ucfirst($field);
+
+            if (!method_exists($object, $getterMethod)) {
+                continue;
+            }
+
+            $newValue = $object->$getterMethod();
+            $newData[$field] = $this->normalizeFieldValue($fieldDefinition, $newValue);
+        }
+
+        return $newData;
+    }
+
+    private function normalizeFieldValue(?ClassDefinition\Data $fieldDefinition, mixed $value): mixed
+    {
+        if ($fieldDefinition instanceof ClassDefinition\Data\Numeric) {
+            return $this->normalizeNumericValue($value);
+        }
+
+        if ($fieldDefinition instanceof QuantityValue) {
+            return $this->normalizeQuantityValue($value);
+        }
+
+        if ($fieldDefinition instanceof Select) {
+            return $this->normalizeSelectValue($fieldDefinition, $value);
+        }
+
+        return $value;
+    }
+
     private function normalizeSelectValue(Select $fieldDefinition, mixed $value): ?string
     {
         if ($value === null) {
@@ -505,8 +483,55 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Transform special field values (e.g., "checkbox" or "assignedUser") for better display in history.
+     * @param array<int, string> $allFieldsToCheck
+     * @param array<string, mixed> $oldData
+     * @param array<string, mixed> $newData
+     *
+     * @return array<string, array{old: string, new: string}>
      */
+    private function compareStandardFields(
+        Concrete $object,
+        array $allFieldsToCheck,
+        array $oldData,
+        array $newData,
+    ): array {
+        $changes = [];
+
+        foreach ($allFieldsToCheck as $field) {
+            $fieldDefinition = $object->getClass()->getFieldDefinition($field);
+
+            $oldRawValue = $oldData[$field] ?? null;
+            $oldValue = $this->transformFieldValue($object, $field, $fieldDefinition, $oldRawValue);
+
+            $newRawValue = $newData[$field] ?? null;
+            $newValue = $this->transformFieldValue($object, $field, $fieldDefinition, $newRawValue);
+
+            if ($this->areValuesEquivalent($oldValue, $newValue)) {
+                continue;
+            }
+
+            $changes[$field] = [
+                'old' => $oldValue ?? self::EMPTY_VALUE,
+                'new' => $newValue ?? self::EMPTY_VALUE,
+            ];
+        }
+
+        return $changes;
+    }
+
+    private function transformFieldValue(
+        Concrete $object,
+        string $field,
+        ?ClassDefinition\Data $fieldDefinition,
+        mixed $value,
+    ): mixed {
+        if ($fieldDefinition instanceof Select) {
+            return $this->normalizeSelectValue($fieldDefinition, $value);
+        }
+
+        return $this->transformSpecialFieldValue($object, $field, $value);
+    }
+
     private function transformSpecialFieldValue(AbstractObject $object, string $field, mixed $value): ?string
     {
         if ($value === null || $value === '') {
@@ -514,17 +539,7 @@ class UniProductChangeTrackingService
         }
 
         if ($field === UniProductCategoryInternal::FIELD_ASSIGNED_USER) {
-            $userId = (int) $value;
-            $user = User::getById($userId);
-
-            if ($user instanceof User) {
-                $username = $user->getName();
-                $email = $user->getEmail();
-
-                return sprintf('%s <%s>', $username, $email);
-            }
-
-            return sprintf('User ID %d (Not Found)', $userId);
+            return $this->formatUserValue((int) $value);
         }
 
         if ($this->isCheckboxField($object, $field)) {
@@ -532,15 +547,10 @@ class UniProductChangeTrackingService
         }
 
         if (!$object instanceof Concrete) {
-            throw new \InvalidArgumentException('The provided object must be a Concrete object.');
+            return (string) $value;
         }
 
-        $classDefinition = ClassDefinition::getByName($object->getClassName());
-
-        if (!$classDefinition instanceof ClassDefinition) {
-            throw new \RuntimeException("Class definition not found for object: {$object->getClassName()}");
-        }
-
+        $classDefinition = $this->getClassDefinition($object);
         $fieldDefinition = $classDefinition->getFieldDefinition($field);
 
         if ($fieldDefinition instanceof ClassDefinition\Data\Numeric) {
@@ -552,13 +562,14 @@ class UniProductChangeTrackingService
         }
 
         if ($value instanceof AbstractObject) {
-            $name = $value->get('name');
-
-            return $name ? (string) $name : $value->getKey();
+            return $this->formatObjectReference($value);
         }
 
         if (is_array($value)) {
-            return implode(', ', array_map(fn ($v): ?string => $this->transformSpecialFieldValue($object, $field, $v), $value));
+            return implode(', ', array_map(
+                fn ($v): ?string => $this->transformSpecialFieldValue($object, $field, $v),
+                $value,
+            ));
         }
 
         if ($value instanceof \DateTimeInterface) {
@@ -572,62 +583,34 @@ class UniProductChangeTrackingService
         return is_scalar($value) ? trim((string) $value) : null;
     }
 
-    /**
-     * Generic value transformation for standard fields.
-     */
-    private function transformValue(mixed $value): ?string
+    private function formatUserValue(int $userId): string
     {
-        if ($value === null) {
-            return '(Empty)';
+        $user = User::getById($userId);
+
+        if ($user instanceof User) {
+            $username = $user->getName();
+            $email = $user->getEmail();
+
+            return sprintf('%s <%s>', $username, $email);
         }
 
-        if (is_bool($value)) {
-            return $value ? 'Yes' : 'No';
-        }
-
-        if (is_array($value)) {
-            return implode(', ', array_map([$this, 'transformValue'], $value));
-        }
-
-        if ($value instanceof User) {
-            $username = $value->getName();
-            $email = $value->getEmail();
-
-            return $email !== null && $email !== '' ? "$username <$email>" : $username;
-        }
-
-        if ($value instanceof AbstractObject) {
-            $name = $value->get('name');
-
-            return $name ? (string) $name : $value->getKey();
-        }
-
-        if (is_object($value)) {
-            if ($value instanceof \DateTimeInterface) {
-                return $value->format('Y-m-d H:i:s');
-            }
-
-            return $value::class;
-        }
-
-        if (is_string($value)) {
-            return trim($value);
-        }
-
-        return (string) $value;
+        return sprintf('User ID %d (Not Found)', $userId);
     }
 
-    /**
-     * Check if a field is a checkbox field.
-     */
+    private function formatObjectReference(AbstractObject $object): string
+    {
+        $name = $object->get('name');
+
+        return $name ? (string) $name : $object->getKey();
+    }
+
     private function isCheckboxField(AbstractObject $object, string $field): bool
     {
         if (!$object instanceof Concrete) {
             return false;
         }
 
-        $class = $object->getClass();
-        $fieldDefinition = $class->getFieldDefinition($field);
+        $fieldDefinition = $object->getClass()->getFieldDefinition($field);
 
         return $fieldDefinition instanceof Multiselect
             || $fieldDefinition instanceof Select
@@ -635,17 +618,15 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Compute changes for the object brick.
-     *
      * @return array<string, array{old: mixed, new: mixed}>
      */
     private function computeObjectBrickChanges(AbstractObject $object): array
     {
-        $changes = [];
-
         if (!$object instanceof Concrete) {
-            return $changes;
+            return [];
         }
+
+        $changes = [];
 
         foreach ($object->getClass()->getFieldDefinitions() as $fieldDefinition) {
             if (!$fieldDefinition instanceof Objectbricks) {
@@ -654,11 +635,12 @@ class UniProductChangeTrackingService
 
             $fieldName = $fieldDefinition->getName();
             $objectBrickData = $object->get($fieldName);
-            $oldBrickData = $this->getOldBrickDataFromDatabase($object, $objectBrickData);
 
             if (!$objectBrickData) {
                 continue;
             }
+
+            $oldBrickData = $this->getOldBrickDataFromDatabase($object, $objectBrickData);
 
             foreach ($objectBrickData->getBrickGetters() as $brickGetter) {
                 $brick = $objectBrickData->$brickGetter();
@@ -679,11 +661,9 @@ class UniProductChangeTrackingService
 
                     if ($brickFieldDefinition instanceof AbstractRelations) {
                         $this->processRelationFieldChanges($changes, $object, $brick, $brickType, $field);
-
-                        continue;
+                    } else {
+                        $this->processRegularFieldChanges($changes, $brick, $brickFieldDefinition, $oldBrickData, $brickType, $field);
                     }
-
-                    $this->processRegularFieldChanges($changes, $brick, $brickFieldDefinition, $oldBrickData, $brickType, $field);
                 }
             }
         }
@@ -692,8 +672,6 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Process changes for relation fields in object bricks.
-     *
      * @param array<string, array{old: string, new: string}> $changes
      */
     private function processRelationFieldChanges(
@@ -728,8 +706,6 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Process changes for regular (non-relation) fields in object bricks.
-     *
      * @param array<string, array{old: mixed, new: mixed}> $changes
      * @param array<string, array<string, mixed>> $oldBrickData
      */
@@ -741,105 +717,117 @@ class UniProductChangeTrackingService
         string $brickType,
         string $field,
     ): void {
-        $rawNewValue = $this->getFieldValue($brickFieldDefinition, $brick, $field);
-
+        $rawNewValue = $brick->get($field);
         $rawOldValue = $oldBrickData[$brickType][$field] ?? null;
 
-        if ($brickFieldDefinition instanceof Checkbox) {
-            $newValue = $rawNewValue === true ? 'Yes' : 'No';
-            $oldValue = ($rawOldValue === 1 || $rawOldValue === '1' || $rawOldValue === true) ? 'Yes' : 'No';
-        } elseif ($brickFieldDefinition instanceof QuantityValue) {
-            $newValue = $this->normalizeQuantityValue($rawNewValue);
-            $oldValue = $this->normalizeQuantityValueFromDb($rawOldValue);
-
-            $this->logger->debug('QuantityValue brick field comparison', [
-                'field' => "{$brickType}.{$field}",
-                'raw_old' => $rawOldValue,
-                'raw_new' => $rawNewValue,
-                'normalized_old' => $oldValue,
-                'normalized_new' => $newValue,
-            ]);
-        } elseif ($brickFieldDefinition instanceof ClassDefinition\Data\Numeric) {
-            $newValue = $rawNewValue !== null && $rawNewValue !== '' ? (string) round((float) $rawNewValue, 4) : null;
-            $oldValue = $rawOldValue !== null && $rawOldValue !== '' ? (string) round((float) $rawOldValue, 4) : null;
-        } elseif ($brickFieldDefinition instanceof ClassDefinition\Data\NumericRange) {
-            $newValue = $this->normalizeNumericRange($rawNewValue);
-            $oldValue = $rawOldValue;
-
-            $this->logger->debug('NumericRange brick field comparison', [
-                'field' => "{$brickType}.{$field}",
-                'raw_old' => $rawOldValue,
-                'raw_new' => $rawNewValue,
-                'normalized_old' => $oldValue,
-                'normalized_new' => $newValue,
-            ]);
-        } else {
-            $newValue = $this->normalizeValue($rawNewValue);
-            $oldValue = $this->normalizeValue($rawOldValue);
-        }
-
-        $this->logger->debug("Comparing brick field '{$brickType}.{$field}'", [
-            'old_value' => $oldValue,
-            'new_value' => $newValue,
-            'is_equal' => $this->areValuesEquivalent($oldValue, $newValue),
-        ]);
+        [$oldValue, $newValue] = $this->normalizeBrickFieldValues(
+            $brickFieldDefinition,
+            $rawOldValue,
+            $rawNewValue,
+            $brickType,
+            $field,
+        );
 
         if ($this->areValuesEquivalent($oldValue, $newValue)) {
             return;
         }
 
         $changes["{$brickType}.{$field}"] = [
-            'old' => $oldValue ?? '(Empty)',
-            'new' => $newValue ?? '(Empty)',
+            'old' => $oldValue ?? self::EMPTY_VALUE,
+            'new' => $newValue ?? self::EMPTY_VALUE,
         ];
     }
 
     /**
-     * Normalize a NumericRange field from the object.
+     * @return array{0: mixed, 1: mixed}
      */
+    private function normalizeBrickFieldValues(
+        ClassDefinition\Data $brickFieldDefinition,
+        mixed $rawOldValue,
+        mixed $rawNewValue,
+        string $brickType,
+        string $field,
+    ): array {
+        if ($brickFieldDefinition instanceof Checkbox) {
+            return [
+                ($rawOldValue === 1 || $rawOldValue === '1' || $rawOldValue === true) ? 'Yes' : 'No',
+                $rawNewValue === true ? 'Yes' : 'No',
+            ];
+        }
+
+        if ($brickFieldDefinition instanceof QuantityValue) {
+            $newValue = $this->normalizeQuantityValue($rawNewValue);
+            $oldValue = $this->normalizeQuantityValueFromDb($rawOldValue);
+
+            $this->logger->debug('QuantityValue brick field comparison', [
+                'field' => "{$brickType}.{$field}",
+                'normalized_old' => $oldValue,
+                'normalized_new' => $newValue,
+            ]);
+
+            return [$oldValue, $newValue];
+        }
+
+        if ($brickFieldDefinition instanceof ClassDefinition\Data\Numeric) {
+            return [
+                $rawOldValue !== null && $rawOldValue !== '' ? (string) round((float) $rawOldValue, self::DECIMAL_PLACES) : null,
+                $rawNewValue !== null && $rawNewValue !== '' ? (string) round((float) $rawNewValue, self::DECIMAL_PLACES) : null,
+            ];
+        }
+
+        if ($brickFieldDefinition instanceof ClassDefinition\Data\NumericRange) {
+            return [$rawOldValue, $this->normalizeNumericRange($rawNewValue)];
+        }
+
+        return [$this->normalizeValue($rawOldValue), $this->normalizeValue($rawNewValue)];
+    }
+
+    private function normalizeQuantityValueFromDb(mixed $value): ?string
+    {
+        if ($value === null || $value === '') {
+            return null;
+        }
+
+        if (is_array($value)) {
+            return $this->formatQuantityValue($value['value'] ?? null, $value['unit'] ?? null);
+        }
+
+        if (is_string($value)) {
+            $decoded = json_decode($value, true);
+
+            if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                return $this->normalizeQuantityValueFromDb($decoded);
+            }
+
+            return trim($value);
+        }
+
+        return null;
+    }
+
     private function normalizeNumericRange(?\Pimcore\Model\DataObject\Data\NumericRange $value): ?string
     {
         if ($value === null) {
             return null;
         }
 
-        $minimum = $value->getMinimum();
-        $maximum = $value->getMaximum();
-
         return sprintf(
             '%s to %s',
-            $this->formatNumericValue($minimum),
-            $this->formatNumericValue($maximum),
+            $this->formatNumericValue($value->getMinimum()),
+            $this->formatNumericValue($value->getMaximum()),
         );
     }
 
-    /**
-     * Format a numeric value for consistent comparison.
-     */
     private function formatNumericValue(?float $value): string
     {
         if ($value === null) {
-            return '(Empty)';
+            return self::EMPTY_VALUE;
         }
 
-        return fmod($value, 1) === 0.0 ? (string) (int) $value : number_format($value, 4);
+        return fmod($value, 1) === 0.0 ? (string) (int) $value : number_format($value, self::DECIMAL_PLACES);
     }
 
     /**
-     * Extract the value of a field based on its type.
-     */
-    private function getFieldValue(mixed $fieldDefinition, object $brick, string $field): mixed
-    {
-        if ($fieldDefinition instanceof AbstractRelations) {
-            return $this->extractRelations($brick->get($field));
-        }
-
-        return $brick->get($field);
-    }
-
-    /**
-     * Normalize values for comparison.
-     *
      * @return array<int, string>|string|object|null
      */
     private function normalizeValue(mixed $value): array|string|object|null
@@ -850,9 +838,7 @@ class UniProductChangeTrackingService
 
         if (is_string($value)) {
             if (preg_match('/^,.*,$/', $value)) {
-                $value = explode(',', trim($value, ','));
-
-                return array_map('strval', $value);
+                return array_map('trim', explode(',', trim($value, ',')));
             }
 
             return trim($value);
@@ -865,9 +851,6 @@ class UniProductChangeTrackingService
         return $value !== null ? (string) $value : null;
     }
 
-    /**
-     * Compare old and new values for equivalence.
-     */
     private function areValuesEquivalent(mixed $oldValue, mixed $newValue): bool
     {
         if ($oldValue === $newValue) {
@@ -878,24 +861,21 @@ class UniProductChangeTrackingService
             return true;
         }
 
+        if ($this->isEmptyValue($oldValue) && $this->isEmptyValue($newValue)) {
+            return true;
+        }
+
         if ($oldValue === null || $newValue === null) {
-            if ($oldValue === '(Empty)' && $newValue === null) {
-                return true;
-            }
-
-            if ($oldValue === null && $newValue === '(Empty)') {
-                return true;
-            }
-
             return false;
         }
 
-        if (is_string($oldValue) && is_string($newValue) && str_contains($oldValue, 'to') && str_contains($newValue, 'to')) {
+        if (is_string($oldValue) && is_string($newValue)
+            && str_contains($oldValue, 'to') && str_contains($newValue, 'to')) {
             return trim($oldValue) === trim($newValue);
         }
 
         if (is_numeric($oldValue) && is_numeric($newValue)) {
-            return abs((float) $oldValue - (float) $newValue) < 0.0001;
+            return abs((float) $oldValue - (float) $newValue) < self::NUMERIC_PRECISION;
         }
 
         if (is_array($oldValue) && is_array($newValue)) {
@@ -912,23 +892,25 @@ class UniProductChangeTrackingService
         return false;
     }
 
+    private function isEmptyValue(mixed $value): bool
+    {
+        return $value === null || $value === '' || $value === self::EMPTY_VALUE || $value === [];
+    }
+
     /**
-     * Compute changes for localized fields inside object bricks.
-     *
      * @return array<string, array{old: string|null, new: string|null}>
      */
     private function computeLocalizedFieldChangesInBricks(AbstractObject $object): array
     {
-        $changes = [];
-
         if (!$object instanceof Concrete) {
-            return $changes;
+            return [];
         }
 
         $localizedBrickData = $this->getOldLocalizedBrickDataFromDatabase($object);
+        $changes = [];
 
         foreach ($object->getClass()->getFieldDefinitions() as $fieldDefinition) {
-            if (!($fieldDefinition instanceof Objectbricks)) {
+            if (!$fieldDefinition instanceof Objectbricks) {
                 continue;
             }
 
@@ -947,8 +929,6 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Process data from object bricks and handle localized fields if they exist.
-     *
      * @param array<string, mixed> $localizedBrickData
      *
      * @return array<string, array{old: string|null, new: string|null}>
@@ -960,15 +940,7 @@ class UniProductChangeTrackingService
         foreach ($objectBrickData->getBrickGetters() as $brickGetter) {
             $brick = $objectBrickData->$brickGetter();
 
-            if (!$brick) {
-                continue;
-            }
-
-            $brickType = $brick->getType();
-
-            if (!$this->doesBrickHaveLocalizedFields($brick)) {
-                $this->logger->debug("Skipping brick: {$brickType} (no localizedfields defined in its structure).");
-
+            if (!$brick || !$this->doesBrickHaveLocalizedFields($brick)) {
                 continue;
             }
 
@@ -979,9 +951,6 @@ class UniProductChangeTrackingService
         return $changes;
     }
 
-    /**
-     * Check if the given brick contains localized fields in its definition.
-     */
     private function doesBrickHaveLocalizedFields(Objectbrick\Data\AbstractData $brick): bool
     {
         $brickDefinition = Objectbrick\Definition::getByKey($brick->getType());
@@ -998,8 +967,6 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Process localized fields for a specific brick.
-     *
      * @param array<string, mixed> $localizedBrickData
      *
      * @return array<string, array{old: string|null, new: string|null}>
@@ -1008,23 +975,37 @@ class UniProductChangeTrackingService
         Objectbrick\Data\AbstractData $brick,
         array $localizedBrickData,
     ): array {
-        $changes = [];
-
         $localizedFields = $brick->get('localizedfields');
 
         if (!$localizedFields instanceof \Pimcore\Model\DataObject\Localizedfield) {
-            $this->logger->debug("Localizedfields not found for brick: {$brick->getType()}. Skipping.");
-
-            return $changes;
+            return [];
         }
 
-        $newLocalizedFields = $localizedFields->getItems();
         $brickType = $brick->getType();
+        $fieldChanges = $this->collectBrickLocalizedFieldChanges(
+            $localizedFields->getItems(),
+            $localizedBrickData,
+            $brickType,
+        );
 
+        return $this->formatBrickLocalizedChanges($fieldChanges, $brickType);
+    }
+
+    /**
+     * @param array<string, array<string, mixed>> $newLocalizedFields
+     * @param array<string, mixed> $localizedBrickData
+     *
+     * @return array<string, array{old: array<string, mixed>, new: array<string, mixed>}>
+     */
+    private function collectBrickLocalizedFieldChanges(
+        array $newLocalizedFields,
+        array $localizedBrickData,
+        string $brickType,
+    ): array {
         $fieldChanges = [];
 
         foreach ($newLocalizedFields as $language => $newFields) {
-            $oldFields = $this->getOldFieldsForLanguage($localizedBrickData, $brickType, $language);
+            $oldFields = $localizedBrickData[$brickType]['localized'][$language]['levelSpecificData'] ?? [];
             $normalizedOldFields = $this->normalizeOldFields([$language => ['levelSpecificData' => $oldFields]]);
             $normalizedOldFields = $normalizedOldFields[$language] ?? [];
 
@@ -1032,33 +1013,33 @@ class UniProductChangeTrackingService
             $fieldChanges = $this->mergeFieldChanges($fieldChanges, $languageChanges);
         }
 
+        return $fieldChanges;
+    }
+
+    /**
+     * @param array<string, array{old: array<string, mixed>, new: array<string, mixed>}> $fieldChanges
+     *
+     * @return array<string, array{old: string|null, new: string|null}>
+     */
+    private function formatBrickLocalizedChanges(array $fieldChanges, string $brickType): array
+    {
+        $changes = [];
+
         foreach ($fieldChanges as $fieldName => $languageChanges) {
-            if (!empty($languageChanges['old']) || !empty($languageChanges['new'])) {
-                $changes["{$brickType}.localized.{$fieldName}"] = [
-                    'old' => $this->formatLocalizedValues($languageChanges['old']),
-                    'new' => $this->formatLocalizedValues($languageChanges['new']),
-                ];
+            if (empty($languageChanges['old']) && empty($languageChanges['new'])) {
+                continue;
             }
+
+            $changes["{$brickType}.localized.{$fieldName}"] = [
+                'old' => $this->formatLocalizedValues($languageChanges['old']),
+                'new' => $this->formatLocalizedValues($languageChanges['new']),
+            ];
         }
 
         return $changes;
     }
 
     /**
-     * Get old fields for a specific language.
-     *
-     * @param array<string, mixed> $localizedBrickData
-     *
-     * @return array<string, mixed>
-     */
-    private function getOldFieldsForLanguage(array $localizedBrickData, string $brickType, string $language): array
-    {
-        return $localizedBrickData[$brickType]['localized'][$language]['levelSpecificData'] ?? [];
-    }
-
-    /**
-     * Compare field values between new and old.
-     *
      * @param array<string, mixed> $newFields
      * @param array<string, mixed> $normalizedOldFields
      *
@@ -1069,11 +1050,11 @@ class UniProductChangeTrackingService
         $fieldChanges = [];
 
         foreach ($newFields as $fieldName => $newValue) {
-            $oldValue = $normalizedOldFields[$fieldName] ?? null;
-
             if ($this->shouldSkipBrickField($fieldName)) {
                 continue;
             }
+
+            $oldValue = $normalizedOldFields[$fieldName] ?? null;
 
             if ($this->hasFieldChanged($oldValue, $newValue)) {
                 $fieldChanges[$fieldName]['old'][$language] = $oldValue;
@@ -1085,11 +1066,10 @@ class UniProductChangeTrackingService
             if (array_key_exists($fieldName, $newFields) || $this->shouldSkipBrickField($fieldName)) {
                 continue;
             }
-            $newValue = null;
 
-            if ($this->hasFieldChanged($oldValue, $newValue)) {
+            if ($this->hasFieldChanged($oldValue, null)) {
                 $fieldChanges[$fieldName]['old'][$language] = $oldValue;
-                $fieldChanges[$fieldName]['new'][$language] = $newValue;
+                $fieldChanges[$fieldName]['new'][$language] = null;
             }
         }
 
@@ -1097,8 +1077,6 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Merge field changes arrays.
-     *
      * @param array<string, array{old: array<mixed>, new: array<mixed>}> $existing
      * @param array<string, array{old: array<mixed>, new: array<mixed>}> $new
      *
@@ -1118,9 +1096,6 @@ class UniProductChangeTrackingService
         return $existing;
     }
 
-    /**
-     * Check if a field has actually changed.
-     */
     private function hasFieldChanged(mixed $oldValue, mixed $newValue): bool
     {
         if ($this->shouldSkipChange($oldValue, $newValue)) {
@@ -1153,32 +1128,17 @@ class UniProductChangeTrackingService
         return $oldValue !== $newValue;
     }
 
-    /**
-     * Check if a change should be skipped.
-     */
     private function shouldSkipChange(mixed $oldValue, mixed $newValue): bool
     {
-        $oldEmpty = $oldValue === null || $oldValue === '' || $oldValue === [];
-        $newEmpty = $newValue === null || $newValue === '' || $newValue === [];
-
-        return $oldEmpty && $newEmpty;
+        return $this->isEmptyValue($oldValue) && $this->isEmptyValue($newValue);
     }
 
-    /**
-     * Determine which brick fields should be skipped from change tracking.
-     */
     private function shouldSkipBrickField(string $fieldName): bool
     {
-        $fieldsToSkip = [
-            'index',
-        ];
-
-        return in_array($fieldName, $fieldsToSkip, true);
+        return in_array($fieldName, self::FIELDS_TO_SKIP, true);
     }
 
     /**
-     * Normalize the old `levelSpecificData` format.
-     *
      * @param array<string, mixed> $oldFields
      *
      * @return array<string, array<string, mixed>>
@@ -1192,21 +1152,17 @@ class UniProductChangeTrackingService
                 continue;
             }
 
-            $levelSpecificData = $data['levelSpecificData'];
             $normalized[$locale] = [];
 
-            foreach ($levelSpecificData as $fieldName => $fieldValue) {
-                $normalized[$locale][$fieldName] = $this->normalizeFieldValue($fieldValue);
+            foreach ($data['levelSpecificData'] as $fieldName => $fieldValue) {
+                $normalized[$locale][$fieldName] = $this->normalizeFieldValueForComparison($fieldValue);
             }
         }
 
         return $normalized;
     }
 
-    /**
-     * Normalize field value based on its type and content.
-     */
-    private function normalizeFieldValue(mixed $value): mixed
+    private function normalizeFieldValueForComparison(mixed $value): mixed
     {
         if ($value === null || is_array($value)) {
             return $value;
@@ -1216,50 +1172,37 @@ class UniProductChangeTrackingService
             return array_map('trim', explode(',', $value));
         }
 
-        if (is_string($value) && $this->shouldBeArray()) {
-            return [$value];
-        }
-
         return $value;
     }
 
     /**
-     * Determine if a string value should be converted to an array.
-     */
-    private function shouldBeArray(): bool
-    {
-        return false;
-    }
-
-    /**
-     * Compute changes for relation fields.
-     *
      * @return array<string, array{old: list<string>, new: list<string>}>
      */
     private function computeRelationFieldChanges(AbstractObject $object): array
     {
-        $changes = [];
-
         if (!$object instanceof Concrete) {
-            return $changes;
+            return [];
         }
 
         $oldRelationData = $this->getOldRelationDataFromDatabase($object);
+        $changes = [];
 
         foreach ($object->getClass()->getFieldDefinitions() as $fieldDefinition) {
-            if ($fieldDefinition instanceof AbstractRelations) {
-                $fieldName = $fieldDefinition->getName();
-                $relations = $object->get($fieldName);
+            if (!$fieldDefinition instanceof AbstractRelations) {
+                continue;
+            }
 
-                $newValue = $this->transformRelationObjectsToNames($relations);
-                $oldValue = $this->transformRelationIdsToNames($oldRelationData[$fieldName] ?? []);
+            $fieldName = $fieldDefinition->getName();
+            $relations = $object->get($fieldName);
 
-                if ($oldValue !== $newValue) {
-                    $changes["relation.{$fieldName}"] = [
-                        'old' => $oldValue,
-                        'new' => $newValue,
-                    ];
-                }
+            $newValue = $this->transformRelationObjectsToNames($relations);
+            $oldValue = $this->transformRelationIdsToNames($oldRelationData[$fieldName] ?? []);
+
+            if ($oldValue !== $newValue) {
+                $changes["relation.{$fieldName}"] = [
+                    'old' => $oldValue,
+                    'new' => $newValue,
+                ];
             }
         }
 
@@ -1267,8 +1210,6 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Transform relation objects to their names.
-     *
      * @return list<string>
      */
     private function transformRelationObjectsToNames(mixed $relations): array
@@ -1277,39 +1218,32 @@ class UniProductChangeTrackingService
             return [];
         }
 
-        return array_map(function ($relatedObject) {
+        $relationsArray = is_array($relations) ? $relations : [$relations];
+
+        return array_map(function ($relatedObject): string {
             if ($relatedObject instanceof AbstractObject) {
-                return $relatedObject->get('name') ?: $relatedObject->getKey();
+                return $this->formatObjectReference($relatedObject);
             }
 
             return (string) $relatedObject;
-        }, is_array($relations) ? $relations : [$relations]);
+        }, $relationsArray);
     }
 
     /**
-     * Transform relation IDs to object names.
-     *
      * @param array<mixed>|string|null $relationIds
      *
      * @return list<string>
      */
     private function transformRelationIdsToNames(array|string|null $relationIds): array
     {
-        if (is_string($relationIds)) {
-            $relationIds = explode(',', $relationIds);
-        } elseif ($relationIds === null) {
-            $relationIds = [];
-        }
-
-        $relationIds = array_filter($relationIds, fn ($id): bool => !empty($id) && is_numeric($id));
-
+        $relationIds = $this->normalizeRelationIds($relationIds);
         $names = [];
 
         foreach ($relationIds as $relationId) {
             $relatedObject = AbstractObject::getById($relationId);
 
             if ($relatedObject instanceof AbstractObject) {
-                $names[] = $relatedObject->get('name') ?: $relatedObject->getKey();
+                $names[] = $this->formatObjectReference($relatedObject);
             } else {
                 $names[] = "Unknown Reference (Object ID $relationId)";
             }
@@ -1319,25 +1253,25 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Helper function to extract relation IDs from a relation field.
+     * @param array<mixed>|string|null $relationIds
      *
-     * @return list<mixed>
+     * @return array<int>
      */
-    private function extractRelations(mixed $relations): array
+    private function normalizeRelationIds(array|string|null $relationIds): array
     {
-        if (!$relations) {
+        if (is_string($relationIds)) {
+            $relationIds = explode(',', $relationIds);
+        } elseif ($relationIds === null) {
             return [];
         }
 
-        return array_map(
-            fn ($relatedObject) => $relatedObject instanceof AbstractObject ? $relatedObject->getId() : $relatedObject,
-            is_array($relations) ? $relations : [$relations],
-        );
+        return array_values(array_filter(
+            $relationIds,
+            fn ($id): bool => !empty($id) && is_numeric($id),
+        ));
     }
 
     /**
-     * Retrieve the original data of an object from the database.
-     *
      * @return array<string, mixed>
      */
     private function getOldDataFromDatabase(AbstractObject $object): array
@@ -1346,17 +1280,22 @@ class UniProductChangeTrackingService
             return [];
         }
 
-        $classDefinition = ClassDefinition::getByName($object->getClassName());
-
-        if (!$classDefinition instanceof ClassDefinition) {
-            return [];
-        }
-
+        $classDefinition = $this->getClassDefinition($object);
         $tableName = 'object_' . $classDefinition->getId();
         $sql = "SELECT * FROM $tableName WHERE oo_id = :id";
 
         $oldData = Db::get()->fetchAssociative($sql, ['id' => $object->getId()]) ?: [];
 
+        return $this->normalizeOldDataFromDatabase($oldData, $classDefinition);
+    }
+
+    /**
+     * @param array<string, mixed> $oldData
+     *
+     * @return array<string, mixed>
+     */
+    private function normalizeOldDataFromDatabase(array $oldData, ClassDefinition $classDefinition): array
+    {
         foreach ($classDefinition->getFieldDefinitions() as $fieldDefinition) {
             $fieldName = $fieldDefinition->getName();
 
@@ -1365,44 +1304,11 @@ class UniProductChangeTrackingService
             }
 
             if ($fieldDefinition instanceof ClassDefinition\Data\Numeric) {
-                $value = $oldData[$fieldName];
-                $oldData[$fieldName] = ($value !== null && $value !== '' && is_numeric($value))
-                    ? (float) $value
-                    : null;
+                $oldData[$fieldName] = $this->normalizeNumericValue($oldData[$fieldName]);
             }
 
             if ($fieldDefinition instanceof QuantityValue) {
-                $value = $oldData[$fieldName];
-
-                $valueColumn = $fieldName . '__value';
-                $unitColumn = $fieldName . '__unit';
-
-                if (isset($oldData[$valueColumn]) || isset($oldData[$unitColumn])) {
-                    $parts = [];
-
-                    if (isset($oldData[$valueColumn]) && $oldData[$valueColumn] !== null && $oldData[$valueColumn] !== '') {
-                        $parts[] = (string) $oldData[$valueColumn];
-                    }
-
-                    if (isset($oldData[$unitColumn]) && $oldData[$unitColumn] !== null && $oldData[$unitColumn] !== '') {
-                        $parts[] = (string) $oldData[$unitColumn];
-                    }
-                    $oldData[$fieldName] = $parts !== [] ? implode(' ', $parts) : null;
-                } elseif ($value === null || $value === '') {
-                    $oldData[$fieldName] = null;
-                } else {
-                    $normalized = $this->normalizeQuantityValue($value);
-                    $oldData[$fieldName] = $normalized;
-                }
-
-                $this->logger->debug("QuantityValue field {$fieldName} old value from DB", [
-                    'has_value_column' => isset($oldData[$valueColumn]),
-                    'has_unit_column' => isset($oldData[$unitColumn]),
-                    'value_column' => $oldData[$valueColumn] ?? null,
-                    'unit_column' => $oldData[$unitColumn] ?? null,
-                    'main_column' => $value,
-                    'normalized' => $oldData[$fieldName],
-                ]);
+                $oldData[$fieldName] = $this->extractQuantityValueFromDatabase($oldData, $fieldName);
             }
         }
 
@@ -1410,46 +1316,54 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Retrieve localized field data for bricks.
-     *
+     * @param array<string, mixed> $oldData
+     */
+    private function extractQuantityValueFromDatabase(array $oldData, string $fieldName): ?string
+    {
+        $valueColumn = $fieldName . '__value';
+        $unitColumn = $fieldName . '__unit';
+
+        if (isset($oldData[$valueColumn]) || isset($oldData[$unitColumn])) {
+            $parts = [];
+
+            if (isset($oldData[$valueColumn]) && $oldData[$valueColumn] !== null && $oldData[$valueColumn] !== '') {
+                $parts[] = (string) $oldData[$valueColumn];
+            }
+
+            if (isset($oldData[$unitColumn]) && $oldData[$unitColumn] !== null && $oldData[$unitColumn] !== '') {
+                $parts[] = (string) $oldData[$unitColumn];
+            }
+
+            return $parts !== [] ? implode(' ', $parts) : null;
+        }
+
+        $value = $oldData[$fieldName];
+
+        return ($value === null || $value === '') ? null : $this->normalizeQuantityValue($value);
+    }
+
+    /**
      * @return array<string, array<string, mixed>>
      */
     private function getOldLocalizedBrickDataFromDatabase(AbstractObject $object): array
     {
-        $data = [];
-
         if (!$object instanceof Concrete) {
-            return $data;
+            return [];
         }
 
+        $data = [];
         $classDefinition = $object->getClass();
 
         foreach ($classDefinition->getFieldDefinitions() as $fieldDefinition) {
-            if (!($fieldDefinition instanceof Objectbricks)) {
+            if (!$fieldDefinition instanceof Objectbricks) {
                 continue;
             }
 
             foreach ($fieldDefinition->getAllowedTypes() as $brickType) {
-                $classId = $classDefinition->getId();
-                $objectId = $object->getId();
-                $localizedTableName = "object_brick_localized_{$brickType}_{$classId}";
+                $brickData = $this->fetchLocalizedBrickData($object, $brickType, $classDefinition->getId());
 
-                $localizedSql = "SELECT * FROM $localizedTableName WHERE ooo_id = :id";
-
-                try {
-                    $localizedRows = Db::get()->fetchAllAssociative($localizedSql, ['id' => $objectId]);
-                } catch (\Exception $e) {
-                    $this->logger->warning("Localized table for {$brickType} not found: " . $e->getMessage());
-
-                    continue;
-                }
-
-                foreach ($localizedRows as $localizedRow) {
-                    $language = $localizedRow['language'];
-                    $fieldname = $localizedRow['fieldname'];
-                    unset($localizedRow['ooo_id'], $localizedRow['language'], $localizedRow['fieldname']);
-
-                    $data[$brickType]['localized'][$language][$fieldname] = $localizedRow;
+                if ($brickData !== []) {
+                    $data[$brickType] = $brickData;
                 }
             }
         }
@@ -1458,8 +1372,35 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Retrieve relation field data of an object from the database.
-     *
+     * @return array<string, mixed>
+     */
+    private function fetchLocalizedBrickData(Concrete $object, string $brickType, string $classId): array
+    {
+        $localizedTableName = "object_brick_localized_{$brickType}_{$classId}";
+        $localizedSql = "SELECT * FROM $localizedTableName WHERE ooo_id = :id";
+
+        try {
+            $localizedRows = Db::get()->fetchAllAssociative($localizedSql, ['id' => $object->getId()]);
+        } catch (\Exception $e) {
+            $this->logger->warning("Localized table for {$brickType} not found: " . $e->getMessage());
+
+            return [];
+        }
+
+        $data = [];
+
+        foreach ($localizedRows as $localizedRow) {
+            $language = $localizedRow['language'];
+            $fieldname = $localizedRow['fieldname'];
+            unset($localizedRow['ooo_id'], $localizedRow['language'], $localizedRow['fieldname']);
+
+            $data['localized'][$language][$fieldname] = $localizedRow;
+        }
+
+        return $data;
+    }
+
+    /**
      * @return array<string, list<mixed>>
      */
     private function getOldRelationDataFromDatabase(AbstractObject $object): array
@@ -1468,12 +1409,7 @@ class UniProductChangeTrackingService
             return [];
         }
 
-        $classDefinition = ClassDefinition::getByName($object->getClassName());
-
-        if (!$classDefinition instanceof ClassDefinition) {
-            return [];
-        }
-
+        $classDefinition = $this->getClassDefinition($object);
         $tableName = 'object_relations_' . $classDefinition->getId();
         $sql = "SELECT * FROM $tableName WHERE src_id = :id";
         $rows = Db::get()->fetchAllAssociative($sql, ['id' => $object->getId()]);
@@ -1488,17 +1424,15 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Retrieve old brick data from the database and normalize it.
-     *
      * @return array<string, array<string, mixed>>
      */
     private function getOldBrickDataFromDatabase(AbstractObject $object, ?Objectbrick $objectBrickData): array
     {
-        $data = [];
-
         if (!$object instanceof Concrete || !$objectBrickData instanceof Objectbrick) {
-            return $data;
+            return [];
         }
+
+        $data = [];
 
         foreach ($objectBrickData->getBrickGetters() as $brickGetter) {
             $brick = $objectBrickData->$brickGetter();
@@ -1507,54 +1441,10 @@ class UniProductChangeTrackingService
                 continue;
             }
 
-            $brickType = $brick->getType();
-            $classId = $object->getClass()->getId();
-            $objectId = $object->getId();
+            $brickData = $this->fetchBrickDataFromDatabase($object, $brick);
 
-            $tableName = "object_brick_query_{$brickType}_{$classId}";
-            $sql = "SELECT * FROM $tableName WHERE id = :id AND fieldname = :fieldname";
-
-            try {
-                $row = Db::get()->fetchAssociative($sql, [
-                    'id' => $objectId,
-                    'fieldname' => $brick->getFieldname(),
-                ]);
-
-                if (!$row) {
-                    continue;
-                }
-                unset($row['fieldname'], $row['id']);
-
-                foreach ($row as $field => $value) {
-                    if (str_ends_with($field, '__minimum') || str_ends_with($field, '__maximum')) {
-                        $mainField = explode('__', $field)[0];
-
-                        if (!isset($data[$brickType][$mainField])) {
-                            $data[$brickType][$mainField] = [
-                                'minimum' => null,
-                                'maximum' => null,
-                            ];
-                        }
-
-                        if (str_ends_with($field, '__minimum')) {
-                            $data[$brickType][$mainField]['minimum'] = $value !== null && $value !== '' ? round((float) $value, 4) : null;
-                        } elseif (str_ends_with($field, '__maximum')) {
-                            $data[$brickType][$mainField]['maximum'] = $value !== null && $value !== '' ? round((float) $value, 4) : null;
-                        }
-                    } else {
-                        $data[$brickType][$field] = $value;
-                    }
-                }
-            } catch (\Exception $e) {
-                $this->logger->warning("Error retrieving brick data for {$brickType}: " . $e->getMessage());
-            }
-        }
-
-        foreach ($data as $brickType => $brickFields) {
-            foreach ($brickFields as $field => $value) {
-                if (is_array($value) && isset($value['minimum'], $value['maximum'])) {
-                    $data[$brickType][$field] = $this->normalizeNumericRangeFromDb($value);
-                }
+            if ($brickData !== []) {
+                $data[$brick->getType()] = $brickData;
             }
         }
 
@@ -1562,25 +1452,87 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Normalize NumericRange field data from the database.
-     *
-     * @param array{minimum: float, maximum: float}|null $value
+     * @return array<string, mixed>
      */
-    private function normalizeNumericRangeFromDb(?array $value): ?string
+    private function fetchBrickDataFromDatabase(Concrete $object, Objectbrick\Data\AbstractData $brick): array
     {
-        if ($value === null) {
-            return null;
+        $brickType = $brick->getType();
+        $classId = $object->getClass()->getId();
+        $tableName = "object_brick_query_{$brickType}_{$classId}";
+        $sql = "SELECT * FROM $tableName WHERE id = :id AND fieldname = :fieldname";
+
+        try {
+            $row = Db::get()->fetchAssociative($sql, [
+                'id' => $object->getId(),
+                'fieldname' => $brick->getFieldname(),
+            ]);
+
+            if (!$row) {
+                return [];
+            }
+
+            unset($row['fieldname'], $row['id']);
+
+            return $this->processNumericRangeFields($row);
+        } catch (\Exception $e) {
+            $this->logger->warning("Error retrieving brick data for {$brickType}: " . $e->getMessage());
+
+            return [];
         }
-
-        $minimum = round($value['minimum'], 4);
-        $maximum = round($value['maximum'], 4);
-
-        return sprintf('%s to %s', $minimum, $maximum);
     }
 
     /**
-     * Compute changes for localized fields in normal data objects.
+     * @param array<string, mixed> $row
      *
+     * @return array<string, mixed>
+     */
+    private function processNumericRangeFields(array $row): array
+    {
+        $data = [];
+
+        foreach ($row as $field => $value) {
+            if (str_ends_with($field, '__minimum') || str_ends_with($field, '__maximum')) {
+                $mainField = explode('__', $field)[0];
+
+                if (!isset($data[$mainField])) {
+                    $data[$mainField] = ['minimum' => null, 'maximum' => null];
+                }
+
+                $key = str_ends_with($field, '__minimum') ? 'minimum' : 'maximum';
+                $data[$mainField][$key] = ($value !== null && $value !== '')
+                    ? round((float) $value, self::DECIMAL_PLACES)
+                    : null;
+            } else {
+                $data[$field] = $value;
+            }
+        }
+
+        foreach ($data as $field => $value) {
+            if (is_array($value) && isset($value['minimum'], $value['maximum'])) {
+                $data[$field] = $this->normalizeNumericRangeFromDb($value);
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param array{minimum: float|null, maximum: float|null} $value
+     */
+    private function normalizeNumericRangeFromDb(array $value): ?string
+    {
+        if ($value['minimum'] === null && $value['maximum'] === null) {
+            return null;
+        }
+
+        return sprintf(
+            '%s to %s',
+            $this->formatNumericValue($value['minimum']),
+            $this->formatNumericValue($value['maximum']),
+        );
+    }
+
+    /**
      * @return array<string, array{old: string|null, new: string|null}>
      */
     private function computeLocalizedFieldChanges(AbstractObject $object): array
@@ -1616,13 +1568,14 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * @param object $localizedFields
      * @param array<string, array<string, mixed>> $localizedFieldData
      *
      * @return array<string, array{old: array<string, mixed>, new: array<string, mixed>}>
      */
-    private function processLocalizedFieldChanges($localizedFields, array $localizedFieldData): array
-    {
+    private function processLocalizedFieldChanges(
+        object $localizedFields,
+        array $localizedFieldData,
+    ): array {
         $fieldChanges = [];
 
         foreach ($localizedFields->getItems() as $language => $newFields) {
@@ -1631,10 +1584,10 @@ class UniProductChangeTrackingService
             foreach ($newFields as $fieldName => $newValue) {
                 $oldValue = $oldFields[$fieldName] ?? null;
 
-                $newValue = $this->normalizeValue($newValue);
-                $oldValue = $this->normalizeValue($oldValue);
+                $normalizedNewValue = $this->normalizeValue($newValue);
+                $normalizedOldValue = $this->normalizeValue($oldValue);
 
-                if ($this->areValuesEquivalent($oldValue, $newValue)) {
+                if ($this->areValuesEquivalent($normalizedOldValue, $normalizedNewValue)) {
                     continue;
                 }
 
@@ -1642,8 +1595,8 @@ class UniProductChangeTrackingService
                     $fieldChanges[$fieldName] = ['old' => [], 'new' => []];
                 }
 
-                $fieldChanges[$fieldName]['old'][$language] = $oldValue;
-                $fieldChanges[$fieldName]['new'][$language] = $newValue;
+                $fieldChanges[$fieldName]['old'][$language] = $normalizedOldValue;
+                $fieldChanges[$fieldName]['new'][$language] = $normalizedNewValue;
             }
         }
 
@@ -1657,41 +1610,39 @@ class UniProductChangeTrackingService
     private function formatFieldChanges(array $fieldChanges, array &$changes): void
     {
         foreach ($fieldChanges as $fieldName => $languageChanges) {
-            $oldFormatted = $this->formatLocalizedValues($languageChanges['old']);
-            $newFormatted = $this->formatLocalizedValues($languageChanges['new']);
+            if (empty($languageChanges['old']) && empty($languageChanges['new'])) {
+                continue;
+            }
 
             $changes["localized.{$fieldName}"] = [
-                'old' => $oldFormatted,
-                'new' => $newFormatted,
+                'old' => $this->formatLocalizedValues($languageChanges['old']),
+                'new' => $this->formatLocalizedValues($languageChanges['new']),
             ];
         }
     }
 
     /**
-     * Get old localized field data from database.
-     *
      * @return array<string, array<string, mixed>>
      */
     private function getOldLocalizedFieldDataFromDatabase(AbstractObject $object): array
     {
-        $data = [];
-
         if (!$object instanceof Concrete) {
-            return $data;
+            return [];
         }
 
-        $objectId = $object->getId();
         $classDefinition = $object->getClass();
         $tableName = 'object_localized_data_' . $classDefinition->getId();
         $localizedSql = "SELECT * FROM {$tableName} WHERE ooo_id = :id";
 
         try {
-            $rows = Db::get()->fetchAllAssociative($localizedSql, ['id' => $objectId]);
+            $rows = Db::get()->fetchAllAssociative($localizedSql, ['id' => $object->getId()]);
         } catch (\Exception $e) {
             $this->logger->warning('Localized table for normal fields not found: ' . $e->getMessage());
 
-            return $data;
+            return [];
         }
+
+        $data = [];
 
         foreach ($rows as $row) {
             $language = $row['language'];
@@ -1703,8 +1654,6 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Format localized values as a string.
-     *
      * @param array<string, string|array<int|string, mixed>|null> $languageValues
      */
     private function formatLocalizedValues(array $languageValues): ?string
@@ -1733,8 +1682,6 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Get relation IDs for a specific brick field.
-     *
      * @return array<int, int>
      */
     private function getBrickRelationIds(AbstractObject $object, string $brickFieldname, string $relationField): array
@@ -1745,7 +1692,6 @@ class UniProductChangeTrackingService
 
         $classId = $object->getClass()->getId();
         $tableName = 'object_relations_' . $classId;
-
         $fullFieldname = $brickFieldname . '~' . $relationField;
 
         $sql = "SELECT dest_id FROM $tableName WHERE src_id = :objectId AND fieldname = :fieldname ORDER BY `index`";

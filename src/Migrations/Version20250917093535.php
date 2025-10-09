@@ -24,6 +24,7 @@ final class Version20250917093535 extends AbstractMigration
                 object_class VARCHAR(255) NOT NULL,
                 timestamp DATETIME NOT NULL,
                 user VARCHAR(255) NOT NULL,
+                field_labels JSON DEFAULT NULL,
                 previous_values JSON DEFAULT NULL,
                 new_values JSON DEFAULT NULL,
                 PRIMARY KEY(id)
