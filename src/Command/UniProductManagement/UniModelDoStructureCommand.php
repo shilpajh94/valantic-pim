@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command\UniProductManagement;
 
-use App\Enum\UniProductCategoryLevel;
+use App\Enum\UniProductHierarchyLevel;
 use App\EventListener\UniProductWorkflowEventListener;
 use App\Service\VersionService;
 use App\Util\Helpers;
@@ -27,18 +27,24 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
-    name: 'app:uni:model:structure',
+    name: 'app:uni:model:do-structure',
     description: 'Check or fix Objectbricks assignment in the Uni data model',
 )]
-class UniDataModelStructureCommand extends AbstractCommand
+class UniModelDoStructureCommand extends AbstractCommand
 {
     public const ARGUMENT_MODE = 'mode';
+    public const OPTION_TYPE = 'type';
+    public const OPTION_LIMIT = 'limit';
+    public const OPTION_OFFSET = 'offset';
     public const MODE_CHECK = 'check';
     public const MODE_FIX = 'fix';
-    protected const BASE_PATH = '/Unified PIM/Product Management/Products';
+    public const TYPE_PRODUCT = 'product';
+    public const TYPE_CATEGORY = 'category';
+
     protected const BRICKS_CLASSES_BR = [
         'DY' => [UniPrBr::class],
         'FL' => [UniPrBr::class, UniPrBrFhs::class],
@@ -57,7 +63,6 @@ class UniDataModelStructureCommand extends AbstractCommand
         'PT' => [UniPrFgPts::class],
     ];
 
-    private ?string $mode = null;
     private bool $fix = false;
 
     /** @var array<string,array<string,string>> */
@@ -72,17 +77,21 @@ class UniDataModelStructureCommand extends AbstractCommand
     {
         $this
             ->addArgument(self::ARGUMENT_MODE, InputArgument::REQUIRED, 'Can be either check or fix. Note that "fix" can cause data loss.')
+            ->addOption(self::OPTION_TYPE, mode: InputOption::VALUE_REQUIRED, description: 'Must be one of [category, product]')
+            ->addOption(self::OPTION_LIMIT, mode: InputOption::VALUE_REQUIRED)
+            ->addOption(self::OPTION_OFFSET, mode: InputOption::VALUE_REQUIRED)
             ->setHelp('Note that this is only intended for development purposes as in production the structure will be ensured by the SAP import API.')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->mode = $input->getArgument(self::ARGUMENT_MODE);
-        $this->fix = $this->mode === self::MODE_FIX;
+        $mode = $input->getArgument(self::ARGUMENT_MODE);
+        $this->fix = $mode === self::MODE_FIX;
+        $type = $input->getOption(self::OPTION_TYPE);
 
-        if (!in_array($this->mode, [self::MODE_CHECK, self::MODE_FIX], true)) {
-            $this->output->writeln(sprintf('<error>Unknown mode: %s</error>', $this->mode));
+        if (!in_array($mode, [self::MODE_CHECK, self::MODE_FIX], true)) {
+            $this->output->writeln(sprintf('<error>Unknown mode: %s</error>', $mode));
 
             return self::FAILURE;
         }
@@ -90,8 +99,16 @@ class UniDataModelStructureCommand extends AbstractCommand
         VersionService::useLatestVersion(true);
         Version::disable();
 
-        $this->processFinishedGoods();
-        $this->processCategories();
+        if ($type === self::TYPE_PRODUCT) {
+            $this->processBaseProducts();
+        } elseif ($type === self::TYPE_CATEGORY) {
+            $this->processCategories();
+        } else {
+            $this->output->writeln(sprintf('<error>Unknown type: %s</error>', $mode));
+
+            return self::FAILURE;
+        }
+
         Version::enable();
 
         foreach ($this->result as $objKey => $errors) {
@@ -102,28 +119,22 @@ class UniDataModelStructureCommand extends AbstractCommand
             }
         }
 
-        $this->output->writeln('<info>Finished!</info>');
-
         return self::SUCCESS;
     }
 
     /**
      * Search for all finished goods in the Uni Product namespace and process them.
      */
-    private function processFinishedGoods(): void
+    private function processBaseProducts(): void
     {
         $listing = new ProductListing();
-        $listing->setCondition('path LIKE ?', [self::BASE_PATH . '%']);
-        $listing->setUnpublished(true);
+        $this->prepareListing($listing);
 
-        if ($listing->count() === 0) {
-            $this->output->writeln('<info>No products found to process.</info>');
-
+        if ($listing->getCount() === 0) {
             return;
         }
 
-        $this->output->writeln('<info>Processing finished goods...</info>');
-        $progress = new ProgressBar($this->output, $listing->count());
+        $progress = new ProgressBar($this->output, $listing->getCount());
         $progress->setFormat(ProgressBar::getFormatDefinition(ProgressBar::FORMAT_DEBUG));
         $progress->start();
 
@@ -132,7 +143,7 @@ class UniDataModelStructureCommand extends AbstractCommand
                 continue;
             }
 
-            $this->processFinishedGood($object);
+            $this->processBaseProduct($object);
             $progress->advance();
         }
 
@@ -146,17 +157,13 @@ class UniDataModelStructureCommand extends AbstractCommand
     private function processCategories(): void
     {
         $listing = new CategoryListing();
-        $listing->setCondition('path LIKE ?', [self::BASE_PATH . '%']);
-        $listing->setUnpublished(true);
+        $this->prepareListing($listing);
 
-        if ($listing->count() === 0) {
-            $this->output->writeln('<info>No categories found to process.</info>');
-
+        if ($listing->getCount() === 0) {
             return;
         }
 
-        $this->output->writeln('<info>Processing categories...</info>');
-        $progress = new ProgressBar($this->output, $listing->count());
+        $progress = new ProgressBar($this->output, $listing->getCount());
         $progress->setFormat(ProgressBar::getFormatDefinition(ProgressBar::FORMAT_DEBUG));
         $progress->start();
 
@@ -176,12 +183,11 @@ class UniDataModelStructureCommand extends AbstractCommand
     /**
      * Add internal category level relations when missing and ensure the correct Objectbricks are added based on the product group.
      */
-    private function processFinishedGood(UniProductBase $object): void
+    private function processBaseProduct(UniProductBase $object): void
     {
         // $object = VersionService::getPublishedOrLatestVersion($object);
 
         /* --- Fix Levels --- */
-
         $parents = $this->getFullCategoryHistory($object);
         $catTransformer = static fn ($cat): ?string => $cat instanceof UniProductCategoryInternal ? $cat->getFullPath() : null;
         $mappedLevels = array_filter(array_map($catTransformer, $object->getInternalCategories()));
@@ -236,12 +242,12 @@ class UniDataModelStructureCommand extends AbstractCommand
         // $object = VersionService::getPublishedOrLatestVersion($object);
 
         $level = (int) $object->getLevel();
-        $categoryLevel = $object->getCategoryLevel();
-        $fixLevel = UniProductCategoryLevel::fromLevelNumber($level)->value;
-        $levelMismatch = $categoryLevel !== $fixLevel;
+        $hierarchyLevel = $object->getCategoryLevel();
+        $fixLevel = UniProductHierarchyLevel::fromLevelNumber($level)->value;
+        $levelMismatch = $hierarchyLevel !== $fixLevel;
 
         if ($levelMismatch) {
-            $this->result[self::objKey($object)][] = sprintf('Wrong or missing level: %s instead of %s', $categoryLevel ?? '–', $fixLevel);
+            $this->result[self::objKey($object)][] = sprintf('Wrong or missing level: %s instead of %s', $hierarchyLevel ?? '–', $fixLevel);
 
             if ($this->fix) {
                 $object->setCategoryLevel($fixLevel);
@@ -282,7 +288,7 @@ class UniDataModelStructureCommand extends AbstractCommand
         $parent = $object->getParent();
 
         while (true) {
-            if (!$parent instanceof UniProductCategoryInternal) {
+            if (!$parent instanceof UniProductBase && !$parent instanceof UniProductCategoryInternal) {
                 break;
             }
 
@@ -297,7 +303,7 @@ class UniDataModelStructureCommand extends AbstractCommand
      * Returns a list of Objectbricks that should be assigned to a given object based on product hierarchy level
      * and product group.
      *
-     * @param array<string,mixed> $lookup
+     * @param array<string, list<string>> $lookup
      *
      * @return string[]
      */
@@ -319,5 +325,17 @@ class UniDataModelStructureCommand extends AbstractCommand
         $existingBricks = array_map(static fn ($brick): string => $brick::class, $bricks);
 
         return array_diff($bricksClasses, $existingBricks);
+    }
+
+    private function prepareListing(ProductListing|CategoryListing $listing): void
+    {
+        $listing->setCondition('path LIKE ?', [UniModelStructureCommand::BASE_PATH . '%']);
+        $listing->setUnpublished(true);
+
+        $offset = (int) $this->input->getOption(self::OPTION_OFFSET);
+        $limit = (int) $this->input->getOption(self::OPTION_LIMIT);
+
+        $listing->setOffset($offset);
+        $listing->setLimit($limit);
     }
 }

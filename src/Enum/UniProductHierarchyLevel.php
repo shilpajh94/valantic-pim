@@ -7,7 +7,7 @@ namespace App\Enum;
 /**
  * This enum specifies all possible internal product hierarchy levels.
  */
-enum UniProductCategoryLevel: string implements OptionsProviderSupport
+enum UniProductHierarchyLevel: string implements OptionsProviderSupport
 {
     case PRODUCT_GROUP = 'PRODUCT_GROUP';
     case CATEGORY = 'CATEGORY';
@@ -41,6 +41,19 @@ enum UniProductCategoryLevel: string implements OptionsProviderSupport
             self::PRODUCT_LINE => 'Product Line Brand',
             self::PRODUCT_VARIANT => 'Product Variant (Skeleton)',
             self::FINISHED_GOOD => 'Finished Good',
+        };
+    }
+
+    public function levelNumber(): int
+    {
+        return match ($this) {
+            self::PRODUCT_GROUP => 1,
+            self::CATEGORY => 2,
+            self::SUB_CATEGORY => 3,
+            self::HIGH_LEVEL_BRAND => 4,
+            self::PRODUCT_LINE => 5,
+            self::PRODUCT_VARIANT => 6,
+            self::FINISHED_GOOD => 7,
         };
     }
 }

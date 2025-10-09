@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Model\OptionsProvider\UniProductManagement;
 
-use App\Enum\UniProductCategoryLevel;
+use App\Enum\UniProductHierarchyLevel;
 use App\Model\OptionsProvider\AbstractEnumOptionsProvider;
 
-/** @extends AbstractEnumOptionsProvider<UniProductCategoryLevel> */
+/** @extends AbstractEnumOptionsProvider<UniProductHierarchyLevel> */
 class UniProductCategoryInternalLevel extends AbstractEnumOptionsProvider
 {
     protected function getEnumClass(): string
     {
-        return UniProductCategoryLevel::class;
+        return UniProductHierarchyLevel::class;
     }
 }
