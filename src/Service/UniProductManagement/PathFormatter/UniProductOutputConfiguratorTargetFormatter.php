@@ -44,7 +44,7 @@ class UniProductOutputConfiguratorTargetFormatter implements PathFormatterInterf
                 $newPath = sprintf(
                     'Internal category %s: %s',
                     str_replace(self::BASE_PATH . '/', '', $targetObject->getFullPath()),
-                    $targetObject->getName(),
+                    $targetObject->getHierarchyLevelDescription(),
                 );
             }
 

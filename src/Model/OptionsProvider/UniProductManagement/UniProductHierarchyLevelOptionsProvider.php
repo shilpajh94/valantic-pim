@@ -8,7 +8,7 @@ use App\Enum\UniProductHierarchyLevel;
 use App\Model\OptionsProvider\AbstractEnumOptionsProvider;
 
 /** @extends AbstractEnumOptionsProvider<UniProductHierarchyLevel> */
-class UniProductCategoryInternalLevel extends AbstractEnumOptionsProvider
+class UniProductHierarchyLevelOptionsProvider extends AbstractEnumOptionsProvider
 {
     protected function getEnumClass(): string
     {

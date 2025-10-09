@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace App\Model\DataObject;
 
 use Pimcore\Model\DataObject\Concrete;
+use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 
 abstract class AbstractUniProductBase extends Concrete
 {
-    use SuperfastSaveTrait;
-
     /**
      * Resolve Objectbrick instances of a given type in any point of the Pimcore object parent hierarchy.
      *
@@ -29,7 +28,7 @@ abstract class AbstractUniProductBase extends Concrete
      * Identify the relevant parent category object by looking for an instance of a given Objectbrick class.
      * Returns the first category with an attached instance of the given Objectbrick class.
      */
-    public function resolveAncestorCategoryByObjectBrick(string $objectbrickClass): ?UniProductCategoryInternal
+    public function resolveAncestorCategoryByObjectBrick(string $objectbrickClass): ?UniProductBase
     {
         return $this->resolveAncestorCategory($this, $objectbrickClass);
     }
@@ -39,15 +38,15 @@ abstract class AbstractUniProductBase extends Concrete
      * Returns the first category with an attached instance of the given Objectbrick class.
      * Functionality extracted to separate private method for recursion.
      */
-    private function resolveAncestorCategory(AbstractUniProductBase|UniProductCategoryInternal $object, string $objectbrickClass): ?UniProductCategoryInternal
+    private function resolveAncestorCategory(AbstractUniProductBase|UniProductCategoryInternal $object, string $objectbrickClass): ?UniProductBase
     {
         $parent = $object->getParent();
 
-        if (!$parent instanceof UniProductCategoryInternal) {
+        if (!$parent instanceof UniProductBase) {
             return null;
         }
 
-        foreach ($parent->getLevelSpecificData()?->getItems() ?? [] as $objectBrick) {
+        foreach ($parent->getFinishedGoodProductGroupSpecific()?->getItems() ?? [] as $objectBrick) {
             if ($objectBrick instanceof $objectbrickClass) {
                 return $parent;
             }
@@ -70,13 +69,13 @@ abstract class AbstractUniProductBase extends Concrete
     {
         $ancestor = $this->resolveAncestorCategory($object, $objectbrickClass);
 
-        if (!$ancestor instanceof UniProductCategoryInternal) {
+        if (!$ancestor instanceof UniProductBase) {
             return [];
         }
 
         $result = [];
 
-        foreach ($ancestor->getLevelSpecificData()?->getItems() ?? [] as $objectBrick) {
+        foreach ($ancestor->getFinishedGoodProductGroupSpecific()?->getItems() ?? [] as $objectBrick) {
             if ($objectBrick instanceof $objectbrickClass) {
                 $result[] = $objectBrick;
             }

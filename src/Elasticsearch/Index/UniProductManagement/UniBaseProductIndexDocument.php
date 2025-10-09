@@ -106,7 +106,7 @@ class UniBaseProductIndexDocument extends AbstractDocument
             ]),
         ]];
 
-        foreach ($element->getProductGroupSpecific()?->getItems() ?? [] as $objectBrick) {
+        foreach ($element->getFinishedGoodProductGroupSpecific()?->getItems() ?? [] as $objectBrick) {
             $result[] = $this->getNormalizedObjectbrick($objectBrick, self::FINISHED_GOOD_PRODUCT_GROUP_SPECIFIC_PREFIX);
         }
 

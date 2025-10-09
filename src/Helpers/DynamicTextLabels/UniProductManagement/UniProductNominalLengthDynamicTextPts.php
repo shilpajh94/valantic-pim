@@ -7,12 +7,8 @@ namespace App\Helpers\DynamicTextLabels\UniProductManagement;
 use App\Service\VersionService;
 use Pimcore\Model\DataObject\ClassDefinition\Layout\DynamicTextLabelInterface;
 use Pimcore\Model\DataObject\Concrete;
-use Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgPts;
-use Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkPts;
 use Pimcore\Model\DataObject\UniProductBase;
-use Pimcore\Model\DataObject\UniProductBase\ProductGroupSpecific;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
-use Pimcore\Model\DataObject\UniProductCategoryInternal\LevelSpecificData;
 
 /**
  * Render a calculated nomial length, based on a combination of skeleton and finished good values.
@@ -43,13 +39,21 @@ class UniProductNominalLengthDynamicTextPts extends UniProductDynamicText implem
             return $output;
         }
 
+        return $output; // TODO: Remove temporary return for phpstan
+        /*
+
+        TODO: Add above:
+        use Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgPts;
+        use Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkPts;
+        use Pimcore\Model\DataObject\UniProductBase\FinishedGoodProductGroupSpecific;
+
         $parent = VersionService::getPublishedOrLatestVersion($parent);
 
         if (!$parent->getLevelSpecificData() instanceof LevelSpecificData) {
             return $output;
         }
 
-        if (!$object->getProductGroupSpecific() instanceof ProductGroupSpecific) {
+        if (!$object->getFinishedGoodProductGroupSpecific() instanceof FinishedGoodProductGroupSpecific) {
             return $output;
         }
 
@@ -59,7 +63,7 @@ class UniProductNominalLengthDynamicTextPts extends UniProductDynamicText implem
             return $output;
         }
 
-        $childBrickData = $object->getProductGroupSpecific()->getUniPrFgPts();
+        $childBrickData = $object->getFinishedGoodProductGroupSpecific()->getUniPrFgPts();
 
         if (!$childBrickData instanceof UniPrFgPts) {
             return $output;
@@ -88,5 +92,6 @@ class UniProductNominalLengthDynamicTextPts extends UniProductDynamicText implem
         }
 
         return $output;
+        */
     }
 }

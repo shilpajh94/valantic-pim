@@ -7,10 +7,6 @@ namespace App\Helpers\DynamicTextLabels\UniProductManagement;
 use App\Service\VersionService;
 use Pimcore\Model\DataObject\ClassDefinition\Layout\DynamicTextLabelInterface;
 use Pimcore\Model\DataObject\Concrete;
-use Pimcore\Model\DataObject\Data\NumericRange;
-use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts;
-use Pimcore\Model\DataObject\UniProductCategoryInternal;
-use Pimcore\Model\DataObject\UniProductCategoryInternal\LevelSpecificData;
 
 /**
  * Render a product temperature range, based on a combination of finished good values.
@@ -29,13 +25,18 @@ class UniProductTempRangeDynamicTextPts extends UniProductDynamicText implements
         }
 
         VersionService::useLatestVersion(true);
-        $object = VersionService::getPublishedOrLatestVersion($object);
+        VersionService::getPublishedOrLatestVersion($object);
 
-        if (!$object instanceof UniProductCategoryInternal) {
-            return $output;
-        }
+        return $output; // TODO: Remove temporary return for phpstan
 
-        if (!$object->getLevelSpecificData() instanceof LevelSpecificData) {
+        /*
+
+        TODO: Add above
+        use Pimcore\Model\DataObject\Data\NumericRange;
+        use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts;
+        use Pimcore\Model\DataObject\UniProductCategoryInternal\LevelSpecificData;
+
+        if (!$object->getLevel() instanceof LevelSpecificData) {
             return $output;
         }
 
@@ -65,5 +66,6 @@ class UniProductTempRangeDynamicTextPts extends UniProductDynamicText implements
         }
 
         return $output;
+        */
     }
 }
