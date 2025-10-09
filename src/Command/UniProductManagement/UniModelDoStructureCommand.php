@@ -22,6 +22,7 @@ use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductBase\Listing as ProductListing;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Pimcore\Model\DataObject\UniProductCategoryInternal\Listing as CategoryListing;
+use Pimcore\Model\DataObject\UniRegion;
 use Pimcore\Model\Version;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -68,6 +69,9 @@ class UniModelDoStructureCommand extends AbstractCommand
     /** @var array<string,array<string,string>> */
     private array $result = [];
 
+    /** @var UniRegion[] */
+    private array $availableRegions = [];
+
     private static function objKey(Concrete $object): string
     {
         return sprintf('%s (%s)', $object->getFullPath(), $object->getId());
@@ -95,6 +99,8 @@ class UniModelDoStructureCommand extends AbstractCommand
 
             return self::FAILURE;
         }
+
+        $this->availableRegions = $this->getAvailableRegions();
 
         VersionService::useLatestVersion(true);
         Version::disable();
@@ -219,16 +225,36 @@ class UniModelDoStructureCommand extends AbstractCommand
             $this->result[self::objKey($object)][] = sprintf('Missing bricks: %s', implode(', ', $missingBricks));
         }
 
-        if (!$this->fix || ($missingBricks === [] && $missingLevels === [] && $surplusLevels === [])) {
-            return;
-        }
-
-        foreach ($missingBricks as $missingBrick) {
-            $setter = sprintf('set%s', Helpers::classBasename($missingBrick));
-            $object->getProductGroupSpecific()?->$setter(new $missingBrick($object));
+        if ($this->fix) {
+            foreach ($missingBricks as $missingBrick) {
+                $setter = sprintf('set%s', Helpers::classBasename($missingBrick));
+                $object->getProductGroupSpecific()?->$setter(new $missingBrick($object));
+            }
         }
 
         // TODO: Remove surplus bricks?
+
+        /* --- Fix regions --- */
+
+        // Make every product available in all regions for now.
+        $missingRegions = array_diff($this->availableRegions, $object->getRegionalAvailability());
+
+        if ($missingRegions !== []) {
+            $this->result[self::objKey($object)][] = sprintf(
+                'Missing regions: %s',
+                implode(', ', array_map(static fn (UniRegion $region): ?string => $region->getName(), $missingRegions)),
+            );
+        }
+
+        if ($this->fix) {
+            $object->setRegionalAvailability($this->availableRegions);
+        }
+
+        /* --- Save changes --- */
+
+        if (!$this->fix || ($missingBricks === [] && $missingLevels === [] && $surplusLevels === [] && $missingRegions === [])) {
+            return;
+        }
 
         $object->setOmitMandatoryCheck(true);
         $object->save([UniProductWorkflowEventListener::SKIP_WORKFLOW_LISTENER => true]);
@@ -337,5 +363,15 @@ class UniModelDoStructureCommand extends AbstractCommand
 
         $listing->setOffset($offset);
         $listing->setLimit($limit);
+    }
+
+    /** @return UniRegion[] */
+    private function getAvailableRegions(): array
+    {
+        $listing = new UniRegion\Listing();
+        $listing->setCondition('path LIKE ?', ['/Unified PIM/%']);
+        $result = $listing->load();
+
+        return array_filter($result, static fn (UniRegion $region): bool => !$region->hasChildren());
     }
 }
