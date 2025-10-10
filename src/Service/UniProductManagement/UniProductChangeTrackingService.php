@@ -11,6 +11,7 @@ use Pimcore\Db;
 use Pimcore\Model\DataObject\AbstractObject;
 use Pimcore\Model\DataObject\ClassDefinition;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox;
+use Pimcore\Model\DataObject\ClassDefinition\Data\Image;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks;
@@ -18,6 +19,8 @@ use Pimcore\Model\DataObject\ClassDefinition\Data\QuantityValue;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Relations\AbstractRelations;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Select;
 use Pimcore\Model\DataObject\Concrete;
+use Pimcore\Model\DataObject\Data\NumericRange;
+use Pimcore\Model\DataObject\Localizedfield;
 use Pimcore\Model\DataObject\Objectbrick;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Pimcore\Model\User;
@@ -755,9 +758,20 @@ class UniProductChangeTrackingService
             ];
         }
 
+        if ($brickFieldDefinition instanceof Image) {
+            $oldValue = $this->normalizeImageValue($rawOldValue);
+
+            $newValue = $this->normalizeImageValue($rawNewValue);
+
+            return [
+                $oldValue ?? self::EMPTY_VALUE,
+                $newValue ?? self::EMPTY_VALUE,
+            ];
+        }
+
         if ($brickFieldDefinition instanceof QuantityValue) {
-            $newValue = $this->normalizeQuantityValue($rawNewValue);
             $oldValue = $this->normalizeQuantityValueFromDb($rawOldValue);
+            $newValue = $this->normalizeQuantityValue($rawNewValue);
 
             $this->logger->debug('QuantityValue brick field comparison', [
                 'field' => "{$brickType}.{$field}",
@@ -780,6 +794,30 @@ class UniProductChangeTrackingService
         }
 
         return [$this->normalizeValue($rawOldValue), $this->normalizeValue($rawNewValue)];
+    }
+
+    /**
+     * Normalize image values (e.g., resolve numeric IDs or extract file paths from image objects).
+     */
+    private function normalizeImageValue(mixed $value): ?string
+    {
+        if ($value instanceof \Pimcore\Model\Asset\Image) {
+            return $value->getFullPath();
+        }
+
+        if (is_numeric($value)) {
+            $image = \Pimcore\Model\Asset::getById((int) $value);
+
+            if ($image instanceof \Pimcore\Model\Asset\Image) {
+                return $image->getFullPath();
+            }
+        }
+
+        if (is_string($value)) {
+            return trim($value);
+        }
+
+        return null;
     }
 
     private function normalizeQuantityValueFromDb(mixed $value): ?string
@@ -805,7 +843,7 @@ class UniProductChangeTrackingService
         return null;
     }
 
-    private function normalizeNumericRange(?\Pimcore\Model\DataObject\Data\NumericRange $value): ?string
+    private function normalizeNumericRange(?NumericRange $value): ?string
     {
         if ($value === null) {
             return null;
@@ -922,6 +960,7 @@ class UniProductChangeTrackingService
             }
 
             $brickChanges = $this->processBrickData($objectBrickData, $localizedBrickData);
+
             $changes = array_merge($changes, $brickChanges);
         }
 
@@ -945,6 +984,7 @@ class UniProductChangeTrackingService
             }
 
             $brickChanges = $this->processBrickLocalizedFields($brick, $localizedBrickData);
+
             $changes = array_merge($changes, $brickChanges);
         }
 
@@ -977,13 +1017,59 @@ class UniProductChangeTrackingService
     ): array {
         $localizedFields = $brick->get('localizedfields');
 
-        if (!$localizedFields instanceof \Pimcore\Model\DataObject\Localizedfield) {
+        if (!$localizedFields instanceof Localizedfield) {
             return [];
         }
 
         $brickType = $brick->getType();
+
+        $brickDefinition = Objectbrick\Definition::getByKey($brickType);
+        $localizedFieldDef = $brickDefinition->getFieldDefinition('localizedfields');
+
+        if (!$localizedFieldDef instanceof Localizedfields) {
+            return [];
+        }
+
+        $allLocalizedItems = $localizedFields->getItems();
+
+        if ($allLocalizedItems === []) {
+            return [];
+        }
+
+        $this->logger->debug('=== processBrickLocalizedFields ===', [
+            'brickType' => $brickType,
+            'languages' => array_keys($allLocalizedItems),
+            'itemsPerLanguage' => array_map(fn ($items): array => array_keys($items), $allLocalizedItems),
+        ]);
+
+        $completeNewData = [];
+
+        foreach ($allLocalizedItems as $language => $items) {
+            $completeNewData[$language] = [];
+
+            foreach ($localizedFieldDef->getFieldDefinitions() as $fieldDef) {
+                $fieldName = $fieldDef->getName();
+
+                $value = $localizedFields->getLocalizedValue($fieldName, $language);
+
+                $this->logger->debug('Getting field value', [
+                    'brickType' => $brickType,
+                    'language' => $language,
+                    'fieldName' => $fieldName,
+                    'value' => $value,
+                ]);
+
+                $completeNewData[$language][$fieldName] = $value;
+            }
+        }
+
+        $this->logger->debug('Complete new data structure', [
+            'brickType' => $brickType,
+            'completeNewData' => array_map(fn ($items): array => array_keys($items), $completeNewData),
+        ]);
+
         $fieldChanges = $this->collectBrickLocalizedFieldChanges(
-            $localizedFields->getItems(),
+            $completeNewData,
             $localizedBrickData,
             $brickType,
         );
@@ -1004,14 +1090,101 @@ class UniProductChangeTrackingService
     ): array {
         $fieldChanges = [];
 
-        foreach ($newLocalizedFields as $language => $newFields) {
-            $oldFields = $localizedBrickData[$brickType]['localized'][$language]['levelSpecificData'] ?? [];
-            $normalizedOldFields = $this->normalizeOldFields([$language => ['levelSpecificData' => $oldFields]]);
-            $normalizedOldFields = $normalizedOldFields[$language] ?? [];
+        $brickDefinition = Objectbrick\Definition::getByKey($brickType);
+        $localizedFieldDef = $brickDefinition->getFieldDefinition('localizedfields');
 
-            $languageChanges = $this->compareFieldValues($newFields, $normalizedOldFields, $language);
-            $fieldChanges = $this->mergeFieldChanges($fieldChanges, $languageChanges);
+        if (!$localizedFieldDef instanceof Localizedfields) {
+            return [];
         }
+
+        $this->logger->debug('=== Starting collectBrickLocalizedFieldChanges ===', [
+            'brickType' => $brickType,
+            'languages' => array_keys($newLocalizedFields),
+            'newFieldsStructure' => array_map(fn ($fields): array => array_keys($fields), $newLocalizedFields),
+        ]);
+
+        foreach ($newLocalizedFields as $language => $newFields) {
+            $oldFields = [];
+
+            $this->logger->debug('Processing language', [
+                'language' => $language,
+                'newFieldNames' => array_keys($newFields),
+                'newFieldValues' => $newFields,
+            ]);
+
+            if (isset($localizedBrickData[$brickType]['localized'][$language])) {
+                $languageData = $localizedBrickData[$brickType]['localized'][$language];
+
+                $this->logger->debug('Found old language data', [
+                    'language' => $language,
+                    'fieldnameKeys' => array_keys($languageData),
+                ]);
+
+                foreach ($languageData as $fieldnameKey => $fieldData) {
+                    if (is_array($fieldData)) {
+                        $this->logger->debug('Merging fieldname data', [
+                            'fieldnameKey' => $fieldnameKey,
+                            'fieldNames' => array_keys($fieldData),
+                            'fieldData' => $fieldData,
+                        ]);
+
+                        $oldFields = array_merge($oldFields, $fieldData);
+                    }
+                }
+
+                $this->logger->debug('Merged old fields', [
+                    'language' => $language,
+                    'allOldFieldNames' => array_keys($oldFields),
+                    'allOldFieldValues' => $oldFields,
+                ]);
+            } else {
+                $this->logger->debug('No old data found for language', ['language' => $language]);
+            }
+
+            foreach ($newFields as $fieldName => $newValue) {
+                if (in_array($fieldName, self::FIELDS_TO_SKIP, true)) {
+                    continue;
+                }
+
+                $oldValue = $oldFields[$fieldName] ?? null;
+
+                $fieldDefinition = $localizedFieldDef->getFieldDefinition($fieldName);
+
+                $normalizedOldValue = $this->normalizeLocalizedFieldValue($fieldDefinition, $oldValue);
+                $normalizedNewValue = $this->normalizeLocalizedFieldValue($fieldDefinition, $newValue);
+
+                $areEqual = $this->areValuesEquivalent($normalizedOldValue, $normalizedNewValue);
+
+                $this->logger->debug('Field comparison', [
+                    'fieldName' => $fieldName,
+                    'language' => $language,
+                    'rawOldValue' => $oldValue,
+                    'rawNewValue' => $newValue,
+                    'normalizedOldValue' => $normalizedOldValue,
+                    'normalizedNewValue' => $normalizedNewValue,
+                    'areEqual' => $areEqual,
+                ]);
+
+                if (!$areEqual) {
+                    if (!isset($fieldChanges[$fieldName])) {
+                        $fieldChanges[$fieldName] = ['old' => [], 'new' => []];
+                    }
+
+                    $fieldChanges[$fieldName]['old'][$language] = $normalizedOldValue;
+                    $fieldChanges[$fieldName]['new'][$language] = $normalizedNewValue;
+
+                    $this->logger->debug('Field change detected', [
+                        'fieldName' => $fieldName,
+                        'language' => $language,
+                    ]);
+                }
+            }
+        }
+
+        $this->logger->debug('=== Final field changes ===', [
+            'fieldChanges' => $fieldChanges,
+            'changedFieldNames' => array_keys($fieldChanges),
+        ]);
 
         return $fieldChanges;
     }
@@ -1037,142 +1210,6 @@ class UniProductChangeTrackingService
         }
 
         return $changes;
-    }
-
-    /**
-     * @param array<string, mixed> $newFields
-     * @param array<string, mixed> $normalizedOldFields
-     *
-     * @return array<string, array{old: array<string, mixed>, new: array<string, mixed>}>
-     */
-    private function compareFieldValues(array $newFields, array $normalizedOldFields, string $language): array
-    {
-        $fieldChanges = [];
-
-        foreach ($newFields as $fieldName => $newValue) {
-            if ($this->shouldSkipBrickField($fieldName)) {
-                continue;
-            }
-
-            $oldValue = $normalizedOldFields[$fieldName] ?? null;
-
-            if ($this->hasFieldChanged($oldValue, $newValue)) {
-                $fieldChanges[$fieldName]['old'][$language] = $oldValue;
-                $fieldChanges[$fieldName]['new'][$language] = $newValue;
-            }
-        }
-
-        foreach ($normalizedOldFields as $fieldName => $oldValue) {
-            if (array_key_exists($fieldName, $newFields) || $this->shouldSkipBrickField($fieldName)) {
-                continue;
-            }
-
-            if ($this->hasFieldChanged($oldValue, null)) {
-                $fieldChanges[$fieldName]['old'][$language] = $oldValue;
-                $fieldChanges[$fieldName]['new'][$language] = null;
-            }
-        }
-
-        return $fieldChanges;
-    }
-
-    /**
-     * @param array<string, array{old: array<mixed>, new: array<mixed>}> $existing
-     * @param array<string, array{old: array<mixed>, new: array<mixed>}> $new
-     *
-     * @return array<string, array{old: array<mixed>, new: array<mixed>}>
-     */
-    private function mergeFieldChanges(array $existing, array $new): array
-    {
-        foreach ($new as $fieldName => $changes) {
-            if (!isset($existing[$fieldName])) {
-                $existing[$fieldName] = ['old' => [], 'new' => []];
-            }
-
-            $existing[$fieldName]['old'] = array_merge($existing[$fieldName]['old'], $changes['old']);
-            $existing[$fieldName]['new'] = array_merge($existing[$fieldName]['new'], $changes['new']);
-        }
-
-        return $existing;
-    }
-
-    private function hasFieldChanged(mixed $oldValue, mixed $newValue): bool
-    {
-        if ($this->shouldSkipChange($oldValue, $newValue)) {
-            return false;
-        }
-
-        if (is_array($oldValue) && is_array($newValue)) {
-            sort($oldValue);
-            sort($newValue);
-
-            return $oldValue !== $newValue;
-        }
-
-        if (is_string($oldValue) && is_array($newValue)) {
-            $oldAsArray = array_map('trim', explode(',', $oldValue));
-            sort($oldAsArray);
-            sort($newValue);
-
-            return $oldAsArray !== $newValue;
-        }
-
-        if (is_array($oldValue) && is_string($newValue)) {
-            $newAsArray = array_map('trim', explode(',', $newValue));
-            sort($oldValue);
-            sort($newAsArray);
-
-            return $oldValue !== $newAsArray;
-        }
-
-        return $oldValue !== $newValue;
-    }
-
-    private function shouldSkipChange(mixed $oldValue, mixed $newValue): bool
-    {
-        return $this->isEmptyValue($oldValue) && $this->isEmptyValue($newValue);
-    }
-
-    private function shouldSkipBrickField(string $fieldName): bool
-    {
-        return in_array($fieldName, self::FIELDS_TO_SKIP, true);
-    }
-
-    /**
-     * @param array<string, mixed> $oldFields
-     *
-     * @return array<string, array<string, mixed>>
-     */
-    private function normalizeOldFields(array $oldFields): array
-    {
-        $normalized = [];
-
-        foreach ($oldFields as $locale => $data) {
-            if (!isset($data['levelSpecificData'])) {
-                continue;
-            }
-
-            $normalized[$locale] = [];
-
-            foreach ($data['levelSpecificData'] as $fieldName => $fieldValue) {
-                $normalized[$locale][$fieldName] = $this->normalizeFieldValueForComparison($fieldValue);
-            }
-        }
-
-        return $normalized;
-    }
-
-    private function normalizeFieldValueForComparison(mixed $value): mixed
-    {
-        if ($value === null || is_array($value)) {
-            return $value;
-        }
-
-        if (is_string($value) && str_contains($value, ',')) {
-            return array_map('trim', explode(',', $value));
-        }
-
-        return $value;
     }
 
     /**
@@ -1555,7 +1592,7 @@ class UniProductChangeTrackingService
                 continue;
             }
 
-            $fieldChanges = $this->processLocalizedFieldChanges($localizedFields, $localizedFieldData);
+            $fieldChanges = $this->processLocalizedFieldChanges($localizedFields, $localizedFieldData, $fieldDefinition);
 
             if ($fieldChanges === []) {
                 continue;
@@ -1575,6 +1612,7 @@ class UniProductChangeTrackingService
     private function processLocalizedFieldChanges(
         object $localizedFields,
         array $localizedFieldData,
+        Localizedfields $localizedFieldDefinition,
     ): array {
         $fieldChanges = [];
 
@@ -1584,8 +1622,10 @@ class UniProductChangeTrackingService
             foreach ($newFields as $fieldName => $newValue) {
                 $oldValue = $oldFields[$fieldName] ?? null;
 
-                $normalizedNewValue = $this->normalizeValue($newValue);
-                $normalizedOldValue = $this->normalizeValue($oldValue);
+                $fieldDefinition = $localizedFieldDefinition->getFieldDefinition($fieldName);
+
+                $normalizedNewValue = $this->normalizeLocalizedFieldValue($fieldDefinition, $newValue);
+                $normalizedOldValue = $this->normalizeLocalizedFieldValue($fieldDefinition, $oldValue);
 
                 if ($this->areValuesEquivalent($normalizedOldValue, $normalizedNewValue)) {
                     continue;
@@ -1601,6 +1641,19 @@ class UniProductChangeTrackingService
         }
 
         return $fieldChanges;
+    }
+
+    private function normalizeLocalizedFieldValue(?ClassDefinition\Data $fieldDefinition, mixed $value): mixed
+    {
+        if ($fieldDefinition instanceof Checkbox) {
+            if ($value === null || $value === '') {
+                return 'No';
+            }
+
+            return ($value === 1 || $value === '1' || $value === true || $value === 'true') ? 'Yes' : 'No';
+        }
+
+        return $this->normalizeValue($value);
     }
 
     /**
