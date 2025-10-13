@@ -8,6 +8,8 @@ use App\Entity\UniProductManagement\UniProductChangeHistory;
 use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use Pimcore\Db;
+use Pimcore\Model\Asset;
+use Pimcore\Model\Asset\Image as AssetImage;
 use Pimcore\Model\DataObject\AbstractObject;
 use Pimcore\Model\DataObject\ClassDefinition;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox;
@@ -35,7 +37,7 @@ class UniProductChangeTrackingService
     private const EMPTY_VALUE = '(Empty)';
     private const NUMERIC_PRECISION = 0.0001;
     private const DECIMAL_PLACES = 4;
-    private const FIELDS_TO_SKIP = ['index'];
+    private const FIELDS_TO_SKIP = ['index', 'userModification', 'modificationDate', 'userOwner', 'creationDate'];
 
     public function __construct(
         private readonly LoggerInterface $logger,
@@ -434,6 +436,9 @@ class UniProductChangeTrackingService
         $newData = [];
 
         foreach ($allFieldsToCheck as $field) {
+            if (in_array($field, self::FIELDS_TO_SKIP, true)) {
+                continue;
+            }
             $fieldDefinition = $object->getClass()->getFieldDefinition($field);
 
             if ($fieldDefinition instanceof Localizedfields) {
@@ -501,6 +506,9 @@ class UniProductChangeTrackingService
         $changes = [];
 
         foreach ($allFieldsToCheck as $field) {
+            if (in_array($field, self::FIELDS_TO_SKIP, true)) {
+                continue;
+            }
             $fieldDefinition = $object->getClass()->getFieldDefinition($field);
 
             $oldRawValue = $oldData[$field] ?? null;
@@ -513,10 +521,17 @@ class UniProductChangeTrackingService
                 continue;
             }
 
-            $changes[$field] = [
-                'old' => $oldValue ?? self::EMPTY_VALUE,
-                'new' => $newValue ?? self::EMPTY_VALUE,
-            ];
+            if ($this->isCheckboxField($object, $field)) {
+                $changes[$field] = [
+                    'old' => $oldValue ?? 'No',
+                    'new' => $newValue ?? 'No',
+                ];
+            } else {
+                $changes[$field] = [
+                    'old' => $oldValue ?? self::EMPTY_VALUE,
+                    'new' => $newValue ?? self::EMPTY_VALUE,
+                ];
+            }
         }
 
         return $changes;
@@ -546,7 +561,7 @@ class UniProductChangeTrackingService
         }
 
         if ($this->isCheckboxField($object, $field)) {
-            return $value === true ? 'Yes' : 'No';
+            return ($value === true || $value === 1 || $value === '1') ? 'Yes' : 'No';
         }
 
         if (!$object instanceof Concrete) {
@@ -801,14 +816,14 @@ class UniProductChangeTrackingService
      */
     private function normalizeImageValue(mixed $value): ?string
     {
-        if ($value instanceof \Pimcore\Model\Asset\Image) {
+        if ($value instanceof AssetImage) {
             return $value->getFullPath();
         }
 
         if (is_numeric($value)) {
-            $image = \Pimcore\Model\Asset::getById((int) $value);
+            $image = Asset::getById((int) $value);
 
-            if ($image instanceof \Pimcore\Model\Asset\Image) {
+            if ($image instanceof AssetImage) {
                 return $image->getFullPath();
             }
         }
@@ -1620,6 +1635,9 @@ class UniProductChangeTrackingService
             $oldFields = $localizedFieldData[$language] ?? [];
 
             foreach ($newFields as $fieldName => $newValue) {
+                if (in_array($fieldName, self::FIELDS_TO_SKIP, true)) {
+                    continue;
+                }
                 $oldValue = $oldFields[$fieldName] ?? null;
 
                 $fieldDefinition = $localizedFieldDefinition->getFieldDefinition($fieldName);
