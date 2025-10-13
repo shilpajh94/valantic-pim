@@ -15,6 +15,7 @@ use Pimcore\Model\Asset;
 use Pimcore\Model\Asset\Folder;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\AbstractObject;
+use Pimcore\Model\DataObject\ClassDefinition;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Pimcore\Model\DataObject\UniProductDataOutputConfiguration;
 
@@ -197,27 +198,69 @@ class OutputConfiguratorService
             'object_key' => $object->getKey(),
         ];
 
+        if (!$object instanceof DataObject\Concrete) {
+            throw new \RuntimeException(sprintf('Object must be a Concrete object, got "%s".', $object::class));
+        }
+
+        $classId = $object->getClassId();
+        $classDefinition = ClassDefinition::getById($classId);
+
+        if (!$classDefinition instanceof ClassDefinition) {
+            throw new \RuntimeException(sprintf('Class definition not found for class "%s".', $object->getClassName()));
+        }
+
         foreach ($fields as $fieldKey => $key) {
             $fieldValue = null;
+            $baseFieldKey = $fieldKey;
+            $fieldType = null;
 
             if (str_contains($fieldKey, '.')) {
                 [$brickName, $brickField] = explode('.', $fieldKey, 2);
                 $brickGetter = 'get' . ucfirst($brickName);
 
+                $cleanBrickField = preg_replace('/_[a-z]{2}(?:_[A-Z]{2})?$/', '', $brickField);
+
+                $brickDefinition = DataObject\Objectbrick\Definition::getByKey($brickName);
+
+                if ($brickDefinition instanceof DataObject\Objectbrick\Definition) {
+                    $fieldDef = $brickDefinition->getFieldDefinition($cleanBrickField);
+
+                    if ($fieldDef instanceof ClassDefinition\Data) {
+                        $fieldType = $fieldDef->getFieldtype();
+                    }
+                }
+
                 if (method_exists($object, $brickGetter)) {
                     $brickInstance = $object->$brickGetter();
 
                     if ($brickInstance instanceof DataObject\Objectbrick\Data\AbstractData) {
-                        $fieldValue = $brickInstance->get($brickField);
+                        if (preg_match('/_([a-z]{2}(?:_[A-Z]{2})?)$/', $brickField, $matches)) {
+                            $language = $matches[1];
+                            $baseField = preg_replace('/_[a-z]{2}(?:_[A-Z]{2})?$/', '', $brickField);
+                            $fieldValue = $brickInstance->get($baseField, $language);
+                        } else {
+                            $fieldValue = $brickInstance->get($brickField);
+                        }
                     }
                 }
             } else {
-                $fieldKey1 = preg_replace('/_[a-z]{2}(_[A-Z]{2})?$/', '', $fieldKey);
+                $baseFieldKey = preg_replace('/_[a-z]{2}(?:_[A-Z]{2})?$/', '', $fieldKey);
 
-                $fieldValue = $object->get($fieldKey1);
+                $fieldDef = $classDefinition->getFieldDefinition($baseFieldKey);
+
+                if ($fieldDef instanceof ClassDefinition\Data) {
+                    $fieldType = $fieldDef->getFieldtype();
+                }
+
+                if (preg_match('/_([a-z]{2}(?:_[A-Z]{2})?)$/', $fieldKey, $matches)) {
+                    $language = $matches[1];
+                    $fieldValue = $object->get($baseFieldKey, $language);
+                } else {
+                    $fieldValue = $object->get($fieldKey);
+                }
             }
 
-            $row[$fieldKey] = $this->formatCellValue($fieldValue);
+            $row[$fieldKey] = $this->formatCellValue($fieldValue, $fieldType);
         }
 
         return $row;
@@ -285,11 +328,20 @@ class OutputConfiguratorService
      * Formats a cell value for export.
      *
      * @param mixed $value The value to format.
+     * @param string|null $fieldType The field type (e.g., 'checkbox').
      *
      * @return string The formatted value.
      */
-    public function formatCellValue(mixed $value): string
+    public function formatCellValue(mixed $value, ?string $fieldType = null): string
     {
+        if ($fieldType === 'checkbox') {
+            if ($value === true || $value === 1 || $value === '1') {
+                return 'Yes';
+            }
+
+            return 'No';
+        }
+
         if ($value instanceof \DateTimeInterface) {
             return $value->format('Y-m-d H:i:s');
         } elseif (is_array($value)) {
