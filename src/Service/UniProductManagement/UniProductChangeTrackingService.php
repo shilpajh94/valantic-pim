@@ -48,6 +48,10 @@ class UniProductChangeTrackingService
 
     public function trackAndSaveChanges(AbstractObject $object): void
     {
+        if (!$this->validateObjectForTracking($object)) {
+            return;
+        }
+
         $changes = $this->computeChanges($object);
 
         if ($changes === []) {
@@ -55,6 +59,23 @@ class UniProductChangeTrackingService
         }
 
         $this->saveChangeHistory($object, $changes);
+    }
+
+    /**
+     * Validate the object before tracking changes.
+     * Returns false if validation fails.
+     */
+    private function validateObjectForTracking(AbstractObject $object): bool
+    {
+        if (!$object instanceof Concrete) {
+            return false;
+        }
+
+        if ($object->isPublished() === false) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -94,18 +115,31 @@ class UniProductChangeTrackingService
             throw new \InvalidArgumentException('The provided object must be a Concrete object.');
         }
 
+        // Handle field collection fields: fcType[index].fieldName or fcType[index].localized.fieldName
+        if (preg_match('/^([^[]+)\[(\d+)\]\.(.+)$/', $field, $matches)) {
+            $fcType = $matches[1];
+            $index = $matches[2];
+            $fieldPath = $matches[3];
+
+            return $this->getFieldCollectionFieldLabel($fcType, $fieldPath);
+        }
+
+        // Handle brick fields
         if (str_contains($field, '.') && !str_starts_with($field, 'localized.') && !str_starts_with($field, 'relation.')) {
             return $this->getBrickFieldLabel($field);
         }
 
+        // Handle relation fields
         if (str_starts_with($field, 'relation.')) {
             return $this->getRelationFieldLabel($object, substr($field, 9));
         }
 
+        // Handle localized fields
         if (str_starts_with($field, 'localized.')) {
             return $this->getLocalizedFieldLabel($object, substr($field, 10));
         }
 
+        // Handle standard fields
         return $this->getStandardFieldLabel($object, $field);
     }
 
@@ -316,12 +350,18 @@ class UniProductChangeTrackingService
         $brickLocalizedFieldChanges = $this->computeLocalizedFieldChangesInBricks($object);
         $relationFieldChanges = $this->computeRelationFieldChanges($object);
 
+        // Field Collection tracking
+        $fieldCollectionChanges = $this->computeFieldCollectionChanges($object);
+        $fieldCollectionLocalizedChanges = $this->computeLocalizedFieldChangesInFieldCollections($object);
+
         return array_merge(
             $standardFieldChanges,
             $objectBrickChanges,
             $localizedFieldChanges,
             $brickLocalizedFieldChanges,
             $relationFieldChanges,
+            $fieldCollectionChanges,
+            $fieldCollectionLocalizedChanges,
         );
     }
 
@@ -742,8 +782,6 @@ class UniProductChangeTrackingService
             $brickFieldDefinition,
             $rawOldValue,
             $rawNewValue,
-            $brickType,
-            $field,
         );
 
         if ($this->areValuesEquivalent($oldValue, $newValue)) {
@@ -763,8 +801,6 @@ class UniProductChangeTrackingService
         ClassDefinition\Data $brickFieldDefinition,
         mixed $rawOldValue,
         mixed $rawNewValue,
-        string $brickType,
-        string $field,
     ): array {
         if ($brickFieldDefinition instanceof Checkbox) {
             return [
@@ -787,12 +823,6 @@ class UniProductChangeTrackingService
         if ($brickFieldDefinition instanceof QuantityValue) {
             $oldValue = $this->normalizeQuantityValueFromDb($rawOldValue);
             $newValue = $this->normalizeQuantityValue($rawNewValue);
-
-            $this->logger->debug('QuantityValue brick field comparison', [
-                'field' => "{$brickType}.{$field}",
-                'normalized_old' => $oldValue,
-                'normalized_new' => $newValue,
-            ]);
 
             return [$oldValue, $newValue];
         }
@@ -906,48 +936,72 @@ class UniProductChangeTrackingService
 
     private function areValuesEquivalent(mixed $oldValue, mixed $newValue): bool
     {
+        // 1. Direct equality check (includes null vs null).
         if ($oldValue === $newValue) {
             return true;
         }
 
-        if ($oldValue === null && $newValue === null) {
-            return true;
-        }
-
+        // 2. Handle empty values equivalence (null, '', [], etc.).
         if ($this->isEmptyValue($oldValue) && $this->isEmptyValue($newValue)) {
             return true;
         }
 
-        if ($oldValue === null || $newValue === null) {
-            return false;
-        }
-
-        if (is_string($oldValue) && is_string($newValue)
-            && str_contains($oldValue, 'to') && str_contains($newValue, 'to')) {
-            return trim($oldValue) === trim($newValue);
-        }
-
+        // 3. Handle numeric values with precision tolerance.
         if (is_numeric($oldValue) && is_numeric($newValue)) {
             return abs((float) $oldValue - (float) $newValue) < self::NUMERIC_PRECISION;
         }
 
+        // 4. Handle arrays (ensure order-agnostic comparison for indexed arrays).
         if (is_array($oldValue) && is_array($newValue)) {
+            // Check if both arrays are associative or indexed.
+            if ($this->isAssociativeArray($oldValue) || $this->isAssociativeArray($newValue)) {
+                // Associative array comparison (key-value must match).
+                return $oldValue === $newValue;
+            }
+
+            // Indexed array comparison (order-agnostic).
             sort($oldValue);
             sort($newValue);
 
             return $oldValue === $newValue;
         }
 
+        // 5. Handle strings (trim before comparison).
+        if (is_string($oldValue) && is_string($newValue)) {
+            return trim($oldValue) === trim($newValue);
+        }
+
+        // 6. Strings with "to" logic for range comparison.
+        if (is_string($oldValue) && is_string($newValue)
+            && str_contains($oldValue, 'to') && str_contains($newValue, 'to')) {
+            return trim($oldValue) === trim($newValue);
+        }
+
+        // 7. Scalar comparison (strings, booleans, etc.).
         if (is_scalar($oldValue) && is_scalar($newValue)) {
             return trim((string) $oldValue) === trim((string) $newValue);
         }
 
+        // 8. Default to inequality.
         return false;
     }
 
     private function isEmptyValue(mixed $value): bool
     {
         return $value === null || $value === '' || $value === self::EMPTY_VALUE || $value === [];
+    }
+
+    /**
+     * Determines if an array is associative.
+     *
+     * @param array<mixed, mixed> $array The input array (keys and values can be of any type).
+     *
+     * @return bool True if the array is associative, false otherwise.
+     */
+    private function isAssociativeArray(array $array): bool
+    {
+        // Check if any key is not numeric, indicating an associative array.
+        return array_keys($array) !== range(0, count($array) - 1);
     }
 
     /**
@@ -1051,12 +1105,6 @@ class UniProductChangeTrackingService
             return [];
         }
 
-        $this->logger->debug('=== processBrickLocalizedFields ===', [
-            'brickType' => $brickType,
-            'languages' => array_keys($allLocalizedItems),
-            'itemsPerLanguage' => array_map(fn ($items): array => array_keys($items), $allLocalizedItems),
-        ]);
-
         $completeNewData = [];
 
         foreach ($allLocalizedItems as $language => $items) {
@@ -1067,21 +1115,9 @@ class UniProductChangeTrackingService
 
                 $value = $localizedFields->getLocalizedValue($fieldName, $language);
 
-                $this->logger->debug('Getting field value', [
-                    'brickType' => $brickType,
-                    'language' => $language,
-                    'fieldName' => $fieldName,
-                    'value' => $value,
-                ]);
-
                 $completeNewData[$language][$fieldName] = $value;
             }
         }
-
-        $this->logger->debug('Complete new data structure', [
-            'brickType' => $brickType,
-            'completeNewData' => array_map(fn ($items): array => array_keys($items), $completeNewData),
-        ]);
 
         $fieldChanges = $this->collectBrickLocalizedFieldChanges(
             $completeNewData,
@@ -1112,48 +1148,19 @@ class UniProductChangeTrackingService
             return [];
         }
 
-        $this->logger->debug('=== Starting collectBrickLocalizedFieldChanges ===', [
-            'brickType' => $brickType,
-            'languages' => array_keys($newLocalizedFields),
-            'newFieldsStructure' => array_map(fn ($fields): array => array_keys($fields), $newLocalizedFields),
-        ]);
-
         foreach ($newLocalizedFields as $language => $newFields) {
             $oldFields = [];
-
-            $this->logger->debug('Processing language', [
-                'language' => $language,
-                'newFieldNames' => array_keys($newFields),
-                'newFieldValues' => $newFields,
-            ]);
 
             if (isset($localizedBrickData[$brickType]['localized'][$language])) {
                 $languageData = $localizedBrickData[$brickType]['localized'][$language];
 
-                $this->logger->debug('Found old language data', [
-                    'language' => $language,
-                    'fieldnameKeys' => array_keys($languageData),
-                ]);
-
-                foreach ($languageData as $fieldnameKey => $fieldData) {
+                foreach ($languageData as $fieldData) {
                     if (is_array($fieldData)) {
-                        $this->logger->debug('Merging fieldname data', [
-                            'fieldnameKey' => $fieldnameKey,
-                            'fieldNames' => array_keys($fieldData),
-                            'fieldData' => $fieldData,
-                        ]);
-
                         $oldFields = array_merge($oldFields, $fieldData);
                     }
                 }
-
-                $this->logger->debug('Merged old fields', [
-                    'language' => $language,
-                    'allOldFieldNames' => array_keys($oldFields),
-                    'allOldFieldValues' => $oldFields,
-                ]);
             } else {
-                $this->logger->debug('No old data found for language', ['language' => $language]);
+                $oldFields = [];
             }
 
             foreach ($newFields as $fieldName => $newValue) {
@@ -1170,16 +1177,6 @@ class UniProductChangeTrackingService
 
                 $areEqual = $this->areValuesEquivalent($normalizedOldValue, $normalizedNewValue);
 
-                $this->logger->debug('Field comparison', [
-                    'fieldName' => $fieldName,
-                    'language' => $language,
-                    'rawOldValue' => $oldValue,
-                    'rawNewValue' => $newValue,
-                    'normalizedOldValue' => $normalizedOldValue,
-                    'normalizedNewValue' => $normalizedNewValue,
-                    'areEqual' => $areEqual,
-                ]);
-
                 if (!$areEqual) {
                     if (!isset($fieldChanges[$fieldName])) {
                         $fieldChanges[$fieldName] = ['old' => [], 'new' => []];
@@ -1187,19 +1184,9 @@ class UniProductChangeTrackingService
 
                     $fieldChanges[$fieldName]['old'][$language] = $normalizedOldValue;
                     $fieldChanges[$fieldName]['new'][$language] = $normalizedNewValue;
-
-                    $this->logger->debug('Field change detected', [
-                        'fieldName' => $fieldName,
-                        'language' => $language,
-                    ]);
                 }
             }
         }
-
-        $this->logger->debug('=== Final field changes ===', [
-            'fieldChanges' => $fieldChanges,
-            'changedFieldNames' => array_keys($fieldChanges),
-        ]);
 
         return $fieldChanges;
     }
@@ -1292,16 +1279,38 @@ class UniProductChangeTrackingService
         $names = [];
 
         foreach ($relationIds as $relationId) {
+            // Attempt to resolve as a DataObject
             $relatedObject = AbstractObject::getById($relationId);
 
             if ($relatedObject instanceof AbstractObject) {
                 $names[] = $this->formatObjectReference($relatedObject);
-            } else {
-                $names[] = "Unknown Reference (Object ID $relationId)";
+
+                continue;
             }
+
+            // Attempt to resolve as an Asset
+            $relatedAsset = Asset::getById($relationId);
+
+            if ($relatedAsset instanceof Asset) {
+                $names[] = $this->formatAssetReference($relatedAsset);
+
+                continue;
+            }
+
+            // Handle unknown references
+            $names[] = "Unknown Reference (ID $relationId)";
         }
 
         return $names;
+    }
+
+    /**
+     * Format the reference for an asset.
+     */
+    private function formatAssetReference(Asset $asset): string
+    {
+        // Use the full path of the asset for display
+        return $asset->getFullPath();
     }
 
     /**
@@ -1786,5 +1795,673 @@ class UniProductChangeTrackingService
 
             return [];
         }
+    }
+
+    /**
+     * Add this method to compute field collection changes.
+     *
+     * @return array<string, array{old: mixed, new: mixed}>
+     */
+    private function computeFieldCollectionChanges(AbstractObject $object): array
+    {
+        if (!$object instanceof Concrete) {
+            return [];
+        }
+
+        $changes = [];
+        $hasOverallChanges = false; // Track if any changes exist for the entire Field Collection
+
+        foreach ($object->getClass()->getFieldDefinitions() as $fieldDefinition) {
+            if (!$fieldDefinition instanceof ClassDefinition\Data\Fieldcollections) {
+                continue;
+            }
+
+            $fieldName = $fieldDefinition->getName();
+            $fieldCollectionData = $object->get($fieldName);
+
+            if (!$fieldCollectionData) {
+                continue;
+            }
+
+            $oldFieldCollectionData = $this->getOldFieldCollectionDataFromDatabase($object, $fieldCollectionData);
+
+            foreach ($fieldCollectionData->getItems() as $index => $item) {
+                if (!$item) {
+                    continue;
+                }
+
+                $fcType = $item->getType();
+                $fcDefinition = \Pimcore\Model\DataObject\Fieldcollection\Definition::getByKey($fcType);
+
+                if (!$fcDefinition instanceof \Pimcore\Model\DataObject\Fieldcollection\Definition) {
+                    continue;
+                }
+
+                $fcChanges = []; // Track changes for the current Field Collection item
+
+                foreach ($fcDefinition->getFieldDefinitions() as $fcFieldDefinition) {
+                    $field = $fcFieldDefinition->getName();
+
+                    if ($fcFieldDefinition instanceof Localizedfields) {
+                        continue;
+                    }
+
+                    if ($fcFieldDefinition instanceof AbstractRelations) {
+                        $this->processFieldCollectionRelationChanges(
+                            $fcChanges,
+                            $object,
+                            $item,
+                            $fcType,
+                            $field,
+                            $index,
+                        );
+                    } else {
+                        $this->processFieldCollectionRegularFieldChanges(
+                            $fcChanges,
+                            $item,
+                            $fcFieldDefinition,
+                            $oldFieldCollectionData,
+                            $fcType,
+                            $field,
+                            $index,
+                        );
+                    }
+                }
+
+                // Only add changes for this Field Collection item if there are any
+                if (!empty($fcChanges)) {
+                    $hasOverallChanges = true; // Mark that we have at least one change
+                    $changes = array_merge($changes, $fcChanges);
+                }
+            }
+        }
+
+        // Return an empty array if no changes exist in any Field Collection
+        return $hasOverallChanges ? $changes : [];
+    }
+
+    /**
+     * Process relation field changes in field collections.
+     *
+     * @param array<string, array{old: string, new: string}> $changes
+     */
+    private function processFieldCollectionRelationChanges(
+        array &$changes,
+        AbstractObject $object,
+        \Pimcore\Model\DataObject\Fieldcollection\Data\AbstractData $item,
+        string $fcType,
+        string $field,
+        int $index,
+    ): void {
+        $fieldname = $item->getFieldname();
+        $oldRelationIds = $this->getFieldCollectionRelationIds($object, $fieldname, $field, $index);
+        $newRelationValue = $item->get($field);
+
+        $oldRelationValue = $this->transformRelationIdsToNames($oldRelationIds);
+
+        $newRelationValue = $this->transformRelationObjectsToNames($newRelationValue);
+
+        sort($oldRelationValue);
+        sort($newRelationValue);
+
+        if ($oldRelationValue === [] && $newRelationValue === []) {
+            return;
+        }
+
+        if ($oldRelationValue === $newRelationValue) {
+            return;
+        }
+
+        $changes["{$fcType}[{$index}].relation.{$field}"] = [
+            'old' => implode(', ', $oldRelationValue),
+            'new' => implode(', ', $newRelationValue),
+        ];
+    }
+
+    /**
+     * Process regular field changes in field collections.
+     *
+     * @param array<string, array{old: mixed, new: mixed}> $changes
+     * @param array<string, array<int, array<string, mixed>>> $oldFieldCollectionData
+     */
+    private function processFieldCollectionRegularFieldChanges(
+        array &$changes,
+        object $item,
+        ClassDefinition\Data $fcFieldDefinition,
+        array $oldFieldCollectionData,
+        string $fcType,
+        string $field,
+        int $index,
+    ): void {
+        $rawNewValue = $item->get($field);
+        $rawOldValue = $oldFieldCollectionData[$fcType][$index][$field] ?? null;
+        [$oldValue, $newValue] = $this->normalizeFieldCollectionFieldValues(
+            $fcFieldDefinition,
+            $rawOldValue,
+            $rawNewValue,
+        );
+
+        // Skip unchanged fields
+        if ($this->areValuesEquivalent($oldValue, $newValue)) {
+            return;
+        }
+
+        $changes["{$fcType}[{$index}].{$field}"] = [
+            'old' => $oldValue ?? self::EMPTY_VALUE,
+            'new' => $newValue ?? self::EMPTY_VALUE,
+        ];
+    }
+
+    /**
+     * Normalize field collection field values.
+     *
+     * @return array{0: mixed, 1: mixed}
+     */
+    private function normalizeFieldCollectionFieldValues(
+        ClassDefinition\Data $fcFieldDefinition,
+        mixed $rawOldValue,
+        mixed $rawNewValue,
+    ): array {
+        if ($fcFieldDefinition instanceof Checkbox) {
+            return [
+                ($rawOldValue === 1 || $rawOldValue === '1' || $rawOldValue === true) ? 'Yes' : 'No',
+                ($rawNewValue === true || $rawNewValue === 1 || $rawNewValue === '1') ? 'Yes' : 'No',
+            ];
+        }
+
+        if ($fcFieldDefinition instanceof Image) {
+            return [
+                $this->normalizeImageValue($rawOldValue),
+                $this->normalizeImageValue($rawNewValue),
+            ];
+        }
+
+        if ($fcFieldDefinition instanceof QuantityValue) {
+            return [
+                $this->normalizeQuantityValueFromDb($rawOldValue),
+                $this->normalizeQuantityValue($rawNewValue),
+            ];
+        }
+
+        if ($fcFieldDefinition instanceof ClassDefinition\Data\Numeric) {
+            return [
+                $rawOldValue !== null ? (string) round((float) $rawOldValue, self::DECIMAL_PLACES) : null,
+                $rawNewValue !== null ? (string) round((float) $rawNewValue, self::DECIMAL_PLACES) : null,
+            ];
+        }
+
+        return [
+            $this->normalizeValue($rawOldValue),
+            $this->normalizeValue($rawNewValue),
+        ];
+    }
+
+    /**
+     * @template TItem of \Pimcore\Model\DataObject\Fieldcollection\Data\AbstractData
+     *
+     * @param \Pimcore\Model\DataObject\Fieldcollection<TItem>|null $fieldCollectionData
+     *                                                                                   Field collection data.
+     *
+     * @return array<string, array<int, array<string, mixed>>> The old field collection data.
+     */
+    private function getOldFieldCollectionDataFromDatabase(
+        AbstractObject $object,
+        ?\Pimcore\Model\DataObject\Fieldcollection $fieldCollectionData,
+    ): array {
+        if (!$object instanceof Concrete || !$fieldCollectionData instanceof \Pimcore\Model\DataObject\Fieldcollection) {
+            return [];
+        }
+
+        $data = [];
+
+        foreach ($fieldCollectionData->getItems() as $index => $item) {
+            // No need to check for !$item as it is guaranteed to be non-null
+            $fcData = $this->fetchFieldCollectionDataFromDatabase($object, $item, $index);
+
+            if ($fcData !== []) {
+                $fcType = $item->getType();
+                $data[$fcType][$index] = $fcData;
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch field collection data from the database.
+     *
+     * @param Concrete $object The parent Pimcore object.
+     * @param \Pimcore\Model\DataObject\Fieldcollection\Data\AbstractData $item The field collection item.
+     * @param int $index The index of the field collection item.
+     *
+     * @return array<string, mixed> The fetched field collection data.
+     */
+    private function fetchFieldCollectionDataFromDatabase(
+        Concrete $object,
+        \Pimcore\Model\DataObject\Fieldcollection\Data\AbstractData $item,
+        int $index,
+    ): array {
+        $fcType = $item->getType();
+        $classId = $object->getClass()->getId();
+        $tableName = "object_collection_{$fcType}_{$classId}";
+
+        $sql = "SELECT * FROM $tableName WHERE id = :id AND fieldname = :fieldname AND `index` = :index";
+
+        try {
+            $row = Db::get()->fetchAssociative($sql, [
+                'id' => $object->getId(),
+                'fieldname' => $item->getFieldname(),
+                'index' => $index,
+            ]);
+
+            if (!$row) {
+                return [];
+            }
+
+            unset($row['id'], $row['fieldname'], $row['index']);
+
+            return $this->processNumericRangeFields($row);
+        } catch (\Exception $e) {
+            $this->logger->warning("Error retrieving field collection data for {$fcType}: " . $e->getMessage());
+
+            return [];
+        }
+    }
+
+    /**
+     * Get field collection relation IDs from database.
+     *
+     * @return array<int, int>
+     */
+    private function getFieldCollectionRelationIds(
+        AbstractObject $object,
+        string $fcFieldname,
+        string $relationField,
+        int $index,
+    ): array {
+        if (!$object instanceof Concrete) {
+            return [];
+        }
+
+        $classId = $object->getClass()->getId();
+        $tableName = 'object_relations_' . $classId;
+        $fullFieldname = $fcFieldname . '~' . $relationField;
+
+        $sql = "SELECT dest_id FROM $tableName
+            WHERE src_id = :objectId
+            AND fieldname = :fieldname
+            AND ownertype = 'fieldcollection'
+            AND ownername = :fcFieldname
+            AND position = :position
+            ORDER BY `index`";
+
+        try {
+            $rows = Db::get()->fetchAllAssociative($sql, [
+                'objectId' => $object->getId(),
+                'fieldname' => $fullFieldname,
+                'fcFieldname' => $fcFieldname,
+                'position' => (string) $index,
+            ]);
+
+            return array_map(fn ($row): int => (int) $row['dest_id'], $rows);
+        } catch (\Exception $e) {
+            $this->logger->warning('Error fetching field collection relations: ' . $e->getMessage());
+
+            return [];
+        }
+    }
+
+    /**
+     * Compute localized field changes in field collections.
+     *
+     * @return array<string, array{old: string|null, new: string|null}>
+     */
+    private function computeLocalizedFieldChangesInFieldCollections(AbstractObject $object): array
+    {
+        if (!$object instanceof Concrete) {
+            return [];
+        }
+
+        $localizedFcData = $this->getOldLocalizedFieldCollectionDataFromDatabase($object);
+        $changes = [];
+
+        foreach ($object->getClass()->getFieldDefinitions() as $fieldDefinition) {
+            if (!$fieldDefinition instanceof ClassDefinition\Data\Fieldcollections) {
+                continue;
+            }
+
+            $fieldName = $fieldDefinition->getName();
+            $fieldCollectionData = $object->get($fieldName);
+
+            if (!$fieldCollectionData) {
+                continue;
+            }
+
+            $fcChanges = $this->processFieldCollectionData($fieldCollectionData, $localizedFcData);
+
+            $changes = array_merge($changes, $fcChanges);
+        }
+
+        return $changes;
+    }
+
+    /**
+     * Process field collection data for localized fields.
+     *
+     * @template TItem of \Pimcore\Model\DataObject\Fieldcollection\Data\AbstractData
+     *
+     * @param \Pimcore\Model\DataObject\Fieldcollection<TItem> $fieldCollectionData Field collection data.
+     * @param array<string, mixed> $localizedFcData Localized field collection data.
+     *
+     * @return array<string, array{old: string|null, new: string|null}> The field collection changes.
+     */
+    private function processFieldCollectionData(
+        \Pimcore\Model\DataObject\Fieldcollection $fieldCollectionData,
+        array $localizedFcData,
+    ): array {
+        $changes = [];
+
+        foreach ($fieldCollectionData->getItems() as $index => $item) {
+            if (!$this->doesFieldCollectionHaveLocalizedFields($item)) {
+                continue;
+            }
+
+            $fcChanges = $this->processFieldCollectionLocalizedFields($item, $localizedFcData, $index);
+
+            $changes = array_merge($changes, $fcChanges);
+        }
+
+        return $changes;
+    }
+
+    /**
+     * Check if field collection has localized fields.
+     */
+    private function doesFieldCollectionHaveLocalizedFields(
+        \Pimcore\Model\DataObject\Fieldcollection\Data\AbstractData $item,
+    ): bool {
+        $fcDefinition = \Pimcore\Model\DataObject\Fieldcollection\Definition::getByKey($item->getType());
+
+        if (!$fcDefinition instanceof \Pimcore\Model\DataObject\Fieldcollection\Definition) {
+            $this->logger->warning("Field collection definition not found for type: {$item->getType()}");
+
+            return false;
+        }
+
+        $localizedFieldDef = $fcDefinition->getFieldDefinition('localizedfields');
+
+        return $localizedFieldDef instanceof Localizedfields;
+    }
+
+    /**
+     * Process localized fields in field collection.
+     *
+     * @param array<string, mixed> $localizedFcData
+     *
+     * @return array<string, array{old: string|null, new: string|null}>
+     */
+    private function processFieldCollectionLocalizedFields(
+        \Pimcore\Model\DataObject\Fieldcollection\Data\AbstractData $item,
+        array $localizedFcData,
+        int $index,
+    ): array {
+        $localizedFields = $item->get('localizedfields');
+
+        if (!$localizedFields instanceof Localizedfield) {
+            return [];
+        }
+
+        $fcType = $item->getType();
+        $fcDefinition = \Pimcore\Model\DataObject\Fieldcollection\Definition::getByKey($fcType);
+        $localizedFieldDef = $fcDefinition->getFieldDefinition('localizedfields');
+
+        if (!$localizedFieldDef instanceof Localizedfields) {
+            return [];
+        }
+
+        $allLocalizedItems = $localizedFields->getItems();
+
+        if ($allLocalizedItems === []) {
+            return [];
+        }
+
+        $completeNewData = [];
+
+        foreach ($allLocalizedItems as $language => $items) {
+            $completeNewData[$language] = [];
+
+            foreach ($localizedFieldDef->getFieldDefinitions() as $fieldDef) {
+                $fieldName = $fieldDef->getName();
+                $value = $localizedFields->getLocalizedValue($fieldName, $language);
+                $completeNewData[$language][$fieldName] = $value;
+            }
+        }
+
+        $fieldChanges = $this->collectFieldCollectionLocalizedFieldChanges(
+            $completeNewData,
+            $localizedFcData,
+            $fcType,
+            $index,
+        );
+
+        return $this->formatFieldCollectionLocalizedChanges($fieldChanges, $fcType, $index);
+    }
+
+    /**
+     * Collect localized field changes in field collection.
+     *
+     * @param array<string, array<string, mixed>> $newLocalizedFields
+     * @param array<string, mixed> $localizedFcData
+     *
+     * @return array<string, array{old: array<string, mixed>, new: array<string, mixed>}>
+     */
+    private function collectFieldCollectionLocalizedFieldChanges(
+        array $newLocalizedFields,
+        array $localizedFcData,
+        string $fcType,
+        int $index,
+    ): array {
+        $fieldChanges = [];
+
+        $fcDefinition = \Pimcore\Model\DataObject\Fieldcollection\Definition::getByKey($fcType);
+        $localizedFieldDef = $fcDefinition->getFieldDefinition('localizedfields');
+
+        if (!$localizedFieldDef instanceof Localizedfields) {
+            return [];
+        }
+
+        foreach ($newLocalizedFields as $language => $newFields) {
+            $oldFields = $localizedFcData[$fcType][$index]['localized'][$language] ?? [];
+
+            foreach ($newFields as $fieldName => $newValue) {
+                if (in_array($fieldName, self::FIELDS_TO_SKIP, true)) {
+                    continue;
+                }
+
+                $oldValue = $oldFields[$fieldName] ?? null;
+                $fieldDefinition = $localizedFieldDef->getFieldDefinition($fieldName);
+
+                $normalizedOldValue = $this->normalizeLocalizedFieldValue($fieldDefinition, $oldValue);
+                $normalizedNewValue = $this->normalizeLocalizedFieldValue($fieldDefinition, $newValue);
+
+                if (!$this->areValuesEquivalent($normalizedOldValue, $normalizedNewValue)) {
+                    if (!isset($fieldChanges[$fieldName])) {
+                        $fieldChanges[$fieldName] = ['old' => [], 'new' => []];
+                    }
+
+                    $fieldChanges[$fieldName]['old'][$language] = $normalizedOldValue;
+                    $fieldChanges[$fieldName]['new'][$language] = $normalizedNewValue;
+                }
+            }
+        }
+
+        return $fieldChanges;
+    }
+
+    /**
+     * Format field collection localized changes.
+     *
+     * @param array<string, array{old: array<string, mixed>, new: array<string, mixed>}> $fieldChanges
+     *
+     * @return array<string, array{old: string|null, new: string|null}>
+     */
+    private function formatFieldCollectionLocalizedChanges(
+        array $fieldChanges,
+        string $fcType,
+        int $index,
+    ): array {
+        $changes = [];
+
+        foreach ($fieldChanges as $fieldName => $languageChanges) {
+            if (empty($languageChanges['old']) && empty($languageChanges['new'])) {
+                continue;
+            }
+
+            $changes["{$fcType}[{$index}].localized.{$fieldName}"] = [
+                'old' => $this->formatLocalizedValues($languageChanges['old']),
+                'new' => $this->formatLocalizedValues($languageChanges['new']),
+            ];
+        }
+
+        return $changes;
+    }
+
+    /**
+     * Get old localized field collection data from database.
+     *
+     * @return array<string, array<int, array<string, mixed>>>
+     */
+    private function getOldLocalizedFieldCollectionDataFromDatabase(AbstractObject $object): array
+    {
+        if (!$object instanceof Concrete) {
+            return [];
+        }
+
+        $data = [];
+        $classDefinition = $object->getClass();
+
+        foreach ($classDefinition->getFieldDefinitions() as $fieldDefinition) {
+            if (!$fieldDefinition instanceof ClassDefinition\Data\Fieldcollections) {
+                continue;
+            }
+
+            foreach ($fieldDefinition->getAllowedTypes() as $fcType) {
+                $fcData = $this->fetchLocalizedFieldCollectionData($object, $fcType, $classDefinition->getId());
+
+                if ($fcData !== []) {
+                    $data[$fcType] = $fcData;
+                }
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch localized field collection data from database.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    private function fetchLocalizedFieldCollectionData(Concrete $object, string $fcType, string $classId): array
+    {
+        $localizedTableName = "object_collection_localized_{$fcType}_{$classId}";
+        $localizedSql = "SELECT * FROM $localizedTableName WHERE ooo_id = :id";
+
+        try {
+            $localizedRows = Db::get()->fetchAllAssociative($localizedSql, ['id' => $object->getId()]);
+        } catch (\Exception $e) {
+            $this->logger->warning("Localized table for field collection {$fcType} not found: " . $e->getMessage());
+
+            return [];
+        }
+
+        $data = [];
+
+        foreach ($localizedRows as $localizedRow) {
+            $language = $localizedRow['language'];
+            $index = (int) $localizedRow['index'];
+            unset($localizedRow['ooo_id'], $localizedRow['language'], $localizedRow['index']);
+
+            $data[$index]['localized'][$language] = $localizedRow;
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get field label for field collection fields.
+     */
+    private function getFieldCollectionFieldLabel(string $fcType, string $fieldPath): string
+    {
+        try {
+            $fcDefinition = \Pimcore\Model\DataObject\Fieldcollection\Definition::getByKey($fcType);
+
+            if (!$fcDefinition instanceof \Pimcore\Model\DataObject\Fieldcollection\Definition) {
+                return ucfirst($fcType) . ' - ' . ucfirst($fieldPath);
+            }
+
+            $fcTitle = $fcDefinition->getTitle() !== null && $fcDefinition->getTitle() !== '' && $fcDefinition->getTitle() !== '0' ? $fcDefinition->getTitle() : ucfirst($fcType);
+
+            // Handle localized fields in field collection: localized.fieldName
+            if (str_starts_with($fieldPath, 'localized.')) {
+                $fieldName = substr($fieldPath, 10);
+                $fieldLabel = $this->getFieldCollectionLocalizedFieldLabel($fcDefinition, $fieldName);
+
+                return "{$fieldLabel}";
+            }
+
+            // Handle relation fields in field collection: relation.fieldName
+            if (str_starts_with($fieldPath, 'relation.')) {
+                $fieldName = substr($fieldPath, 9);
+                $fieldLabel = $this->getFieldCollectionFieldLabelFromDefinition($fcDefinition, $fieldName);
+
+                return "{$fieldLabel}";
+            }
+
+            // Handle regular field collection fields
+            $fieldLabel = $this->getFieldCollectionFieldLabelFromDefinition($fcDefinition, $fieldPath);
+
+            return "{$fieldLabel}";
+        } catch (\Exception $e) {
+            $this->logger->warning("Could not load field collection definition for {$fcType}: " . $e->getMessage());
+
+            return ucfirst($fcType) . ' - ' . ucfirst($fieldPath);
+        }
+    }
+
+    /**
+     * Get field label from field collection definition.
+     */
+    private function getFieldCollectionFieldLabelFromDefinition(
+        \Pimcore\Model\DataObject\Fieldcollection\Definition $fcDefinition,
+        string $fieldName,
+    ): string {
+        $fieldDefinition = $fcDefinition->getFieldDefinition($fieldName);
+
+        if ($fieldDefinition instanceof ClassDefinition\Data) {
+            return $this->extractFieldTitle($fieldDefinition);
+        }
+
+        return ucfirst($fieldName);
+    }
+
+    /**
+     * Get localized field label from field collection definition.
+     */
+    private function getFieldCollectionLocalizedFieldLabel(
+        \Pimcore\Model\DataObject\Fieldcollection\Definition $fcDefinition,
+        string $fieldName,
+    ): string {
+        $localizedFieldDef = $fcDefinition->getFieldDefinition('localizedfields');
+
+        if ($localizedFieldDef instanceof Localizedfields) {
+            $fieldDefinition = $localizedFieldDef->getFieldDefinition($fieldName);
+
+            if ($fieldDefinition instanceof ClassDefinition\Data) {
+                return $this->extractFieldTitle($fieldDefinition);
+            }
+        }
+
+        return ucfirst($fieldName);
     }
 }
