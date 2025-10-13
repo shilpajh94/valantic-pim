@@ -1,0 +1,91 @@
+pimcore_custom_reports:
+    definitions:
+        UniInternalCategoriesNeedingApproval:
+            name: UniInternalCategoriesNeedingApproval
+            sql: ''
+            dataSourceConfig:
+                -
+                    filter: PENDING_APPROVAL
+                    type: uniInternalCategories
+            columnConfiguration:
+                -
+                    name: oo_id
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ID
+                    columnAction: openObject
+                    id: extModel882-1
+                -
+                    name: path
+                    display: false
+                    export: true
+                    order: true
+                    width: ''
+                    label: Path
+                    id: extModel882-2
+                -
+                    name: fullPath
+                    display: false
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Full Path'
+                    id: extModel882-3
+                -
+                    name: ghpCode
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'GHP Code'
+                    id: extModel882-4
+                -
+                    name: hierarchyLevelDescription
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Hierarchy Level Description'
+                    id: extModel882-5
+                -
+                    name: approvalState
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Approval State'
+                    id: extModel882-6
+                -
+                    name: modificationDate
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Modified At'
+                    id: extModel882-7
+                -
+                    name: creationDate
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Created At'
+                    id: extModel882-8
+            niceName: 'Uni: Changed internal category data which needs approval'
+            group: UniInternalCategories
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1760341509
+            creationDate: 1760331106
+            shareGlobally: false
+            sharedUserNames: {  }
+            sharedRoleNames: {  }

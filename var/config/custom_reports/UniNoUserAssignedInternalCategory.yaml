@@ -1,0 +1,91 @@
+pimcore_custom_reports:
+    definitions:
+        UniNoUserAssignedInternalCategory:
+            name: UniNoUserAssignedInternalCategory
+            sql: ''
+            dataSourceConfig:
+                -
+                    filter: INTERNAL_CATEGORIES_USERS_NOT_ASSIGNED
+                    type: uniInternalCategories
+            columnConfiguration:
+                -
+                    name: oo_id
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ID
+                    id: extModel454-1
+                    columnAction: openObject
+                -
+                    name: path
+                    display: false
+                    export: true
+                    order: true
+                    width: ''
+                    label: Path
+                    id: extModel454-2
+                -
+                    name: fullPath
+                    display: false
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Full Path'
+                    id: extModel454-3
+                -
+                    name: ghpCode
+                    display: false
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'GHP Code'
+                    id: extModel454-4
+                -
+                    name: hierarchyLevelDescription
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Hierarchy Level Description'
+                    id: extModel454-5
+                -
+                    name: approvalState
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Approval State'
+                    id: extModel454-6
+                -
+                    name: modificationDate
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Modified At'
+                    id: extModel454-7
+                -
+                    name: creationDate
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Created At'
+                    id: extModel454-8
+            niceName: 'Uni: Internal categories not assigned to users'
+            group: UniInternalCategories
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1760350806
+            creationDate: 1760350654
+            shareGlobally: false
+            sharedUserNames: {  }
+            sharedRoleNames: {  }

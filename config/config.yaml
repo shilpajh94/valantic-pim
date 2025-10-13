@@ -117,3 +117,4 @@ framework:
 pimcore_custom_reports:
     adapters:
         uniFinishedGoods: app.custom_report.adapter.factory.uni_finished_goods
+        uniInternalCategories: app.custom_report.adapter.factory.uni_internal_categories
