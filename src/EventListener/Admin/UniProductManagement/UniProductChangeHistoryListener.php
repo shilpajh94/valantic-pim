@@ -25,7 +25,23 @@ class UniProductChangeHistoryListener implements EventSubscriberInterface
     {
         return [
             DataObjectEvents::PRE_UPDATE => 'onPreUpdate',
+            DataObjectEvents::PRE_UPDATE_VALIDATION_EXCEPTION => 'onPreUpdateValidationException',
         ];
+    }
+
+    public function onPreUpdateValidationException(DataObjectEvent $event): void
+    {
+        $object = $event->getObject();
+
+        if (!$this->shouldTrack($object)) {
+            return;
+        }
+
+        if ($event->getArgument('validationExceptions')) {
+            return;
+        }
+
+        $this->changeTrackingService->trackAndSaveChanges($object);
     }
 
     public function onPreUpdate(DataObjectEvent $event): void
@@ -37,11 +53,18 @@ class UniProductChangeHistoryListener implements EventSubscriberInterface
         }
 
         $request = $this->requestStack->getCurrentRequest();
+
+        if ($request === null) {
+            return;
+        }
+
         $task = $request->get('task');
 
         if ($task === 'publish') {
-            $this->changeTrackingService->trackAndSaveChanges($object);
+            return;
         }
+
+        $this->changeTrackingService->trackAndSaveChanges($object);
     }
 
     private function shouldTrack(AbstractObject $object): bool

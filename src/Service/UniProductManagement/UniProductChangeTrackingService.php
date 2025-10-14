@@ -62,7 +62,7 @@ class UniProductChangeTrackingService
     /**
      * @param array<string, array{old: mixed, new: mixed}> $changes
      */
-    private function saveChangeHistory(AbstractObject $object, array $changes): void
+    public function saveChangeHistory(AbstractObject $object, array $changes): void
     {
         $previousValues = [];
         $newValues = [];
@@ -88,6 +88,41 @@ class UniProductChangeTrackingService
 
         $this->entityManager->persist($history);
         $this->entityManager->flush();
+    }
+
+    /**
+     * @return array<string, array{old: string, new: string}>
+     */
+    public function computeChanges(AbstractObject $object): array
+    {
+        if (!$object instanceof Concrete) {
+            return [];
+        }
+
+        $dirtyFields = $object->getDirtyFields();
+        $oldData = $this->getOldDataFromDatabase($object);
+        $allFieldsToCheck = $this->getAllFieldsToCheck($object, $dirtyFields, $oldData);
+
+        $newData = $this->collectNewFieldData($object, $allFieldsToCheck);
+        $standardFieldChanges = $this->compareStandardFields($object, $allFieldsToCheck, $oldData, $newData);
+
+        $objectBrickChanges = $this->computeObjectBrickChanges($object);
+        $localizedFieldChanges = $this->computeLocalizedFieldChanges($object);
+        $brickLocalizedFieldChanges = $this->computeLocalizedFieldChangesInBricks($object);
+        $relationFieldChanges = $this->computeRelationFieldChanges($object);
+
+        $fieldCollectionChanges = $this->computeFieldCollectionChanges($object);
+        $fieldCollectionLocalizedChanges = $this->computeLocalizedFieldChangesInFieldCollections($object);
+
+        return array_merge(
+            $standardFieldChanges,
+            $objectBrickChanges,
+            $localizedFieldChanges,
+            $brickLocalizedFieldChanges,
+            $relationFieldChanges,
+            $fieldCollectionChanges,
+            $fieldCollectionLocalizedChanges,
+        );
     }
 
     private function getFieldLabel(AbstractObject $object, string $field): string
@@ -306,41 +341,6 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * @return array<string, array{old: string, new: string}>
-     */
-    private function computeChanges(AbstractObject $object): array
-    {
-        if (!$object instanceof Concrete) {
-            return [];
-        }
-
-        $dirtyFields = $object->getDirtyFields();
-        $oldData = $this->getOldDataFromDatabase($object);
-        $allFieldsToCheck = $this->getAllFieldsToCheck($object, $dirtyFields, $oldData);
-
-        $newData = $this->collectNewFieldData($object, $allFieldsToCheck);
-        $standardFieldChanges = $this->compareStandardFields($object, $allFieldsToCheck, $oldData, $newData);
-
-        $objectBrickChanges = $this->computeObjectBrickChanges($object);
-        $localizedFieldChanges = $this->computeLocalizedFieldChanges($object);
-        $brickLocalizedFieldChanges = $this->computeLocalizedFieldChangesInBricks($object);
-        $relationFieldChanges = $this->computeRelationFieldChanges($object);
-
-        $fieldCollectionChanges = $this->computeFieldCollectionChanges($object);
-        $fieldCollectionLocalizedChanges = $this->computeLocalizedFieldChangesInFieldCollections($object);
-
-        return array_merge(
-            $standardFieldChanges,
-            $objectBrickChanges,
-            $localizedFieldChanges,
-            $brickLocalizedFieldChanges,
-            $relationFieldChanges,
-            $fieldCollectionChanges,
-            $fieldCollectionLocalizedChanges,
-        );
-    }
-
-    /**
      * @param array<int, string> $dirtyFields
      * @param array<string, mixed> $oldData
      *
@@ -454,9 +454,15 @@ class UniProductChangeTrackingService
             if (in_array($field, self::FIELDS_TO_SKIP, true)) {
                 continue;
             }
+
             $fieldDefinition = $object->getClass()->getFieldDefinition($field);
 
             if ($fieldDefinition instanceof Localizedfields) {
+                continue;
+            }
+
+            if ($fieldDefinition instanceof Objectbricks
+                || $fieldDefinition instanceof ClassDefinition\Data\Fieldcollections) {
                 continue;
             }
 
@@ -524,9 +530,15 @@ class UniProductChangeTrackingService
             if (in_array($field, self::FIELDS_TO_SKIP, true)) {
                 continue;
             }
+
             $fieldDefinition = $object->getClass()->getFieldDefinition($field);
 
             if ($fieldDefinition instanceof AbstractRelations) {
+                continue;
+            }
+
+            if ($fieldDefinition instanceof Objectbricks
+                || $fieldDefinition instanceof ClassDefinition\Data\Fieldcollections) {
                 continue;
             }
 
@@ -575,6 +587,10 @@ class UniProductChangeTrackingService
             return null;
         }
 
+        if ($this->isEmptyObjectInstance($value)) {
+            return null;
+        }
+
         if ($field === UniProductCategoryInternal::FIELD_ASSIGNED_USER) {
             return $this->formatUserValue((int) $value);
         }
@@ -598,8 +614,28 @@ class UniProductChangeTrackingService
             return $this->normalizeQuantityValue($value);
         }
 
+        if ($fieldDefinition instanceof AbstractRelations) {
+            if (is_numeric($value)) {
+                $relatedObject = AbstractObject::getById((int) $value);
+
+                if ($relatedObject instanceof AbstractObject) {
+                    return $this->formatObjectReference($relatedObject);
+                }
+
+                return "Unknown Reference (ID $value)";
+            }
+
+            if ($value instanceof AbstractObject) {
+                return $this->formatObjectReference($value);
+            }
+        }
+
         if ($value instanceof AbstractObject) {
             return $this->formatObjectReference($value);
+        }
+
+        if ($value instanceof Objectbrick || $value instanceof Fieldcollection) {
+            return null;
         }
 
         if (is_array($value)) {
@@ -2436,5 +2472,25 @@ class UniProductChangeTrackingService
         }
 
         return ucfirst($fieldName);
+    }
+
+    /**
+     * Check if a value is just an empty object instance (not actual data).
+     */
+    private function isEmptyObjectInstance(mixed $value): bool
+    {
+        if (!is_object($value)) {
+            return false;
+        }
+
+        if ($value instanceof Objectbrick) {
+            return count($value->getItems()) === 0;
+        }
+
+        if ($value instanceof Fieldcollection) {
+            return count($value->getItems()) === 0;
+        }
+
+        return false;
     }
 }
