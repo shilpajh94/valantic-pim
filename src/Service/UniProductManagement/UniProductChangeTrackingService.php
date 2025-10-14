@@ -22,6 +22,8 @@ use Pimcore\Model\DataObject\ClassDefinition\Data\Relations\AbstractRelations;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Select;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Data\NumericRange;
+use Pimcore\Model\DataObject\Fieldcollection;
+use Pimcore\Model\DataObject\Fieldcollection\Definition;
 use Pimcore\Model\DataObject\Localizedfield;
 use Pimcore\Model\DataObject\Objectbrick;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
@@ -48,10 +50,6 @@ class UniProductChangeTrackingService
 
     public function trackAndSaveChanges(AbstractObject $object): void
     {
-        if (!$this->validateObjectForTracking($object)) {
-            return;
-        }
-
         $changes = $this->computeChanges($object);
 
         if ($changes === []) {
@@ -59,23 +57,6 @@ class UniProductChangeTrackingService
         }
 
         $this->saveChangeHistory($object, $changes);
-    }
-
-    /**
-     * Validate the object before tracking changes.
-     * Returns false if validation fails.
-     */
-    private function validateObjectForTracking(AbstractObject $object): bool
-    {
-        if (!$object instanceof Concrete) {
-            return false;
-        }
-
-        if ($object->isPublished() === false) {
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -115,7 +96,6 @@ class UniProductChangeTrackingService
             throw new \InvalidArgumentException('The provided object must be a Concrete object.');
         }
 
-        // Handle field collection fields: fcType[index].fieldName or fcType[index].localized.fieldName
         if (preg_match('/^([^[]+)\[(\d+)\]\.(.+)$/', $field, $matches)) {
             $fcType = $matches[1];
             $index = $matches[2];
@@ -124,22 +104,18 @@ class UniProductChangeTrackingService
             return $this->getFieldCollectionFieldLabel($fcType, $fieldPath);
         }
 
-        // Handle brick fields
         if (str_contains($field, '.') && !str_starts_with($field, 'localized.') && !str_starts_with($field, 'relation.')) {
             return $this->getBrickFieldLabel($field);
         }
 
-        // Handle relation fields
         if (str_starts_with($field, 'relation.')) {
             return $this->getRelationFieldLabel($object, substr($field, 9));
         }
 
-        // Handle localized fields
         if (str_starts_with($field, 'localized.')) {
             return $this->getLocalizedFieldLabel($object, substr($field, 10));
         }
 
-        // Handle standard fields
         return $this->getStandardFieldLabel($object, $field);
     }
 
@@ -350,7 +326,6 @@ class UniProductChangeTrackingService
         $brickLocalizedFieldChanges = $this->computeLocalizedFieldChangesInBricks($object);
         $relationFieldChanges = $this->computeRelationFieldChanges($object);
 
-        // Field Collection tracking
         $fieldCollectionChanges = $this->computeFieldCollectionChanges($object);
         $fieldCollectionLocalizedChanges = $this->computeLocalizedFieldChangesInFieldCollections($object);
 
@@ -551,6 +526,10 @@ class UniProductChangeTrackingService
             }
             $fieldDefinition = $object->getClass()->getFieldDefinition($field);
 
+            if ($fieldDefinition instanceof AbstractRelations) {
+                continue;
+            }
+
             $oldRawValue = $oldData[$field] ?? null;
             $oldValue = $this->transformFieldValue($object, $field, $fieldDefinition, $oldRawValue);
 
@@ -561,7 +540,7 @@ class UniProductChangeTrackingService
                 continue;
             }
 
-            if ($this->isCheckboxField($object, $field)) {
+            if ($fieldDefinition instanceof Checkbox) {
                 $changes[$field] = [
                     'old' => $oldValue ?? 'No',
                     'new' => $newValue ?? 'No',
@@ -662,6 +641,9 @@ class UniProductChangeTrackingService
         return $name ? (string) $name : $object->getKey();
     }
 
+    /**
+     * Check if a field is a Checkbox field (NOT Select or Multiselect).
+     */
     private function isCheckboxField(AbstractObject $object, string $field): bool
     {
         if (!$object instanceof Concrete) {
@@ -670,9 +652,7 @@ class UniProductChangeTrackingService
 
         $fieldDefinition = $object->getClass()->getFieldDefinition($field);
 
-        return $fieldDefinition instanceof Multiselect
-            || $fieldDefinition instanceof Select
-            || $fieldDefinition instanceof Checkbox;
+        return $fieldDefinition instanceof Checkbox;
     }
 
     /**
@@ -936,53 +916,42 @@ class UniProductChangeTrackingService
 
     private function areValuesEquivalent(mixed $oldValue, mixed $newValue): bool
     {
-        // 1. Direct equality check (includes null vs null).
         if ($oldValue === $newValue) {
             return true;
         }
 
-        // 2. Handle empty values equivalence (null, '', [], etc.).
         if ($this->isEmptyValue($oldValue) && $this->isEmptyValue($newValue)) {
             return true;
         }
 
-        // 3. Handle numeric values with precision tolerance.
         if (is_numeric($oldValue) && is_numeric($newValue)) {
             return abs((float) $oldValue - (float) $newValue) < self::NUMERIC_PRECISION;
         }
 
-        // 4. Handle arrays (ensure order-agnostic comparison for indexed arrays).
         if (is_array($oldValue) && is_array($newValue)) {
-            // Check if both arrays are associative or indexed.
             if ($this->isAssociativeArray($oldValue) || $this->isAssociativeArray($newValue)) {
-                // Associative array comparison (key-value must match).
                 return $oldValue === $newValue;
             }
 
-            // Indexed array comparison (order-agnostic).
             sort($oldValue);
             sort($newValue);
 
             return $oldValue === $newValue;
         }
 
-        // 5. Handle strings (trim before comparison).
         if (is_string($oldValue) && is_string($newValue)) {
             return trim($oldValue) === trim($newValue);
         }
 
-        // 6. Strings with "to" logic for range comparison.
         if (is_string($oldValue) && is_string($newValue)
             && str_contains($oldValue, 'to') && str_contains($newValue, 'to')) {
             return trim($oldValue) === trim($newValue);
         }
 
-        // 7. Scalar comparison (strings, booleans, etc.).
         if (is_scalar($oldValue) && is_scalar($newValue)) {
             return trim((string) $oldValue) === trim((string) $newValue);
         }
 
-        // 8. Default to inequality.
         return false;
     }
 
@@ -1000,7 +969,6 @@ class UniProductChangeTrackingService
      */
     private function isAssociativeArray(array $array): bool
     {
-        // Check if any key is not numeric, indicating an associative array.
         return array_keys($array) !== range(0, count($array) - 1);
     }
 
@@ -1279,7 +1247,6 @@ class UniProductChangeTrackingService
         $names = [];
 
         foreach ($relationIds as $relationId) {
-            // Attempt to resolve as a DataObject
             $relatedObject = AbstractObject::getById($relationId);
 
             if ($relatedObject instanceof AbstractObject) {
@@ -1288,7 +1255,6 @@ class UniProductChangeTrackingService
                 continue;
             }
 
-            // Attempt to resolve as an Asset
             $relatedAsset = Asset::getById($relationId);
 
             if ($relatedAsset instanceof Asset) {
@@ -1297,7 +1263,6 @@ class UniProductChangeTrackingService
                 continue;
             }
 
-            // Handle unknown references
             $names[] = "Unknown Reference (ID $relationId)";
         }
 
@@ -1309,7 +1274,6 @@ class UniProductChangeTrackingService
      */
     private function formatAssetReference(Asset $asset): string
     {
-        // Use the full path of the asset for display
         return $asset->getFullPath();
     }
 
@@ -1809,7 +1773,7 @@ class UniProductChangeTrackingService
         }
 
         $changes = [];
-        $hasOverallChanges = false; // Track if any changes exist for the entire Field Collection
+        $hasOverallChanges = false;
 
         foreach ($object->getClass()->getFieldDefinitions() as $fieldDefinition) {
             if (!$fieldDefinition instanceof ClassDefinition\Data\Fieldcollections) {
@@ -1831,13 +1795,13 @@ class UniProductChangeTrackingService
                 }
 
                 $fcType = $item->getType();
-                $fcDefinition = \Pimcore\Model\DataObject\Fieldcollection\Definition::getByKey($fcType);
+                $fcDefinition = Definition::getByKey($fcType);
 
-                if (!$fcDefinition instanceof \Pimcore\Model\DataObject\Fieldcollection\Definition) {
+                if (!$fcDefinition instanceof Definition) {
                     continue;
                 }
 
-                $fcChanges = []; // Track changes for the current Field Collection item
+                $fcChanges = [];
 
                 foreach ($fcDefinition->getFieldDefinitions() as $fcFieldDefinition) {
                     $field = $fcFieldDefinition->getName();
@@ -1868,15 +1832,13 @@ class UniProductChangeTrackingService
                     }
                 }
 
-                // Only add changes for this Field Collection item if there are any
                 if (!empty($fcChanges)) {
-                    $hasOverallChanges = true; // Mark that we have at least one change
+                    $hasOverallChanges = true;
                     $changes = array_merge($changes, $fcChanges);
                 }
             }
         }
 
-        // Return an empty array if no changes exist in any Field Collection
         return $hasOverallChanges ? $changes : [];
     }
 
@@ -1888,7 +1850,7 @@ class UniProductChangeTrackingService
     private function processFieldCollectionRelationChanges(
         array &$changes,
         AbstractObject $object,
-        \Pimcore\Model\DataObject\Fieldcollection\Data\AbstractData $item,
+        Fieldcollection\Data\AbstractData $item,
         string $fcType,
         string $field,
         int $index,
@@ -1898,7 +1860,6 @@ class UniProductChangeTrackingService
         $newRelationValue = $item->get($field);
 
         $oldRelationValue = $this->transformRelationIdsToNames($oldRelationIds);
-
         $newRelationValue = $this->transformRelationObjectsToNames($newRelationValue);
 
         sort($oldRelationValue);
@@ -1912,9 +1873,16 @@ class UniProductChangeTrackingService
             return;
         }
 
+        $oldString = implode(', ', $oldRelationValue);
+        $newString = implode(', ', $newRelationValue);
+
+        if ($oldString === $newString) {
+            return;
+        }
+
         $changes["{$fcType}[{$index}].relation.{$field}"] = [
-            'old' => implode(', ', $oldRelationValue),
-            'new' => implode(', ', $newRelationValue),
+            'old' => $oldString,
+            'new' => $newString,
         ];
     }
 
@@ -1941,7 +1909,6 @@ class UniProductChangeTrackingService
             $rawNewValue,
         );
 
-        // Skip unchanged fields
         if ($this->areValuesEquivalent($oldValue, $newValue)) {
             return;
         }
@@ -1997,25 +1964,24 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * @template TItem of \Pimcore\Model\DataObject\Fieldcollection\Data\AbstractData
+     * @template TItem of Fieldcollection\Data\AbstractData
      *
-     * @param \Pimcore\Model\DataObject\Fieldcollection<TItem>|null $fieldCollectionData
-     *                                                                                   Field collection data.
+     * @param Fieldcollection<TItem>|null $fieldCollectionData
+     *                                                         Field collection data.
      *
      * @return array<string, array<int, array<string, mixed>>> The old field collection data.
      */
     private function getOldFieldCollectionDataFromDatabase(
         AbstractObject $object,
-        ?\Pimcore\Model\DataObject\Fieldcollection $fieldCollectionData,
+        ?Fieldcollection $fieldCollectionData,
     ): array {
-        if (!$object instanceof Concrete || !$fieldCollectionData instanceof \Pimcore\Model\DataObject\Fieldcollection) {
+        if (!$object instanceof Concrete || !$fieldCollectionData instanceof Fieldcollection) {
             return [];
         }
 
         $data = [];
 
         foreach ($fieldCollectionData->getItems() as $index => $item) {
-            // No need to check for !$item as it is guaranteed to be non-null
             $fcData = $this->fetchFieldCollectionDataFromDatabase($object, $item, $index);
 
             if ($fcData !== []) {
@@ -2031,14 +1997,14 @@ class UniProductChangeTrackingService
      * Fetch field collection data from the database.
      *
      * @param Concrete $object The parent Pimcore object.
-     * @param \Pimcore\Model\DataObject\Fieldcollection\Data\AbstractData $item The field collection item.
+     * @param Fieldcollection\Data\AbstractData $item The field collection item.
      * @param int $index The index of the field collection item.
      *
      * @return array<string, mixed> The fetched field collection data.
      */
     private function fetchFieldCollectionDataFromDatabase(
         Concrete $object,
-        \Pimcore\Model\DataObject\Fieldcollection\Data\AbstractData $item,
+        Fieldcollection\Data\AbstractData $item,
         int $index,
     ): array {
         $fcType = $item->getType();
@@ -2069,7 +2035,7 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * Get field collection relation IDs from database.
+     * Get field collection relation IDs from database - IMPROVED VERSION.
      *
      * @return array<int, int>
      */
@@ -2085,15 +2051,16 @@ class UniProductChangeTrackingService
 
         $classId = $object->getClass()->getId();
         $tableName = 'object_relations_' . $classId;
+
         $fullFieldname = $fcFieldname . '~' . $relationField;
 
         $sql = "SELECT dest_id FROM $tableName
-            WHERE src_id = :objectId
-            AND fieldname = :fieldname
-            AND ownertype = 'fieldcollection'
-            AND ownername = :fcFieldname
-            AND position = :position
-            ORDER BY `index`";
+        WHERE src_id = :objectId
+        AND fieldname = :fieldname
+        AND ownertype = 'fieldcollection'
+        AND ownername = :fcFieldname
+        AND position = :position
+        ORDER BY `index`";
 
         try {
             $rows = Db::get()->fetchAllAssociative($sql, [
@@ -2102,6 +2069,15 @@ class UniProductChangeTrackingService
                 'fcFieldname' => $fcFieldname,
                 'position' => (string) $index,
             ]);
+
+            if ($rows === []) {
+                $rows = Db::get()->fetchAllAssociative($sql, [
+                    'objectId' => $object->getId(),
+                    'fieldname' => $relationField,
+                    'fcFieldname' => $fcFieldname,
+                    'position' => (string) $index,
+                ]);
+            }
 
             return array_map(fn ($row): int => (int) $row['dest_id'], $rows);
         } catch (\Exception $e) {
@@ -2148,15 +2124,15 @@ class UniProductChangeTrackingService
     /**
      * Process field collection data for localized fields.
      *
-     * @template TItem of \Pimcore\Model\DataObject\Fieldcollection\Data\AbstractData
+     * @template TItem of Fieldcollection\Data\AbstractData
      *
-     * @param \Pimcore\Model\DataObject\Fieldcollection<TItem> $fieldCollectionData Field collection data.
+     * @param Fieldcollection<TItem> $fieldCollectionData Field collection data.
      * @param array<string, mixed> $localizedFcData Localized field collection data.
      *
      * @return array<string, array{old: string|null, new: string|null}> The field collection changes.
      */
     private function processFieldCollectionData(
-        \Pimcore\Model\DataObject\Fieldcollection $fieldCollectionData,
+        Fieldcollection $fieldCollectionData,
         array $localizedFcData,
     ): array {
         $changes = [];
@@ -2178,11 +2154,11 @@ class UniProductChangeTrackingService
      * Check if field collection has localized fields.
      */
     private function doesFieldCollectionHaveLocalizedFields(
-        \Pimcore\Model\DataObject\Fieldcollection\Data\AbstractData $item,
+        Fieldcollection\Data\AbstractData $item,
     ): bool {
-        $fcDefinition = \Pimcore\Model\DataObject\Fieldcollection\Definition::getByKey($item->getType());
+        $fcDefinition = Definition::getByKey($item->getType());
 
-        if (!$fcDefinition instanceof \Pimcore\Model\DataObject\Fieldcollection\Definition) {
+        if (!$fcDefinition instanceof Definition) {
             $this->logger->warning("Field collection definition not found for type: {$item->getType()}");
 
             return false;
@@ -2201,7 +2177,7 @@ class UniProductChangeTrackingService
      * @return array<string, array{old: string|null, new: string|null}>
      */
     private function processFieldCollectionLocalizedFields(
-        \Pimcore\Model\DataObject\Fieldcollection\Data\AbstractData $item,
+        Fieldcollection\Data\AbstractData $item,
         array $localizedFcData,
         int $index,
     ): array {
@@ -2212,7 +2188,7 @@ class UniProductChangeTrackingService
         }
 
         $fcType = $item->getType();
-        $fcDefinition = \Pimcore\Model\DataObject\Fieldcollection\Definition::getByKey($fcType);
+        $fcDefinition = Definition::getByKey($fcType);
         $localizedFieldDef = $fcDefinition->getFieldDefinition('localizedfields');
 
         if (!$localizedFieldDef instanceof Localizedfields) {
@@ -2263,7 +2239,7 @@ class UniProductChangeTrackingService
     ): array {
         $fieldChanges = [];
 
-        $fcDefinition = \Pimcore\Model\DataObject\Fieldcollection\Definition::getByKey($fcType);
+        $fcDefinition = Definition::getByKey($fcType);
         $localizedFieldDef = $fcDefinition->getFieldDefinition('localizedfields');
 
         if (!$localizedFieldDef instanceof Localizedfields) {
@@ -2394,15 +2370,14 @@ class UniProductChangeTrackingService
     private function getFieldCollectionFieldLabel(string $fcType, string $fieldPath): string
     {
         try {
-            $fcDefinition = \Pimcore\Model\DataObject\Fieldcollection\Definition::getByKey($fcType);
+            $fcDefinition = Definition::getByKey($fcType);
 
-            if (!$fcDefinition instanceof \Pimcore\Model\DataObject\Fieldcollection\Definition) {
+            if (!$fcDefinition instanceof Definition) {
                 return ucfirst($fcType) . ' - ' . ucfirst($fieldPath);
             }
 
             $fcTitle = $fcDefinition->getTitle() !== null && $fcDefinition->getTitle() !== '' && $fcDefinition->getTitle() !== '0' ? $fcDefinition->getTitle() : ucfirst($fcType);
 
-            // Handle localized fields in field collection: localized.fieldName
             if (str_starts_with($fieldPath, 'localized.')) {
                 $fieldName = substr($fieldPath, 10);
                 $fieldLabel = $this->getFieldCollectionLocalizedFieldLabel($fcDefinition, $fieldName);
@@ -2410,7 +2385,6 @@ class UniProductChangeTrackingService
                 return "{$fieldLabel}";
             }
 
-            // Handle relation fields in field collection: relation.fieldName
             if (str_starts_with($fieldPath, 'relation.')) {
                 $fieldName = substr($fieldPath, 9);
                 $fieldLabel = $this->getFieldCollectionFieldLabelFromDefinition($fcDefinition, $fieldName);
@@ -2418,7 +2392,6 @@ class UniProductChangeTrackingService
                 return "{$fieldLabel}";
             }
 
-            // Handle regular field collection fields
             $fieldLabel = $this->getFieldCollectionFieldLabelFromDefinition($fcDefinition, $fieldPath);
 
             return "{$fieldLabel}";
@@ -2433,7 +2406,7 @@ class UniProductChangeTrackingService
      * Get field label from field collection definition.
      */
     private function getFieldCollectionFieldLabelFromDefinition(
-        \Pimcore\Model\DataObject\Fieldcollection\Definition $fcDefinition,
+        Definition $fcDefinition,
         string $fieldName,
     ): string {
         $fieldDefinition = $fcDefinition->getFieldDefinition($fieldName);
@@ -2449,7 +2422,7 @@ class UniProductChangeTrackingService
      * Get localized field label from field collection definition.
      */
     private function getFieldCollectionLocalizedFieldLabel(
-        \Pimcore\Model\DataObject\Fieldcollection\Definition $fcDefinition,
+        Definition $fcDefinition,
         string $fieldName,
     ): string {
         $localizedFieldDef = $fcDefinition->getFieldDefinition('localizedfields');

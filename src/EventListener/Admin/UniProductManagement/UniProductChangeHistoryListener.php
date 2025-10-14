@@ -11,11 +11,13 @@ use Pimcore\Model\DataObject\AbstractObject;
 use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class UniProductChangeHistoryListener implements EventSubscriberInterface
 {
     public function __construct(
         private readonly UniProductChangeTrackingService $changeTrackingService,
+        private readonly RequestStack $requestStack,
     ) {
     }
 
@@ -34,7 +36,12 @@ class UniProductChangeHistoryListener implements EventSubscriberInterface
             return;
         }
 
-        $this->changeTrackingService->trackAndSaveChanges($object);
+        $request = $this->requestStack->getCurrentRequest();
+        $task = $request->get('task');
+
+        if ($task === 'publish') {
+            $this->changeTrackingService->trackAndSaveChanges($object);
+        }
     }
 
     private function shouldTrack(AbstractObject $object): bool
