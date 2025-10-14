@@ -16,7 +16,7 @@ pimcore_custom_reports:
                     width: ''
                     label: ID
                     columnAction: openObject
-                    id: extModel882-1
+                    id: extModel740-1
                 -
                     name: path
                     display: false
@@ -24,7 +24,7 @@ pimcore_custom_reports:
                     order: true
                     width: ''
                     label: Path
-                    id: extModel882-2
+                    id: extModel740-2
                 -
                     name: fullPath
                     display: false
@@ -32,7 +32,7 @@ pimcore_custom_reports:
                     order: true
                     width: ''
                     label: 'Full Path'
-                    id: extModel882-3
+                    id: extModel740-3
                 -
                     name: ghpCode
                     display: true
@@ -40,7 +40,7 @@ pimcore_custom_reports:
                     order: true
                     width: ''
                     label: 'GHP Code'
-                    id: extModel882-4
+                    id: extModel740-4
                 -
                     name: hierarchyLevelDescription
                     display: true
@@ -48,7 +48,7 @@ pimcore_custom_reports:
                     order: true
                     width: ''
                     label: 'Hierarchy Level Description'
-                    id: extModel882-5
+                    id: extModel740-5
                 -
                     name: approvalState
                     display: true
@@ -56,7 +56,7 @@ pimcore_custom_reports:
                     order: true
                     width: ''
                     label: 'Approval State'
-                    id: extModel882-6
+                    id: extModel740-6
                 -
                     name: modificationDate
                     display: true
@@ -64,7 +64,7 @@ pimcore_custom_reports:
                     order: true
                     width: ''
                     label: 'Modified At'
-                    id: extModel882-7
+                    id: extModel740-7
                 -
                     name: creationDate
                     display: true
@@ -72,7 +72,7 @@ pimcore_custom_reports:
                     order: true
                     width: ''
                     label: 'Created At'
-                    id: extModel882-8
+                    id: extModel740-8
             niceName: 'Uni: Changed internal category data which needs approval'
             group: UniInternalCategories
             groupIconClass: ''
@@ -84,7 +84,7 @@ pimcore_custom_reports:
             pieLabelColumn: null
             xAxis: null
             yAxis: {  }
-            modificationDate: 1760341509
+            modificationDate: 1760505958
             creationDate: 1760331106
             shareGlobally: false
             sharedUserNames: {  }

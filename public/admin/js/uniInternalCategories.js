@@ -38,11 +38,11 @@ pimcore.bundle.customreports.custom.definition.uniInternalCategories = Class.cre
         this.element.updateLayout();
     },
 
-    getElement: function() {
+    getElement: function () {
         return this.element;
     },
 
-    getValues: function() {
+    getValues: function () {
         var values = this.element.getForm().getFieldValues();
         values.type = 'uniInternalCategories';
 
