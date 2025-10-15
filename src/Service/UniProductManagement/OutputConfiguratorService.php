@@ -210,57 +210,11 @@ class OutputConfiguratorService
         }
 
         foreach ($fields as $fieldKey => $key) {
-            $fieldValue = null;
-            $baseFieldKey = $fieldKey;
-            $fieldType = null;
-
             if (str_contains($fieldKey, '.')) {
-                [$brickName, $brickField] = explode('.', $fieldKey, 2);
-                $brickGetter = 'get' . ucfirst($brickName);
-
-                $cleanBrickField = preg_replace('/_[a-z]{2}(?:_[A-Z]{2})?$/', '', $brickField);
-
-                $brickDefinition = DataObject\Objectbrick\Definition::getByKey($brickName);
-
-                if ($brickDefinition instanceof DataObject\Objectbrick\Definition) {
-                    $fieldDef = $brickDefinition->getFieldDefinition($cleanBrickField);
-
-                    if ($fieldDef instanceof ClassDefinition\Data) {
-                        $fieldType = $fieldDef->getFieldtype();
-                    }
-                }
-
-                if (method_exists($object, $brickGetter)) {
-                    $brickInstance = $object->$brickGetter();
-
-                    if ($brickInstance instanceof DataObject\Objectbrick\Data\AbstractData) {
-                        if (preg_match('/_([a-z]{2}(?:_[A-Z]{2})?)$/', $brickField, $matches)) {
-                            $language = $matches[1];
-                            $baseField = preg_replace('/_[a-z]{2}(?:_[A-Z]{2})?$/', '', $brickField);
-                            $fieldValue = $brickInstance->get($baseField, $language);
-                        } else {
-                            $fieldValue = $brickInstance->get($brickField);
-                        }
-                    }
-                }
+                $row[$fieldKey] = $this->extractBrickFieldValue($object, $fieldKey, $classDefinition);
             } else {
-                $baseFieldKey = preg_replace('/_[a-z]{2}(?:_[A-Z]{2})?$/', '', $fieldKey);
-
-                $fieldDef = $classDefinition->getFieldDefinition($baseFieldKey);
-
-                if ($fieldDef instanceof ClassDefinition\Data) {
-                    $fieldType = $fieldDef->getFieldtype();
-                }
-
-                if (preg_match('/_([a-z]{2}(?:_[A-Z]{2})?)$/', $fieldKey, $matches)) {
-                    $language = $matches[1];
-                    $fieldValue = $object->get($baseFieldKey, $language);
-                } else {
-                    $fieldValue = $object->get($fieldKey);
-                }
+                $row[$fieldKey] = $this->extractSimpleFieldValue($object, $fieldKey, $classDefinition);
             }
-
-            $row[$fieldKey] = $this->formatCellValue($fieldValue, $fieldType);
         }
 
         return $row;
@@ -389,6 +343,147 @@ class OutputConfiguratorService
             $language,
             fn (array $option) => $option['value'],
         );
+    }
+
+    private function extractBrickFieldValue(
+        DataObject\Concrete $object,
+        string $fieldKey,
+        ClassDefinition $classDefinition,
+    ): string {
+        $parts = explode('.', $fieldKey);
+
+        if (count($parts) === 2) {
+            [$brickTypeName, $brickField] = $parts;
+            $brickContainerName = null;
+        } elseif (count($parts) === 3) {
+            [$brickContainerName, $brickTypeName, $brickField] = $parts;
+        } else {
+            return '';
+        }
+
+        $cleanBrickField = preg_replace('/_[a-z]{2}(?:_[A-Z]{2})?$/', '', $brickField);
+
+        if ($brickContainerName === null) {
+            $brickContainerName = $this->findBrickContainerName($classDefinition, $brickTypeName);
+        }
+
+        if ($brickContainerName === null) {
+            return '';
+        }
+
+        $brickGetter = 'get' . ucfirst($brickContainerName);
+
+        if (!method_exists($object, $brickGetter)) {
+            return '';
+        }
+
+        $brickContainer = $object->$brickGetter();
+
+        if (!$brickContainer instanceof DataObject\Objectbrick) {
+            return '';
+        }
+
+        $brickInstance = $brickContainer->get($brickTypeName);
+
+        if (!$brickInstance instanceof DataObject\Objectbrick\Data\AbstractData) {
+            return '';
+        }
+
+        $fieldType = $this->getBrickFieldType($brickTypeName, $cleanBrickField);
+        $fieldValue = $this->getValueFromBrickInstance($brickInstance, $brickField, $cleanBrickField);
+
+        return $this->formatCellValue($fieldValue, $fieldType);
+    }
+
+    private function findBrickContainerName(ClassDefinition $classDefinition, string $brickTypeName): ?string
+    {
+        foreach ($classDefinition->getFieldDefinitions() as $fieldDef) {
+            if (!$fieldDef instanceof ClassDefinition\Data\Objectbricks) {
+                continue;
+            }
+
+            $allowedTypes = $fieldDef->getAllowedTypes();
+
+            if (in_array($brickTypeName, $allowedTypes, true)) {
+                return $fieldDef->getName();
+            }
+        }
+
+        return null;
+    }
+
+    private function getBrickFieldType(string $brickTypeName, string $cleanBrickField): ?string
+    {
+        $brickDefinition = DataObject\Objectbrick\Definition::getByKey($brickTypeName);
+
+        if (!$brickDefinition instanceof DataObject\Objectbrick\Definition) {
+            return null;
+        }
+
+        $fieldDef = $brickDefinition->getFieldDefinition($cleanBrickField);
+
+        if (!$fieldDef instanceof ClassDefinition\Data) {
+            return null;
+        }
+
+        return $fieldDef->getFieldtype();
+    }
+
+    private function getValueFromBrickInstance(
+        DataObject\Objectbrick\Data\AbstractData $brickInstance,
+        string $brickField,
+        string $cleanBrickField,
+    ): mixed {
+        if (preg_match('/_([a-z]{2}(?:_[A-Z]{2})?)$/', $brickField, $matches)) {
+            $language = $matches[1];
+            $getter = 'get' . ucfirst($cleanBrickField);
+
+            if (!method_exists($brickInstance, $getter)) {
+                return null;
+            }
+
+            try {
+                return $brickInstance->$getter($language);
+            } catch (\Exception $e) {
+                return null;
+            }
+        }
+
+        $getter = 'get' . ucfirst($cleanBrickField);
+
+        if (!method_exists($brickInstance, $getter)) {
+            return null;
+        }
+
+        try {
+            return $brickInstance->$getter();
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
+    private function extractSimpleFieldValue(
+        DataObject\Concrete $object,
+        string $fieldKey,
+        ClassDefinition $classDefinition,
+    ): string {
+        $baseFieldKey = preg_replace('/_[a-z]{2}(?:_[A-Z]{2})?$/', '', $fieldKey);
+        $fieldDef = $classDefinition->getFieldDefinition($baseFieldKey);
+
+        $fieldType = null;
+
+        if ($fieldDef instanceof ClassDefinition\Data) {
+            $fieldType = $fieldDef->getFieldtype();
+        }
+
+        if (preg_match('/_([a-z]{2}(?:_[A-Z]{2})?)$/', $fieldKey, $matches)) {
+            $language = $matches[1];
+            $fieldValue = $object->get($baseFieldKey, $language);
+        } else {
+            $fieldValue = $object->get($fieldKey);
+        }
+
+        return $this->formatCellValue($fieldValue, $fieldType);
     }
 
     /**
