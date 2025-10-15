@@ -7,8 +7,11 @@ namespace App\Helpers\DynamicTextLabels\UniProductManagement;
 use App\Service\VersionService;
 use Pimcore\Model\DataObject\ClassDefinition\Layout\DynamicTextLabelInterface;
 use Pimcore\Model\DataObject\Concrete;
+use Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgPts;
+use Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkPts;
 use Pimcore\Model\DataObject\UniProductBase;
-use Pimcore\Model\DataObject\UniProductCategoryInternal;
+use Pimcore\Model\DataObject\UniProductBase\FinishedGoodProductGroupSpecific;
+use Pimcore\Model\DataObject\UniProductBase\SkeletonProductGroupSpecific;
 
 /**
  * Render a calculated nomial length, based on a combination of skeleton and finished good values.
@@ -33,23 +36,7 @@ class UniProductNominalLengthDynamicTextPts extends UniProductDynamicText implem
             return $output;
         }
 
-        $parent = $object->getParent();
-
-        if (!$parent instanceof UniProductCategoryInternal || $parent->getId() === 1) {
-            return $output;
-        }
-
-        return $output; // TODO: Remove temporary return for phpstan
-        /*
-
-        TODO: Add above:
-        use Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgPts;
-        use Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkPts;
-        use Pimcore\Model\DataObject\UniProductBase\FinishedGoodProductGroupSpecific;
-
-        $parent = VersionService::getPublishedOrLatestVersion($parent);
-
-        if (!$parent->getLevelSpecificData() instanceof LevelSpecificData) {
+        if (!$object->getSkeletonProductGroupSpecific() instanceof SkeletonProductGroupSpecific) {
             return $output;
         }
 
@@ -57,7 +44,7 @@ class UniProductNominalLengthDynamicTextPts extends UniProductDynamicText implem
             return $output;
         }
 
-        $skeletonBrickData = $parent->getLevelSpecificData()->getUniPrSkPts();
+        $skeletonBrickData = $object->getSkeletonProductGroupSpecific()->getUniPrSkPts();
 
         if (!$skeletonBrickData instanceof UniPrSkPts) {
             return $output;
@@ -68,7 +55,6 @@ class UniProductNominalLengthDynamicTextPts extends UniProductDynamicText implem
         if (!$childBrickData instanceof UniPrFgPts) {
             return $output;
         }
-
         $nominalLength = $skeletonBrickData->get(UniPrSkPts::FIELD_NOMINAL_LENGTH);
         // Define a mapping of nominalLength values to their corresponding methods for both metric and imperial fields
         $lengthMapping = [
@@ -92,6 +78,5 @@ class UniProductNominalLengthDynamicTextPts extends UniProductDynamicText implem
         }
 
         return $output;
-        */
     }
 }

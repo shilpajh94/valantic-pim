@@ -7,6 +7,10 @@ namespace App\Helpers\DynamicTextLabels\UniProductManagement;
 use App\Service\VersionService;
 use Pimcore\Model\DataObject\ClassDefinition\Layout\DynamicTextLabelInterface;
 use Pimcore\Model\DataObject\Concrete;
+use Pimcore\Model\DataObject\Data\NumericRange;
+use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts;
+use Pimcore\Model\DataObject\UniProductBase;
+use Pimcore\Model\DataObject\UniProductBase\BrandProductGroupSpecific;
 
 /**
  * Render a product temperature range, based on a combination of finished good values.
@@ -25,24 +29,19 @@ class UniProductTempRangeDynamicTextPts extends UniProductDynamicText implements
         }
 
         VersionService::useLatestVersion(true);
-        VersionService::getPublishedOrLatestVersion($object);
+        $object = VersionService::getPublishedOrLatestVersion($object);
 
-        return $output; // TODO: Remove temporary return for phpstan
-
-        /*
-
-        TODO: Add above
-        use Pimcore\Model\DataObject\Data\NumericRange;
-        use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts;
-        use Pimcore\Model\DataObject\UniProductCategoryInternal\LevelSpecificData;
-
-        if (!$object->getLevel() instanceof LevelSpecificData) {
+        if (!$object instanceof UniProductBase) {
             return $output;
         }
 
-        $parentBrickData = $object->getLevelSpecificData()->getUniPrBrPts();
+        if (!$object->getBrandProductGroupSpecific() instanceof BrandProductGroupSpecific) {
+            return $output;
+        }
 
-        if (!$parentBrickData instanceof UniPrBrPts) {
+        $brandBrickData = $object->getBrandProductGroupSpecific()->getUniPrBrPts();
+
+        if (!$brandBrickData instanceof UniPrBrPts) {
             return $output;
         }
 
@@ -58,7 +57,7 @@ class UniProductTempRangeDynamicTextPts extends UniProductDynamicText implements
         }
 
         $temperatureDataField = $temperatureFieldMap[$params['fieldname']];
-        $temperatureData = $parentBrickData->get($temperatureDataField);
+        $temperatureData = $brandBrickData->get($temperatureDataField);
 
         // Validate and process temperature data
         if ($temperatureData instanceof NumericRange && $temperatureData->getMinimum() !== '' && $temperatureData->getMinimum() !== null && $temperatureData->getMaximum() !== '' && $temperatureData->getMaximum() !== null) {
@@ -66,6 +65,5 @@ class UniProductTempRangeDynamicTextPts extends UniProductDynamicText implements
         }
 
         return $output;
-        */
     }
 }
