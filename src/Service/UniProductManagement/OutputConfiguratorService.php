@@ -67,11 +67,6 @@ class OutputConfiguratorService
         return $tempFilePath;
     }
 
-    /**
-     * Creates an asset from the export file and deletes the temporary file.
-     *
-     * @throws \Exception If the asset creation fails.
-     */
     public function generateExportToAsset(
         UniProductDataOutputConfiguration $configurator,
     ): string {
@@ -110,13 +105,22 @@ class OutputConfiguratorService
 
         foreach ($fields as $fieldKey => $fieldValue) {
             if (str_contains($fieldKey, '.')) {
-                [$brickName, $brickField] = explode('.', $fieldKey, 2);
+                $parts = explode('.', $fieldKey);
 
-                $columnNames[$fieldKey] = match ($columnType) {
-                    UniOutputConfigurationColumnType::LABEL->value => sprintf('%s.%s', $brickName, $fieldValue),
-                    UniOutputConfigurationColumnType::TECHNICAL->value => $fieldValue,
-                    default => throw new \RuntimeException(sprintf('Unknown column type "%s"', $columnType)),
-                };
+                if (count($parts) >= 3) {
+                    $columnNames[$fieldKey] = match ($columnType) {
+                        UniOutputConfigurationColumnType::LABEL->value => $fieldValue,
+                        UniOutputConfigurationColumnType::TECHNICAL->value => sprintf('%s.%s', $parts[count($parts) - 2], $parts[count($parts) - 1]),
+                        default => throw new \RuntimeException(sprintf('Unknown column type "%s"', $columnType)),
+                    };
+                } else {
+                    [$brickName, $brickField] = explode('.', $fieldKey, 2);
+                    $columnNames[$fieldKey] = match ($columnType) {
+                        UniOutputConfigurationColumnType::LABEL->value => sprintf('%s.%s', $brickName, $fieldValue),
+                        UniOutputConfigurationColumnType::TECHNICAL->value => $fieldValue,
+                        default => throw new \RuntimeException(sprintf('Unknown column type "%s"', $columnType)),
+                    };
+                }
             } else {
                 $columnNames[$fieldKey] = $fieldValue;
             }
@@ -211,7 +215,7 @@ class OutputConfiguratorService
 
         foreach ($fields as $fieldKey => $key) {
             if (str_contains($fieldKey, '.')) {
-                $row[$fieldKey] = $this->extractBrickFieldValue($object, $fieldKey, $classDefinition);
+                $row[$fieldKey] = $this->extractComplexFieldValue($object, $fieldKey, $classDefinition);
             } else {
                 $row[$fieldKey] = $this->extractSimpleFieldValue($object, $fieldKey, $classDefinition);
             }
@@ -343,6 +347,116 @@ class OutputConfiguratorService
             $language,
             fn (array $option) => $option['value'],
         );
+    }
+
+    /**
+     * Extracts value from complex fields (field collections or objectbricks).
+     */
+    private function extractComplexFieldValue(
+        DataObject\Concrete $object,
+        string $fieldKey,
+        ClassDefinition $classDefinition,
+    ): string {
+        $parts = explode('.', $fieldKey);
+
+        if (count($parts) < 2) {
+            return '';
+        }
+
+        $containerName = $parts[0];
+        $fieldDef = $classDefinition->getFieldDefinition($containerName);
+
+        if ($fieldDef instanceof ClassDefinition\Data\Fieldcollections) {
+            return $this->extractFieldCollectionValue($object, $fieldKey);
+        }
+
+        return $this->extractBrickFieldValue($object, $fieldKey, $classDefinition);
+    }
+
+    /**
+     * Extracts value from a field collection.
+     */
+    private function extractFieldCollectionValue(
+        DataObject\Concrete $object,
+        string $fieldKey,
+    ): string {
+        $parts = explode('.', $fieldKey);
+
+        if (count($parts) !== 3) {
+            return '';
+        }
+
+        [$containerName, $collectionType, $fieldName] = $parts;
+        $cleanFieldName = preg_replace('/_[a-z]{2}(?:_[A-Z]{2})?$/', '', $fieldName);
+
+        $getter = 'get' . ucfirst($containerName);
+
+        if (!method_exists($object, $getter)) {
+            return '';
+        }
+
+        $fieldCollection = $object->$getter();
+
+        if (!$fieldCollection instanceof DataObject\Fieldcollection) {
+            return '';
+        }
+        $values = [];
+
+        foreach ($fieldCollection->getItems() as $item) {
+            if ($item->getType() !== $collectionType) {
+                continue;
+            }
+
+            $itemGetter = 'get' . ucfirst($cleanFieldName);
+
+            if (!method_exists($item, $itemGetter)) {
+                continue;
+            }
+
+            try {
+                if (preg_match('/_([a-z]{2}(?:_[A-Z]{2})?)$/', $fieldName, $matches)) {
+                    $language = $matches[1];
+                    $value = $item->$itemGetter($language);
+                } else {
+                    $value = $item->$itemGetter();
+                }
+
+                if ($value !== null && $value !== '') {
+                    $values[] = $value;
+                }
+            } catch (\Exception $e) {
+                continue;
+            }
+        }
+
+        $fieldType = $this->getFieldCollectionFieldType($collectionType, $cleanFieldName);
+
+        $formattedValues = array_map(
+            fn ($val): string => $this->formatCellValue($val, $fieldType),
+            $values,
+        );
+
+        return implode(', ', $formattedValues);
+    }
+
+    /**
+     * Gets the field type from a field collection definition.
+     */
+    private function getFieldCollectionFieldType(string $collectionType, string $fieldName): ?string
+    {
+        $collectionDefinition = DataObject\Fieldcollection\Definition::getByKey($collectionType);
+
+        if (!$collectionDefinition instanceof DataObject\Fieldcollection\Definition) {
+            return null;
+        }
+
+        $fieldDef = $collectionDefinition->getFieldDefinition($fieldName);
+
+        if (!$fieldDef instanceof ClassDefinition\Data) {
+            return null;
+        }
+
+        return $fieldDef->getFieldtype();
     }
 
     private function extractBrickFieldValue(
@@ -487,17 +601,21 @@ class OutputConfiguratorService
     }
 
     /**
-     * Maps fields to their corresponding values (labels or technical names).
+     * Maps fields to their technical names, appending language suffix for localized fields.
      *
      * @param array<string> $fields List of field names.
      * @param array<array<string, string>> $options Field options with metadata.
-     * @param callable $titleCallback Callback for determining the title.
-     * @param array<string> $languages The language codes (e.g., 'en', 'de').
+     * @param array<string> $languages List of language codes (e.g., 'en', 'de').
+     * @param callable $titleCallback Callback to generate field titles.
      *
-     * @return array<string, string> Mapped fields with their respective values.
+     * @return array<string, string> Mapped fields with technical names.
      */
-    private function mapFieldsHelper(array $fields, array $options, array $languages, callable $titleCallback): array
-    {
+    private function mapFieldsHelper(
+        array $fields,
+        array $options,
+        array $languages,
+        callable $titleCallback,
+    ): array {
         $optionsMap = [];
 
         foreach ($options as $option) {
