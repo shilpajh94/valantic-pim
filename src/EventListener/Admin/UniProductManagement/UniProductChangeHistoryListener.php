@@ -37,7 +37,19 @@ class UniProductChangeHistoryListener implements EventSubscriberInterface
             return;
         }
 
-        if ($event->getArgument('validationExceptions')) {
+         $request = $this->requestStack->getCurrentRequest();
+
+        if ($request === null) {
+            return;
+        }
+
+        $task = $request->get('task');
+
+        if ($task === 'version') {
+            return;
+        }
+
+         if ($event->getArgument('validationExceptions')) {
             return;
         }
 
@@ -46,6 +58,7 @@ class UniProductChangeHistoryListener implements EventSubscriberInterface
 
     public function onPreUpdate(DataObjectEvent $event): void
     {
+       
         $object = $event->getObject();
 
         if (!$this->shouldTrack($object)) {
