@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Service\UniProductManagement;
 
-use App\Model\DataObject\UniProductManagement\Objectbrick\AbstractUniPrBrand;
-use App\Model\DataObject\UniProductManagement\Objectbrick\AbstractUniPrSkeleton;
 use Pimcore\Model\AbstractModel;
 use Pimcore\Model\DataObject\ClassDefinition\Data;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields;
@@ -22,8 +20,6 @@ class UniProductCompletenessService
 
     private const IGNORED_FIELDS = [
         UniProductBase::FIELD_COMPLETENESS_PERCENTAGE,
-        UniProductBase::FIELD_EMPTY_FIELDS_BRAND,
-        UniProductBase::FIELD_EMPTY_FIELDS_SKELETON,
         UniProductBase::FIELD_EMPTY_FIELDS_FINISHED_GOOD,
     ];
 
@@ -53,28 +49,7 @@ class UniProductCompletenessService
         $this->resetEmptyFields();
         $this->processObject($finishedGood, $finishedGood->getClass()->getFieldDefinitions());
         $finishedGood->setEmptyFieldsFinishedGood($this->formatEmptyFields(), $locale);
-
-        $this->resetEmptyFields();
-        $this->processCategory($finishedGood, AbstractUniPrSkeleton::class);
-        $finishedGood->setEmptyFieldsSkeleton($this->formatEmptyFields(), $locale);
-
-        $this->resetEmptyFields();
-        $this->processCategory($finishedGood, AbstractUniPrBrand::class);
-        $finishedGood->setEmptyFieldsBrand($this->formatEmptyFields(), $locale);
-
         $finishedGood->setCompletenessPercentage((string) $this->calculateCompleteness(), $locale);
-    }
-
-    /**
-     * @template TObjectbrickClassname
-     * *
-     * @param class-string<TObjectbrickClassname> $objectbrickClass
-     */
-    private function processCategory(UniProductBase $object, string $objectbrickClass): void
-    {
-        foreach ($object->resolveObjectbricksInHierarchy($objectbrickClass) as $brick) {
-            $this->processObject($brick, $brick->getDefinition()?->getFieldDefinitions() ?? []);
-        }
     }
 
     /** @param array<Data> $definitions */
