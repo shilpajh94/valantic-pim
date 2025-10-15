@@ -66,6 +66,7 @@
  * - customerPortalFlag [checkbox]
  * - regionalAvailability [manyToManyObjectRelation]
  * - regions [calculatedValue]
+ * - mainImage [image]
  * - internalCategories [manyToManyObjectRelation]
  * - ghpCode [input]
  * - ghpFullCode [input]
@@ -137,6 +138,7 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByVirtualCatalogueFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByCustomerPortalFlag(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByRegionalAvailability(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByMainImage(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByInternalCategories(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByGhpCode(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductBase\Listing|\Pimcore\Model\DataObject\UniProductBase|null getByGhpFullCode(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
@@ -207,6 +209,7 @@ public const FIELD_VIRTUAL_CATALOGUE_FLAG = 'virtualCatalogueFlag';
 public const FIELD_CUSTOMER_PORTAL_FLAG = 'customerPortalFlag';
 public const FIELD_REGIONAL_AVAILABILITY = 'regionalAvailability';
 public const FIELD_REGIONS = 'regions';
+public const FIELD_MAIN_IMAGE = 'mainImage';
 public const FIELD_INTERNAL_CATEGORIES = 'internalCategories';
 public const FIELD_GHP_CODE = 'ghpCode';
 public const FIELD_GHP_FULL_CODE = 'ghpFullCode';
@@ -262,6 +265,7 @@ protected $printedCatalogueFlag;
 protected $virtualCatalogueFlag;
 protected $customerPortalFlag;
 protected $regionalAvailability;
+protected $mainImage;
 protected $internalCategories;
 protected $ghpCode;
 protected $ghpFullCode;
@@ -2783,6 +2787,50 @@ public function getRegions(): mixed
 	$data = \Pimcore\Model\DataObject\Service::getCalculatedFieldValue($object, $data);
 
 	return $data;
+}
+
+/**
+* Get mainImage - Main Image
+* @return \Pimcore\Model\Asset\Image|null
+*/
+public function getMainImage(): ?\Pimcore\Model\Asset\Image
+{
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("mainImage");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	$data = $this->mainImage;
+
+	if (\Pimcore\Model\DataObject::doGetInheritedValues() && $this->getClass()->getFieldDefinition("mainImage")->isEmpty($data)) {
+		try {
+			return $this->getValueFromParent("mainImage");
+		} catch (InheritanceParentNotFoundException $e) {
+			// no data from parent available, continue ...
+		}
+	}
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set mainImage - Main Image
+* @param \Pimcore\Model\Asset\Image|null $mainImage
+* @return $this
+*/
+public function setMainImage(?\Pimcore\Model\Asset\Image $mainImage): static
+{
+	$this->markFieldDirty("mainImage", true);
+
+	$this->mainImage = $mainImage;
+
+	return $this;
 }
 
 /**

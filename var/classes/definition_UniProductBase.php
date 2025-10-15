@@ -67,6 +67,7 @@
  * - customerPortalFlag [checkbox]
  * - regionalAvailability [manyToManyObjectRelation]
  * - regions [calculatedValue]
+ * - mainImage [image]
  * - internalCategories [manyToManyObjectRelation]
  * - ghpCode [input]
  * - ghpFullCode [input]
@@ -84,7 +85,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Product',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1759916063,
+   'modificationDate' => 1760416284,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductBase',
@@ -2116,10 +2117,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   )),
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                     'name' => 'marketing',
+                     'name' => 'productDescriptions',
                      'type' => NULL,
                      'region' => NULL,
-                     'title' => 'Marketing',
+                     'title' => 'Product Descriptions',
                      'width' => '',
                      'height' => '',
                      'collapsible' => false,
@@ -2837,10 +2838,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   )),
                   5 => 
                   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
-                     'name' => 'distribution',
+                     'name' => 'export',
                      'type' => NULL,
                      'region' => NULL,
-                     'title' => 'Distribution',
+                     'title' => 'Export',
                      'width' => '',
                      'height' => '',
                      'collapsible' => false,
@@ -2967,7 +2968,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'fieldtype' => 'panel',
                      'layout' => NULL,
                      'border' => true,
-                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/in_transit.svg',
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/export.svg',
                      'labelWidth' => 250,
                      'labelAlign' => 'left',
                   )),
@@ -3085,6 +3086,104 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelAlign' => 'left',
           )),
           3 => 
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+             'name' => 'digitalAssets',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Digital Assets',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Layout\Tabpanel::__set_state(array(
+                 'name' => 'Layout',
+                 'type' => NULL,
+                 'region' => NULL,
+                 'title' => '',
+                 'width' => '',
+                 'height' => '',
+                 'collapsible' => false,
+                 'collapsed' => false,
+                 'bodyStyle' => '',
+                 'datatype' => 'layout',
+                 'children' => 
+                array (
+                  0 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+                     'name' => 'productmages',
+                     'type' => NULL,
+                     'region' => NULL,
+                     'title' => 'Product Images',
+                     'width' => '',
+                     'height' => '',
+                     'collapsible' => false,
+                     'collapsed' => false,
+                     'bodyStyle' => '',
+                     'datatype' => 'layout',
+                     'children' => 
+                    array (
+                      0 => 
+                      Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+                         'name' => 'mainImage',
+                         'title' => 'Main Image',
+                         'tooltip' => '',
+                         'mandatory' => false,
+                         'noteditable' => false,
+                         'index' => false,
+                         'locked' => false,
+                         'style' => '',
+                         'permissions' => NULL,
+                         'fieldtype' => '',
+                         'relationType' => false,
+                         'invisible' => false,
+                         'visibleGridView' => false,
+                         'visibleSearch' => false,
+                         'blockedVarsForExport' => 
+                        array (
+                        ),
+                         'uploadPath' => '',
+                         'width' => 650,
+                         'height' => '',
+                      )),
+                    ),
+                     'locked' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'fieldtype' => 'panel',
+                     'layout' => NULL,
+                     'border' => false,
+                     'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/gallery.svg',
+                     'labelWidth' => 250,
+                     'labelAlign' => 'left',
+                  )),
+                ),
+                 'locked' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'fieldtype' => 'tabpanel',
+                 'border' => false,
+                 'tabPosition' => 'top',
+              )),
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'panel',
+             'layout' => NULL,
+             'border' => false,
+             'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/image-region.svg',
+             'labelWidth' => 250,
+             'labelAlign' => 'left',
+          )),
+          4 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'internalHierarchy',
              'type' => NULL,
@@ -3354,7 +3453,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'labelWidth' => 100,
              'labelAlign' => 'left',
           )),
-          4 => 
+          5 => 
           Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
              'name' => 'completeness',
              'type' => NULL,
