@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\CustomReport\Adapter\UniProductManagement;
 
-use App\Enum\ProductManagement\ProductApprovalWorkflowPlace;
+use App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace;
 use Pimcore\Bundle\CustomReportsBundle\Tool\Adapter\AbstractAdapter;
 use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
@@ -117,7 +117,7 @@ class UniInternalCategories extends AbstractAdapter
             'fullPath' => $item->getFullPath(),
             'ghpCode' => $item->getGhpCode(),
             'hierarchyLevelDescription' => $item->getHierarchyLevelDescription(),
-            'approvalState' => $item->getApprovalState() ?? ProductApprovalWorkflowPlace::CREATED->value,
+            'approvalState' => $item->getApprovalState() ?? UniProductManagementApprovalWorkflowPlace::CREATED->value,
             'modificationDate' => $formatDate($item->getModificationDate()),
             'creationDate' => $formatDate($item->getCreationDate()),
         ], $data);
@@ -161,7 +161,7 @@ class UniInternalCategories extends AbstractAdapter
         $listing->setCondition(
             '(approvalState = ? OR approvalState IS NULL) AND level IN (?)',
             [
-                ProductApprovalWorkflowPlace::CREATED->value,
+                UniProductManagementApprovalWorkflowPlace::CREATED->value,
                 ['5', '6']
             ],
         );
@@ -179,7 +179,7 @@ class UniInternalCategories extends AbstractAdapter
 
     /**
      * See ONE-262.
-     * For UniProductBase (L5-L6 only)
+     * For UniProductBase (L5-L6)
      */
     private function prepareListingInternalCategoriesToEnrich(UniProductBase\Listing $listing, ?string $sort, ?string $dir): void
     {
@@ -191,7 +191,7 @@ class UniInternalCategories extends AbstractAdapter
         $listing->setCondition(
             '(approvalState IN (?) OR approvalState IS NULL) AND level IN (?)',
             [
-                [ProductApprovalWorkflowPlace::CREATED->value, ProductApprovalWorkflowPlace::DRAFT->value],
+                [UniProductManagementApprovalWorkflowPlace::CREATED->value, UniProductManagementApprovalWorkflowPlace::DRAFT->value],
                 ['5', '6']
             ],
         );
@@ -202,7 +202,7 @@ class UniInternalCategories extends AbstractAdapter
 
     /**
      * See ONE-263.
-     * For UniProductBase (L5-L6 only)
+     * For UniProductBase (L5-L6)
      */
     private function prepareListingPendingApproval(UniProductBase\Listing $listing): void
     {
@@ -214,7 +214,7 @@ class UniInternalCategories extends AbstractAdapter
         $listing->setCondition(
             'approvalState = ? AND level IN (?)',
             [
-                ProductApprovalWorkflowPlace::PENDING_APPROVAL->value,
+                UniProductManagementApprovalWorkflowPlace::PENDING_APPROVAL->value,
                 ['5', '6']
             ]
         );
@@ -222,7 +222,7 @@ class UniInternalCategories extends AbstractAdapter
 
     /**
      * See ONE-264.
-     * For UniProductBase (L5-L6 only)
+     * For UniProductBase (L5-L6)
      */
     private function prepareListingRejectedInternalCategories(UniProductBase\Listing $listing): void
     {
@@ -234,7 +234,7 @@ class UniInternalCategories extends AbstractAdapter
         $listing->setCondition(
             'approvalState = ? AND level IN (?)',
             [
-                ProductApprovalWorkflowPlace::REJECTED->value,
+                UniProductManagementApprovalWorkflowPlace::REJECTED->value,
                 ['5', '6']
             ]
         );
@@ -242,7 +242,7 @@ class UniInternalCategories extends AbstractAdapter
 
     /**
      * See ONE-265.
-     * For UniProductCategoryInternal (L2 only)
+     * For UniProductCategoryInternal (L2)
      */
     private function prepareListingUsersNotAssignedInternalCategories(UniProductCategoryInternal\Listing $listing): void
     {
