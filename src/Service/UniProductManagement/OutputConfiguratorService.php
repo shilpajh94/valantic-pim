@@ -34,8 +34,7 @@ class OutputConfiguratorService
         $objectBrickFields = $this->objectBrickFieldsProvider->getObjectBrickFields();
         $options = array_merge($dynamicFields, $objectBrickFields);
 
-        $finishedGoods = $configurator->getFinishedGoods();
-        $internalCategories = $configurator->getFinishedGoods();
+        $finishedGoodsAndCategories = $configurator->getFinishedGoods();
         $dataFields = $configurator->getDataFields();
         $productfields = $configurator->getProductGroupSpecificDatafields();
 
@@ -55,7 +54,7 @@ class OutputConfiguratorService
         };
 
         $columnNames = $this->prepareColumnNames($fields, $columnType);
-        $data = $this->fetchData($finishedGoods, $internalCategories, $fields, $languages);
+        $data = $this->fetchData($finishedGoodsAndCategories, $fields, $languages);
 
         $uniqueHash = bin2hex(random_bytes(8));
         $timestamp = Carbon::now()->format('Y-m-d_His');
@@ -116,7 +115,7 @@ class OutputConfiguratorService
                 } else {
                     [$brickName, $brickField] = explode('.', $fieldKey, 2);
                     $columnNames[$fieldKey] = match ($columnType) {
-                        UniOutputConfigurationColumnType::LABEL->value => sprintf('%s.%s', $brickName, $fieldValue),
+                        UniOutputConfigurationColumnType::LABEL->value => $fieldValue,
                         UniOutputConfigurationColumnType::TECHNICAL->value => $fieldValue,
                         default => throw new \RuntimeException(sprintf('Unknown column type "%s"', $columnType)),
                     };
@@ -132,28 +131,24 @@ class OutputConfiguratorService
     /**
      * Fetches data for finished goods and internal categories.
      *
-     * @param array<AbstractObject> $finishedGoods List of finished goods.
-     * @param array<AbstractObject> $internalCategories List of internal categories.
+     * @param array<AbstractObject> $finishedGoodsAndCategories List of finished goods and internal categories.
      * @param array<string> $dataFields List of data fields to process.
      * @param array<string> $languages The language codes (e.g., 'en', 'de').
      *
      * @return array<int, array<string, mixed>> The fetched data.
      */
     public function fetchData(
-        array $finishedGoods,
-        array $internalCategories,
+        array $finishedGoodsAndCategories,
         array $dataFields,
         array $languages,
     ): array {
         $data = [];
 
-        foreach ($finishedGoods as $finishedGood) {
-            $data[] = $this->extractDataFromObject($finishedGood, $dataFields);
-        }
-
-        foreach ($internalCategories as $category) {
-            if ($category instanceof UniProductCategoryInternal) {
-                $this->fetchCategoryData($category, $data, $dataFields, $languages);
+        foreach ($finishedGoodsAndCategories as $item) {
+            if ($item instanceof UniProductCategoryInternal) {
+                $this->fetchCategoryData($item, $data, $dataFields, $languages);
+            } else {
+                $data[] = $this->extractDataFromObject($item, $dataFields);
             }
         }
 
@@ -584,11 +579,11 @@ class OutputConfiguratorService
         $baseFieldKey = preg_replace('/_[a-z]{2}(?:_[A-Z]{2})?$/', '', $fieldKey);
         $fieldDef = $classDefinition->getFieldDefinition($baseFieldKey);
 
-        $fieldType = null;
-
-        if ($fieldDef instanceof ClassDefinition\Data) {
-            $fieldType = $fieldDef->getFieldtype();
+        if (!$fieldDef instanceof ClassDefinition\Data) {
+            return '';
         }
+
+        $fieldType = $fieldDef->getFieldtype();
 
         if (preg_match('/_([a-z]{2}(?:_[A-Z]{2})?)$/', $fieldKey, $matches)) {
             $language = $matches[1];

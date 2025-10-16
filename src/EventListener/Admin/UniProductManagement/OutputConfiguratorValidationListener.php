@@ -93,11 +93,7 @@ class OutputConfiguratorValidationListener implements EventSubscriberInterface
     {
         $weekday = $object->getWeekday();
 
-        if ($weekday === null || $weekday === '') {
-            throw new ValidationException('Weekly configuration requires a valid weekday.');
-        }
-
-        if (UniOutputConfigurationWeekday::tryFrom($weekday) === null) {
+        if (UniOutputConfigurationWeekday::tryFrom((string) $weekday) === null) {
             throw new ValidationException('Weekly configuration requires a valid weekday.');
         }
     }
