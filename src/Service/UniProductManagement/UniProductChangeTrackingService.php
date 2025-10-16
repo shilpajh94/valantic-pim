@@ -827,7 +827,6 @@ class UniProductChangeTrackingService
 
         if ($brickFieldDefinition instanceof Image) {
             $oldValue = $this->normalizeImageValue($rawOldValue);
-
             $newValue = $this->normalizeImageValue($rawNewValue);
 
             return [
@@ -851,7 +850,19 @@ class UniProductChangeTrackingService
         }
 
         if ($brickFieldDefinition instanceof ClassDefinition\Data\NumericRange) {
-            return [$rawOldValue, $this->normalizeNumericRange($rawNewValue)];
+            $normalizedOldValue = null;
+
+            if ($rawOldValue !== null) {
+                if (is_string($rawOldValue)) {
+                    $normalizedOldValue = $rawOldValue;
+                } elseif (is_array($rawOldValue)) {
+                    $normalizedOldValue = $this->normalizeNumericRangeFromDb($rawOldValue);
+                }
+            }
+
+            $normalizedNewValue = $this->normalizeNumericRange($rawNewValue);
+
+            return [$normalizedOldValue, $normalizedNewValue];
         }
 
         return [$this->normalizeValue($rawOldValue), $this->normalizeValue($rawNewValue)];
@@ -910,20 +921,29 @@ class UniProductChangeTrackingService
             return null;
         }
 
+        $minimum = $value->getMinimum();
+        $maximum = $value->getMaximum();
+
+        if ($minimum === null && $maximum === null) {
+            return null;
+        }
+
         return sprintf(
             '%s to %s',
-            $this->formatNumericValue($value->getMinimum()),
-            $this->formatNumericValue($value->getMaximum()),
+            $this->formatNumericValue($minimum),
+            $this->formatNumericValue($maximum),
         );
     }
 
-    private function formatNumericValue(?float $value): string
+    private function formatNumericValue(float|string|null $value): string
     {
-        if ($value === null) {
-            return self::EMPTY_VALUE;
+        if ($value === null || $value === '') {
+            return '';
         }
 
-        return fmod($value, 1) === 0.0 ? (string) (int) $value : number_format($value, self::DECIMAL_PLACES);
+        $floatValue = (float) $value;
+
+        return fmod($floatValue, 1) === 0.0 ? (string) (int) $floatValue : number_format($floatValue, self::DECIMAL_PLACES);
     }
 
     /**
@@ -1560,6 +1580,7 @@ class UniProductChangeTrackingService
                 }
 
                 $key = str_ends_with($field, '__minimum') ? 'minimum' : 'maximum';
+
                 $data[$mainField][$key] = ($value !== null && $value !== '')
                     ? round((float) $value, self::DECIMAL_PLACES)
                     : null;
@@ -1569,8 +1590,12 @@ class UniProductChangeTrackingService
         }
 
         foreach ($data as $field => $value) {
-            if (is_array($value) && isset($value['minimum'], $value['maximum'])) {
-                $data[$field] = $this->normalizeNumericRangeFromDb($value);
+            if (is_array($value) && array_key_exists('minimum', $value) && array_key_exists('maximum', $value)) {
+                if ($value['minimum'] === null && $value['maximum'] === null) {
+                    $data[$field] = null;
+                } else {
+                    $data[$field] = $this->normalizeNumericRangeFromDb($value);
+                }
             }
         }
 
@@ -1578,18 +1603,21 @@ class UniProductChangeTrackingService
     }
 
     /**
-     * @param array{minimum: float|null, maximum: float|null} $value
+     * @param array{minimum: float|string|null, maximum: float|string|null} $value
      */
     private function normalizeNumericRangeFromDb(array $value): ?string
     {
-        if ($value['minimum'] === null && $value['maximum'] === null) {
+        $minimum = ($value['minimum'] === '' || $value['minimum'] === null) ? null : $value['minimum'];
+        $maximum = ($value['maximum'] === '' || $value['maximum'] === null) ? null : $value['maximum'];
+
+        if ($minimum === null && $maximum === null) {
             return null;
         }
 
         return sprintf(
             '%s to %s',
-            $this->formatNumericValue($value['minimum']),
-            $this->formatNumericValue($value['maximum']),
+            $this->formatNumericValue($minimum),
+            $this->formatNumericValue($maximum),
         );
     }
 
