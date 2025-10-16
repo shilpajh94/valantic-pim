@@ -45,6 +45,7 @@ services:
             $workflowRegistry: '@workflow.registry'
         tags:
             - { name: kernel.event_subscriber }
+            - { name: kernel.event_listener, event: workflow.product_approval.transition.emergency_unpublish, method: isFinishedGoodsLevel }
     App\Util\:
         resource: '../src/Util'
 

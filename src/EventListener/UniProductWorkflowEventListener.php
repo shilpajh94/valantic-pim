@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\EventListener;
 
-use App\Enum\ProductManagement\ProductApprovalWorkflowPlace;
-use App\Enum\ProductManagement\ProductApprovalWorkflowTransition;
+use App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace;
+use App\Enum\ProductManagement\UniProductManagementApprovalWorkflowTransition;
 use Pimcore\Event\DataObjectEvents;
 use Pimcore\Event\Model\DataObjectEvent;
 use Pimcore\Event\Model\VersionEvent;
 use Pimcore\Event\VersionEvents;
 use Pimcore\Model\DataObject\UniProductBase;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Workflow\Event\TransitionEvent;
 use Symfony\Component\Workflow\Registry;
 
 class UniProductWorkflowEventListener implements EventSubscriberInterface
@@ -62,12 +63,12 @@ class UniProductWorkflowEventListener implements EventSubscriberInterface
         }
 
         // Apply draft transition
-        if (!in_array(ProductApprovalWorkflowPlace::APPROVED->value, $currentPlaces, true)) {
+        if (!in_array(UniProductManagementApprovalWorkflowPlace::APPROVED->value, $currentPlaces, true)) {
             return;
         }
 
         $newWorkflow = $this->workflowRegistry->get($object, 'product_approval');
-        $transitionName = ProductApprovalWorkflowTransition::EDIT_DRAFT->value;
+        $transitionName = UniProductManagementApprovalWorkflowTransition::EDIT_DRAFT->value;
 
         if ($newWorkflow->can($object, $transitionName)) {
             $newWorkflow->apply($object, $transitionName);
@@ -88,7 +89,22 @@ class UniProductWorkflowEventListener implements EventSubscriberInterface
         }
 
         // Reset workflow state
-        $object->setApprovalState(ProductApprovalWorkflowPlace::APPROVED->value);
+        $object->setApprovalState(UniProductManagementApprovalWorkflowPlace::APPROVED->value);
         $object->save([self::SKIP_WORKFLOW_LISTENER => true]);
+    }
+
+    public function isFinishedGoodsLevel(TransitionEvent $event): void
+    {
+        $object = $event->getSubject();
+
+        if (!$object instanceof UniProductBase) {
+            return;
+        }
+
+        $level = $object->getLevel();
+
+        if ($level !== 7) {
+            throw new \Pimcore\Model\Element\ValidationException('Emergency unpublishing is restricted to products at the finished goods level!');
+        }
     }
 }
