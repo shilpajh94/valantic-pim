@@ -2446,19 +2446,19 @@ class UniProductChangeTrackingService
                 $fieldName = substr($fieldPath, 10);
                 $fieldLabel = $this->getFieldCollectionLocalizedFieldLabel($fcDefinition, $fieldName);
 
-                return "{$fieldLabel}";
+                return "{$fcTitle} {$fieldLabel}";
             }
 
             if (str_starts_with($fieldPath, 'relation.')) {
                 $fieldName = substr($fieldPath, 9);
                 $fieldLabel = $this->getFieldCollectionFieldLabelFromDefinition($fcDefinition, $fieldName);
 
-                return "{$fieldLabel}";
+                return "{$fcTitle} {$fieldLabel}";
             }
 
             $fieldLabel = $this->getFieldCollectionFieldLabelFromDefinition($fcDefinition, $fieldPath);
 
-            return "{$fieldLabel}";
+            return "{$fcTitle} {$fieldLabel}";
         } catch (\Exception $e) {
             $this->logger->warning("Could not load field collection definition for {$fcType}: " . $e->getMessage());
 

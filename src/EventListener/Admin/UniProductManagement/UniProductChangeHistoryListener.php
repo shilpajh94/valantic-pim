@@ -49,6 +49,10 @@ class UniProductChangeHistoryListener implements EventSubscriberInterface
             return;
         }
 
+        if ($request->get('workflowName') !== null || $request->get('transition') !== null) {
+            return;
+        }
+
         if ($event->getArgument('validationExceptions')) {
             return;
         }
