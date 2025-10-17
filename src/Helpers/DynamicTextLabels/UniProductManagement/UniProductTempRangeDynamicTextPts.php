@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Helpers\DynamicTextLabels\UniProductManagement;
 
+use App\Service\UniProductManagement\UniProductGetInheritedDataForObjectService;
 use App\Service\VersionService;
 use Pimcore\Model\DataObject\ClassDefinition\Layout\DynamicTextLabelInterface;
 use Pimcore\Model\DataObject\Concrete;
-use Pimcore\Model\DataObject\Data\NumericRange;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts;
 use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductBase\BrandProductGroupSpecific;
@@ -57,11 +57,19 @@ class UniProductTempRangeDynamicTextPts extends UniProductDynamicText implements
         }
 
         $temperatureDataField = $temperatureFieldMap[$params['fieldname']];
-        $temperatureData = $brandBrickData->get($temperatureDataField);
+        $getInheritedDataForObjectService = new UniProductGetInheritedDataForObjectService();
+        $inheritedObjectData = $getInheritedDataForObjectService->callGetDataForObject($object);
 
-        // Validate and process temperature data
-        if ($temperatureData instanceof NumericRange && $temperatureData->getMinimum() !== '' && $temperatureData->getMinimum() !== null && $temperatureData->getMaximum() !== '' && $temperatureData->getMaximum() !== null) {
-            return $this->renderText($data, sprintf('%s to %s', $temperatureData->getMinimum(), $temperatureData->getMaximum()));
+        if (!empty($inheritedObjectData['brandProductGroupSpecific'])) {
+            foreach ($inheritedObjectData['brandProductGroupSpecific'] as $array) {
+                if (!empty($array) && !empty($array['data']) && !empty($array['data'][$temperatureDataField])) {
+                    $temperatureData = $array['data'][$temperatureDataField];
+
+                    if ($temperatureData['minimum'] !== '' && $temperatureData['minimum'] !== null && $temperatureData['maximum'] !== '' && $temperatureData['maximum'] !== null) {
+                        return $this->renderText($data, sprintf('%s to %s', $temperatureData['minimum'], $temperatureData['maximum']));
+                    }
+                }
+            }
         }
 
         return $output;

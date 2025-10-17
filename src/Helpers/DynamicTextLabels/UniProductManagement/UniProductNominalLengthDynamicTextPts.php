@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Helpers\DynamicTextLabels\UniProductManagement;
 
+use App\Service\UniProductManagement\UniProductGetInheritedDataForObjectService;
 use App\Service\VersionService;
 use Pimcore\Model\DataObject\ClassDefinition\Layout\DynamicTextLabelInterface;
 use Pimcore\Model\DataObject\Concrete;
@@ -55,7 +56,7 @@ class UniProductNominalLengthDynamicTextPts extends UniProductDynamicText implem
         if (!$childBrickData instanceof UniPrFgPts) {
             return $output;
         }
-        $nominalLength = $skeletonBrickData->get(UniPrSkPts::FIELD_NOMINAL_LENGTH);
+
         // Define a mapping of nominalLength values to their corresponding methods for both metric and imperial fields
         $lengthMapping = [
             'Ld' => ['metric' => UniPrFgPts::FIELD_DATUM_LENGTH_METRIC, 'imperial' => UniPrFgPts::FIELD_DATUM_LENGTH_IMPERIAL],
@@ -64,16 +65,30 @@ class UniProductNominalLengthDynamicTextPts extends UniProductDynamicText implem
             'LP / LW' => ['metric' => UniPrFgPts::FIELD_PITCH_LENGTH_METRIC, 'imperial' => UniPrFgPts::FIELD_PITCH_LENGTH_IMPERIAL],
             'Lr' => ['metric' => UniPrFgPts::FIELD_REF_LENGTH_LR_METRIC, 'imperial' => UniPrFgPts::FIELD_REF_LENGTH_LR_IMPERIAL],
         ];
-
         // Determine whether the field is metric or imperial
         $fieldType = $params['fieldname'] === 'nominalLengthMetric' ? 'metric' : 'imperial';
+        $nominalLength = '';
 
-        // Check if the nominalLength value exists in the mapping
-        if (isset($lengthMapping[$nominalLength])) {
-            $fieldValue = $childBrickData->get($lengthMapping[$nominalLength][$fieldType]);
+        $getInheritedDataForObjectService = new UniProductGetInheritedDataForObjectService();
+        $inheritedObjectData = $getInheritedDataForObjectService->callGetDataForObject($object);
 
-            if ($fieldValue !== '' && $fieldValue !== null) {
-                return $this->renderText($data, sprintf('%s', $fieldValue));
+        if (!empty($inheritedObjectData['skeletonProductGroupSpecific'])) {
+            foreach ($inheritedObjectData['skeletonProductGroupSpecific'] as $skeletonData) {
+                if (!empty($skeletonData['data'][UniPrSkPts::FIELD_NOMINAL_LENGTH])) {
+                    $nominalLength = $skeletonData['data'][UniPrSkPts::FIELD_NOMINAL_LENGTH];
+                }
+            }
+        }
+
+        if ($nominalLength !== '' && isset($lengthMapping[$nominalLength])) {
+            if (!empty($inheritedObjectData['finishedGoodProductGroupSpecific'])) {
+                foreach ($inheritedObjectData['finishedGoodProductGroupSpecific'] as $finishedGoodData) {
+                    if (!empty($finishedGoodData['data'][$lengthMapping[$nominalLength][$fieldType]])) {
+                        $fieldValue = $finishedGoodData['data'][$lengthMapping[$nominalLength][$fieldType]];
+
+                        return $this->renderText($data, sprintf('%s', $fieldValue));
+                    }
+                }
             }
         }
 
