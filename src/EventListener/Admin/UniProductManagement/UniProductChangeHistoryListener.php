@@ -49,11 +49,11 @@ class UniProductChangeHistoryListener implements EventSubscriberInterface
             return;
         }
 
-        if ($request->get('workflowName') !== null || $request->get('transition') !== null) {
+        if ($event->getArgument('validationExceptions')) {
             return;
         }
 
-        if ($event->getArgument('validationExceptions')) {
+        if ($request->get('workflowName') === null && $request->get('transition') === null) {
             return;
         }
 
@@ -77,6 +77,10 @@ class UniProductChangeHistoryListener implements EventSubscriberInterface
         $task = $request->get('task');
 
         if ($task === 'publish') {
+            return;
+        }
+
+        if ($request->get('workflowName') !== null || $request->get('transition') !== null) {
             return;
         }
 
