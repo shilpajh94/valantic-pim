@@ -7,8 +7,11 @@ namespace App\Helpers\DynamicTextLabels\UniProductManagement;
 use App\Service\VersionService;
 use Pimcore\Model\DataObject\ClassDefinition\Layout\DynamicTextLabelInterface;
 use Pimcore\Model\DataObject\Concrete;
+use Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgPts;
+use Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkPts;
 use Pimcore\Model\DataObject\UniProductBase;
-use Pimcore\Model\DataObject\UniProductCategoryInternal;
+use Pimcore\Model\DataObject\UniProductBase\FinishedGoodProductGroupSpecific;
+use Pimcore\Model\DataObject\UniProductBase\SkeletonProductGroupSpecific;
 
 /**
  * Render a calculated nomial length, based on a combination of skeleton and finished good values.
@@ -18,6 +21,9 @@ use Pimcore\Model\DataObject\UniProductCategoryInternal;
  */
 class UniProductNominalLengthDynamicTextPts extends UniProductDynamicText implements DynamicTextLabelInterface
 {
+    private const METRIC = 'metric';
+    private const IMPERIAL = 'imperial';
+
     public function renderLayoutText(string $data, ?Concrete $object, array $params): string
     {
         $output = $this->renderText($data);
@@ -33,33 +39,11 @@ class UniProductNominalLengthDynamicTextPts extends UniProductDynamicText implem
             return $output;
         }
 
-        $parent = $object->getParent();
-
-        if (!$parent instanceof UniProductCategoryInternal || $parent->getId() === 1) {
-            return $output;
-        }
-
-        return $output; // TODO: Remove temporary return for phpstan
-        /*
-
-        TODO: Add above:
-        use Pimcore\Model\DataObject\Objectbrick\Data\UniPrFgPts;
-        use Pimcore\Model\DataObject\Objectbrick\Data\UniPrSkPts;
-        use Pimcore\Model\DataObject\UniProductBase\FinishedGoodProductGroupSpecific;
-
-        $parent = VersionService::getPublishedOrLatestVersion($parent);
-
-        if (!$parent->getLevelSpecificData() instanceof LevelSpecificData) {
+        if (!$object->getSkeletonProductGroupSpecific() instanceof SkeletonProductGroupSpecific) {
             return $output;
         }
 
         if (!$object->getFinishedGoodProductGroupSpecific() instanceof FinishedGoodProductGroupSpecific) {
-            return $output;
-        }
-
-        $skeletonBrickData = $parent->getLevelSpecificData()->getUniPrSkPts();
-
-        if (!$skeletonBrickData instanceof UniPrSkPts) {
             return $output;
         }
 
@@ -69,29 +53,60 @@ class UniProductNominalLengthDynamicTextPts extends UniProductDynamicText implem
             return $output;
         }
 
-        $nominalLength = $skeletonBrickData->get(UniPrSkPts::FIELD_NOMINAL_LENGTH);
         // Define a mapping of nominalLength values to their corresponding methods for both metric and imperial fields
         $lengthMapping = [
-            'Ld' => ['metric' => UniPrFgPts::FIELD_DATUM_LENGTH_METRIC, 'imperial' => UniPrFgPts::FIELD_DATUM_LENGTH_IMPERIAL],
-            'Li' => ['metric' => UniPrFgPts::FIELD_INSIDE_LENGTH_METRIC, 'imperial' => UniPrFgPts::FIELD_INSIDE_LENGTH_IMPERIAL],
-            'Le' => ['metric' => UniPrFgPts::FIELD_EFFECTIVE_LENGTH_METRIC, 'imperial' => UniPrFgPts::FIELD_EFFECTIVE_LENGTH_IMPERIAL],
-            'LP / LW' => ['metric' => UniPrFgPts::FIELD_PITCH_LENGTH_METRIC, 'imperial' => UniPrFgPts::FIELD_PITCH_LENGTH_IMPERIAL],
-            'Lr' => ['metric' => UniPrFgPts::FIELD_REF_LENGTH_LR_METRIC, 'imperial' => UniPrFgPts::FIELD_REF_LENGTH_LR_IMPERIAL],
+            'Ld' => [self::METRIC => UniPrFgPts::FIELD_DATUM_LENGTH_METRIC, self::IMPERIAL => UniPrFgPts::FIELD_DATUM_LENGTH_IMPERIAL],
+            'Li' => [self::METRIC => UniPrFgPts::FIELD_INSIDE_LENGTH_METRIC, self::IMPERIAL => UniPrFgPts::FIELD_INSIDE_LENGTH_IMPERIAL],
+            'Le' => [self::METRIC => UniPrFgPts::FIELD_EFFECTIVE_LENGTH_METRIC, self::IMPERIAL => UniPrFgPts::FIELD_EFFECTIVE_LENGTH_IMPERIAL],
+            'LP / LW' => [self::METRIC => UniPrFgPts::FIELD_PITCH_LENGTH_METRIC, self::IMPERIAL => UniPrFgPts::FIELD_PITCH_LENGTH_IMPERIAL],
+            'Lr' => [self::METRIC => UniPrFgPts::FIELD_REF_LENGTH_LR_METRIC, self::IMPERIAL => UniPrFgPts::FIELD_REF_LENGTH_LR_IMPERIAL],
         ];
 
         // Determine whether the field is metric or imperial
-        $fieldType = $params['fieldname'] === 'nominalLengthMetric' ? 'metric' : 'imperial';
+        $fieldType = $params['fieldname'] === 'nominalLengthMetric' ? self::METRIC : self::IMPERIAL;
+        $nominalLength = $this->resolveNominalLength($object);
 
-        // Check if the nominalLength value exists in the mapping
-        if (isset($lengthMapping[$nominalLength])) {
-            $fieldValue = $childBrickData->get($lengthMapping[$nominalLength][$fieldType]);
+        $field = $lengthMapping[$nominalLength][$fieldType] ?? null;
+        $value = $field !== null ? $this->resolveChildValue($object, $field) : null;
 
-            if ($fieldValue !== '' && $fieldValue !== null) {
-                return $this->renderText($data, sprintf('%s', $fieldValue));
-            }
+        return $this->renderText($data, $value);
+    }
+
+    private function resolveNominalLength(UniProductBase $object): string
+    {
+        $skeletonBrickData = $object->getSkeletonProductGroupSpecific()?->getUniPrSkPts();
+
+        if (!$skeletonBrickData instanceof UniPrSkPts) {
+            return '';
         }
 
-        return $output;
-        */
+        $result = $skeletonBrickData->getNominalLength();
+
+        if ($result !== '') {
+            return $result;
+        }
+
+        $parent = $object->getParent();
+
+        return $parent instanceof UniProductBase ? $this->resolveNominalLength($parent) : $result;
+    }
+
+    private function resolveChildValue(UniProductBase $object, string $field): ?string
+    {
+        $skeletonBrickData = $object->getFinishedGoodProductGroupSpecific()?->getUniPrFgPts();
+
+        if (!$skeletonBrickData instanceof UniPrFgPts) {
+            return '';
+        }
+
+        $result = $skeletonBrickData->get($field);
+
+        if ($result !== null) {
+            return $result;
+        }
+
+        $parent = $object->getParent();
+
+        return $parent instanceof UniProductBase ? $this->resolveChildValue($parent, $field) : $result;
     }
 }
