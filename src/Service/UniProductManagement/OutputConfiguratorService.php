@@ -21,6 +21,14 @@ use Pimcore\Model\DataObject\UniProductDataOutputConfiguration;
 
 class OutputConfiguratorService
 {
+    public const SYSTEM_FIELDS = ['id', 'key', 'path', 'fullPath'];
+    public const SYSTEM_FIELD_LABELS = [
+        'id' => 'System ID',
+        'key' => 'System Key',
+        'path' => 'System Path',
+        'fullPath' => 'System Full Path',
+    ];
+
     public function __construct(
         private readonly OutputConfiguratorDataFieldsProvider $dynamicFieldsProvider,
         private readonly OutputConfiguratorObjectbrickFieldsProvider $objectBrickFieldsProvider,
@@ -34,7 +42,6 @@ class OutputConfiguratorService
         $objectBrickFields = $this->objectBrickFieldsProvider->getObjectBrickFields();
         $options = array_merge($dynamicFields, $objectBrickFields);
 
-        $finishedGoodsAndCategories = $configurator->getFinishedGoods();
         $dataFields = $configurator->getDataFields();
         $productfields = $configurator->getProductGroupSpecificDatafields();
 
@@ -54,7 +61,7 @@ class OutputConfiguratorService
         };
 
         $columnNames = $this->prepareColumnNames($fields, $columnType);
-        $data = $this->fetchData($finishedGoodsAndCategories, $fields, $languages);
+        $data = $this->fetchData($configurator->getExportObjects(), $fields, $languages);
 
         $uniqueHash = bin2hex(random_bytes(8));
         $timestamp = Carbon::now()->format('Y-m-d_His');
@@ -113,10 +120,10 @@ class OutputConfiguratorService
                         default => throw new \RuntimeException(sprintf('Unknown column type "%s"', $columnType)),
                     };
                 } else {
-                    [$brickName, $brickField] = explode('.', $fieldKey, 2);
+                    [$brickName] = explode('.', $fieldKey, 2);
                     $columnNames[$fieldKey] = match ($columnType) {
                         UniOutputConfigurationColumnType::LABEL->value => $fieldValue,
-                        UniOutputConfigurationColumnType::TECHNICAL->value => $fieldValue,
+                        UniOutputConfigurationColumnType::TECHNICAL->value => sprintf('%s.%s', $brickName, $fieldValue),
                         default => throw new \RuntimeException(sprintf('Unknown column type "%s"', $columnType)),
                     };
                 }
@@ -131,20 +138,20 @@ class OutputConfiguratorService
     /**
      * Fetches data for finished goods and internal categories.
      *
-     * @param array<AbstractObject> $finishedGoodsAndCategories List of finished goods and internal categories.
+     * @param array<AbstractObject> $exportObjects List of finished goods and internal categories.
      * @param array<string> $dataFields List of data fields to process.
      * @param array<string> $languages The language codes (e.g., 'en', 'de').
      *
      * @return array<int, array<string, mixed>> The fetched data.
      */
     public function fetchData(
-        array $finishedGoodsAndCategories,
+        array $exportObjects,
         array $dataFields,
         array $languages,
     ): array {
         $data = [];
 
-        foreach ($finishedGoodsAndCategories as $item) {
+        foreach ($exportObjects as $item) {
             if ($item instanceof UniProductCategoryInternal) {
                 $this->fetchCategoryData($item, $data, $dataFields, $languages);
             } else {
@@ -263,10 +270,8 @@ class OutputConfiguratorService
 
         $directory = dirname($filePath);
 
-        if (!is_dir($directory)) {
-            if (!mkdir($directory, 0o755, true) && !is_dir($directory)) {
-                throw new \Exception(sprintf('Unable to create directory: %s', $directory));
-            }
+        if (!is_dir($directory) && !mkdir($directory, 0o755, true) && !is_dir($directory)) {
+            throw new \Exception(sprintf('Unable to create directory: %s', $directory));
         }
 
         $writer = $format === UniOutputConfigurationOutputFormat::XLSX->value ? new Xlsx($spreadsheet) : new Csv($spreadsheet);
@@ -288,18 +293,18 @@ class OutputConfiguratorService
     public function formatCellValue(mixed $value, ?string $fieldType = null): string
     {
         if ($fieldType === 'checkbox') {
-            if ($value === true || $value === 1 || $value === '1') {
-                return 'Yes';
-            }
-
-            return 'No';
+            return ($value === true || $value === 1 || $value === '1') ? 'Yes' : 'No';
         }
 
         if ($value instanceof \DateTimeInterface) {
             return $value->format('Y-m-d H:i:s');
-        } elseif (is_array($value)) {
+        }
+
+        if (is_array($value)) {
             return implode(', ', $value);
-        } elseif (is_object($value)) {
+        }
+
+        if (is_object($value)) {
             return method_exists($value, '__toString') ? (string) $value : '[Object]';
         }
 
@@ -579,6 +584,10 @@ class OutputConfiguratorService
         $baseFieldKey = preg_replace('/_[a-z]{2}(?:_[A-Z]{2})?$/', '', $fieldKey);
         $fieldDef = $classDefinition->getFieldDefinition($baseFieldKey);
 
+        if (in_array($baseFieldKey, self::SYSTEM_FIELDS, true)) {
+            return $this->formatCellValue($object->get($fieldKey));
+        }
+
         if (!$fieldDef instanceof ClassDefinition\Data) {
             return '';
         }
@@ -599,7 +608,7 @@ class OutputConfiguratorService
      * Maps fields to their technical names, appending language suffix for localized fields.
      *
      * @param array<string> $fields List of field names.
-     * @param array<array<string, string>> $options Field options with metadata.
+     * @param array<array<string, mixed>> $options Field options with metadata.
      * @param array<string> $languages List of language codes (e.g., 'en', 'de').
      * @param callable $titleCallback Callback to generate field titles.
      *

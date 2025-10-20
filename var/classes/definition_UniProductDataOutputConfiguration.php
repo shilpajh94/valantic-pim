@@ -14,7 +14,7 @@
  * - timeOfDay [time]
  * - exportDirectory [manyToOneRelation]
  * - lastRun [datetime]
- * - finishedGoods [manyToManyObjectRelation]
+ * - exportObjects [manyToManyObjectRelation]
  * - dataFields [multiselect]
  * - productGroupSpecificDatafields [multiselect]
  * - columnNameType [select]
@@ -28,7 +28,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => 'Product Data Output Configuration',
    'creationDate' => NULL,
-   'modificationDate' => 1758698011,
+   'modificationDate' => 1760969360,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -354,7 +354,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                 'name' => 'finishedGoods',
+                 'name' => 'exportObjects',
                  'title' => 'Finished Goods / Internal Categories',
                  'tooltip' => '',
                  'mandatory' => true,
@@ -582,6 +582,50 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
+    0 => 
+    Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
+       'name' => 'finishedGoods',
+       'title' => 'Finished Goods / Internal Categories',
+       'tooltip' => '',
+       'mandatory' => true,
+       'noteditable' => false,
+       'index' => false,
+       'locked' => false,
+       'style' => '',
+       'permissions' => NULL,
+       'fieldtype' => '',
+       'relationType' => true,
+       'invisible' => false,
+       'visibleGridView' => false,
+       'visibleSearch' => true,
+       'blockedVarsForExport' => 
+      array (
+      ),
+       'classes' => 
+      array (
+        0 => 
+        array (
+          'classes' => 'UniProductBase',
+        ),
+        1 => 
+        array (
+          'classes' => 'UniProductCategoryInternal',
+        ),
+      ),
+       'displayMode' => 'grid',
+       'pathFormatterClass' => 'App\\Service\\UniProductManagement\\PathFormatter\\UniProductOutputConfiguratorTargetFormatter',
+       'maxItems' => NULL,
+       'visibleFields' => 'fullpath',
+       'allowToCreateNewObject' => false,
+       'allowToClearRelation' => true,
+       'optimizedAdminLoading' => false,
+       'enableTextSelection' => false,
+       'visibleFieldDefinitions' => 
+      array (
+      ),
+       'width' => '',
+       'height' => '',
+    )),
   ),
    'blockedVarsForExport' => 
   array (

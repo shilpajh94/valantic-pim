@@ -115,14 +115,14 @@ public function filterByLastRun ($data, $operator = '='): static
 }
 
 /**
-* Filter by finishedGoods (Finished Goods / Internal Categories)
+* Filter by exportObjects (Finished Goods / Internal Categories)
 * @param mixed $data
 * @param string $operator SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
-public function filterByFinishedGoods ($data, $operator = '='): static
+public function filterByExportObjects ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("finishedGoods")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("exportObjects")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 

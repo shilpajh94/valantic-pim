@@ -14,7 +14,7 @@
  * - timeOfDay [time]
  * - exportDirectory [manyToOneRelation]
  * - lastRun [datetime]
- * - finishedGoods [manyToManyObjectRelation]
+ * - exportObjects [manyToManyObjectRelation]
  * - dataFields [multiselect]
  * - productGroupSpecificDatafields [multiselect]
  * - columnNameType [select]
@@ -36,7 +36,7 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 * @method static \Pimcore\Model\DataObject\UniProductDataOutputConfiguration\Listing|\Pimcore\Model\DataObject\UniProductDataOutputConfiguration|null getByTimeOfDay(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductDataOutputConfiguration\Listing|\Pimcore\Model\DataObject\UniProductDataOutputConfiguration|null getByExportDirectory(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductDataOutputConfiguration\Listing|\Pimcore\Model\DataObject\UniProductDataOutputConfiguration|null getByLastRun(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductDataOutputConfiguration\Listing|\Pimcore\Model\DataObject\UniProductDataOutputConfiguration|null getByFinishedGoods(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductDataOutputConfiguration\Listing|\Pimcore\Model\DataObject\UniProductDataOutputConfiguration|null getByExportObjects(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductDataOutputConfiguration\Listing|\Pimcore\Model\DataObject\UniProductDataOutputConfiguration|null getByDataFields(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductDataOutputConfiguration\Listing|\Pimcore\Model\DataObject\UniProductDataOutputConfiguration|null getByProductGroupSpecificDatafields(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductDataOutputConfiguration\Listing|\Pimcore\Model\DataObject\UniProductDataOutputConfiguration|null getByColumnNameType(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
@@ -53,7 +53,7 @@ public const FIELD_DAY_OF_MONTH = 'dayOfMonth';
 public const FIELD_TIME_OF_DAY = 'timeOfDay';
 public const FIELD_EXPORT_DIRECTORY = 'exportDirectory';
 public const FIELD_LAST_RUN = 'lastRun';
-public const FIELD_FINISHED_GOODS = 'finishedGoods';
+public const FIELD_EXPORT_OBJECTS = 'exportObjects';
 public const FIELD_DATA_FIELDS = 'dataFields';
 public const FIELD_PRODUCT_GROUP_SPECIFIC_DATAFIELDS = 'productGroupSpecificDatafields';
 public const FIELD_COLUMN_NAME_TYPE = 'columnNameType';
@@ -69,7 +69,7 @@ protected $dayOfMonth;
 protected $timeOfDay;
 protected $exportDirectory;
 protected $lastRun;
-protected $finishedGoods;
+protected $exportObjects;
 protected $dataFields;
 protected $productGroupSpecificDatafields;
 protected $columnNameType;
@@ -382,19 +382,19 @@ public function setLastRun(?\Carbon\Carbon $lastRun): static
 }
 
 /**
-* Get finishedGoods - Finished Goods / Internal Categories
+* Get exportObjects - Finished Goods / Internal Categories
 * @return \Pimcore\Model\DataObject\UniProductBase[]|\Pimcore\Model\DataObject\UniProductCategoryInternal[]
 */
-public function getFinishedGoods(): array
+public function getExportObjects(): array
 {
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("finishedGoods");
+		$preValue = $this->preGetValue("exportObjects");
 		if ($preValue !== null) {
 			return $preValue;
 		}
 	}
 
-	$data = $this->getClass()->getFieldDefinition("finishedGoods")->preGetData($this);
+	$data = $this->getClass()->getFieldDefinition("exportObjects")->preGetData($this);
 
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
@@ -404,23 +404,23 @@ public function getFinishedGoods(): array
 }
 
 /**
-* Set finishedGoods - Finished Goods / Internal Categories
-* @param \Pimcore\Model\DataObject\UniProductBase[]|\Pimcore\Model\DataObject\UniProductCategoryInternal[] $finishedGoods
+* Set exportObjects - Finished Goods / Internal Categories
+* @param \Pimcore\Model\DataObject\UniProductBase[]|\Pimcore\Model\DataObject\UniProductCategoryInternal[] $exportObjects
 * @return $this
 */
-public function setFinishedGoods(?array $finishedGoods): static
+public function setExportObjects(?array $exportObjects): static
 {
 	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation $fd */
-	$fd = $this->getClass()->getFieldDefinition("finishedGoods");
+	$fd = $this->getClass()->getFieldDefinition("exportObjects");
 	$hideUnpublished = \Pimcore\Model\DataObject\Concrete::getHideUnpublished();
 	\Pimcore\Model\DataObject\Concrete::setHideUnpublished(false);
-	$currentData = $this->getFinishedGoods();
+	$currentData = $this->getExportObjects();
 	\Pimcore\Model\DataObject\Concrete::setHideUnpublished($hideUnpublished);
-	$isEqual = $fd->isEqual($currentData, $finishedGoods);
+	$isEqual = $fd->isEqual($currentData, $exportObjects);
 	if (!$isEqual) {
-		$this->markFieldDirty("finishedGoods", true);
+		$this->markFieldDirty("exportObjects", true);
 	}
-	$this->finishedGoods = $fd->preSetData($this, $finishedGoods);
+	$this->exportObjects = $fd->preSetData($this, $exportObjects);
 	return $this;
 }
 

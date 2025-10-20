@@ -43,6 +43,12 @@ class OutputConfiguratorDataFieldsProvider implements SelectOptionsProviderInter
 
         $fields = [];
 
+        // Add Pimcore system default fields
+        foreach (OutputConfiguratorService::SYSTEM_FIELDS as $field) {
+            $title = OutputConfiguratorService::SYSTEM_FIELD_LABELS[$field];
+            $fields [] = ['key' => $field, 'value' => $field, 'title' => $title, 'localized' => false];
+        }
+
         foreach ($targetClasses as $fullyQualifiedClassName) {
             $classKey = Helpers::classBasename($fullyQualifiedClassName);
             $class = ClassDefinition::getByName($classKey);

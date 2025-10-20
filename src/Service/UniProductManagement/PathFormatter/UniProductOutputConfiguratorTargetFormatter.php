@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\UniProductManagement\PathFormatter;
 
+use App\Enum\UniProductHierarchyLevel;
 use Carbon\Carbon;
 use Pimcore\Model\DataObject\ClassDefinition\PathFormatterInterface;
 use Pimcore\Model\DataObject\Concrete;
@@ -33,18 +34,23 @@ class UniProductOutputConfiguratorTargetFormatter implements PathFormatterInterf
 
             $targetObject = Concrete::getById($item['id']);
 
-            if ($targetObject instanceof UniProductBase) {
+            if (
+                $targetObject instanceof UniProductCategoryInternal
+                || ($targetObject instanceof UniProductBase && $targetObject->getHierarchyLevel() !== UniProductHierarchyLevel::FINISHED_GOOD->value)
+            ) {
+                $level = UniProductHierarchyLevel::tryFrom($targetObject->getHierarchyLevel())?->label() ?? 'Product';
+                $newPath = sprintf(
+                    '%s %s: %s',
+                    $level,
+                    str_replace(self::BASE_PATH . '/', '', $targetObject->getFullPath()),
+                    $targetObject->getHierarchyLevelDescription(),
+                );
+            } elseif ($targetObject instanceof UniProductBase) {
                 $newPath = sprintf(
                     'Finished Good %s: %s - %s',
                     str_replace(self::BASE_PATH . '/', '', $targetObject->getFullPath()),
                     $targetObject->getSapMaterialNumber(),
                     $targetObject->getSapDescription(),
-                );
-            } elseif ($targetObject instanceof UniProductCategoryInternal) {
-                $newPath = sprintf(
-                    'Internal category %s: %s',
-                    str_replace(self::BASE_PATH . '/', '', $targetObject->getFullPath()),
-                    $targetObject->getHierarchyLevelDescription(),
                 );
             }
 
