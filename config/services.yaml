@@ -53,7 +53,7 @@ services:
         class: Pimcore\Bundle\CustomReportsBundle\Tool\Adapter\DefaultCustomReportAdapterFactory
         arguments:
             - 'App\CustomReport\Adapter\UniProductManagement\UniFinishedGoods'
-    
+
     app.custom_report.adapter.factory.uni_internal_categories:
         class: Pimcore\Bundle\CustomReportsBundle\Tool\Adapter\DefaultCustomReportAdapterFactory
         arguments:
@@ -71,5 +71,3 @@ services:
     # AppBundle\EventListener\TestListener:
     #     tags:
     #         - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: onObjectPreUpdate }
-
-
