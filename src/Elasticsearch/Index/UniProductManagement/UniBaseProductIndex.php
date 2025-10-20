@@ -49,6 +49,24 @@ class UniBaseProductIndex extends AbstractIndex
     final public const ATTRIBUTE_PRINTED_CATALOGUE_FLAG = 'printed_catalogue_flag';
     final public const ATTRIBUTE_VIRTUAL_CATALOGUE_FLAG = 'virtual_catalogue_flag';
     final public const ATTRIBUTE_CUSTOMER_PORTAL_FLAG = 'customer_portal_flag';
+    final public const ATTRIBUTE_CORPORATE_BRAND = 'corporate_brand';
+    final public const ATTRIBUTE_PRODUCT_GROUP_BRAND = 'product_group_brand';
+    final public const ATTRIBUTE_PRODUCT_NAME = 'product_name';
+    final public const ATTRIBUTE_PRODUCT_NAME_VARIANT = 'product_name_variant';
+    final public const ATTRIBUTE_PRODUCT_NAME_SUB_VARIANT = 'product_name_sub_variant';
+    final public const ATTRIBUTE_PRODUCT_DESIGN = 'product_design';
+    final public const ATTRIBUTE_PRODUCT_DESIGN_CODE = 'product_design_code';
+    final public const ATTRIBUTE_INDUSTRIAL_STANDARDS = 'industrial_standards';
+    final public const ATTRIBUTE_AGENCY_COMPLIANCE = 'agency_compliance';
+    final public const ATTRIBUTE_B2B_SUB_CATEGORY = 'b2b_sub_category';
+    final public const ATTRIBUTE_REACH = 'reach';
+    final public const ATTRIBUTE_HAZARDOUS_SUBSTANCE_CLASSIFICATION = 'hazardous_substance_classification';
+    final public const ATTRIBUTE_FEATURES_AND_BENEFITS = 'features_and_benefits';
+    final public const ATTRIBUTE_LEGAL_TEXT = 'legal_text';
+    final public const ATTRIBUTE_DISCLAIMER = 'disclaimer';
+    final public const ATTRIBUTE_MARKETING_DESCRIPTION_SHORT = 'marketing_description_short';
+    final public const ATTRIBUTE_MARKETING_DESCRIPTION_LONG = 'marketing_description_long';
+    final public const ATTRIBUTE_FULL_PRODUCT_NAME = 'full_product_name';
 
     public function getName(): string
     {
