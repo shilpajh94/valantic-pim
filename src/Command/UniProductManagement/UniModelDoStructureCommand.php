@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Command\UniProductManagement;
 
 use App\Enum\UniProductHierarchyLevel;
-use App\EventListener\UniProductWorkflowEventListener;
+use App\EventListener\Admin\UniProductManagement\UniProductWorkflowEventListener;
 use App\Service\VersionService;
 use App\Util\Helpers;
 use Pimcore\Console\AbstractCommand;

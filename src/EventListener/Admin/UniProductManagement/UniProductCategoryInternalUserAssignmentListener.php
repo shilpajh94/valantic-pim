@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\EventListener\Admin\UniProductManagement;
 
+use App\Enum\UniProductHierarchyLevel;
 use Pimcore\Event\DataObjectEvents;
 use Pimcore\Event\Model\DataObjectEvent;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
@@ -43,11 +44,11 @@ class UniProductCategoryInternalUserAssignmentListener implements EventSubscribe
         $dirtyFields = $object->getDirtyFields();
         $assignedUserChanged = in_array(UniProductCategoryInternal::FIELD_ASSIGNED_USER, $dirtyFields, true);
 
-        if ($assignedUserChanged && $currentLevel !== 2 && $assignedUser !== null) {
+        if ($assignedUserChanged && $assignedUser !== null && $currentLevel !== UniProductHierarchyLevel::CATEGORY->levelNumber()) {
             throw new ValidationException('Users can only be assigned on category level 2. Please remove the assigned user.');
         }
 
-        if ($currentLevel !== 2 && $assignedUser !== null) {
+        if ($assignedUser !== null && $currentLevel !== UniProductHierarchyLevel::CATEGORY->levelNumber()) {
             $object->setAssignedUser(null);
         }
     }

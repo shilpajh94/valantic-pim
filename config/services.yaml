@@ -40,11 +40,12 @@ services:
         resource: '../src/Command'
         tags: [ 'console.command' ]
 
-    App\EventListener\UniProductWorkflowEventListener:
+    App\EventListener\Admin\UniProductManagement\UniProductWorkflowEventListener:
         arguments:
             $workflowRegistry: '@workflow.registry'
         tags:
             - { name: kernel.event_subscriber }
+            - { name: kernel.event_listener, event: workflow.product_approval.transition.emergency_unpublish, method: validateFinishedGoodsLevel }
     App\Util\:
         resource: '../src/Util'
 
