@@ -2,15 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\EventListener;
+namespace App\EventListener\Admin\UniProductManagement;
 
 use App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace;
 use App\Enum\ProductManagement\UniProductManagementApprovalWorkflowTransition;
+use App\Enum\UniProductHierarchyLevel;
 use Pimcore\Event\DataObjectEvents;
 use Pimcore\Event\Model\DataObjectEvent;
 use Pimcore\Event\Model\VersionEvent;
 use Pimcore\Event\VersionEvents;
 use Pimcore\Model\DataObject\UniProductBase;
+use Pimcore\Model\Element\ValidationException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Workflow\Event\TransitionEvent;
 use Symfony\Component\Workflow\Registry;
@@ -93,7 +95,7 @@ class UniProductWorkflowEventListener implements EventSubscriberInterface
         $object->save([self::SKIP_WORKFLOW_LISTENER => true]);
     }
 
-    public function isFinishedGoodsLevel(TransitionEvent $event): void
+    public function validateFinishedGoodsLevel(TransitionEvent $event): void
     {
         $object = $event->getSubject();
 
@@ -101,10 +103,8 @@ class UniProductWorkflowEventListener implements EventSubscriberInterface
             return;
         }
 
-        $level = $object->getLevel();
-
-        if ($level !== 7) {
-            throw new \Pimcore\Model\Element\ValidationException('Emergency unpublishing is restricted to products at the finished goods level!');
+        if ($object->getLevel() !== UniProductHierarchyLevel::FINISHED_GOOD->levelNumber()) {
+            throw new ValidationException('Emergency unpublishing is restricted to products at the finished goods level!');
         }
     }
 }
