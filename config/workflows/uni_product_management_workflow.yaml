@@ -7,9 +7,9 @@ pimcore:
         type: single_state
         arguments:
           - approvalState
-      initial_markings: [!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CREATED->value]
+      initial_markings: [!php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::CREATED->value]
       places:
-        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CREATED->value:
+        !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::CREATED->value:
           label: 'Created from SAP'
           color: '#ffcc00'
           permissions:
@@ -29,7 +29,7 @@ pimcore:
               view: true
               publish: false
               save: false
-        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::PENDING_APPROVAL->value:
+        !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::PENDING_APPROVAL->value:
           label: 'Pending Approval'
           color: '#ffa500'
           permissions:
@@ -56,7 +56,7 @@ pimcore:
               view: true
               publish: false
               save: false
-        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::APPROVED->value:
+        !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::APPROVED->value:
           label: 'Approved'
           color: '#00cc00'
           permissions:
@@ -76,7 +76,7 @@ pimcore:
               view: true
               publish: false
               save: false
-        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::REJECTED->value:
+        !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::REJECTED->value:
           label: 'Rejected'
           color: '#e74c3c'
           permissions:
@@ -96,7 +96,7 @@ pimcore:
               view: true
               publish: false
               save: false
-        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::DRAFT->value:
+        !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::DRAFT->value:
           label: 'Draft'
           color: '#ffd700'
           permissions:
@@ -116,7 +116,7 @@ pimcore:
               view: true
               publish: false
               save: false
-        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::ARCHIVED->value:
+        !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::ARCHIVED->value:
           label: 'Archived'
           color: '#808080'
           permissions:
@@ -136,7 +136,7 @@ pimcore:
               view: true
               publish: false
               save: false
-        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::EMERGENCY_UNPUBLISHED->value:
+        !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::EMERGENCY_UNPUBLISHED->value:
           label: 'Emergency Unpublished'
           color: '#c0392b'
           permissions:
@@ -157,22 +157,22 @@ pimcore:
               publish: false
               save: false
       transitions:
-        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::SUBMIT_FOR_APPROVAL->value:
+        !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowTransition::SUBMIT_FOR_APPROVAL->value:
           guard: "is_fully_authenticated() and ('ROLE_UNIADMIN' in role_names or 'ROLE_UNIENRICHMENT' in role_names)"
           from:
-            - !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::CREATED->value
-            - !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::REJECTED->value
-            - !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::DRAFT->value
-            - !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::EMERGENCY_UNPUBLISHED->value
-          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::PENDING_APPROVAL->value
+            - !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::CREATED->value
+            - !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::REJECTED->value
+            - !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::DRAFT->value
+            - !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::EMERGENCY_UNPUBLISHED->value
+          to: !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::PENDING_APPROVAL->value
           options:
             label: 'Submit for Approval'
             changePublishedState: 'no_change'
             iconClass: 'pimcore_icon_right'
-        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::REJECT_PRODUCT->value:
+        !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowTransition::REJECT->value:
           guard: "is_fully_authenticated() and ('ROLE_UNIADMIN' in role_names or 'ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names)"
-          from: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::PENDING_APPROVAL->value
-          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::REJECTED->value
+          from: !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::PENDING_APPROVAL->value
+          to: !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::REJECTED->value
           options:
             label: 'Reject Product'
             notes:
@@ -181,10 +181,10 @@ pimcore:
               commentRequired: true
             changePublishedState: 'no_change'
             iconClass: 'pimcore_icon_minus'
-        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::APPROVE_PRODUCT->value:
+        !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowTransition::APPROVE->value:
           guard: "is_fully_authenticated() and ('ROLE_UNIADMIN' in role_names or 'ROLE_UNIAPPROVALPTS' in role_names or 'ROLE_UNIAPPROVALDSS' in role_names or 'ROLE_UNIAPPROVALFHS' in role_names)"
-          from: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::PENDING_APPROVAL->value
-          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::APPROVED->value
+          from: !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::PENDING_APPROVAL->value
+          to: !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::APPROVED->value
           options:
             label: 'Approve Product'
             notes:
@@ -193,22 +193,22 @@ pimcore:
               commentRequired: false
             changePublishedState: 'force_published'
             iconClass: 'pimcore_icon_accept'
-        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::EDIT_DRAFT->value:
+        !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowTransition::EDIT_DRAFT->value:
           guard: "is_fully_authenticated() and ('ROLE_UNIADMIN' in role_names or 'ROLE_UNIENRICHMENT' in role_names)"
-          from: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::APPROVED->value
-          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::DRAFT->value
+          from: !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::APPROVED->value
+          to: !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::DRAFT->value
           options:
             label: 'Edit Draft'
             changePublishedState: 'no_change'
             iconClass: 'pimcore_icon_edit'
-        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::ARCHIVE_PRODUCT->value:
+        !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowTransition::ARCHIVE->value:
           guard: "is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names"
           from:
-            - !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::PENDING_APPROVAL->value
-            - !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::REJECTED->value
-            - !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::APPROVED->value
-            - !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::DRAFT->value
-          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::ARCHIVED->value
+            - !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::PENDING_APPROVAL->value
+            - !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::REJECTED->value
+            - !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::APPROVED->value
+            - !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::DRAFT->value
+          to: !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::ARCHIVED->value
           options:
             label: 'Archive Product'
             notes:
@@ -217,18 +217,18 @@ pimcore:
               commentRequired: false
             changePublishedState: 'force_unpublished'
             iconClass: 'pimcore_icon_delete'
-        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::UNARCHIVE_PRODUCT->value:
+        !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowTransition::UNARCHIVE->value:
           guard: "is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names"
-          from: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::ARCHIVED->value
-          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::DRAFT->value
+          from: !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::ARCHIVED->value
+          to: !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::DRAFT->value
           options:
             label: 'Unarchive Product'
             changePublishedState: 'no_change'
             iconClass: 'pimcore_icon_revert'
-        !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowTransition::EMERGENCY_UNPUBLISH->value:
+        !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowTransition::EMERGENCY_UNPUBLISH->value:
           guard: "is_fully_authenticated() and 'ROLE_UNIADMIN' in role_names"
-          from: [!php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::APPROVED->value, !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::DRAFT->value]
-          to: !php/enum App\Enum\ProductManagement\ProductApprovalWorkflowPlace::EMERGENCY_UNPUBLISHED->value
+          from: [!php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::APPROVED->value, !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::DRAFT->value]
+          to: !php/enum App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace::EMERGENCY_UNPUBLISHED->value
           options:
             label: 'Emergency Unpublish'
             notes:

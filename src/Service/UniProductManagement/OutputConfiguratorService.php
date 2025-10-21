@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Service\UniProductManagement;
 
 use App\Enum\UniOutputConfigurationColumnType;
+use App\Enum\UniOutputConfigurationExportObjectHandling;
 use App\Enum\UniOutputConfigurationOutputFormat;
+use App\Enum\UniProductHierarchyLevel;
 use Carbon\Carbon;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -15,11 +17,21 @@ use Pimcore\Model\Asset;
 use Pimcore\Model\Asset\Folder;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\AbstractObject;
+use Pimcore\Model\DataObject\ClassDefinition;
+use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Pimcore\Model\DataObject\UniProductDataOutputConfiguration;
 
 class OutputConfiguratorService
 {
+    public const SYSTEM_FIELDS = ['id', 'key', 'path', 'fullPath'];
+    public const SYSTEM_FIELD_LABELS = [
+        'id' => 'System ID',
+        'key' => 'System Key',
+        'path' => 'System Path',
+        'fullPath' => 'System Full Path',
+    ];
+
     public function __construct(
         private readonly OutputConfiguratorDataFieldsProvider $dynamicFieldsProvider,
         private readonly OutputConfiguratorObjectbrickFieldsProvider $objectBrickFieldsProvider,
@@ -33,8 +45,6 @@ class OutputConfiguratorService
         $objectBrickFields = $this->objectBrickFieldsProvider->getObjectBrickFields();
         $options = array_merge($dynamicFields, $objectBrickFields);
 
-        $finishedGoods = $configurator->getFinishedGoods();
-        $internalCategories = $configurator->getFinishedGoods();
         $dataFields = $configurator->getDataFields();
         $productfields = $configurator->getProductGroupSpecificDatafields();
 
@@ -54,7 +64,7 @@ class OutputConfiguratorService
         };
 
         $columnNames = $this->prepareColumnNames($fields, $columnType);
-        $data = $this->fetchData($finishedGoods, $internalCategories, $fields, $languages);
+        $data = $this->fetchData($configurator, $fields);
 
         $uniqueHash = bin2hex(random_bytes(8));
         $timestamp = Carbon::now()->format('Y-m-d_His');
@@ -66,11 +76,6 @@ class OutputConfiguratorService
         return $tempFilePath;
     }
 
-    /**
-     * Creates an asset from the export file and deletes the temporary file.
-     *
-     * @throws \Exception If the asset creation fails.
-     */
     public function generateExportToAsset(
         UniProductDataOutputConfiguration $configurator,
     ): string {
@@ -109,13 +114,22 @@ class OutputConfiguratorService
 
         foreach ($fields as $fieldKey => $fieldValue) {
             if (str_contains($fieldKey, '.')) {
-                [$brickName, $brickField] = explode('.', $fieldKey, 2);
+                $parts = explode('.', $fieldKey);
 
-                $columnNames[$fieldKey] = match ($columnType) {
-                    UniOutputConfigurationColumnType::LABEL->value => sprintf('%s.%s', $brickName, $fieldValue),
-                    UniOutputConfigurationColumnType::TECHNICAL->value => $fieldValue,
-                    default => throw new \RuntimeException(sprintf('Unknown column type "%s"', $columnType)),
-                };
+                if (count($parts) >= 3) {
+                    $columnNames[$fieldKey] = match ($columnType) {
+                        UniOutputConfigurationColumnType::LABEL->value => $fieldValue,
+                        UniOutputConfigurationColumnType::TECHNICAL->value => sprintf('%s.%s', $parts[count($parts) - 2], $parts[count($parts) - 1]),
+                        default => throw new \RuntimeException(sprintf('Unknown column type "%s"', $columnType)),
+                    };
+                } else {
+                    [$brickName] = explode('.', $fieldKey, 2);
+                    $columnNames[$fieldKey] = match ($columnType) {
+                        UniOutputConfigurationColumnType::LABEL->value => $fieldValue,
+                        UniOutputConfigurationColumnType::TECHNICAL->value => sprintf('%s.%s', $brickName, $fieldValue),
+                        default => throw new \RuntimeException(sprintf('Unknown column type "%s"', $columnType)),
+                    };
+                }
             } else {
                 $columnNames[$fieldKey] = $fieldValue;
             }
@@ -127,28 +141,24 @@ class OutputConfiguratorService
     /**
      * Fetches data for finished goods and internal categories.
      *
-     * @param array<AbstractObject> $finishedGoods List of finished goods.
-     * @param array<AbstractObject> $internalCategories List of internal categories.
+     * @param UniProductDataOutputConfiguration $configurator List of finished goods and internal categories.
      * @param array<string> $dataFields List of data fields to process.
-     * @param array<string> $languages The language codes (e.g., 'en', 'de').
      *
      * @return array<int, array<string, mixed>> The fetched data.
      */
     public function fetchData(
-        array $finishedGoods,
-        array $internalCategories,
+        UniProductDataOutputConfiguration $configurator,
         array $dataFields,
-        array $languages,
     ): array {
         $data = [];
 
-        foreach ($finishedGoods as $finishedGood) {
-            $data[] = $this->extractDataFromObject($finishedGood, $dataFields);
-        }
+        $exportFinishedGoods = $configurator->getExportObjectHandling() === UniOutputConfigurationExportObjectHandling::FINISHED_GOODS->value;
 
-        foreach ($internalCategories as $category) {
-            if ($category instanceof UniProductCategoryInternal) {
-                $this->fetchCategoryData($category, $data, $dataFields, $languages);
+        foreach ($configurator->getExportObjects() as $item) {
+            if ($exportFinishedGoods && $item->getHierarchyLevel() !== UniProductHierarchyLevel::FINISHED_GOOD->value) {
+                $this->resolveFinishedGoods($item, $data, $dataFields);
+            } else {
+                $data[] = $this->extractDataFromObject($item, $dataFields);
             }
         }
 
@@ -156,27 +166,28 @@ class OutputConfiguratorService
     }
 
     /**
-     * Fetches category data recursively.
+     * Fetches finished goods in hierarchy.
      *
-     * @param UniProductCategoryInternal $category The category object.
      * @param array<int, array<string, mixed>> $data Reference to the data array.
      * @param array<string> $dataFields List of data fields to process.
-     * @param array<string> $languages The language codes (e.g., 'en', 'de').
      */
-    public function fetchCategoryData(
-        UniProductCategoryInternal $category,
+    public function resolveFinishedGoods(
+        UniProductBase|UniProductCategoryInternal $item,
         array &$data,
         array $dataFields,
-        array $languages,
     ): void {
-        $data[] = $this->extractDataFromObject($category, $dataFields);
-
-        foreach ($category->getChildren() as $subcategory) {
-            if (!$subcategory instanceof UniProductCategoryInternal) {
+        foreach ($item->getChildren() as $child) {
+            if (!$child instanceof UniProductBase && !$child instanceof UniProductCategoryInternal) {
                 continue;
             }
 
-            $this->fetchCategoryData($subcategory, $data, $dataFields, $languages);
+            if ($child instanceof UniProductBase && $child->getHierarchyLevel() === UniProductHierarchyLevel::FINISHED_GOOD->value) {
+                $data[] = $this->extractDataFromObject($child, $dataFields);
+
+                continue;
+            }
+
+            $this->resolveFinishedGoods($child, $data, $dataFields);
         }
     }
 
@@ -197,27 +208,23 @@ class OutputConfiguratorService
             'object_key' => $object->getKey(),
         ];
 
+        if (!$object instanceof DataObject\Concrete) {
+            throw new \RuntimeException(sprintf('Object must be a Concrete object, got "%s".', $object::class));
+        }
+
+        $classId = $object->getClassId();
+        $classDefinition = ClassDefinition::getById($classId);
+
+        if (!$classDefinition instanceof ClassDefinition) {
+            throw new \RuntimeException(sprintf('Class definition not found for class "%s".', $object->getClassName()));
+        }
+
         foreach ($fields as $fieldKey => $key) {
-            $fieldValue = null;
-
             if (str_contains($fieldKey, '.')) {
-                [$brickName, $brickField] = explode('.', $fieldKey, 2);
-                $brickGetter = 'get' . ucfirst($brickName);
-
-                if (method_exists($object, $brickGetter)) {
-                    $brickInstance = $object->$brickGetter();
-
-                    if ($brickInstance instanceof DataObject\Objectbrick\Data\AbstractData) {
-                        $fieldValue = $brickInstance->get($brickField);
-                    }
-                }
+                $row[$fieldKey] = $this->extractComplexFieldValue($object, $fieldKey, $classDefinition);
             } else {
-                $fieldKey1 = preg_replace('/_[a-z]{2}(_[A-Z]{2})?$/', '', $fieldKey);
-
-                $fieldValue = $object->get($fieldKey1);
+                $row[$fieldKey] = $this->extractSimpleFieldValue($object, $fieldKey, $classDefinition);
             }
-
-            $row[$fieldKey] = $this->formatCellValue($fieldValue);
         }
 
         return $row;
@@ -267,10 +274,8 @@ class OutputConfiguratorService
 
         $directory = dirname($filePath);
 
-        if (!is_dir($directory)) {
-            if (!mkdir($directory, 0o755, true) && !is_dir($directory)) {
-                throw new \Exception(sprintf('Unable to create directory: %s', $directory));
-            }
+        if (!is_dir($directory) && !mkdir($directory, 0o755, true) && !is_dir($directory)) {
+            throw new \Exception(sprintf('Unable to create directory: %s', $directory));
         }
 
         $writer = $format === UniOutputConfigurationOutputFormat::XLSX->value ? new Xlsx($spreadsheet) : new Csv($spreadsheet);
@@ -285,16 +290,25 @@ class OutputConfiguratorService
      * Formats a cell value for export.
      *
      * @param mixed $value The value to format.
+     * @param string|null $fieldType The field type (e.g., 'checkbox').
      *
      * @return string The formatted value.
      */
-    public function formatCellValue(mixed $value): string
+    public function formatCellValue(mixed $value, ?string $fieldType = null): string
     {
+        if ($fieldType === 'checkbox') {
+            return ($value === true || $value === 1 || $value === '1') ? 'Yes' : 'No';
+        }
+
         if ($value instanceof \DateTimeInterface) {
             return $value->format('Y-m-d H:i:s');
-        } elseif (is_array($value)) {
+        }
+
+        if (is_array($value)) {
             return implode(', ', $value);
-        } elseif (is_object($value)) {
+        }
+
+        if (is_object($value)) {
             return method_exists($value, '__toString') ? (string) $value : '[Object]';
         }
 
@@ -340,17 +354,276 @@ class OutputConfiguratorService
     }
 
     /**
-     * Maps fields to their corresponding values (labels or technical names).
+     * Extracts value from complex fields (field collections or objectbricks).
+     */
+    private function extractComplexFieldValue(
+        DataObject\Concrete $object,
+        string $fieldKey,
+        ClassDefinition $classDefinition,
+    ): string {
+        $parts = explode('.', $fieldKey);
+
+        if (count($parts) < 2) {
+            return '';
+        }
+
+        $containerName = $parts[0];
+        $fieldDef = $classDefinition->getFieldDefinition($containerName);
+
+        if ($fieldDef instanceof ClassDefinition\Data\Fieldcollections) {
+            return $this->extractFieldCollectionValue($object, $fieldKey);
+        }
+
+        return $this->extractBrickFieldValue($object, $fieldKey, $classDefinition);
+    }
+
+    /**
+     * Extracts value from a field collection.
+     */
+    private function extractFieldCollectionValue(
+        DataObject\Concrete $object,
+        string $fieldKey,
+    ): string {
+        $parts = explode('.', $fieldKey);
+
+        if (count($parts) !== 3) {
+            return '';
+        }
+
+        [$containerName, $collectionType, $fieldName] = $parts;
+        $cleanFieldName = preg_replace('/_[a-z]{2}(?:_[A-Z]{2})?$/', '', $fieldName);
+
+        $getter = 'get' . ucfirst($containerName);
+
+        if (!method_exists($object, $getter)) {
+            return '';
+        }
+
+        $fieldCollection = $object->$getter();
+
+        if (!$fieldCollection instanceof DataObject\Fieldcollection) {
+            return '';
+        }
+        $values = [];
+
+        foreach ($fieldCollection->getItems() as $item) {
+            if ($item->getType() !== $collectionType) {
+                continue;
+            }
+
+            $itemGetter = 'get' . ucfirst($cleanFieldName);
+
+            if (!method_exists($item, $itemGetter)) {
+                continue;
+            }
+
+            try {
+                if (preg_match('/_([a-z]{2}(?:_[A-Z]{2})?)$/', $fieldName, $matches)) {
+                    $language = $matches[1];
+                    $value = $item->$itemGetter($language);
+                } else {
+                    $value = $item->$itemGetter();
+                }
+
+                if ($value !== null && $value !== '') {
+                    $values[] = $value;
+                }
+            } catch (\Exception $e) {
+                continue;
+            }
+        }
+
+        $fieldType = $this->getFieldCollectionFieldType($collectionType, $cleanFieldName);
+
+        $formattedValues = array_map(
+            fn ($val): string => $this->formatCellValue($val, $fieldType),
+            $values,
+        );
+
+        return implode(', ', $formattedValues);
+    }
+
+    /**
+     * Gets the field type from a field collection definition.
+     */
+    private function getFieldCollectionFieldType(string $collectionType, string $fieldName): ?string
+    {
+        $collectionDefinition = DataObject\Fieldcollection\Definition::getByKey($collectionType);
+
+        if (!$collectionDefinition instanceof DataObject\Fieldcollection\Definition) {
+            return null;
+        }
+
+        $fieldDef = $collectionDefinition->getFieldDefinition($fieldName);
+
+        if (!$fieldDef instanceof ClassDefinition\Data) {
+            return null;
+        }
+
+        return $fieldDef->getFieldtype();
+    }
+
+    private function extractBrickFieldValue(
+        DataObject\Concrete $object,
+        string $fieldKey,
+        ClassDefinition $classDefinition,
+    ): string {
+        $parts = explode('.', $fieldKey);
+
+        if (count($parts) === 2) {
+            [$brickTypeName, $brickField] = $parts;
+            $brickContainerName = null;
+        } elseif (count($parts) === 3) {
+            [$brickContainerName, $brickTypeName, $brickField] = $parts;
+        } else {
+            return '';
+        }
+
+        $cleanBrickField = preg_replace('/_[a-z]{2}(?:_[A-Z]{2})?$/', '', $brickField);
+
+        if ($brickContainerName === null) {
+            $brickContainerName = $this->findBrickContainerName($classDefinition, $brickTypeName);
+        }
+
+        if ($brickContainerName === null) {
+            return '';
+        }
+
+        $brickGetter = 'get' . ucfirst($brickContainerName);
+
+        if (!method_exists($object, $brickGetter)) {
+            return '';
+        }
+
+        $brickContainer = $object->$brickGetter();
+
+        if (!$brickContainer instanceof DataObject\Objectbrick) {
+            return '';
+        }
+
+        $brickInstance = $brickContainer->get($brickTypeName);
+
+        if (!$brickInstance instanceof DataObject\Objectbrick\Data\AbstractData) {
+            return '';
+        }
+
+        $fieldType = $this->getBrickFieldType($brickTypeName, $cleanBrickField);
+        $fieldValue = $this->getValueFromBrickInstance($brickInstance, $brickField, $cleanBrickField);
+
+        return $this->formatCellValue($fieldValue, $fieldType);
+    }
+
+    private function findBrickContainerName(ClassDefinition $classDefinition, string $brickTypeName): ?string
+    {
+        foreach ($classDefinition->getFieldDefinitions() as $fieldDef) {
+            if (!$fieldDef instanceof ClassDefinition\Data\Objectbricks) {
+                continue;
+            }
+
+            $allowedTypes = $fieldDef->getAllowedTypes();
+
+            if (in_array($brickTypeName, $allowedTypes, true)) {
+                return $fieldDef->getName();
+            }
+        }
+
+        return null;
+    }
+
+    private function getBrickFieldType(string $brickTypeName, string $cleanBrickField): ?string
+    {
+        $brickDefinition = DataObject\Objectbrick\Definition::getByKey($brickTypeName);
+
+        if (!$brickDefinition instanceof DataObject\Objectbrick\Definition) {
+            return null;
+        }
+
+        $fieldDef = $brickDefinition->getFieldDefinition($cleanBrickField);
+
+        if (!$fieldDef instanceof ClassDefinition\Data) {
+            return null;
+        }
+
+        return $fieldDef->getFieldtype();
+    }
+
+    private function getValueFromBrickInstance(
+        DataObject\Objectbrick\Data\AbstractData $brickInstance,
+        string $brickField,
+        string $cleanBrickField,
+    ): mixed {
+        if (preg_match('/_([a-z]{2}(?:_[A-Z]{2})?)$/', $brickField, $matches)) {
+            $language = $matches[1];
+            $getter = 'get' . ucfirst($cleanBrickField);
+
+            if (!method_exists($brickInstance, $getter)) {
+                return null;
+            }
+
+            try {
+                return $brickInstance->$getter($language);
+            } catch (\Exception $e) {
+                return null;
+            }
+        }
+
+        $getter = 'get' . ucfirst($cleanBrickField);
+
+        if (!method_exists($brickInstance, $getter)) {
+            return null;
+        }
+
+        try {
+            return $brickInstance->$getter();
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
+    private function extractSimpleFieldValue(
+        DataObject\Concrete $object,
+        string $fieldKey,
+        ClassDefinition $classDefinition,
+    ): string {
+        $baseFieldKey = preg_replace('/_[a-z]{2}(?:_[A-Z]{2})?$/', '', $fieldKey);
+        $fieldDef = $classDefinition->getFieldDefinition($baseFieldKey);
+
+        if (in_array($baseFieldKey, self::SYSTEM_FIELDS, true)) {
+            return $this->formatCellValue($object->get($fieldKey));
+        }
+
+        if (!$fieldDef instanceof ClassDefinition\Data) {
+            return '';
+        }
+
+        $fieldType = $fieldDef->getFieldtype();
+
+        if (preg_match('/_([a-z]{2}(?:_[A-Z]{2})?)$/', $fieldKey, $matches)) {
+            $language = $matches[1];
+            $fieldValue = $object->get($baseFieldKey, $language);
+        } else {
+            $fieldValue = $object->get($fieldKey);
+        }
+
+        return $this->formatCellValue($fieldValue, $fieldType);
+    }
+
+    /**
+     * Maps fields to their technical names, appending language suffix for localized fields.
      *
      * @param array<string> $fields List of field names.
-     * @param array<array<string, string>> $options Field options with metadata.
-     * @param callable $titleCallback Callback for determining the title.
-     * @param array<string> $languages The language codes (e.g., 'en', 'de').
+     * @param array<array<string, mixed>> $options Field options with metadata.
+     * @param array<string> $languages List of language codes (e.g., 'en', 'de').
+     * @param callable $titleCallback Callback to generate field titles.
      *
-     * @return array<string, string> Mapped fields with their respective values.
+     * @return array<string, string> Mapped fields with technical names.
      */
-    private function mapFieldsHelper(array $fields, array $options, array $languages, callable $titleCallback): array
-    {
+    private function mapFieldsHelper(
+        array $fields,
+        array $options,
+        array $languages,
+        callable $titleCallback,
+    ): array {
         $optionsMap = [];
 
         foreach ($options as $option) {

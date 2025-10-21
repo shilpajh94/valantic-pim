@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Enum\ProductManagement;
 
-enum ProductApprovalWorkflowPlace: string
+enum UniProductManagementApprovalWorkflowPlace: string
 {
     case CREATED = 'created';
     case PENDING_APPROVAL = 'pending_approval';

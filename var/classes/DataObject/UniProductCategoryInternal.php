@@ -5,13 +5,12 @@
  * Variants: no
  *
  * Fields Summary:
- * - name [input]
  * - ghpCode [input]
- * - categoryLevel [select]
+ * - hierarchyLevelDescription [input]
+ * - hierarchyLevel [select]
  * - level [calculatedValue]
  * - pimInternalHierarchyCode [calculatedValue]
  * - assignedUser [user]
- * - levelSpecificData [objectbricks]
  */
 
 namespace Pimcore\Model\DataObject;
@@ -21,29 +20,27 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 
 /**
 * @method static \Pimcore\Model\DataObject\UniProductCategoryInternal\Listing getList(array $config = [])
-* @method static \Pimcore\Model\DataObject\UniProductCategoryInternal\Listing|\Pimcore\Model\DataObject\UniProductCategoryInternal|null getByName(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductCategoryInternal\Listing|\Pimcore\Model\DataObject\UniProductCategoryInternal|null getByGhpCode(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
-* @method static \Pimcore\Model\DataObject\UniProductCategoryInternal\Listing|\Pimcore\Model\DataObject\UniProductCategoryInternal|null getByCategoryLevel(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductCategoryInternal\Listing|\Pimcore\Model\DataObject\UniProductCategoryInternal|null getByHierarchyLevelDescription(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
+* @method static \Pimcore\Model\DataObject\UniProductCategoryInternal\Listing|\Pimcore\Model\DataObject\UniProductCategoryInternal|null getByHierarchyLevel(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 * @method static \Pimcore\Model\DataObject\UniProductCategoryInternal\Listing|\Pimcore\Model\DataObject\UniProductCategoryInternal|null getByAssignedUser(mixed $value, ?int $limit = null, int $offset = 0, ?array $objectTypes = null)
 */
 
-class UniProductCategoryInternal extends \App\Model\DataObject\AbstractUniProductCategoryInternal
+class UniProductCategoryInternal extends Concrete
 {
-public const FIELD_NAME = 'name';
 public const FIELD_GHP_CODE = 'ghpCode';
-public const FIELD_CATEGORY_LEVEL = 'categoryLevel';
+public const FIELD_HIERARCHY_LEVEL_DESCRIPTION = 'hierarchyLevelDescription';
+public const FIELD_HIERARCHY_LEVEL = 'hierarchyLevel';
 public const FIELD_LEVEL = 'level';
 public const FIELD_PIM_INTERNAL_HIERARCHY_CODE = 'pimInternalHierarchyCode';
 public const FIELD_ASSIGNED_USER = 'assignedUser';
-public const FIELD_LEVEL_SPECIFIC_DATA = 'levelSpecificData';
 
 protected $classId = "UNI_PRCI";
 protected $className = "UniProductCategoryInternal";
-protected $name;
 protected $ghpCode;
-protected $categoryLevel;
+protected $hierarchyLevelDescription;
+protected $hierarchyLevel;
 protected $assignedUser;
-protected $levelSpecificData;
 
 
 /**
@@ -55,42 +52,6 @@ public static function create(array $values = []): static
 	$object = new static();
 	$object->setValues($values);
 	return $object;
-}
-
-/**
-* Get name - Name
-* @return string|null
-*/
-public function getName(): ?string
-{
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("name");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	$data = $this->name;
-
-	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
-		return $data->getPlain();
-	}
-
-	return $data;
-}
-
-/**
-* Set name - Name
-* @param string|null $name
-* @return $this
-*/
-public function setName(?string $name): static
-{
-	$this->markFieldDirty("name", true);
-
-	$this->name = $name;
-
-	return $this;
 }
 
 /**
@@ -130,19 +91,19 @@ public function setGhpCode(?string $ghpCode): static
 }
 
 /**
-* Get categoryLevel - Category Level
+* Get hierarchyLevelDescription - Hierarachy Level Description
 * @return string|null
 */
-public function getCategoryLevel(): ?string
+public function getHierarchyLevelDescription(): ?string
 {
 	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("categoryLevel");
+		$preValue = $this->preGetValue("hierarchyLevelDescription");
 		if ($preValue !== null) {
 			return $preValue;
 		}
 	}
 
-	$data = $this->categoryLevel;
+	$data = $this->hierarchyLevelDescription;
 
 	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
 		return $data->getPlain();
@@ -152,15 +113,51 @@ public function getCategoryLevel(): ?string
 }
 
 /**
-* Set categoryLevel - Category Level
-* @param string|null $categoryLevel
+* Set hierarchyLevelDescription - Hierarachy Level Description
+* @param string|null $hierarchyLevelDescription
 * @return $this
 */
-public function setCategoryLevel(?string $categoryLevel): static
+public function setHierarchyLevelDescription(?string $hierarchyLevelDescription): static
 {
-	$this->markFieldDirty("categoryLevel", true);
+	$this->markFieldDirty("hierarchyLevelDescription", true);
 
-	$this->categoryLevel = $categoryLevel;
+	$this->hierarchyLevelDescription = $hierarchyLevelDescription;
+
+	return $this;
+}
+
+/**
+* Get hierarchyLevel - Hierarchy Level
+* @return string|null
+*/
+public function getHierarchyLevel(): ?string
+{
+	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
+		$preValue = $this->preGetValue("hierarchyLevel");
+		if ($preValue !== null) {
+			return $preValue;
+		}
+	}
+
+	$data = $this->hierarchyLevel;
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set hierarchyLevel - Hierarchy Level
+* @param string|null $hierarchyLevel
+* @return $this
+*/
+public function setHierarchyLevel(?string $hierarchyLevel): static
+{
+	$this->markFieldDirty("hierarchyLevel", true);
+
+	$this->hierarchyLevel = $hierarchyLevel;
 
 	return $this;
 }
@@ -226,43 +223,6 @@ public function setAssignedUser(?string $assignedUser): static
 
 	$this->assignedUser = $assignedUser;
 
-	return $this;
-}
-
-/**
-* @return \Pimcore\Model\DataObject\UniProductCategoryInternal\LevelSpecificData
-*/
-public function getLevelSpecificData(): ?\Pimcore\Model\DataObject\Objectbrick
-{
-	$data = $this->levelSpecificData;
-	if (!$data) {
-		if (\Pimcore\Tool::classExists("\\Pimcore\\Model\\DataObject\\UniProductCategoryInternal\\LevelSpecificData")) {
-			$data = new \Pimcore\Model\DataObject\UniProductCategoryInternal\LevelSpecificData($this, "levelSpecificData");
-			$this->levelSpecificData = $data;
-		} else {
-			return null;
-		}
-	}
-	if ($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) {
-		$preValue = $this->preGetValue("levelSpecificData");
-		if ($preValue !== null) {
-			return $preValue;
-		}
-	}
-
-	return $data;
-}
-
-/**
-* Set levelSpecificData - 
-* @param \Pimcore\Model\DataObject\Objectbrick|null $levelSpecificData
-* @return $this
-*/
-public function setLevelSpecificData(?\Pimcore\Model\DataObject\Objectbrick $levelSpecificData): static
-{
-	/** @var \Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks $fd */
-	$fd = $this->getClass()->getFieldDefinition("levelSpecificData");
-	$this->levelSpecificData = $fd->preSetData($this, $levelSpecificData);
 	return $this;
 }
 

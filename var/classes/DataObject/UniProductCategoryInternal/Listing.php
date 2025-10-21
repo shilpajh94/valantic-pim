@@ -19,18 +19,6 @@ protected $className = "UniProductCategoryInternal";
 
 
 /**
-* Filter by name (Name)
-* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
-* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
-* @return $this
-*/
-public function filterByName ($data, $operator = '='): static
-{
-	$this->getClass()->getFieldDefinition("name")->addListingFilter($this, $data, $operator);
-	return $this;
-}
-
-/**
 * Filter by ghpCode (Product Hierarchy Code (GHP))
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
@@ -43,14 +31,26 @@ public function filterByGhpCode ($data, $operator = '='): static
 }
 
 /**
-* Filter by categoryLevel (Category Level)
+* Filter by hierarchyLevelDescription (Hierarachy Level Description)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
-public function filterByCategoryLevel ($data, $operator = '='): static
+public function filterByHierarchyLevelDescription ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("categoryLevel")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("hierarchyLevelDescription")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by hierarchyLevel (Hierarchy Level)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByHierarchyLevel ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("hierarchyLevel")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 

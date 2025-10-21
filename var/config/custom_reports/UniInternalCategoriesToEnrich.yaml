@@ -1,0 +1,91 @@
+pimcore_custom_reports:
+    definitions:
+        UniInternalCategoriesToEnrich:
+            name: UniInternalCategoriesToEnrich
+            sql: ''
+            dataSourceConfig:
+                -
+                    filter: INTERNAL_CATEGORIES_TO_ENRICH
+                    type: uniInternalCategories
+            columnConfiguration:
+                -
+                    name: oo_id
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: ID
+                    columnAction: openObject
+                    id: extModel597-1
+                -
+                    name: path
+                    display: false
+                    export: true
+                    order: true
+                    width: ''
+                    label: Path
+                    id: extModel597-2
+                -
+                    name: fullPath
+                    display: false
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Full Path'
+                    id: extModel597-3
+                -
+                    name: ghpCode
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'GHP Code'
+                    id: extModel597-4
+                -
+                    name: hierarchyLevelDescription
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Hierarchy Level Description'
+                    id: extModel597-5
+                -
+                    name: approvalState
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Approval State'
+                    id: extModel597-6
+                -
+                    name: modificationDate
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Modified At'
+                    id: extModel597-7
+                -
+                    name: creationDate
+                    display: true
+                    export: true
+                    order: true
+                    width: ''
+                    label: 'Created At'
+                    id: extModel597-8
+            niceName: 'Uni: Internal categories to be enriched'
+            group: UniInternalCategories
+            groupIconClass: ''
+            iconClass: ''
+            menuShortcut: false
+            reportClass: ''
+            chartType: ''
+            pieColumn: null
+            pieLabelColumn: null
+            xAxis: null
+            yAxis: {  }
+            modificationDate: 1760505947
+            creationDate: 1760330853
+            shareGlobally: false
+            sharedUserNames: {  }
+            sharedRoleNames: {  }

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Elasticsearch\Index\UniProductManagement;
 
-use App\Model\DataObject\UniProductManagement\Objectbrick\AbstractUniPrBrand;
-use App\Model\DataObject\UniProductManagement\Objectbrick\AbstractUniPrSkeleton;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields;
 use Pimcore\Model\DataObject\Objectbrick\Data\AbstractData;
 use Pimcore\Model\DataObject\UniProductBase;
@@ -28,9 +26,6 @@ class UniBaseProductIndexDocument extends AbstractDocument
 {
     /** @use DataObjectNormalizerTrait<UniProductBase> */
     use DataObjectNormalizerTrait;
-
-    private const SKELETON_PREFIX = 'skeleton_';
-    private const BRAND_PREFIX = 'brand_';
     private const FINISHED_GOOD_PRODUCT_GROUP_SPECIFIC_PREFIX = 'fg_pgs_';
 
     public function getType(): DocumentType
@@ -45,15 +40,10 @@ class UniBaseProductIndexDocument extends AbstractDocument
 
     public function getNormalized(AbstractElement $element): array
     {
-        $result = [
+        return [
             ...$this->getNormalizedFinishedGood($element),
             ...$this->getNormalizedHierarchy($element),
         ];
-
-        return $this->mergeNormalized($result, [
-            ...$this->getNormalizedParent($element, AbstractUniPrSkeleton::class, self::SKELETON_PREFIX),
-            ...$this->getNormalizedParent($element, AbstractUniPrBrand::class, self::BRAND_PREFIX),
-        ]);
     }
 
     public function shouldIndex(AbstractElement $element): bool
@@ -87,6 +77,20 @@ class UniBaseProductIndexDocument extends AbstractDocument
                 UniBaseProductIndex::ATTRIBUTE_PRINTED_CATALOGUE_FLAG => UniProductBase::FIELD_PRINTED_CATALOGUE_FLAG,
                 UniBaseProductIndex::ATTRIBUTE_VIRTUAL_CATALOGUE_FLAG => UniProductBase::FIELD_VIRTUAL_CATALOGUE_FLAG,
                 UniBaseProductIndex::ATTRIBUTE_CUSTOMER_PORTAL_FLAG => UniProductBase::FIELD_CUSTOMER_PORTAL_FLAG,
+                UniBaseProductIndex::ATTRIBUTE_CORPORATE_BRAND => UniProductBase::FIELD_CORPORATE_BRAND,
+                UniBaseProductIndex::ATTRIBUTE_PRODUCT_GROUP_BRAND => UniProductBase::FIELD_PRODUCT_GROUP_BRAND,
+                UniBaseProductIndex::ATTRIBUTE_PRODUCT_NAME => UniProductBase::FIELD_PRODUCT_NAME,
+                UniBaseProductIndex::ATTRIBUTE_PRODUCT_NAME_VARIANT => UniProductBase::FIELD_PRODUCT_NAME_VARIANT,
+                UniBaseProductIndex::ATTRIBUTE_PRODUCT_NAME_SUB_VARIANT => UniProductBase::FIELD_PRODUCT_NAME_SUB_VARIANT,
+                UniBaseProductIndex::ATTRIBUTE_PRODUCT_DESIGN => UniProductBase::FIELD_PRODUCT_DESIGN,
+                UniBaseProductIndex::ATTRIBUTE_PRODUCT_DESIGN_CODE => UniProductBase::FIELD_PRODUCT_DESIGN_CODE,
+                UniBaseProductIndex::ATTRIBUTE_INDUSTRIAL_STANDARDS => UniProductBase::FIELD_INDUSTRIAL_STANDARDS,
+                UniBaseProductIndex::ATTRIBUTE_AGENCY_COMPLIANCE => UniProductBase::FIELD_AGENCY_COMPLIANCE,
+                UniBaseProductIndex::ATTRIBUTE_B2B_SUB_CATEGORY => UniProductBase::FIELD_B2B_SUB_CATEGORY,
+                UniBaseProductIndex::ATTRIBUTE_REACH => UniProductBase::FIELD_REACH,
+                UniBaseProductIndex::ATTRIBUTE_HAZARDOUS_SUBSTANCE_CLASSIFICATION => UniProductBase::FIELD_HAZARDOUS_SUBSTANCE_CLASSIFICATION,
+                UniBaseProductIndex::ATTRIBUTE_FEATURES_AND_BENEFITS => UniProductBase::FIELD_FEATURES_AND_BENEFITS,
+                UniBaseProductIndex::ATTRIBUTE_FULL_PRODUCT_NAME => UniProductBase::FIELD_FULL_PRODUCT_NAME,
             ]),
             ...$this->localizedAttributes($element, [
                 UniBaseProductIndex::ATTRIBUTE_SAP_DESCRIPTION => UniProductBase::FIELD_SAP_DESCRIPTION,
@@ -100,13 +104,17 @@ class UniBaseProductIndexDocument extends AbstractDocument
                 UniBaseProductIndex::ATTRIBUTE_PROP65 => UniProductBase::FIELD_PROP65,
                 UniBaseProductIndex::ATTRIBUTE_RO_HS => UniProductBase::FIELD_RO_HS,
                 UniBaseProductIndex::ATTRIBUTE_GPRS => UniProductBase::FIELD_GPRS,
+                UniBaseProductIndex::ATTRIBUTE_LEGAL_TEXT => UniProductBase::FIELD_LEGAL_TEXT,
+                UniBaseProductIndex::ATTRIBUTE_DISCLAIMER => UniProductBase::FIELD_DISCLAIMER,
+                UniBaseProductIndex::ATTRIBUTE_MARKETING_DESCRIPTION_SHORT => UniProductBase::FIELD_MARKETING_DESCRIPTION_SHORT,
+                UniBaseProductIndex::ATTRIBUTE_MARKETING_DESCRIPTION_LONG => UniProductBase::FIELD_MARKETING_DESCRIPTION_LONG,
             ]),
             ...$this->relationAttributes($element, [
                 UniBaseProductIndex::ATTRIBUTE_REGIONAL_AVAILABILITY => UniProductBase::FIELD_REGIONAL_AVAILABILITY,
             ]),
         ]];
 
-        foreach ($element->getProductGroupSpecific()?->getItems() ?? [] as $objectBrick) {
+        foreach ($element->getFinishedGoodProductGroupSpecific()?->getItems() ?? [] as $objectBrick) {
             $result[] = $this->getNormalizedObjectbrick($objectBrick, self::FINISHED_GOOD_PRODUCT_GROUP_SPECIFIC_PREFIX);
         }
 
@@ -121,49 +129,6 @@ class UniBaseProductIndexDocument extends AbstractDocument
             UniBaseProductIndex::ATTRIBUTE_EXTERNAL_HIERARCHY => [],
             UniBaseProductIndex::ATTRIBUTE_EXTERNAL_HIERARCHY_FULL => [],
         ];
-    }
-
-    /**
-     * @template TObjectbrickClassname
-     *
-     * @param class-string<TObjectbrickClassname> $class
-     *
-     * @return array<string, mixed>
-     */
-    private function getNormalizedParent(UniProductBase $element, string $class, string $prefix): array
-    {
-        $result = [];
-
-        // Hint: This loop overwrites data when multiple object bricks use the same key.
-        /** @var TObjectbrickClassname $objectbrick */
-        foreach ($element->resolveObjectbricksInHierarchy($class) as $objectbrick) {
-            $result[] = $this->getNormalizedObjectbrick($objectbrick, $prefix);
-        }
-
-        return array_merge(...$result);
-    }
-
-    /**
-     * @param array<string, mixed> $result
-     * @param array<string, mixed> $data
-     *
-     * @return array<string, mixed>
-     */
-    private function mergeNormalized(array $result, array $data): array
-    {
-        foreach ($data as $k => $v) {
-            if ($k !== DocumentInterface::ATTRIBUTE_LOCALIZED) {
-                $result[$k] = $v;
-
-                continue;
-            }
-
-            foreach ($v as $locale => $localizedFields) {
-                $result[DocumentInterface::ATTRIBUTE_LOCALIZED][$locale] = array_merge($result[DocumentInterface::ATTRIBUTE_LOCALIZED][$locale] ?? [], $localizedFields);
-            }
-        }
-
-        return $result;
     }
 
     /**

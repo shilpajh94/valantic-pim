@@ -13,6 +13,9 @@ use Pimcore\Model\Element\ElementInterface;
 
 class UniProductStructureInternalStyle extends AdminStyle
 {
+    private const ICON_PATH_TEMPLATE = '/bundles/pimcoreadmin/img/icon/tag_%s.png';
+    private const LEVEL_TEMPLATE = '<span style="color: gray;">[L%s]</span>';
+
     public function __construct(ElementInterface $element)
     {
         parent::__construct($element);
@@ -26,30 +29,42 @@ class UniProductStructureInternalStyle extends AdminStyle
         }
 
         $this->elementIconClass = null;
-        $iconPathTemplate = '/bundles/pimcoreadmin/img/icon/tag_%s.png';
-        $levelTemplate = '<span style="color: gray;">[L%s]</span>';
 
         if ($element instanceof UniProductBase) {
-            $parent = $element->getParent();
-            $level = $parent instanceof UniProductCategoryInternal ? $parent->getLevel() + 1 : 0;
-            $this->elementText = sprintf($levelTemplate . ' %s - %s', $level, $element->getSapMaterialNumber(), $element->getSapDescription());
-            $this->elementIcon = sprintf($iconPathTemplate, 'green');
+            $this->elementText = $this->getText($element);
+            $this->elementIcon = $this->getIcon($element);
 
             return;
         }
 
-        if ($element instanceof AbstractUniProductGroupSpecificData) {
-            $this->elementText = $element->getClass()->getTitle();
-            $this->elementIcon = sprintf($iconPathTemplate, 'blue_add');
+        $this->elementText = sprintf(self::LEVEL_TEMPLATE . ' %s', $element->getLevel(), $element->getHierarchyLevelDescription());
+        $this->elementIcon = $this->getIcon($element);
+    }
 
-            return;
+    private function getText(UniProductCategoryInternal|UniProductBase $element): string
+    {
+        $parent = $element->getParent();
+        $level = $parent instanceof UniProductCategoryInternal || $parent instanceof UniProductBase ? $parent->getLevel() + 1 : 0;
+
+        if ($element->getHierarchyLevel() !== UniProductHierarchyLevel::FINISHED_GOOD->value) {
+            return sprintf(self::LEVEL_TEMPLATE, $level) . ' ' . $element->getHierarchyLevelDescription();
         }
 
-        $this->elementText = sprintf($levelTemplate . ' %s', $element->getLevel(), $element->getName());
-        $this->elementIcon = match ($element->getCategoryLevel()) {
-            UniProductHierarchyLevel::PRODUCT_LINE->value => sprintf($iconPathTemplate, 'yellow'),
-            UniProductHierarchyLevel::PRODUCT_VARIANT->value => sprintf($iconPathTemplate, 'blue'),
-            default => sprintf($iconPathTemplate, 'orange'),
+        $text = [$element->getSapMaterialNumber(), $element->getSapDescription()];
+        $text = array_filter($text);
+        $text = implode(' - ', $text);
+        $text = $text === '' ? $element->getKey() : $text;
+
+        return sprintf(self::LEVEL_TEMPLATE, $level) . ' ' . $text;
+    }
+
+    private function getIcon(UniProductCategoryInternal|UniProductBase $element): string
+    {
+        return match ($element->getHierarchyLevel()) {
+            UniProductHierarchyLevel::PRODUCT_LINE->value => sprintf(self::ICON_PATH_TEMPLATE, 'yellow'),
+            UniProductHierarchyLevel::PRODUCT_VARIANT->value => sprintf(self::ICON_PATH_TEMPLATE, 'blue'),
+            UniProductHierarchyLevel::FINISHED_GOOD->value => sprintf(self::ICON_PATH_TEMPLATE, 'green'),
+            default => sprintf(self::ICON_PATH_TEMPLATE, 'orange'),
         };
     }
 }

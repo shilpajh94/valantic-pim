@@ -40,11 +40,12 @@ services:
         resource: '../src/Command'
         tags: [ 'console.command' ]
 
-    App\EventListener\UniProductWorkflowEventListener:
+    App\EventListener\Admin\UniProductManagement\UniProductWorkflowEventListener:
         arguments:
             $workflowRegistry: '@workflow.registry'
         tags:
             - { name: kernel.event_subscriber }
+            - { name: kernel.event_listener, event: workflow.product_approval.transition.emergency_unpublish, method: validateFinishedGoodsLevel }
     App\Util\:
         resource: '../src/Util'
 
@@ -52,6 +53,11 @@ services:
         class: Pimcore\Bundle\CustomReportsBundle\Tool\Adapter\DefaultCustomReportAdapterFactory
         arguments:
             - 'App\CustomReport\Adapter\UniProductManagement\UniFinishedGoods'
+
+    app.custom_report.adapter.factory.uni_internal_categories:
+        class: Pimcore\Bundle\CustomReportsBundle\Tool\Adapter\DefaultCustomReportAdapterFactory
+        arguments:
+            - 'App\CustomReport\Adapter\UniProductManagement\UniInternalCategories'
 
     # Example custom templating helper
     # AppBundle\Templating\Helper\Example:
@@ -65,5 +71,3 @@ services:
     # AppBundle\EventListener\TestListener:
     #     tags:
     #         - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: onObjectPreUpdate }
-
-

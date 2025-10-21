@@ -9,8 +9,8 @@ use Pimcore\Model\DataObject\ClassDefinition\Layout\DynamicTextLabelInterface;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Data\NumericRange;
 use Pimcore\Model\DataObject\Objectbrick\Data\UniPrBrPts;
-use Pimcore\Model\DataObject\UniProductCategoryInternal;
-use Pimcore\Model\DataObject\UniProductCategoryInternal\LevelSpecificData;
+use Pimcore\Model\DataObject\UniProductBase;
+use Pimcore\Model\DataObject\UniProductBase\BrandProductGroupSpecific;
 
 /**
  * Render a product temperature range, based on a combination of finished good values.
@@ -31,17 +31,17 @@ class UniProductTempRangeDynamicTextPts extends UniProductDynamicText implements
         VersionService::useLatestVersion(true);
         $object = VersionService::getPublishedOrLatestVersion($object);
 
-        if (!$object instanceof UniProductCategoryInternal) {
+        if (!$object instanceof UniProductBase) {
             return $output;
         }
 
-        if (!$object->getLevelSpecificData() instanceof LevelSpecificData) {
+        if (!$object->getBrandProductGroupSpecific() instanceof BrandProductGroupSpecific) {
             return $output;
         }
 
-        $parentBrickData = $object->getLevelSpecificData()->getUniPrBrPts();
+        $brandBrickData = $object->getBrandProductGroupSpecific()->getUniPrBrPts();
 
-        if (!$parentBrickData instanceof UniPrBrPts) {
+        if (!$brandBrickData instanceof UniPrBrPts) {
             return $output;
         }
 
@@ -56,14 +56,31 @@ class UniProductTempRangeDynamicTextPts extends UniProductDynamicText implements
             return $output;
         }
 
-        $temperatureDataField = $temperatureFieldMap[$params['fieldname']];
-        $temperatureData = $parentBrickData->get($temperatureDataField);
+        $temperatureData = $this->resolveTemperatureData($object, $temperatureFieldMap[$params['fieldname']]);
 
-        // Validate and process temperature data
-        if ($temperatureData instanceof NumericRange && $temperatureData->getMinimum() !== '' && $temperatureData->getMinimum() !== null && $temperatureData->getMaximum() !== '' && $temperatureData->getMaximum() !== null) {
+        if ($temperatureData !== null && $temperatureData->getMinimum() !== null && $temperatureData->getMaximum() !== null) {
             return $this->renderText($data, sprintf('%s to %s', $temperatureData->getMinimum(), $temperatureData->getMaximum()));
         }
 
         return $output;
+    }
+
+    private function resolveTemperatureData(UniProductBase $object, string $field): ?NumericRange
+    {
+        $skeletonBrickData = $object->getBrandProductGroupSpecific()?->getUniPrBrPts();
+
+        if (!$skeletonBrickData instanceof UniPrBrPts) {
+            return null;
+        }
+
+        $result = $skeletonBrickData->get($field);
+
+        if ($result !== null) {
+            return $result;
+        }
+
+        $parent = $object->getParent();
+
+        return $parent instanceof UniProductBase ? $this->resolveTemperatureData($parent, $field) : $result;
     }
 }

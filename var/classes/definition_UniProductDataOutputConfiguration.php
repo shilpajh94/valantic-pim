@@ -14,7 +14,8 @@
  * - timeOfDay [time]
  * - exportDirectory [manyToOneRelation]
  * - lastRun [datetime]
- * - finishedGoods [manyToManyObjectRelation]
+ * - exportObjects [manyToManyObjectRelation]
+ * - exportObjectHandling [select]
  * - dataFields [multiselect]
  * - productGroupSpecificDatafields [multiselect]
  * - columnNameType [select]
@@ -28,7 +29,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => 'Product Data Output Configuration',
    'creationDate' => NULL,
-   'modificationDate' => 1758698011,
+   'modificationDate' => 1760976079,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -333,7 +334,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             ),
              'fieldtype' => 'panel',
              'layout' => '',
-             'border' => true,
+             'border' => false,
              'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/settings.svg',
              'labelWidth' => 250,
              'labelAlign' => 'left',
@@ -344,7 +345,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'type' => NULL,
              'region' => NULL,
              'title' => 'Customize Export',
-             'width' => '',
+             'width' => '100%',
              'height' => '',
              'collapsible' => false,
              'collapsed' => false,
@@ -354,14 +355,14 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
               0 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\ManyToManyObjectRelation::__set_state(array(
-                 'name' => 'finishedGoods',
+                 'name' => 'exportObjects',
                  'title' => 'Finished Goods / Internal Categories',
                  'tooltip' => '',
                  'mandatory' => true,
                  'noteditable' => false,
                  'index' => false,
                  'locked' => false,
-                 'style' => '',
+                 'style' => 'background: red;',
                  'permissions' => NULL,
                  'fieldtype' => '',
                  'relationType' => true,
@@ -397,9 +398,37 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'height' => '',
               )),
               1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+                 'name' => 'exportObjectHandling',
+                 'title' => 'Export Handling',
+                 'tooltip' => '',
+                 'mandatory' => true,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'fieldtype' => '',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+                 'blockedVarsForExport' => 
+                array (
+                ),
+                 'defaultValue' => NULL,
+                 'columnLength' => 190,
+                 'dynamicOptions' => false,
+                 'defaultValueGenerator' => '',
+                 'width' => 300,
+                 'optionsProviderType' => 'class',
+                 'optionsProviderClass' => '\\App\\Model\\OptionsProvider\\UniProductManagement\\OutputConfigurationExportObjectHandling',
+                 'optionsProviderData' => '',
+              )),
+              2 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                  'name' => 'dataFields',
-                 'title' => 'Data Fields for Base product and internal Categories',
+                 'title' => 'Base Datafields',
                  'tooltip' => '',
                  'mandatory' => true,
                  'noteditable' => false,
@@ -420,13 +449,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'dynamicOptions' => true,
                  'defaultValue' => NULL,
                  'height' => '',
-                 'width' => 300,
+                 'width' => 1200,
                  'defaultValueGenerator' => '',
                  'optionsProviderType' => 'class',
                  'optionsProviderClass' => '\\App\\Service\\UniProductManagement\\OutputConfiguratorDataFieldsProvider',
                  'optionsProviderData' => '',
               )),
-              2 => 
+              3 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
                  'name' => 'productGroupSpecificDatafields',
                  'title' => 'Product Group Specific Datafields',
@@ -450,13 +479,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'dynamicOptions' => true,
                  'defaultValue' => NULL,
                  'height' => '',
-                 'width' => 300,
+                 'width' => 1200,
                  'defaultValueGenerator' => '',
                  'optionsProviderType' => 'class',
                  'optionsProviderClass' => '\\App\\Service\\UniProductManagement\\OutputConfiguratorObjectbrickFieldsProvider',
                  'optionsProviderData' => '',
               )),
-              3 => 
+              4 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
                  'name' => 'columnNameType',
                  'title' => 'Column Name Type',
@@ -484,7 +513,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'optionsProviderClass' => '\\App\\Model\\OptionsProvider\\UniProductManagement\\OutputConfigurationColumnType',
                  'optionsProviderData' => '',
               )),
-              4 => 
+              5 => 
               Pimcore\Model\DataObject\ClassDefinition\Data\Languagemultiselect::__set_state(array(
                  'name' => 'languages',
                  'title' => 'Languages',
@@ -509,7 +538,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'dynamicOptions' => false,
                  'defaultValue' => NULL,
                  'height' => '',
-                 'width' => '',
+                 'width' => 1200,
                  'defaultValueGenerator' => '',
                  'optionsProviderType' => NULL,
                  'optionsProviderClass' => NULL,
@@ -522,10 +551,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
             ),
              'fieldtype' => 'panel',
-             'layout' => NULL,
-             'border' => true,
+             'layout' => '',
+             'border' => false,
              'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/export.svg',
-             'labelWidth' => 350,
+             'labelWidth' => 250,
              'labelAlign' => 'left',
           )),
         ),

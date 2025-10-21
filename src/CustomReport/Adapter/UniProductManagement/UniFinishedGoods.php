@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\CustomReport\Adapter\UniProductManagement;
 
-use App\Enum\ProductManagement\ProductApprovalWorkflowPlace;
+use App\Enum\ProductManagement\UniProductManagementApprovalWorkflowPlace;
 use Pimcore\Bundle\CustomReportsBundle\Tool\Adapter\AbstractAdapter;
 use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductBase\Listing;
@@ -41,7 +41,7 @@ class UniFinishedGoods extends AbstractAdapter
             'fullPath' => $fg->getFullPath(),
             'sapMaterialNumber' => $fg->getSapMaterialNumber(),
             'sapDescription' => $fg->getSapDescription(),
-            'approvalState' => $fg->getApprovalState() ?? ProductApprovalWorkflowPlace::CREATED->value,
+            'approvalState' => $fg->getApprovalState() ?? UniProductManagementApprovalWorkflowPlace::CREATED->value,
             'modificationDate' => $formatDate($fg->getModificationDate()),
             'creationDate' => $formatDate($fg->getCreationDate()),
         ], $data);
@@ -99,7 +99,7 @@ class UniFinishedGoods extends AbstractAdapter
         $listing->setUnpublished(true);
         $listing->setCondition(
             'approvalState in (?) or approvalState IS NULL',
-            [[ProductApprovalWorkflowPlace::CREATED->value, ProductApprovalWorkflowPlace::DRAFT->value]],
+            [[UniProductManagementApprovalWorkflowPlace::CREATED->value, UniProductManagementApprovalWorkflowPlace::DRAFT->value]],
         );
     }
 
@@ -115,7 +115,7 @@ class UniFinishedGoods extends AbstractAdapter
         $listing->setUnpublished(true);
         $listing->setCondition(
             'approvalState = ? or approvalState IS NULL',
-            [ProductApprovalWorkflowPlace::CREATED->value],
+            [UniProductManagementApprovalWorkflowPlace::CREATED->value],
         );
 
         // Only show products created in the last 21 days.
@@ -140,7 +140,7 @@ class UniFinishedGoods extends AbstractAdapter
         }
 
         $listing->setUnpublished(true);
-        $listing->filterByApprovalState(ProductApprovalWorkflowPlace::PENDING_APPROVAL->value);
+        $listing->filterByApprovalState(UniProductManagementApprovalWorkflowPlace::PENDING_APPROVAL->value);
     }
 
     /**
@@ -153,6 +153,6 @@ class UniFinishedGoods extends AbstractAdapter
         }
 
         $listing->setUnpublished(true);
-        $listing->filterByApprovalState(ProductApprovalWorkflowPlace::REJECTED->value);
+        $listing->filterByApprovalState(UniProductManagementApprovalWorkflowPlace::REJECTED->value);
     }
 }

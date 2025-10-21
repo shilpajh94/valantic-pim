@@ -601,13 +601,8 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
   array (
     0 => 
     array (
-      'classname' => 'UniProductCategoryInternal',
-      'fieldname' => 'levelSpecificData',
-    ),
-    1 => 
-    array (
       'classname' => 'UniProductBase',
-      'fieldname' => 'skeletonData',
+      'fieldname' => 'skeletonProductGroupSpecific',
     ),
   ),
    'activeDispatchingEvents' => 

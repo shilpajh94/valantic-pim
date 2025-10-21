@@ -7,8 +7,10 @@ namespace App\Service\UniProductManagement;
 use App\Util\Helpers;
 use Pimcore\Model\DataObject\ClassDefinition;
 use Pimcore\Model\DataObject\ClassDefinition\Data;
+use Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections;
 use Pimcore\Model\DataObject\ClassDefinition\Data\Localizedfields;
 use Pimcore\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOptionsProviderInterface;
+use Pimcore\Model\DataObject\Fieldcollection\Definition;
 use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 
@@ -28,7 +30,7 @@ class OutputConfiguratorDataFieldsProvider implements SelectOptionsProviderInter
 
     /**
      * Returns the list of all data fields, including relation fields, localized fields,
-     * object bricks, and their subfields, from the target classes.
+     * field collections, and their subfields, from the target classes.
      *
      * @return array<array<string, string>> List of key-value pairs for fields.
      */
@@ -40,6 +42,12 @@ class OutputConfiguratorDataFieldsProvider implements SelectOptionsProviderInter
         ];
 
         $fields = [];
+
+        // Add Pimcore system default fields
+        foreach (OutputConfiguratorService::SYSTEM_FIELDS as $field) {
+            $title = OutputConfiguratorService::SYSTEM_FIELD_LABELS[$field];
+            $fields[] = ['key' => $field, 'value' => $field, 'title' => $title, 'localized' => false];
+        }
 
         foreach ($targetClasses as $fullyQualifiedClassName) {
             $classKey = Helpers::classBasename($fullyQualifiedClassName);
@@ -59,6 +67,9 @@ class OutputConfiguratorDataFieldsProvider implements SelectOptionsProviderInter
                             'localized' => true,
                         ];
                     }
+                } elseif ($field instanceof Fieldcollections) {
+                    $fieldCollectionFields = $this->getFieldCollectionFields($field);
+                    $fields = array_merge($fields, $fieldCollectionFields);
                 } else {
                     $fields[] = [
                         'key' => $field->getName(),
@@ -93,6 +104,57 @@ class OutputConfiguratorDataFieldsProvider implements SelectOptionsProviderInter
     public function getDefaultValue(array $context, Data $fieldDefinition): array|string|null
     {
         return null;
+    }
+
+    /**
+     * Extracts fields from a Field Collection definition.
+     *
+     * @return array<array<string, string>> List of fields within the field collection.
+     */
+    private function getFieldCollectionFields(Fieldcollections $fieldCollection): array
+    {
+        $fields = [];
+        $allowedTypes = $fieldCollection->getAllowedTypes();
+
+        if ($allowedTypes === []) {
+            return $fields;
+        }
+
+        foreach ($allowedTypes as $collectionType) {
+            $collectionDefinition = Definition::getByKey($collectionType);
+
+            if (!$collectionDefinition instanceof Definition) {
+                continue;
+            }
+
+            foreach ($collectionDefinition->getFieldDefinitions() as $subField) {
+                if ($subField instanceof Localizedfields) {
+                    foreach ($subField->getFieldDefinitions() as $localizedField) {
+                        $fieldKey = sprintf('%s.%s.%s', $fieldCollection->getName(), $collectionType, $localizedField->getName());
+                        $fieldTitle = sprintf('%s.%s', $collectionType, $this->getFieldTitleOrLabel($localizedField));
+
+                        $fields[] = [
+                            'key' => $fieldKey,
+                            'value' => $fieldKey,
+                            'title' => $fieldTitle,
+                            'localized' => true,
+                        ];
+                    }
+                } else {
+                    $fieldKey = sprintf('%s.%s.%s', $fieldCollection->getName(), $collectionType, $subField->getName());
+                    $fieldTitle = sprintf('%s.%s', $collectionType, $this->getFieldTitleOrLabel($subField));
+
+                    $fields[] = [
+                        'key' => $fieldKey,
+                        'value' => $fieldKey,
+                        'title' => $fieldTitle,
+                        'localized' => false,
+                    ];
+                }
+            }
+        }
+
+        return $fields;
     }
 
     /**

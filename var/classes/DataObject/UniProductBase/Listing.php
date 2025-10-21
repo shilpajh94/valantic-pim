@@ -19,134 +19,218 @@ protected $className = "UniProductBase";
 
 
 /**
-* Filter by fullProductName (Full Product Name)
+* Filter by corporateBrand (Corporate Brand)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
-public function filterByFullProductName ($data, $operator = '='): static
+public function filterByCorporateBrand ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("fullProductName")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("corporateBrand")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
 /**
-* Filter by sapMaterialNumber (SAP Material Number)
+* Filter by productGroupBrand (Product Group Brand)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
-public function filterBySapMaterialNumber ($data, $operator = '='): static
+public function filterByProductGroupBrand ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("sapMaterialNumber")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("productGroupBrand")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
 /**
-* Filter by partNumber (Part Number)
+* Filter by productName (Product Name)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
-public function filterByPartNumber ($data, $operator = '='): static
+public function filterByProductName ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("partNumber")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("productName")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
 /**
-* Filter by oldMaterialNumber (Old Material Number)
+* Filter by productNameVariant (Product Name Variant)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
-public function filterByOldMaterialNumber ($data, $operator = '='): static
+public function filterByProductNameVariant ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("oldMaterialNumber")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("productNameVariant")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
 /**
-* Filter by weightMetric (Weight (kg))
+* Filter by productNameSubVariant (Product Name Sub Variant)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
-public function filterByWeightMetric ($data, $operator = '='): static
+public function filterByProductNameSubVariant ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("weightMetric")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("productNameSubVariant")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
 /**
-* Filter by weightImperial (Weight (lbs))
+* Filter by productDesign (Product Design Name)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
-public function filterByWeightImperial ($data, $operator = '='): static
+public function filterByProductDesign ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("weightImperial")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("productDesign")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
 /**
-* Filter by tariffCodes (Tariff Codes)
+* Filter by productDesignCode (Product Design Code)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
-public function filterByTariffCodes ($data, $operator = '='): static
+public function filterByProductDesignCode ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("tariffCodes")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("productDesignCode")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
 /**
-* Filter by countryOfOrigin (Country Of Origin)
+* Filter by industrialStandards (Industrial Standards)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByIndustrialStandards ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("industrialStandards")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by agencyCompliance (Agency Compliance)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByAgencyCompliance ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("agencyCompliance")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by b2bSubCategory (B2b Sub Category)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByB2bSubCategory ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("b2bSubCategory")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by reach (REACH  )
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByReach ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("reach")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by reachCertificate (REACH Certificate)
 * @param mixed $data
 * @param string $operator SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
-public function filterByCountryOfOrigin ($data, $operator = '='): static
+public function filterByReachCertificate ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("countryOfOrigin")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("reachCertificate")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
 /**
-* Filter by eanCode (EAN / UPC Code)
-* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
-* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* Filter by hazardousSubstanceClassification (Hazardous Substance Classification)
+* @param mixed $data
+* @param string $operator SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
-public function filterByEanCode ($data, $operator = '='): static
+public function filterByHazardousSubstanceClassification ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("eanCode")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("hazardousSubstanceClassification")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
 /**
-* Filter by externalId (External ID)
-* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
-* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* Filter by featuresAndBenefits (Features And Benefits)
+* @param mixed $data
+* @param string $operator SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
-public function filterByExternalId ($data, $operator = '='): static
+public function filterByFeaturesAndBenefits ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("externalId")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("featuresAndBenefits")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
 /**
-* Filter by stccCode (Standard Transportation Commodity Code (STCC))
+* Filter by legalText (Legal Text)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this
 */
-public function filterByStccCode ($data, $operator = '='): static
+public function filterByLegalText ($data, $operator = '='): static
 {
-	$this->getClass()->getFieldDefinition("stccCode")->addListingFilter($this, $data, $operator);
+	$this->getClass()->getFieldDefinition("legalText")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by disclaimer (Disclaimer)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByDisclaimer ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("disclaimer")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by marketingDescriptionShort (Marketing Description - Short)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByMarketingDescriptionShort ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("marketingDescriptionShort")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by marketingDescriptionLong (Marketing Description - Long)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByMarketingDescriptionLong ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("marketingDescriptionLong")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 
@@ -295,6 +379,138 @@ public function filterByEmptyFieldsFinishedGood ($data, $operator = '='): static
 }
 
 /**
+* Filter by fullProductName (Full Product Name)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByFullProductName ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("fullProductName")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by sapMaterialNumber (SAP Material Number)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterBySapMaterialNumber ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("sapMaterialNumber")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by partNumber (Part Number)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByPartNumber ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("partNumber")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by oldMaterialNumber (Old Material Number)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByOldMaterialNumber ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("oldMaterialNumber")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by weightMetric (Weight (kg))
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByWeightMetric ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("weightMetric")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by weightImperial (Weight (lbs))
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByWeightImperial ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("weightImperial")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by tariffCodes (Tariff Codes)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByTariffCodes ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("tariffCodes")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by countryOfOrigin (Country Of Origin)
+* @param mixed $data
+* @param string $operator SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByCountryOfOrigin ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("countryOfOrigin")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by eanCode (EAN / UPC Code)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByEanCode ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("eanCode")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by externalId (External ID)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByExternalId ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("externalId")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by stccCode (Standard Transportation Commodity Code (STCC))
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByStccCode ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("stccCode")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
 * Filter by prop65 (Prop65)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
@@ -439,6 +655,18 @@ public function filterByRegionalAvailability ($data, $operator = '='): static
 }
 
 /**
+* Filter by mainImage (Main Image)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByMainImage ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("mainImage")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
 * Filter by internalCategories (Internal Categories)
 * @param mixed $data
 * @param string $operator SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
@@ -451,6 +679,18 @@ public function filterByInternalCategories ($data, $operator = '='): static
 }
 
 /**
+* Filter by ghpCode (Product Hierarchy Code (GHP))
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByGhpCode ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("ghpCode")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
 * Filter by ghpFullCode (Product Hierarchy Full Code (GHP))
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
@@ -459,6 +699,30 @@ public function filterByInternalCategories ($data, $operator = '='): static
 public function filterByGhpFullCode ($data, $operator = '='): static
 {
 	$this->getClass()->getFieldDefinition("ghpFullCode")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by hierarchyLevel (Hierarchy Level)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByHierarchyLevel ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("hierarchyLevel")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by hierarchyLevelDescription (Hierarchy Level Description)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByHierarchyLevelDescription ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("hierarchyLevelDescription")->addListingFilter($this, $data, $operator);
 	return $this;
 }
 

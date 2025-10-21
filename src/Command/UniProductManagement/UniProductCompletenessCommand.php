@@ -4,26 +4,33 @@ declare(strict_types=1);
 
 namespace App\Command\UniProductManagement;
 
-use App\Service\UniProductManagement\UniProductCompletenessService;
+use Pimcore\Console\AbstractCommand;
 use Pimcore\Model\DataObject\UniProductBase\Listing;
 use Pimcore\Model\Version;
 use Symfony\Component\Console\Attribute\AsCommand;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Process\Process;
 
 #[AsCommand(
     name: 'app:uni:product:completeness:update',
     description: 'Calculate product completeness percentage and empty fields for Unified PIM product data.',
 )]
-class UniProductCompletenessCommand extends Command
+class UniProductCompletenessCommand extends AbstractCommand
 {
-    protected const BASE_PATH = '/Unified PIM/Product Management/Products';
+    public const BASE_PATH = '/Unified PIM/Product Management/Products';
+    public const OPTION_BATCH_SIZE = 'batch-size';
+    public const DEFAULT_BATCH_SIZE = 300;
 
-    public function __construct(private readonly UniProductCompletenessService $completenessService)
-    {
+    public function __construct(
+        private readonly KernelInterface $kernel,
+    ) {
         parent::__construct();
+
+        $this->addOption(self::OPTION_BATCH_SIZE, mode: InputOption::VALUE_OPTIONAL, default: self::DEFAULT_BATCH_SIZE);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -41,18 +48,36 @@ class UniProductCompletenessCommand extends Command
             return self::SUCCESS;
         }
 
-        $progress = new ProgressBar($output, $listing->count());
-        $progress->setFormat(ProgressBar::getFormatDefinition(ProgressBar::FORMAT_DEBUG));
-        $progress->start();
+        $batchSize = $this->input->getOption(self::OPTION_BATCH_SIZE);
+        $iterations = ceil($listing->count() / $batchSize);
 
-        foreach ($listing as $object) {
-            $this->completenessService->updateCompleteness($object);
-            $object->save();
-            $progress->advance();
+        for ($i = 0; $i < $iterations; $i++) {
+            $this->output->writeln(sprintf('<comment>Processing batch %s of %s (%s objects)</comment>', $i + 1, $iterations, $listing->getTotalCount()));
+            $process = new Process(
+                [
+                    'bin/console', 'app:uni:product:completeness:do-update',
+                    '--limit', $batchSize,
+                    '--offset', $i * $batchSize,
+                ],
+                $this->kernel->getProjectDir(),
+                timeout: null,
+            );
+
+            $exitCode = $process->run(function ($type, $buffer): void {
+                if ($type === Process::ERR && $this->output instanceof ConsoleOutput) {
+                    $this->output->getErrorOutput()->write($buffer);
+                } else {
+                    $this->output->write($buffer);
+                }
+            });
+
+            if ($exitCode !== self::SUCCESS) {
+                throw new \RuntimeException('Error while running subcommand');
+            }
         }
 
-        $progress->finish();
-        $output->writeln('');
+        $this->output->writeln('');
+
         $output->writeln(sprintf('<info>Finished calculating in %s s</info>', round(microtime(true) - $start, 2)));
         Version::enable();
 

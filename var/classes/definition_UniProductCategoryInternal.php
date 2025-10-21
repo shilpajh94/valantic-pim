@@ -6,13 +6,12 @@
  * Title: Internal Category
  *
  * Fields Summary:
- * - name [input]
  * - ghpCode [input]
- * - categoryLevel [select]
+ * - hierarchyLevelDescription [input]
+ * - hierarchyLevel [select]
  * - level [calculatedValue]
  * - pimInternalHierarchyCode [calculatedValue]
  * - assignedUser [user]
- * - levelSpecificData [objectbricks]
  */
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
@@ -22,10 +21,10 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => 'Internal Category',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1759221246,
+   'modificationDate' => 1759917120,
    'userOwner' => 2,
    'userModification' => 2,
-   'parentClass' => 'App\\Model\\DataObject\\AbstractUniProductCategoryInternal',
+   'parentClass' => '',
    'implementsInterfaces' => '',
    'listingParentClass' => '',
    'useTraits' => '',
@@ -95,36 +94,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                 array (
                   0 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-                     'name' => 'name',
-                     'title' => 'Name',
-                     'tooltip' => '',
-                     'mandatory' => false,
-                     'noteditable' => true,
-                     'index' => true,
-                     'locked' => false,
-                     'style' => '',
-                     'permissions' => NULL,
-                     'fieldtype' => '',
-                     'relationType' => false,
-                     'invisible' => false,
-                     'visibleGridView' => false,
-                     'visibleSearch' => false,
-                     'blockedVarsForExport' => 
-                    array (
-                    ),
-                     'defaultValue' => NULL,
-                     'columnLength' => 190,
-                     'regex' => '',
-                     'regexFlags' => 
-                    array (
-                    ),
-                     'unique' => false,
-                     'showCharCount' => false,
-                     'width' => '',
-                     'defaultValueGenerator' => '',
-                  )),
-                  1 => 
-                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
                      'name' => 'ghpCode',
                      'title' => 'Product Hierarchy Code (GHP)',
                      'tooltip' => '',
@@ -153,10 +122,40 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'width' => '',
                      'defaultValueGenerator' => '',
                   )),
+                  1 => 
+                  Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+                     'name' => 'hierarchyLevelDescription',
+                     'title' => 'Hierarachy Level Description',
+                     'tooltip' => '',
+                     'mandatory' => false,
+                     'noteditable' => true,
+                     'index' => true,
+                     'locked' => false,
+                     'style' => '',
+                     'permissions' => NULL,
+                     'fieldtype' => '',
+                     'relationType' => false,
+                     'invisible' => false,
+                     'visibleGridView' => false,
+                     'visibleSearch' => false,
+                     'blockedVarsForExport' => 
+                    array (
+                    ),
+                     'defaultValue' => NULL,
+                     'columnLength' => 190,
+                     'regex' => '',
+                     'regexFlags' => 
+                    array (
+                    ),
+                     'unique' => false,
+                     'showCharCount' => false,
+                     'width' => '',
+                     'defaultValueGenerator' => '',
+                  )),
                   2 => 
                   Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
-                     'name' => 'categoryLevel',
-                     'title' => 'Category Level',
+                     'name' => 'hierarchyLevel',
+                     'title' => 'Hierarchy Level',
                      'tooltip' => '',
                      'mandatory' => false,
                      'noteditable' => true,
@@ -178,7 +177,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'defaultValueGenerator' => '',
                      'width' => '',
                      'optionsProviderType' => 'class',
-                     'optionsProviderClass' => '\\App\\Model\\OptionsProvider\\UniProductManagement\\UniProductCategoryInternalLevel',
+                     'optionsProviderClass' => '\\App\\Model\\OptionsProvider\\UniProductManagement\\UniProductHierarchyLevelOptionsProvider',
                      'optionsProviderData' => '',
                   )),
                 ),
@@ -277,6 +276,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                      'blockedVarsForExport' => 
                     array (
                     ),
+                     'options' => NULL,
                      'defaultValue' => NULL,
                      'columnLength' => 190,
                      'dynamicOptions' => false,
@@ -308,36 +308,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'fieldLabel' => '',
              'labelWidth' => 100,
              'labelAlign' => 'left',
-          )),
-          1 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
-             'name' => 'levelSpecificData',
-             'title' => '',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'allowedTypes' => 
-            array (
-              0 => 'UniPrBr',
-              1 => 'UniPrBrFhs',
-              2 => 'UniPrSkFhs',
-              3 => 'UniPrBrPts',
-              4 => 'UniPrSkPts',
-            ),
-             'maxItems' => NULL,
-             'border' => false,
           )),
         ),
          'locked' => false,
