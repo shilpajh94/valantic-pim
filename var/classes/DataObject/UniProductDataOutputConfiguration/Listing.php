@@ -127,7 +127,19 @@ public function filterByExportObjects ($data, $operator = '='): static
 }
 
 /**
-* Filter by dataFields (Data Fields for Base product and internal Categories)
+* Filter by exportObjectHandling (Export Handling)
+* @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return $this
+*/
+public function filterByExportObjectHandling ($data, $operator = '='): static
+{
+	$this->getClass()->getFieldDefinition("exportObjectHandling")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
+* Filter by dataFields (Base Datafields)
 * @param string|int|float|array|Model\Element\ElementInterface $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
 * @return $this

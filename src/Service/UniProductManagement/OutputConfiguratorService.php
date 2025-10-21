@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Service\UniProductManagement;
 
 use App\Enum\UniOutputConfigurationColumnType;
+use App\Enum\UniOutputConfigurationExportObjectHandling;
 use App\Enum\UniOutputConfigurationOutputFormat;
+use App\Enum\UniProductHierarchyLevel;
 use Carbon\Carbon;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -16,6 +18,7 @@ use Pimcore\Model\Asset\Folder;
 use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\AbstractObject;
 use Pimcore\Model\DataObject\ClassDefinition;
+use Pimcore\Model\DataObject\UniProductBase;
 use Pimcore\Model\DataObject\UniProductCategoryInternal;
 use Pimcore\Model\DataObject\UniProductDataOutputConfiguration;
 
@@ -61,7 +64,7 @@ class OutputConfiguratorService
         };
 
         $columnNames = $this->prepareColumnNames($fields, $columnType);
-        $data = $this->fetchData($configurator->getExportObjects(), $fields, $languages);
+        $data = $this->fetchData($configurator, $fields);
 
         $uniqueHash = bin2hex(random_bytes(8));
         $timestamp = Carbon::now()->format('Y-m-d_His');
@@ -138,22 +141,22 @@ class OutputConfiguratorService
     /**
      * Fetches data for finished goods and internal categories.
      *
-     * @param array<AbstractObject> $exportObjects List of finished goods and internal categories.
+     * @param UniProductDataOutputConfiguration $configurator List of finished goods and internal categories.
      * @param array<string> $dataFields List of data fields to process.
-     * @param array<string> $languages The language codes (e.g., 'en', 'de').
      *
      * @return array<int, array<string, mixed>> The fetched data.
      */
     public function fetchData(
-        array $exportObjects,
+        UniProductDataOutputConfiguration $configurator,
         array $dataFields,
-        array $languages,
     ): array {
         $data = [];
 
-        foreach ($exportObjects as $item) {
-            if ($item instanceof UniProductCategoryInternal) {
-                $this->fetchCategoryData($item, $data, $dataFields, $languages);
+        $exportFinishedGoods = $configurator->getExportObjectHandling() === UniOutputConfigurationExportObjectHandling::FINISHED_GOODS->value;
+
+        foreach ($configurator->getExportObjects() as $item) {
+            if ($exportFinishedGoods && $item->getHierarchyLevel() !== UniProductHierarchyLevel::FINISHED_GOOD->value) {
+                $this->resolveFinishedGoods($item, $data, $dataFields);
             } else {
                 $data[] = $this->extractDataFromObject($item, $dataFields);
             }
@@ -163,27 +166,28 @@ class OutputConfiguratorService
     }
 
     /**
-     * Fetches category data recursively.
+     * Fetches finished goods in hierarchy.
      *
-     * @param UniProductCategoryInternal $category The category object.
      * @param array<int, array<string, mixed>> $data Reference to the data array.
      * @param array<string> $dataFields List of data fields to process.
-     * @param array<string> $languages The language codes (e.g., 'en', 'de').
      */
-    public function fetchCategoryData(
-        UniProductCategoryInternal $category,
+    public function resolveFinishedGoods(
+        UniProductBase|UniProductCategoryInternal $item,
         array &$data,
         array $dataFields,
-        array $languages,
     ): void {
-        $data[] = $this->extractDataFromObject($category, $dataFields);
-
-        foreach ($category->getChildren() as $subcategory) {
-            if (!$subcategory instanceof UniProductCategoryInternal) {
+        foreach ($item->getChildren() as $child) {
+            if (!$child instanceof UniProductBase && !$child instanceof UniProductCategoryInternal) {
                 continue;
             }
 
-            $this->fetchCategoryData($subcategory, $data, $dataFields, $languages);
+            if ($child instanceof UniProductBase && $child->getHierarchyLevel() === UniProductHierarchyLevel::FINISHED_GOOD->value) {
+                $data[] = $this->extractDataFromObject($child, $dataFields);
+
+                continue;
+            }
+
+            $this->resolveFinishedGoods($child, $data, $dataFields);
         }
     }
 
